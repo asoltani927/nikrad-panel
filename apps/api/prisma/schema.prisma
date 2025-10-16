@@ -15,8 +15,151 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  createdAt DateTime @default(now())
+  id                   Int               @id @default(autoincrement())
+  name                 String
+  email                String            @unique
+  createdAt            DateTime          @default(now())
+  categoriesCreatedBy  Category[]        @relation("categoriesCreatedBy")
+  categoriesUpdatedBy  Category[]        @relation("categoriesUpdatedBy")
+  categoriesDeletedBy  Category[]        @relation("categoriesDeletedBy")
+  userNeedsCreatedBy   UserNeed[]        @relation("userNeedsCreatedBy")
+  userNeedsUpdatedBy   UserNeed[]        @relation("userNeedsUpdatedBy")
+  userNeedsDeletedBy   UserNeed[]        @relation("userNeedsDeletedBy")
+  suggestionsCreatedBy UserSuggestions[] @relation("suggestionsCreatedBy")
+  suggestionsUpdatedBy UserSuggestions[] @relation("suggestionsUpdatedBy")
+  suggestionsDeletedBy UserSuggestions[] @relation("suggestionsDeletedBy")
+}
+
+enum CountryCodeEnum {
+  IR
+}
+
+enum RegionCodeEnum {
+  IR_AR // آذربایجان شرقی
+  IR_AZ // آذربایجان غربی
+  IR_ARB // اردبیل
+  IR_ESF // اصفهان
+  IR_ALB // البرز
+  IR_BUS // بوشهر
+  IR_CHB // چهارمحال و بختیاری
+  IR_KHJ // خراسان جنوبی
+  IR_KHR // خراسان رضوی
+  IR_KHN // خراسان شمالی
+  IR_KHZ // خوزستان
+  IR_ZNJ // زنجان
+  IR_SMN // سمنان
+  IR_SBL // سیستان و بلوچستان
+  IR_FRS // فارس
+  IR_QZV // قزوین
+  IR_QOM // قم
+  IR_KRD // کردستان
+  IR_KRM // کرمان
+  IR_KSH // کرمانشاه
+  IR_KYB // کهگیلویه و بویراحمد
+  IR_GLN // گلستان
+  IR_GLN2 // گیلان
+  IR_LRS // لرستان
+  IR_MZN // مازندران
+  IR_MRK // مرکزی
+  IR_HRM // هرمزگان
+  IR_HMD // همدان
+  IR_YZD // یزد
+}
+
+model Country {
+  code    CountryCodeEnum @id
+  name    String          @unique
+  regions Region[]
+
+  @@map("countries")
+}
+
+model Region {
+  code        RegionCodeEnum  @id
+  name        Json
+  countryCode CountryCodeEnum @map("country_code")
+  country     Country         @relation(fields: [countryCode], references: [code])
+
+  @@map("regions")
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  cuid String @unique @default(cuid())
+
+  name String
+  slug String @unique
+
+  names Json
+
+  parentId Int?
+  parent   Category? @relation("CategoryToCategory", fields: [parentId], references: [id])
+
+  children Category[] @relation("CategoryToCategory")
+
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  createdById Int
+  createdBy   User       @relation("categoriesCreatedBy", fields: [createdById], references: [id])
+  updatedById Int?
+  updatedBy   User?      @relation("categoriesUpdatedBy", fields: [updatedById], references: [id])
+  deletedById Int?
+  deletedBy   User?      @relation("categoriesDeletedBy", fields: [deletedById], references: [id])
+  UserNeed    UserNeed[]
+
+  @@map("categories")
+}
+
+model UserNeed {
+  id   Int    @id @default(autoincrement())
+  cuid String @unique @default(cuid())
+
+  title      String
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  product      Int
+  provinceCode RegionCodeEnum @map("province_code")
+  city         String
+  priority     Int
+  deliveryDate DateTime       @map("delivery_date")
+
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  createdById     Int
+  createdBy       User              @relation("userNeedsCreatedBy", fields: [createdById], references: [id])
+  updatedById     Int?
+  updatedBy       User?             @relation("userNeedsUpdatedBy", fields: [updatedById], references: [id])
+  deletedById     Int?
+  deletedBy       User?             @relation("userNeedsDeletedBy", fields: [deletedById], references: [id])
+  UserSuggestions UserSuggestions[]
+
+  @@map("user_needs")
+}
+
+model UserSuggestions {
+  id          Int      @id @default(autoincrement())
+  cuid        String   @unique @default(cuid())
+  userNeedId  Int
+  userNeed    UserNeed @relation(fields: [userNeedId], references: [id])
+  price       BigInt
+  createdById Int
+  createdBy   User     @relation("suggestionsCreatedBy", fields: [createdById], references: [id])
+  updatedById Int?
+  updatedBy   User?    @relation("suggestionsUpdatedBy", fields: [updatedById], references: [id])
+  deletedById Int?
+  deletedBy   User?    @relation("suggestionsDeletedBy", fields: [deletedById], references: [id])
+
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("suggestions")
 }
