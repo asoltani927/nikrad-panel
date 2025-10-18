@@ -15,19 +15,22 @@ datasource db {
 }
 
 model User {
-  id                   Int               @id @default(autoincrement())
-  name                 String
-  email                String            @unique
-  createdAt            DateTime          @default(now())
-  categoriesCreatedBy  Category[]        @relation("categoriesCreatedBy")
-  categoriesUpdatedBy  Category[]        @relation("categoriesUpdatedBy")
-  categoriesDeletedBy  Category[]        @relation("categoriesDeletedBy")
-  userNeedsCreatedBy   UserNeed[]        @relation("userNeedsCreatedBy")
-  userNeedsUpdatedBy   UserNeed[]        @relation("userNeedsUpdatedBy")
-  userNeedsDeletedBy   UserNeed[]        @relation("userNeedsDeletedBy")
-  suggestionsCreatedBy UserSuggestions[] @relation("suggestionsCreatedBy")
-  suggestionsUpdatedBy UserSuggestions[] @relation("suggestionsUpdatedBy")
-  suggestionsDeletedBy UserSuggestions[] @relation("suggestionsDeletedBy")
+  id                    Int           @id @default(autoincrement())
+  name                  String
+  email                 String        @unique
+  createdAt             DateTime      @default(now())
+  categoriesCreatedBy   Category[]    @relation("categoriesCreatedBy")
+  categoriesUpdatedBy   Category[]    @relation("categoriesUpdatedBy")
+  categoriesDeletedBy   Category[]    @relation("categoriesDeletedBy")
+  userNeedsCreatedBy    UserNeed[]    @relation("userNeedsCreatedBy")
+  userNeedsUpdatedBy    UserNeed[]    @relation("userNeedsUpdatedBy")
+  userNeedsDeletedBy    UserNeed[]    @relation("userNeedsDeletedBy")
+  suggestionsCreatedBy  Suggestions[] @relation("suggestionsCreatedBy")
+  suggestionsUpdatedBy  Suggestions[] @relation("suggestionsUpdatedBy")
+  suggestionsDeletedBy  Suggestions[] @relation("suggestionsDeletedBy")
+  customFieldsCreatedBy CustomField[] @relation("customFieldsCreatedBy")
+  customFieldsUpdatedBy CustomField[] @relation("customFieldsUpdatedBy")
+  customFieldsDeletedBy CustomField[] @relation("customFieldsDeletedBy")
 }
 
 enum CountryCodeEnum {
@@ -103,12 +106,13 @@ model Category {
   deletedAt DateTime?
 
   createdById Int
-  createdBy   User       @relation("categoriesCreatedBy", fields: [createdById], references: [id])
+  createdBy   User          @relation("categoriesCreatedBy", fields: [createdById], references: [id])
   updatedById Int?
-  updatedBy   User?      @relation("categoriesUpdatedBy", fields: [updatedById], references: [id])
+  updatedBy   User?         @relation("categoriesUpdatedBy", fields: [updatedById], references: [id])
   deletedById Int?
-  deletedBy   User?      @relation("categoriesDeletedBy", fields: [deletedById], references: [id])
+  deletedBy   User?         @relation("categoriesDeletedBy", fields: [deletedById], references: [id])
   UserNeed    UserNeed[]
+  CustomField CustomField[]
 
   @@map("categories")
 }
@@ -132,18 +136,18 @@ model UserNeed {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  createdById     Int
-  createdBy       User              @relation("userNeedsCreatedBy", fields: [createdById], references: [id])
-  updatedById     Int?
-  updatedBy       User?             @relation("userNeedsUpdatedBy", fields: [updatedById], references: [id])
-  deletedById     Int?
-  deletedBy       User?             @relation("userNeedsDeletedBy", fields: [deletedById], references: [id])
-  UserSuggestions UserSuggestions[]
+  createdById Int
+  createdBy   User          @relation("userNeedsCreatedBy", fields: [createdById], references: [id])
+  updatedById Int?
+  updatedBy   User?         @relation("userNeedsUpdatedBy", fields: [updatedById], references: [id])
+  deletedById Int?
+  deletedBy   User?         @relation("userNeedsDeletedBy", fields: [deletedById], references: [id])
+  Suggestions Suggestions[]
 
-  @@map("user_needs")
+  @@map("needs")
 }
 
-model UserSuggestions {
+model Suggestions {
   id          Int      @id @default(autoincrement())
   cuid        String   @unique @default(cuid())
   userNeedId  Int
@@ -162,4 +166,43 @@ model UserSuggestions {
   deletedAt DateTime?
 
   @@map("suggestions")
+}
+
+enum CustomFieldType {
+  TEXT
+  NUMBER
+  CHECKBOX
+  RADIO
+  SELECT
+  DATE
+  TEXTAREA
+}
+
+model CustomField {
+  id   Int    @id @default(autoincrement())
+  cuid String @unique @default(cuid())
+
+  name         String
+  title        String
+  type         CustomFieldType
+  required     Boolean         @default(false)
+  options      Json?
+  defaultValue Json?
+  order        Int?
+
+  createdById Int
+  createdBy   User  @relation("customFieldsCreatedBy", fields: [createdById], references: [id])
+  updatedById Int?
+  updatedBy   User? @relation("customFieldsUpdatedBy", fields: [updatedById], references: [id])
+  deletedById Int?
+  deletedBy   User? @relation("customFieldsDeletedBy", fields: [deletedById], references: [id])
+
+  deleted    Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+  Category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+
+  @@map("custom_fields")
 }
