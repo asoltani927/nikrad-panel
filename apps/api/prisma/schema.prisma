@@ -15,22 +15,40 @@ datasource db {
 }
 
 model User {
-  id                    Int           @id @default(autoincrement())
-  name                  String
-  email                 String        @unique
-  createdAt             DateTime      @default(now())
-  categoriesCreatedBy   Category[]    @relation("categoriesCreatedBy")
-  categoriesUpdatedBy   Category[]    @relation("categoriesUpdatedBy")
-  categoriesDeletedBy   Category[]    @relation("categoriesDeletedBy")
-  userNeedsCreatedBy    UserNeed[]    @relation("userNeedsCreatedBy")
-  userNeedsUpdatedBy    UserNeed[]    @relation("userNeedsUpdatedBy")
-  userNeedsDeletedBy    UserNeed[]    @relation("userNeedsDeletedBy")
-  suggestionsCreatedBy  Suggestions[] @relation("suggestionsCreatedBy")
-  suggestionsUpdatedBy  Suggestions[] @relation("suggestionsUpdatedBy")
-  suggestionsDeletedBy  Suggestions[] @relation("suggestionsDeletedBy")
-  customFieldsCreatedBy CustomField[] @relation("customFieldsCreatedBy")
-  customFieldsUpdatedBy CustomField[] @relation("customFieldsUpdatedBy")
-  customFieldsDeletedBy CustomField[] @relation("customFieldsDeletedBy")
+  id                           Int                   @id @default(autoincrement())
+  name                         String
+  email                        String                @unique
+  createdAt                    DateTime              @default(now())
+  categoriesCreatedBy          Category[]            @relation("categoriesCreatedBy")
+  categoriesUpdatedBy          Category[]            @relation("categoriesUpdatedBy")
+  categoriesDeletedBy          Category[]            @relation("categoriesDeletedBy")
+  userNeedsCreatedBy           UserNeed[]            @relation("userNeedsCreatedBy")
+  userNeedsUpdatedBy           UserNeed[]            @relation("userNeedsUpdatedBy")
+  userNeedsDeletedBy           UserNeed[]            @relation("userNeedsDeletedBy")
+  suggestionsCreatedBy         Suggestions[]         @relation("suggestionsCreatedBy")
+  suggestionsUpdatedBy         Suggestions[]         @relation("suggestionsUpdatedBy")
+  suggestionsDeletedBy         Suggestions[]         @relation("suggestionsDeletedBy")
+  customFieldsCreatedBy        CustomField[]         @relation("customFieldsCreatedBy")
+  customFieldsUpdatedBy        CustomField[]         @relation("customFieldsUpdatedBy")
+  customFieldsDeletedBy        CustomField[]         @relation("customFieldsDeletedBy")
+  userProfileCreatedBy         UserProfile[]         @relation("userProfileCreatedBy")
+  userProfileUpdatedBy         UserProfile[]         @relation("userProfileUpdatedBy")
+  userProfileDeletedBy         UserProfile[]         @relation("userProfileDeletedBy")
+  productCreatedBy             Product[]             @relation("productCreatedBy")
+  productUpdatedBy             Product[]             @relation("productUpdatedBy")
+  productDeletedBy             Product[]             @relation("productDeletedBy")
+  productReviewCreatedBy       ProductReview[]       @relation("productReviewCreatedBy")
+  productReviewUpdatedBy       ProductReview[]       @relation("productReviewUpdatedBy")
+  productReviewDeletedBy       ProductReview[]       @relation("productReviewDeletedBy")
+  productSimilarCreatedBy      ProductSimilar[]      @relation("productSimilarCreatedBy")
+  productSimilarUpdatedBy      ProductSimilar[]      @relation("productSimilarUpdatedBy")
+  productSimilarDeletedBy      ProductSimilar[]      @relation("productSimilarDeletedBy")
+  productAccessoryCreatedBy    ProductAccessory[]    @relation("productAccessoryCreatedBy")
+  productAccessoryUpdatedBy    ProductAccessory[]    @relation("productAccessoryUpdatedBy")
+  productAccessoryDeletedBy    ProductAccessory[]    @relation("productAccessoryDeletedBy")
+  productSpecialOfferCreatedBy ProductSpecialOffer[] @relation("productSpecialOfferCreatedBy")
+  productSpecialOfferUpdatedBy ProductSpecialOffer[] @relation("productSpecialOfferUpdatedBy")
+  productSpecialOfferDeletedBy ProductSpecialOffer[] @relation("productSpecialOfferDeletedBy")
 }
 
 enum CountryCodeEnum {
@@ -82,6 +100,8 @@ model Region {
   name        Json
   countryCode CountryCodeEnum @map("country_code")
   country     Country         @relation(fields: [countryCode], references: [code])
+  UserProfile UserProfile[]
+  UserProfile UserProfile[]
 
   @@map("regions")
 }
@@ -148,17 +168,18 @@ model UserNeed {
 }
 
 model Suggestions {
-  id          Int      @id @default(autoincrement())
-  cuid        String   @unique @default(cuid())
-  userNeedId  Int
-  userNeed    UserNeed @relation(fields: [userNeedId], references: [id])
-  price       BigInt
+  id         Int      @id @default(autoincrement())
+  cuid       String   @unique @default(cuid())
+  userNeedId Int
+  userNeed   UserNeed @relation(fields: [userNeedId], references: [id])
+  price      BigInt
+
   createdById Int
-  createdBy   User     @relation("suggestionsCreatedBy", fields: [createdById], references: [id])
+  createdBy   User  @relation("suggestionsCreatedBy", fields: [createdById], references: [id])
   updatedById Int?
-  updatedBy   User?    @relation("suggestionsUpdatedBy", fields: [updatedById], references: [id])
+  updatedBy   User? @relation("suggestionsUpdatedBy", fields: [updatedById], references: [id])
   deletedById Int?
-  deletedBy   User?    @relation("suggestionsDeletedBy", fields: [deletedById], references: [id])
+  deletedBy   User? @relation("suggestionsDeletedBy", fields: [deletedById], references: [id])
 
   deleted   Boolean   @default(false)
   createdAt DateTime  @default(now())
@@ -190,6 +211,9 @@ model CustomField {
   defaultValue Json?
   order        Int?
 
+  Category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+
   createdById Int
   createdBy   User  @relation("customFieldsCreatedBy", fields: [createdById], references: [id])
   updatedById Int?
@@ -197,12 +221,243 @@ model CustomField {
   deletedById Int?
   deletedBy   User? @relation("customFieldsDeletedBy", fields: [deletedById], references: [id])
 
-  deleted    Boolean   @default(false)
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  deletedAt  DateTime?
-  Category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId Int?
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   @@map("custom_fields")
+}
+
+enum UserType {
+  REAL
+  LEGAL
+}
+
+model UserProfile {
+  id     Int  @id @default(autoincrement())
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id])
+
+  type UserType
+
+  firsName     String
+  lastName     String
+  aboutMe      String
+  experience   String
+  gallery      Json
+  address      String
+  location     Json
+  provinceCode RegionCodeEnum
+  province     Region         @relation("UserProvince", fields: [provinceCode], references: [code])
+  city         String
+  categoryId   Int?
+  category     Category?      @relation(fields: [categoryId], references: [id])
+  nationalCode String?
+  nationalCard Json?
+
+  businessLicense Json?
+
+  companyStatute   Json?
+  brandCertificate Json?
+
+  createdById Int
+  createdBy   User  @relation("userProfileCreatedBy", fields: [createdById], references: [id])
+  updatedById Int?
+  updatedBy   User? @relation("userProfileUpdatedBy", fields: [updatedById], references: [id])
+  deletedById Int?
+  deletedBy   User? @relation("userProfileDeletedBy", fields: [deletedById], references: [id])
+
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("user_profile")
+}
+
+enum ProductStatus {
+  AVAILABLE
+  UNAVAILABLE
+  IN_PRODUCTION
+}
+
+enum UnitType {
+  NUMBER
+  METER
+  KILOGRAM
+  BAG
+}
+
+enum ShippingMethod {
+  POST
+  TIPAX
+  DEKAPOST
+  FREIGHT
+}
+
+model Product {
+  id   Int    @id @default(autoincrement())
+  cuid String @unique @default(cuid())
+  slug String @unique
+
+  name       String
+  mainImage  String
+  gallery    Json
+  modelCode  String?
+  categoryId Int
+  category   Category      @relation(fields: [categoryId], references: [id])
+  brand      String?
+  status     ProductStatus @default(AVAILABLE)
+
+  price             BigInt
+  discountPercent   Int?
+  discountedPrice   BigInt?
+  unitType          UnitType
+  minOrderQuantity  Int
+  stockQuantity     Int
+  isAddToCartActive Boolean  @default(true)
+  isWishlistActive  Boolean  @default(true)
+  isComparable      Boolean  @default(true)
+
+  material        String
+  color           String?
+  weight          Float
+  length          Float
+  width           Float
+  height          Float
+  thickness       Float?
+  standard        String?
+  countryOfOrigin String?
+  usage           String?
+  resistance      String?
+  technicalNotes  String?
+
+  shortDescription String
+  fullDescription  String?
+  brochureFile     String?
+  videoFile        String?
+
+  packageWeight     Float
+  packageLength     Float
+  packageWidth      Float
+  packageHeight     Float
+  estimatedDelivery String
+  shippingMethod    ShippingMethod
+  shippingCost      BigInt
+
+  averageRating Float? @default(0)
+  reviewCount   Int    @default(0)
+
+  tags       Json?
+  breadcrumb Json?
+  shareLinks Json?
+
+  createdById Int
+  createdBy   User  @relation("productCreatedBy", fields: [createdById], references: [id])
+  updatedById Int?
+  updatedBy   User? @relation("productUpdatedBy", fields: [updatedById], references: [id])
+  deletedById Int?
+  deletedBy   User? @relation("productDeletedBy", fields: [deletedById], references: [id])
+
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("product")
+}
+
+model ProductReview {
+  id        Int     @id @default(autoincrement())
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id])
+
+  rating  Int
+  comment String?
+
+  createdById Int
+  createdBy   User  @relation("productReviewCreatedBy", fields: [createdById], references: [id])
+  updatedById Int?
+  updatedBy   User? @relation("productReviewUpdatedBy", fields: [updatedById], references: [id])
+  deletedById Int?
+  deletedBy   User? @relation("productReviewDeletedBy", fields: [deletedById], references: [id])
+
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("product_reviews")
+}
+
+model ProductSimilar {
+  id        Int     @id @default(autoincrement())
+  productId Int
+  similarId Int
+  product   Product @relation("SimilarProducts", fields: [productId], references: [id])
+  similar   Product @relation("SimilarToProducts", fields: [similarId], references: [id])
+
+  createdById Int
+  createdBy   User  @relation("productSimilarCreatedBy", fields: [createdById], references: [id])
+  updatedById Int?
+  updatedBy   User? @relation("productSimilarUpdatedBy", fields: [updatedById], references: [id])
+  deletedById Int?
+  deletedBy   User? @relation("productSimilarDeletedBy", fields: [deletedById], references: [id])
+
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@unique([productId, similarId])
+  @@map("product_similar")
+}
+
+model ProductAccessory {
+  id          Int     @id @default(autoincrement())
+  productId   Int
+  accessoryId Int
+  product     Product @relation("ProductWithAccessories", fields: [productId], references: [id])
+  accessory   Product @relation("AccessoryToProducts", fields: [accessoryId], references: [id])
+
+  createdById Int
+  createdBy   User  @relation("productAccessoryCreatedBy", fields: [createdById], references: [id])
+  updatedById Int?
+  updatedBy   User? @relation("productAccessoryUpdatedBy", fields: [updatedById], references: [id])
+  deletedById Int?
+  deletedBy   User? @relation("productAccessoryDeletedBy", fields: [deletedById], references: [id])
+
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@unique([productId, accessoryId])
+  @@map("product_accessories")
+}
+
+model ProductSpecialOffer {
+  id        Int     @id @default(autoincrement())
+  productId Int
+  offerId   Int
+  product   Product @relation("ProductWithSpecialOffers", fields: [productId], references: [id])
+  offer     Product @relation("SpecialOfferProducts", fields: [offerId], references: [id])
+
+  createdById Int
+  createdBy   User  @relation("productSpecialOfferCreatedBy", fields: [createdById], references: [id])
+  updatedById Int?
+  updatedBy   User? @relation("productSpecialOfferUpdatedBy", fields: [updatedById], references: [id])
+  deletedById Int?
+  deletedBy   User? @relation("productSpecialOfferDeletedBy", fields: [deletedById], references: [id])
+
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@unique([productId, offerId])
+  @@map("product_special_offers")
 }
