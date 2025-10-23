@@ -49,6 +49,9 @@ model User {
   productSpecialOfferCreatedBy ProductSpecialOffer[] @relation("productSpecialOfferCreatedBy")
   productSpecialOfferUpdatedBy ProductSpecialOffer[] @relation("productSpecialOfferUpdatedBy")
   productSpecialOfferDeletedBy ProductSpecialOffer[] @relation("productSpecialOfferDeletedBy")
+  materialBookCreatedBy        MaterialBook[]        @relation("materialBookCreatedBy")
+  materialBookUpdatedBy        MaterialBook[]        @relation("materialBookUpdatedBy")
+  materialBookDeletedBy        MaterialBook[]        @relation("materialBookDeletedBy")
 }
 
 enum CountryCodeEnum {
@@ -227,6 +230,33 @@ model CustomField {
   deletedAt DateTime?
 
   @@map("custom_fields")
+}
+
+model CustomFieldValue {
+  id            Int         @id @default(autoincrement())
+  customFieldId Int
+  customField   CustomField @relation(fields: [customFieldId], references: [id])
+
+  entityType EntityType
+  entityId   Int
+
+  value Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("custom_field_values")
+}
+
+enum EntityType {
+  PRODUCT
+  MATERIAL_BOOK_PROJECT_INFO
+  MATERIAL_BOOK_TECHNICAL_INFO
+  MATERIAL_BOOK_DESIGN_INFO
+  MATERIAL_BOOK_OWNERSHIP_INFO
+  MATERIAL_BOOK_PACKAGE_INFO
+  USER
+  CATEGORY
 }
 
 enum UserType {
@@ -460,4 +490,197 @@ model ProductSpecialOffer {
 
   @@unique([productId, offerId])
   @@map("product_special_offers")
+}
+
+enum MaterialBookStatus {
+  DRAFT
+  IN_PROGRESS
+  COMPLETED
+}
+
+model MaterialBook {
+  id     Int                @id @default(autoincrement())
+  userId Int
+  user   User               @relation(fields: [userId], references: [id])
+  title  String
+  status MaterialBookStatus @default(DRAFT)
+
+  projectInfo     MaterialBookProjectInfo
+  technicalInfo   MaterialBookTechnicalInfo
+  designInfo      MaterialBookDesignInfo
+  ownershipInfo   MaterialBookOwnershipInfo
+  bookPackageInfo MaterialBookPackageInfo
+
+  createdById Int
+  createdBy   User  @relation("materialBookCreatedBy", fields: [createdById], references: [id])
+  updatedById Int?
+  updatedBy   User? @relation("materialBookUpdatedBy", fields: [updatedById], references: [id])
+  deletedById Int?
+  deletedBy   User? @relation("materialBookDeletedBy", fields: [deletedById], references: [id])
+
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("material_book")
+}
+
+enum BuildingUsageType {
+  RESIDENTIAL
+  COMMERCIAL
+  OFFICE
+  MIXED
+}
+
+enum ProjectStatus {
+  DESIGNING
+  UNDER_CONSTRUCTION
+  COMPLETED
+}
+
+model MaterialBookProjectInfo {
+  id             Int          @id @default(autoincrement())
+  materialBookId Int
+  materialBook   MaterialBook @relation(fields: [materialBookId], references: [id])
+
+  projectName String
+  location    String
+  landArea    Float
+  builtUpArea Float
+  floorCount  Int
+  unitCount   Int
+
+  usageType     BuildingUsageType
+  startYear     Int
+  projectStatus ProjectStatus
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("material_book_project_info")
+}
+
+enum StructureType {
+  STEEL
+  CONCRETE
+  MIXED
+  OTHER
+}
+
+enum RoofType {
+  TIRCH_BLOK
+  DAL_BETON
+  COMPOSITE
+}
+
+enum FoundationType {
+  RADYE
+  NOARI
+  SHAMY
+  OTHER
+}
+
+enum WallMaterialType {
+  BRICK
+  CONCRETE_BLOCK
+  CLAY_BLOCK
+  OTHER
+}
+
+enum MechanicalSystem {
+  PACKAGE
+  BOILER_ROOM
+  SPLIT
+  VRF
+}
+
+enum ElectricalSystem {
+  TRADITIONAL_WIRING
+  MODERN_CABLING
+}
+
+model MaterialBookTechnicalInfo {
+  id             Int          @id @default(autoincrement())
+  materialBookId Int          @unique
+  materialBook   MaterialBook @relation(fields: [materialBookId], references: [id])
+
+  structureType      StructureType
+  roofType           RoofType
+  foundationType     FoundationType
+  wallMaterialType   WallMaterialType
+  mechanicalSystem   MechanicalSystem
+  electricalSystem   ElectricalSystem
+  smartSystem        Boolean
+  costPerSquareMeter BigInt
+
+  @@map("material_book_technical_info")
+}
+
+enum DrawingStatus {
+  READY
+  IN_PROGRESS
+  NONE
+}
+
+model MaterialBookDesignInfo {
+  id             Int          @id @default(autoincrement())
+  materialBookId Int          @unique
+  materialBook   MaterialBook @relation(fields: [materialBookId], references: [id])
+
+  hasEngineeringMap  Boolean
+  hasInteriorDesign  Boolean
+  hasFacadeDesign    Boolean
+  hasLandscapeDesign Boolean
+  drawingStatus      DrawingStatus
+  designDescription  String?
+
+  @@map("material_book_design_info")
+}
+
+model MaterialBookOwnershipInfo {
+  id             Int          @id @default(autoincrement())
+  materialBookId Int          @unique
+  materialBook   MaterialBook @relation(fields: [materialBookId], references: [id])
+
+  ownerName        String
+  ownerPhone       String
+  ownerAddress     String
+  supervisorName   String
+  licenseNumber    String
+  licenseDate      DateTime
+  licenseFile      String
+  technicalDocs    Json
+  finalDescription String?
+
+  @@map("material_book_ownership_info")
+}
+
+enum PackageType {
+  BASIC
+  STANDARD
+  PREMIUM
+  CUSTOM
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  CANCELED
+}
+
+model MaterialBookPackageInfo {
+  id             Int          @id @default(autoincrement())
+  materialBookId Int          @unique
+  materialBook   MaterialBook @relation(fields: [materialBookId], references: [id])
+
+  packageType     PackageType
+  amount          BigInt
+  paymentStatus   PaymentStatus @default(PENDING)
+  invoiceNumber   String?
+  paidAt          DateTime?
+  transactionInfo Json?
+
+  @@map("material_book_package_info")
 }
