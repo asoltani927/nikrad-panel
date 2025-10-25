@@ -49,7 +49,7 @@ export function ChartAreaStacked() {
           Showing total visitors for the last 6 months
         </CardDescription>
       </CardHeader>
-      <CardContent className="h-[50vh]">
+      <CardContent className="h-[40vh]">
         <ChartContainer config={chartConfig} className="w-full h-full">
           <AreaChart
             width={undefined}
