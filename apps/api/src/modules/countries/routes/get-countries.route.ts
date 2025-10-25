@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import z from "zod";
+import { z } from "zod";
 
 const CountrySchema = z.object({
   code: z.string(),
@@ -27,8 +27,9 @@ export const getCountriesRoute = async (app: FastifyInstance) => {
         select: { code: true, name: true },
       });
 
-      // Use zod to parse output (optional, ensures type safety)
-      return reply.status(200).send(CountriesResponseSchema.parse({ countries }));
+      return reply.status(200).send(
+        CountriesResponseSchema.parse({ countries }) // ✅ ensures validation
+      );
     },
   });
 };
