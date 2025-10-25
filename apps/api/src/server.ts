@@ -17,8 +17,6 @@ async function start() {
   
 
   await fastify.listen({ port: 3000 })
-  console.log('✅ Server ready at http://localhost:3000')
-  console.log('📘 Swagger docs at http://localhost:3000/docs')
 }
 
 start().catch((err) => {
