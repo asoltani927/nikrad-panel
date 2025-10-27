@@ -12,6 +12,15 @@ import {
   Shield,
   User,
   Clock,
+  Pencil,
+  SquarePen,
+  ShoppingCart,
+  ChartColumn,
+  ChartColumnStacked,
+  ListCheck,
+  ClipboardList,
+  NotebookTabs,
+  FileCog,
 } from "lucide-react";
 
 export interface SidebarChild {
@@ -30,41 +39,53 @@ export interface SidebarItem {
 export const sidebarItems: SidebarItem[] = [
   {
     title: "پیشخوان",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
     title: "محصولات",
     url: "#",
-    icon: Inbox,
+    icon: ShoppingCart,
     children: [
-      { title: "Messages", url: "#", icon: Mail },
-      { title: "Archive", url: "#", icon: Archive },
-      { title: "Sent", url: "#", icon: Send },
+      { title: "ایجاد محصول", url: "#", icon: Pencil },
+      { title: "ویرایش محصول", url: "#", icon: SquarePen },
     ],
   },
+  // {
+  //   title: "دسته بندی ها",
+  //   url: "#",
+  //   icon: ChartColumnStacked,
+  //   children: [
+  //     { title: "ایجاد دسته بندی", url: "#", icon: Pencil },
+  //     { title: "ویرایش دسته بندی", url: "#", icon: SquarePen },
+  //   ],
+  // },
   {
-    title: "Calendar",
+    title: "لیست دسته بندی ها",
     url: "#",
-    icon: Calendar,
-    children: [
-      { title: "Events", url: "#", icon: Clock },
-      { title: "Reminders", url: "#", icon: Bell },
-    ],
+    icon: ChartColumnStacked,
   },
   {
-    title: "Search",
+    title: "لیست نیازمندی ها",
     url: "#",
-    icon: Search,
+    icon: ListCheck,
   },
   {
-    title: "Settings",
+    title: "لیست پیشنهادات",
+    url: "#",
+    icon: ClipboardList,
+  },
+  {
+    title: "لیست دفترچه متریال",
+    url: "#",
+    icon: NotebookTabs,
+  },
+  {
+    title: "تنظیمات",
     url: "#",
     icon: Settings,
     children: [
-      { title: "Account", url: "#", icon: User },
-      { title: "Security", url: "#", icon: Shield },
-      { title: "Notifications", url: "#", icon: Bell },
+      { title: "فیلد ها", url: "#", icon: FileCog },
     ],
   },
 ];

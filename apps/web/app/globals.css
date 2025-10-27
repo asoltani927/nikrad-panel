@@ -110,13 +110,25 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+  @font-face {
+  font-family: "IRANSans";
+  src: url("/fonts/IRANSansXFaNum-Medium.woff2") format("woff2"),
+       url("/fonts/IRANSansXFaNum-Medium.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
+
+
   * {
     @apply border-border outline-ring/50;
   }
   body {
     direction: rtl !important;
     @apply bg-background text-foreground;
+    font-family: "IRANSans", sans-serif;
   }
 }
 
