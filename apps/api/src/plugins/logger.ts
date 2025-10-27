@@ -9,6 +9,7 @@ export class Logger {
   private logger: PinoLogger;
 
   constructor(options?: LoggerOptions) {
+    // TODO: it's better to define a function for checking env
     const isDev = process.env.NODE_ENV !== "production";
 
     this.logger = pino({

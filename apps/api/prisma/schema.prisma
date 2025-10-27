@@ -236,7 +236,7 @@ model CustomFieldValue {
   customFieldId Int
   customField   CustomField @relation(fields: [customFieldId], references: [id])
 
-  entityType EntityType
+  entityType EntityType TODO: remove
   entityId   Int
 
   value Json?

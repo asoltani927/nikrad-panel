@@ -9,6 +9,7 @@ export const getUsers = async (app: FastifyInstance) => {
     age: z.number().min(18),
   })
 
+  // TODO: no need to zodToJsonSchema
   app.post(
     '/users',
     {
