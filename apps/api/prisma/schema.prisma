@@ -1,12 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -52,6 +45,10 @@ model User {
   materialBookCreatedBy        MaterialBook[]        @relation("materialBookCreatedBy")
   materialBookUpdatedBy        MaterialBook[]        @relation("materialBookUpdatedBy")
   materialBookDeletedBy        MaterialBook[]        @relation("materialBookDeletedBy")
+
+  UserProfile   UserProfile?
+  ProductReview ProductReview[]
+  MaterialBook  MaterialBook[]
 }
 
 enum CountryCodeEnum {
@@ -103,8 +100,7 @@ model Region {
   name        Json
   countryCode CountryCodeEnum @map("country_code")
   country     Country         @relation(fields: [countryCode], references: [code])
-  UserProfile UserProfile[]
-  UserProfile UserProfile[]
+  UserProfile UserProfile[]   @relation("UserProvince") // match relation name used in UserProfile
 
   @@map("regions")
 }
@@ -136,6 +132,8 @@ model Category {
   deletedBy   User?         @relation("categoriesDeletedBy", fields: [deletedById], references: [id])
   UserNeed    UserNeed[]
   CustomField CustomField[]
+  UserProfile UserProfile[]
+  Product     Product[]
 
   @@map("categories")
 }
@@ -224,10 +222,11 @@ model CustomField {
   deletedById Int?
   deletedBy   User? @relation("customFieldsDeletedBy", fields: [deletedById], references: [id])
 
-  deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  deleted          Boolean            @default(false)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  deletedAt        DateTime?
+  CustomFieldValue CustomFieldValue[]
 
   @@map("custom_fields")
 }
@@ -271,7 +270,7 @@ model UserProfile {
 
   type UserType
 
-  firsName     String
+  firstName    String
   lastName     String
   aboutMe      String
   experience   String
@@ -390,10 +389,17 @@ model Product {
   deletedById Int?
   deletedBy   User? @relation("productDeletedBy", fields: [deletedById], references: [id])
 
-  deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  deleted              Boolean               @default(false)
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  deletedAt            DateTime?
+  ProductReview        ProductReview[]
+  ProductSimilar       ProductSimilar[]
+  ProductAccessory     ProductAccessory[]
+  ProductSpecialOffer  ProductSpecialOffer[]
+  SimilarToProducts    ProductSimilar[]      @relation("SimilarToProducts")
+  AccessoryToProducts  ProductAccessory[]    @relation("AccessoryToProducts")
+  SpecialOfferProducts ProductSpecialOffer[] @relation("SpecialOfferProducts")
 
   @@map("product")
 }
@@ -424,10 +430,12 @@ model ProductReview {
 }
 
 model ProductSimilar {
-  id        Int     @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
   productId Int
+  product   Product @relation(fields: [productId], references: [id])
+
   similarId Int
-  product   Product @relation("SimilarProducts", fields: [productId], references: [id])
   similar   Product @relation("SimilarToProducts", fields: [similarId], references: [id])
 
   createdById Int
@@ -447,10 +455,12 @@ model ProductSimilar {
 }
 
 model ProductAccessory {
-  id          Int     @id @default(autoincrement())
-  productId   Int
+  id Int @id @default(autoincrement())
+
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+
   accessoryId Int
-  product     Product @relation("ProductWithAccessories", fields: [productId], references: [id])
   accessory   Product @relation("AccessoryToProducts", fields: [accessoryId], references: [id])
 
   createdById Int
@@ -470,11 +480,13 @@ model ProductAccessory {
 }
 
 model ProductSpecialOffer {
-  id        Int     @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
   productId Int
-  offerId   Int
-  product   Product @relation("ProductWithSpecialOffers", fields: [productId], references: [id])
-  offer     Product @relation("SpecialOfferProducts", fields: [offerId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  offerId Int
+  offer   Product @relation("SpecialOfferProducts", fields: [offerId], references: [id])
 
   createdById Int
   createdBy   User  @relation("productSpecialOfferCreatedBy", fields: [createdById], references: [id])
@@ -505,11 +517,8 @@ model MaterialBook {
   title  String
   status MaterialBookStatus @default(DRAFT)
 
-  projectInfo     MaterialBookProjectInfo
-  technicalInfo   MaterialBookTechnicalInfo
-  designInfo      MaterialBookDesignInfo
-  ownershipInfo   MaterialBookOwnershipInfo
-  bookPackageInfo MaterialBookPackageInfo
+  // Removed explicit FK fields here — children (project/technical/design/ownership/package) own the FK.
+  // This keeps the one-to-one ownership on the child side (material_book_* tables) which already have materialBookId unique.
 
   createdById Int
   createdBy   User  @relation("materialBookCreatedBy", fields: [createdById], references: [id])
@@ -522,6 +531,13 @@ model MaterialBook {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+
+  // relation backrefs
+  projectInfo     MaterialBookProjectInfo?
+  technicalInfo   MaterialBookTechnicalInfo?
+  designInfo      MaterialBookDesignInfo?
+  ownershipInfo   MaterialBookOwnershipInfo?
+  bookPackageInfo MaterialBookPackageInfo?
 
   @@map("material_book")
 }
@@ -541,7 +557,7 @@ enum ProjectStatus {
 
 model MaterialBookProjectInfo {
   id             Int          @id @default(autoincrement())
-  materialBookId Int
+  materialBookId Int          @unique
   materialBook   MaterialBook @relation(fields: [materialBookId], references: [id])
 
   projectName String
@@ -614,6 +630,9 @@ model MaterialBookTechnicalInfo {
   smartSystem        Boolean
   costPerSquareMeter BigInt
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@map("material_book_technical_info")
 }
 
@@ -635,6 +654,9 @@ model MaterialBookDesignInfo {
   drawingStatus      DrawingStatus
   designDescription  String?
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@map("material_book_design_info")
 }
 
@@ -652,6 +674,9 @@ model MaterialBookOwnershipInfo {
   licenseFile      String
   technicalDocs    Json
   finalDescription String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("material_book_ownership_info")
 }
@@ -681,6 +706,9 @@ model MaterialBookPackageInfo {
   invoiceNumber   String?
   paidAt          DateTime?
   transactionInfo Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("material_book_package_info")
 }
