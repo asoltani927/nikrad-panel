@@ -1,26 +1,14 @@
 // src/components/Sidebar/sidebar-items.ts
 import {
   Home,
-  Inbox,
-  Calendar,
-  Search,
   Settings,
-  Mail,
-  Archive,
-  Send,
-  Bell,
-  Shield,
-  User,
-  Clock,
-  Pencil,
-  SquarePen,
-  ShoppingCart,
-  ChartColumn,
   ChartColumnStacked,
   ListCheck,
   ClipboardList,
   NotebookTabs,
   FileCog,
+  ScrollText,
+  BadgeDollarSign,
 } from "lucide-react";
 
 export interface SidebarChild {
@@ -42,15 +30,15 @@ export const sidebarItems: SidebarItem[] = [
     url: "/",
     icon: Home,
   },
-  {
-    title: "محصولات",
-    url: "#",
-    icon: ShoppingCart,
-    children: [
-      { title: "ایجاد محصول", url: "#", icon: Pencil },
-      { title: "ویرایش محصول", url: "#", icon: SquarePen },
-    ],
-  },
+  // {
+  //   title: "محصولات",
+  //   url: "#",
+  //   icon: ShoppingCart,
+  //   children: [
+  //     { title: "ایجاد محصول", url: "#", icon: Pencil },
+  //     { title: "ویرایش محصول", url: "#", icon: SquarePen },
+  //   ],
+  // },
   // {
   //   title: "دسته بندی ها",
   //   url: "#",
@@ -81,11 +69,19 @@ export const sidebarItems: SidebarItem[] = [
     icon: NotebookTabs,
   },
   {
+    title: "لیست درخواست دفترچه متریال",
+    url: "#",
+    icon: ScrollText,
+  },
+  {
+    title: "لیست تراکنش ها",
+    url: "#",
+    icon: BadgeDollarSign,
+  },
+  {
     title: "تنظیمات",
     url: "#",
     icon: Settings,
-    children: [
-      { title: "فیلد ها", url: "#", icon: FileCog },
-    ],
+    children: [{ title: "فیلد ها", url: "#", icon: FileCog }],
   },
 ];

@@ -31,11 +31,11 @@ const chartData = [
 
 const chartConfig = {
   desktop: {
-    label: "Desktop",
+    label: "تراکنش موفق",
     color: "var(--chart-1)",
   },
   mobile: {
-    label: "Mobile",
+    label: "تراکنش ناموفق",
     color: "var(--chart-2)",
   },
 } satisfies ChartConfig
@@ -44,9 +44,9 @@ export function ChartAreaStacked() {
   return (
     <Card className="w-full h-full">
       <CardHeader>
-        <CardTitle>Area Chart - Stacked</CardTitle>
+        <CardTitle>نیکراد - چارت تراکنش ها</CardTitle>
         <CardDescription>
-          Showing total visitors for the last 6 months
+          کل تراکنش های 6 ماهه اخیر
         </CardDescription>
       </CardHeader>
       <CardContent className="h-[40vh]">
@@ -95,10 +95,10 @@ export function ChartAreaStacked() {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 leading-none font-medium">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+              رشد 20.5% در این ماه <TrendingUp className="h-4 w-4" />
             </div>
             <div className="text-muted-foreground flex items-center gap-2 leading-none">
-              January - June 2024
+              آبان - آذر 1404
             </div>
           </div>
         </div>
