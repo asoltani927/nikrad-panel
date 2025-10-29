@@ -7,6 +7,17 @@ export async function setup(app: FastifyInstance) {
   await app.register(swagger, {
     openapi: {
       info: { title: 'My API', version: '1.0.0' },
+      servers: [],
+      components: {
+        securitySchemes: {
+          bearer: {
+            type: 'apiKey',
+            in: 'header',
+            name: 'Authorization',
+            description: 'Bearer token for authentication',
+          },
+        },
+      },
     },
     transform: jsonSchemaTransform,
   })

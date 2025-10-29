@@ -6,12 +6,12 @@ async function start() {
   const fastify = Fastify({ logger: true })
 
   /**
-   * Plugin Initialzing
+   * Plugin Initializing
    */
   await initialPlugins(fastify)
 
   /**
-   * Modules Initialzing
+   * Modules Initializing
    */
   await initialModules(fastify)
   

@@ -7,50 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id                           Int                   @id @default(autoincrement())
-  name                         String
-  email                        String                @unique
-  createdAt                    DateTime              @default(now())
-  categoriesCreatedBy          Category[]            @relation("categoriesCreatedBy")
-  categoriesUpdatedBy          Category[]            @relation("categoriesUpdatedBy")
-  categoriesDeletedBy          Category[]            @relation("categoriesDeletedBy")
-  userNeedsCreatedBy           UserNeed[]            @relation("userNeedsCreatedBy")
-  userNeedsUpdatedBy           UserNeed[]            @relation("userNeedsUpdatedBy")
-  userNeedsDeletedBy           UserNeed[]            @relation("userNeedsDeletedBy")
-  suggestionsCreatedBy         Suggestions[]         @relation("suggestionsCreatedBy")
-  suggestionsUpdatedBy         Suggestions[]         @relation("suggestionsUpdatedBy")
-  suggestionsDeletedBy         Suggestions[]         @relation("suggestionsDeletedBy")
-  customFieldsCreatedBy        CustomField[]         @relation("customFieldsCreatedBy")
-  customFieldsUpdatedBy        CustomField[]         @relation("customFieldsUpdatedBy")
-  customFieldsDeletedBy        CustomField[]         @relation("customFieldsDeletedBy")
-  userProfileCreatedBy         UserProfile[]         @relation("userProfileCreatedBy")
-  userProfileUpdatedBy         UserProfile[]         @relation("userProfileUpdatedBy")
-  userProfileDeletedBy         UserProfile[]         @relation("userProfileDeletedBy")
-  productCreatedBy             Product[]             @relation("productCreatedBy")
-  productUpdatedBy             Product[]             @relation("productUpdatedBy")
-  productDeletedBy             Product[]             @relation("productDeletedBy")
-  productReviewCreatedBy       ProductReview[]       @relation("productReviewCreatedBy")
-  productReviewUpdatedBy       ProductReview[]       @relation("productReviewUpdatedBy")
-  productReviewDeletedBy       ProductReview[]       @relation("productReviewDeletedBy")
-  productSimilarCreatedBy      ProductSimilar[]      @relation("productSimilarCreatedBy")
-  productSimilarUpdatedBy      ProductSimilar[]      @relation("productSimilarUpdatedBy")
-  productSimilarDeletedBy      ProductSimilar[]      @relation("productSimilarDeletedBy")
-  productAccessoryCreatedBy    ProductAccessory[]    @relation("productAccessoryCreatedBy")
-  productAccessoryUpdatedBy    ProductAccessory[]    @relation("productAccessoryUpdatedBy")
-  productAccessoryDeletedBy    ProductAccessory[]    @relation("productAccessoryDeletedBy")
-  productSpecialOfferCreatedBy ProductSpecialOffer[] @relation("productSpecialOfferCreatedBy")
-  productSpecialOfferUpdatedBy ProductSpecialOffer[] @relation("productSpecialOfferUpdatedBy")
-  productSpecialOfferDeletedBy ProductSpecialOffer[] @relation("productSpecialOfferDeletedBy")
-  materialBookCreatedBy        MaterialBook[]        @relation("materialBookCreatedBy")
-  materialBookUpdatedBy        MaterialBook[]        @relation("materialBookUpdatedBy")
-  materialBookDeletedBy        MaterialBook[]        @relation("materialBookDeletedBy")
-
-  UserProfile   UserProfile?
-  ProductReview ProductReview[]
-  MaterialBook  MaterialBook[]
-}
-
 enum CountryCodeEnum {
   IR
 }
@@ -100,9 +56,87 @@ model Region {
   name        Json
   countryCode CountryCodeEnum @map("country_code")
   country     Country         @relation(fields: [countryCode], references: [code])
-  UserProfile UserProfile[]   @relation("UserProvince") // match relation name used in UserProfile
+  users       User[]          @relation("userRegions")
+  addresses   Address[]       @relation("addressRegion")
 
   @@map("regions")
+}
+
+enum UserType {
+  REAL
+  LEGAL
+}
+
+model User {
+  id    Int    @id @default(autoincrement())
+  name  String
+  phone String @unique
+  email String
+
+  type UserType
+
+  firstName    String  @map("first_name")
+  lastName     String  @map("last_name")
+  bio          String
+  experience   String
+  gallery      Json
+  nationalCode String?
+  nationalCard Json?
+
+  businessLicense Json?
+
+  companyStatute   Json?
+  brandCertificate Json?
+
+  provinceCode RegionCodeEnum
+  province     Region         @relation("userRegions", fields: [provinceCode], references: [code])
+
+  categoryId Int?
+  category   Category? @relation(fields: [categoryId], references: [id])
+
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  categoriesCreatedBy             Category[]               @relation("categoriesCreatedBy")
+  categoriesUpdatedBy             Category[]               @relation("categoriesUpdatedBy")
+  categoriesDeletedBy             Category[]               @relation("categoriesDeletedBy")
+  NeedsCreatedBy                  Need[]                   @relation("NeedsCreatedBy")
+  NeedsUpdatedBy                  Need[]                   @relation("NeedsUpdatedBy")
+  NeedsDeletedBy                  Need[]                   @relation("NeedsDeletedBy")
+  suggestionsCreatedBy            Suggestions[]            @relation("suggestionsCreatedBy")
+  suggestionsUpdatedBy            Suggestions[]            @relation("suggestionsUpdatedBy")
+  suggestionsDeletedBy            Suggestions[]            @relation("suggestionsDeletedBy")
+  customFieldsCreatedBy           CustomField[]            @relation("customFieldsCreatedBy")
+  customFieldsUpdatedBy           CustomField[]            @relation("customFieldsUpdatedBy")
+  customFieldsDeletedBy           CustomField[]            @relation("customFieldsDeletedBy")
+  materialBookCreatedBy           MaterialBook[]           @relation("materialBookCreatedBy")
+  materialBookUpdatedBy           MaterialBook[]           @relation("materialBookUpdatedBy")
+  materialBookDeletedBy           MaterialBook[]           @relation("materialBookDeletedBy")
+  materialBookAttachmentCreatedBy MaterialBookAttachment[] @relation("materialBookAttachmentCreatedBy")
+  materialBookAttachmentUpdatedBy MaterialBookAttachment[] @relation("materialBookAttachmentUpdatedBy")
+  materialBookAttachmentDeletedBy MaterialBookAttachment[] @relation("materialBookAttachmentDeletedBy")
+  materialBookOwners              MaterialBook[]           @relation("materialBookOwner")
+  addresses                         Address[]
+}
+
+model Address {
+  id   Int    @id @default(autoincrement())
+  cuid String @unique @default(cuid())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  regionCode RegionCodeEnum @map("region_code")
+  region     Region         @relation("addressRegion", fields: [regionCode], references: [code])
+
+  address   String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  deleted   Boolean   @default(false)
 }
 
 model Category {
@@ -130,15 +164,14 @@ model Category {
   updatedBy   User?         @relation("categoriesUpdatedBy", fields: [updatedById], references: [id])
   deletedById Int?
   deletedBy   User?         @relation("categoriesDeletedBy", fields: [deletedById], references: [id])
-  UserNeed    UserNeed[]
+  Need        Need[]
   CustomField CustomField[]
-  UserProfile UserProfile[]
-  Product     Product[]
+  User        User[]
 
   @@map("categories")
 }
 
-model UserNeed {
+model Need {
   id   Int    @id @default(autoincrement())
   cuid String @unique @default(cuid())
 
@@ -158,22 +191,22 @@ model UserNeed {
   deletedAt DateTime?
 
   createdById Int
-  createdBy   User          @relation("userNeedsCreatedBy", fields: [createdById], references: [id])
+  createdBy   User          @relation("NeedsCreatedBy", fields: [createdById], references: [id])
   updatedById Int?
-  updatedBy   User?         @relation("userNeedsUpdatedBy", fields: [updatedById], references: [id])
+  updatedBy   User?         @relation("NeedsUpdatedBy", fields: [updatedById], references: [id])
   deletedById Int?
-  deletedBy   User?         @relation("userNeedsDeletedBy", fields: [deletedById], references: [id])
+  deletedBy   User?         @relation("NeedsDeletedBy", fields: [deletedById], references: [id])
   Suggestions Suggestions[]
 
   @@map("needs")
 }
 
 model Suggestions {
-  id         Int      @id @default(autoincrement())
-  cuid       String   @unique @default(cuid())
-  userNeedId Int
-  userNeed   UserNeed @relation(fields: [userNeedId], references: [id])
-  price      BigInt
+  id     Int    @id @default(autoincrement())
+  cuid   String @unique @default(cuid())
+  NeedId Int
+  Need   Need   @relation(fields: [NeedId], references: [id])
+  price  BigInt
 
   createdById Int
   createdBy   User  @relation("suggestionsCreatedBy", fields: [createdById], references: [id])
@@ -198,22 +231,32 @@ enum CustomFieldType {
   SELECT
   DATE
   TEXTAREA
+  FILE
+}
+
+enum CustomFieldTarget {
+  MATERIAL_BOOK
 }
 
 model CustomField {
   id   Int    @id @default(autoincrement())
   cuid String @unique @default(cuid())
 
-  name         String
-  title        String
-  type         CustomFieldType
-  required     Boolean         @default(false)
-  options      Json?
-  defaultValue Json?
-  order        Int?
+  name     String
+  title    String
+  type     CustomFieldType
+  required Boolean         @default(false)
 
-  Category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId Int?
+  options      Json?
+  defaultValue String?
+
+  order Int?
+
+  target CustomFieldTarget @default(MATERIAL_BOOK)
+  step   Int?              @default(0) // 0: first step, 1: second step, etc.
+
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?      @map("category_id")
 
   createdById Int
   createdBy   User  @relation("customFieldsCreatedBy", fields: [createdById], references: [id])
@@ -236,10 +279,9 @@ model CustomFieldValue {
   customFieldId Int
   customField   CustomField @relation(fields: [customFieldId], references: [id])
 
-  entityType EntityType TODO: remove
-  entityId   Int
+  targetId Int @map("target_id") // target id is the id of the target of the custom field for example MaterialBookId
 
-  value Json?
+  value String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -247,278 +289,23 @@ model CustomFieldValue {
   @@map("custom_field_values")
 }
 
-enum EntityType {
-  PRODUCT
-  MATERIAL_BOOK_PROJECT_INFO
-  MATERIAL_BOOK_TECHNICAL_INFO
-  MATERIAL_BOOK_DESIGN_INFO
-  MATERIAL_BOOK_OWNERSHIP_INFO
-  MATERIAL_BOOK_PACKAGE_INFO
-  USER
-  CATEGORY
-}
-
-enum UserType {
-  REAL
-  LEGAL
-}
-
-model UserProfile {
-  id     Int  @id @default(autoincrement())
-  userId Int  @unique
-  user   User @relation(fields: [userId], references: [id])
-
-  type UserType
-
-  firstName    String
-  lastName     String
-  aboutMe      String
-  experience   String
-  gallery      Json
-  address      String
-  location     Json
-  provinceCode RegionCodeEnum
-  province     Region         @relation("UserProvince", fields: [provinceCode], references: [code])
-  city         String
-  categoryId   Int?
-  category     Category?      @relation(fields: [categoryId], references: [id])
-  nationalCode String?
-  nationalCard Json?
-
-  businessLicense Json?
-
-  companyStatute   Json?
-  brandCertificate Json?
-
-  createdById Int
-  createdBy   User  @relation("userProfileCreatedBy", fields: [createdById], references: [id])
-  updatedById Int?
-  updatedBy   User? @relation("userProfileUpdatedBy", fields: [updatedById], references: [id])
-  deletedById Int?
-  deletedBy   User? @relation("userProfileDeletedBy", fields: [deletedById], references: [id])
-
-  deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-
-  @@map("user_profile")
-}
-
-enum ProductStatus {
-  AVAILABLE
-  UNAVAILABLE
-  IN_PRODUCTION
-}
-
-enum UnitType {
-  NUMBER
-  METER
-  KILOGRAM
-  BAG
-}
-
-enum ShippingMethod {
-  POST
-  TIPAX
-  DEKAPOST
-  FREIGHT
-}
-
-model Product {
-  id   Int    @id @default(autoincrement())
-  cuid String @unique @default(cuid())
-  slug String @unique
-
-  name       String
-  mainImage  String
-  gallery    Json
-  modelCode  String?
-  categoryId Int
-  category   Category      @relation(fields: [categoryId], references: [id])
-  brand      String?
-  status     ProductStatus @default(AVAILABLE)
-
-  price             BigInt
-  discountPercent   Int?
-  discountedPrice   BigInt?
-  unitType          UnitType
-  minOrderQuantity  Int
-  stockQuantity     Int
-  isAddToCartActive Boolean  @default(true)
-  isWishlistActive  Boolean  @default(true)
-  isComparable      Boolean  @default(true)
-
-  material        String
-  color           String?
-  weight          Float
-  length          Float
-  width           Float
-  height          Float
-  thickness       Float?
-  standard        String?
-  countryOfOrigin String?
-  usage           String?
-  resistance      String?
-  technicalNotes  String?
-
-  shortDescription String
-  fullDescription  String?
-  brochureFile     String?
-  videoFile        String?
-
-  packageWeight     Float
-  packageLength     Float
-  packageWidth      Float
-  packageHeight     Float
-  estimatedDelivery String
-  shippingMethod    ShippingMethod
-  shippingCost      BigInt
-
-  averageRating Float? @default(0)
-  reviewCount   Int    @default(0)
-
-  tags       Json?
-  breadcrumb Json?
-  shareLinks Json?
-
-  createdById Int
-  createdBy   User  @relation("productCreatedBy", fields: [createdById], references: [id])
-  updatedById Int?
-  updatedBy   User? @relation("productUpdatedBy", fields: [updatedById], references: [id])
-  deletedById Int?
-  deletedBy   User? @relation("productDeletedBy", fields: [deletedById], references: [id])
-
-  deleted              Boolean               @default(false)
-  createdAt            DateTime              @default(now())
-  updatedAt            DateTime              @updatedAt
-  deletedAt            DateTime?
-  ProductReview        ProductReview[]
-  ProductSimilar       ProductSimilar[]
-  ProductAccessory     ProductAccessory[]
-  ProductSpecialOffer  ProductSpecialOffer[]
-  SimilarToProducts    ProductSimilar[]      @relation("SimilarToProducts")
-  AccessoryToProducts  ProductAccessory[]    @relation("AccessoryToProducts")
-  SpecialOfferProducts ProductSpecialOffer[] @relation("SpecialOfferProducts")
-
-  @@map("product")
-}
-
-model ProductReview {
-  id        Int     @id @default(autoincrement())
-  productId Int
-  product   Product @relation(fields: [productId], references: [id])
-  userId    Int
-  user      User    @relation(fields: [userId], references: [id])
-
-  rating  Int
-  comment String?
-
-  createdById Int
-  createdBy   User  @relation("productReviewCreatedBy", fields: [createdById], references: [id])
-  updatedById Int?
-  updatedBy   User? @relation("productReviewUpdatedBy", fields: [updatedById], references: [id])
-  deletedById Int?
-  deletedBy   User? @relation("productReviewDeletedBy", fields: [deletedById], references: [id])
-
-  deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-
-  @@map("product_reviews")
-}
-
-model ProductSimilar {
-  id Int @id @default(autoincrement())
-
-  productId Int
-  product   Product @relation(fields: [productId], references: [id])
-
-  similarId Int
-  similar   Product @relation("SimilarToProducts", fields: [similarId], references: [id])
-
-  createdById Int
-  createdBy   User  @relation("productSimilarCreatedBy", fields: [createdById], references: [id])
-  updatedById Int?
-  updatedBy   User? @relation("productSimilarUpdatedBy", fields: [updatedById], references: [id])
-  deletedById Int?
-  deletedBy   User? @relation("productSimilarDeletedBy", fields: [deletedById], references: [id])
-
-  deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-
-  @@unique([productId, similarId])
-  @@map("product_similar")
-}
-
-model ProductAccessory {
-  id Int @id @default(autoincrement())
-
-  productId Int
-  product   Product @relation(fields: [productId], references: [id])
-
-  accessoryId Int
-  accessory   Product @relation("AccessoryToProducts", fields: [accessoryId], references: [id])
-
-  createdById Int
-  createdBy   User  @relation("productAccessoryCreatedBy", fields: [createdById], references: [id])
-  updatedById Int?
-  updatedBy   User? @relation("productAccessoryUpdatedBy", fields: [updatedById], references: [id])
-  deletedById Int?
-  deletedBy   User? @relation("productAccessoryDeletedBy", fields: [deletedById], references: [id])
-
-  deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-
-  @@unique([productId, accessoryId])
-  @@map("product_accessories")
-}
-
-model ProductSpecialOffer {
-  id Int @id @default(autoincrement())
-
-  productId Int
-  product   Product @relation(fields: [productId], references: [id])
-
-  offerId Int
-  offer   Product @relation("SpecialOfferProducts", fields: [offerId], references: [id])
-
-  createdById Int
-  createdBy   User  @relation("productSpecialOfferCreatedBy", fields: [createdById], references: [id])
-  updatedById Int?
-  updatedBy   User? @relation("productSpecialOfferUpdatedBy", fields: [updatedById], references: [id])
-  deletedById Int?
-  deletedBy   User? @relation("productSpecialOfferDeletedBy", fields: [deletedById], references: [id])
-
-  deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-
-  @@unique([productId, offerId])
-  @@map("product_special_offers")
-}
-
 enum MaterialBookStatus {
   DRAFT
+  WAITING_FOR_PAYMENT
+  WAITING_FOR_DELIVERY
   IN_PROGRESS
   COMPLETED
 }
 
 model MaterialBook {
   id     Int                @id @default(autoincrement())
-  userId Int
-  user   User               @relation(fields: [userId], references: [id])
   title  String
   status MaterialBookStatus @default(DRAFT)
 
-  // Removed explicit FK fields here — children (project/technical/design/ownership/package) own the FK.
-  // This keeps the one-to-one ownership on the child side (material_book_* tables) which already have materialBookId unique.
+  bookPackageInfo MaterialBookPackageInfo?
+
+  ownerId Int
+  owner   User @relation("materialBookOwner", fields: [ownerId], references: [id])
 
   createdById Int
   createdBy   User  @relation("materialBookCreatedBy", fields: [createdById], references: [id])
@@ -527,158 +314,51 @@ model MaterialBook {
   deletedById Int?
   deletedBy   User? @relation("materialBookDeletedBy", fields: [deletedById], references: [id])
 
+  attachments MaterialBookAttachment[]
+
   deleted   Boolean   @default(false)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  // relation backrefs
-  projectInfo     MaterialBookProjectInfo?
-  technicalInfo   MaterialBookTechnicalInfo?
-  designInfo      MaterialBookDesignInfo?
-  ownershipInfo   MaterialBookOwnershipInfo?
-  bookPackageInfo MaterialBookPackageInfo?
-
   @@map("material_book")
 }
 
-enum BuildingUsageType {
-  RESIDENTIAL
-  COMMERCIAL
-  OFFICE
-  MIXED
-}
-
-enum ProjectStatus {
-  DESIGNING
-  UNDER_CONSTRUCTION
-  COMPLETED
-}
-
-model MaterialBookProjectInfo {
+model MaterialBookAttachment {
   id             Int          @id @default(autoincrement())
-  materialBookId Int          @unique
+  materialBookId Int
   materialBook   MaterialBook @relation(fields: [materialBookId], references: [id])
 
-  projectName String
-  location    String
-  landArea    Float
-  builtUpArea Float
-  floorCount  Int
-  unitCount   Int
+  fileId Int  @map("file_id")
+  file   File @relation("materialBookAttachmentFile", fields: [fileId], references: [id])
 
-  usageType     BuildingUsageType
-  startYear     Int
-  projectStatus ProjectStatus
+  createdById Int
+  createdBy   User  @relation("materialBookAttachmentCreatedBy", fields: [createdById], references: [id])
+  updatedById Int?
+  updatedBy   User? @relation("materialBookAttachmentUpdatedBy", fields: [updatedById], references: [id])
+  deletedById Int?
+  deletedBy   User? @relation("materialBookAttachmentDeletedBy", fields: [deletedById], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("material_book_project_info")
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 }
 
-enum StructureType {
-  STEEL
-  CONCRETE
-  MIXED
-  OTHER
-}
+model File {
+  id Int @id @default(autoincrement())
 
-enum RoofType {
-  TIRCH_BLOK
-  DAL_BETON
-  COMPOSITE
-}
+  name String
+  path String
+  type String
+  size Int
 
-enum FoundationType {
-  RADYE
-  NOARI
-  SHAMY
-  OTHER
-}
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  deleted   Boolean   @default(false)
 
-enum WallMaterialType {
-  BRICK
-  CONCRETE_BLOCK
-  CLAY_BLOCK
-  OTHER
-}
-
-enum MechanicalSystem {
-  PACKAGE
-  BOILER_ROOM
-  SPLIT
-  VRF
-}
-
-enum ElectricalSystem {
-  TRADITIONAL_WIRING
-  MODERN_CABLING
-}
-
-model MaterialBookTechnicalInfo {
-  id             Int          @id @default(autoincrement())
-  materialBookId Int          @unique
-  materialBook   MaterialBook @relation(fields: [materialBookId], references: [id])
-
-  structureType      StructureType
-  roofType           RoofType
-  foundationType     FoundationType
-  wallMaterialType   WallMaterialType
-  mechanicalSystem   MechanicalSystem
-  electricalSystem   ElectricalSystem
-  smartSystem        Boolean
-  costPerSquareMeter BigInt
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("material_book_technical_info")
-}
-
-enum DrawingStatus {
-  READY
-  IN_PROGRESS
-  NONE
-}
-
-model MaterialBookDesignInfo {
-  id             Int          @id @default(autoincrement())
-  materialBookId Int          @unique
-  materialBook   MaterialBook @relation(fields: [materialBookId], references: [id])
-
-  hasEngineeringMap  Boolean
-  hasInteriorDesign  Boolean
-  hasFacadeDesign    Boolean
-  hasLandscapeDesign Boolean
-  drawingStatus      DrawingStatus
-  designDescription  String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("material_book_design_info")
-}
-
-model MaterialBookOwnershipInfo {
-  id             Int          @id @default(autoincrement())
-  materialBookId Int          @unique
-  materialBook   MaterialBook @relation(fields: [materialBookId], references: [id])
-
-  ownerName        String
-  ownerPhone       String
-  ownerAddress     String
-  supervisorName   String
-  licenseNumber    String
-  licenseDate      DateTime
-  licenseFile      String
-  technicalDocs    Json
-  finalDescription String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("material_book_ownership_info")
+  MaterialBookAttachment MaterialBookAttachment[] @relation("materialBookAttachmentFile")
 }
 
 enum PackageType {

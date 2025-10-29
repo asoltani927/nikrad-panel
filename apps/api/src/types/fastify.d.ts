@@ -1,5 +1,5 @@
 import "fastify";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 
 declare module "fastify" {
   interface FastifyInstance {
@@ -12,5 +12,6 @@ declare module "fastify" {
 
   interface FastifyRequest {
     id?: string;
+    user?: User;
   }
 }
