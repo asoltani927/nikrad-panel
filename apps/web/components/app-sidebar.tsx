@@ -18,6 +18,7 @@ import {
   CollapsibleTrigger,
 } from "./ui/collapsible";
 import { sidebarItems } from "./sidebar-items";
+import Link from "next/link";
 
 export function AppSidebar() {
   return (
@@ -38,10 +39,10 @@ export function AppSidebar() {
                           type="button"
                           className="flex items-center gap-2 text-[15px] w-full justify-between"
                         >
-                          <div className="flex items-center gap-2">
+                          <Link href={item.url} className="flex items-center gap-2">
                             <item.icon />
                             <span>{item.title}</span>
-                          </div>
+                          </Link>
                           {item.children && (
                             <ChevronLeft className="transition-transform duration-200 group-data-[state=open]:-rotate-90" />
                           )}
