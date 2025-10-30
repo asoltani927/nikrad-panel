@@ -75,7 +75,7 @@ export const sidebarItems: SidebarItem[] = [
   },
   {
     title: "لیست تراکنش ها",
-    url: "#",
+    url: "/transactions",
     icon: BadgeDollarSign,
   },
   {
