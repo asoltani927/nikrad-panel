@@ -70,7 +70,7 @@ export const sidebarItems: SidebarItem[] = [
   },
   {
     title: "لیست درخواست دفترچه متریال",
-    url: "#",
+    url: "/materialNoteBook",
     icon: ScrollText,
   },
   {
