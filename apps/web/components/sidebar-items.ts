@@ -60,7 +60,7 @@ export const sidebarItems: SidebarItem[] = [
   },
   {
     title: "لیست پیشنهادات",
-    url: "#",
+    url: "/suggesstions",
     icon: ClipboardList,
   },
   {
