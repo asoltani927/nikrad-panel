@@ -55,7 +55,7 @@ export const sidebarItems: SidebarItem[] = [
   },
   {
     title: "لیست نیازمندی ها",
-    url: "#",
+    url: "/needs",
     icon: ListCheck,
   },
   {
