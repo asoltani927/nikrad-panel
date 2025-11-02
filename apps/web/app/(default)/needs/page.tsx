@@ -22,7 +22,6 @@ import {
 import { Search, Check, X } from "lucide-react";
 import {
   AlertDialog,
-  AlertDialogTrigger,
   AlertDialogContent,
   AlertDialogHeader,
   AlertDialogFooter,
@@ -50,14 +49,6 @@ export default function Needs() {
     publication: "",
     status: "",
   });
-  const [selectedItem, setSelectedItem] = useState<any>(null);
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleView = (item: any) => {
-    setSelectedItem(item);
-    setIsOpen(true);
-  };
 
   const data = [
     {

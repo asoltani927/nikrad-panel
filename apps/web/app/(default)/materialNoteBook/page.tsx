@@ -70,7 +70,7 @@ export default function MaterialNoteBook() {
     <Card className="py-4">
       <CardHeader>
         <CardTitle className="text-lg font-semibold flex items-center justify-between">
-          لیست کاربران
+          لیست درخواست های دفترچه متریال
           <Search className="h-5 w-5 text-gray-500" />
         </CardTitle>
       </CardHeader>

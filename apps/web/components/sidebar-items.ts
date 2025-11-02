@@ -50,7 +50,7 @@ export const sidebarItems: SidebarItem[] = [
   // },
   {
     title: "لیست دسته بندی ها",
-    url: "#",
+    url: "/categories",
     icon: ChartColumnStacked,
   },
   {
