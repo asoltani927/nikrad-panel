@@ -11,7 +11,7 @@
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@nikrad/database": ["../packages/database/src"]
+      "@nikrad/database": ["../packages/database"]
     }
   },
   "include": ["src", "src/**/*.d.ts"]
