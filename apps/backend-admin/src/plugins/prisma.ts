@@ -1,5 +1,5 @@
 // src/plugins/prisma.ts
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@nikrad/database'
 import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
  

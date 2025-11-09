@@ -30,6 +30,9 @@ async function start() {
 }
 
 start().catch((err) => {
-  console.error(err)
+    console.error('❌ Server failed to start')
+  console.error('Error name:', err?.name)
+  console.error('Error message:', err?.message)
+  console.error('Error stack:', err?.stack)
   process.exit(1)
 })
