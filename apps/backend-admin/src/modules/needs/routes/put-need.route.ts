@@ -1,3 +1,4 @@
+import { Messages } from '@/constants/messages'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
@@ -40,7 +41,7 @@ export const putNeedRoute = async (app: FastifyInstance) => {
 
       const isExisted = await app.prisma.need.findUnique({ where: { id } })
       if (!isExisted) {
-        return reply.status(404).send({ message: 'Need not found' })
+        return reply.status(404).send({ message: Messages.needs.NOT_FOUND })
       }
 
       const need = await app.prisma.need.update({

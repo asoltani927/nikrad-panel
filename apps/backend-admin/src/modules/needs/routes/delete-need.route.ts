@@ -1,19 +1,20 @@
+import { Messages } from '@/constants/messages'
+import { authMiddleware } from '@/middlewares'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
-
-const paramsSchema = z.object({
-  id: z.coerce.number(),
-})
 
 export const deleteNeedRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
     url: '/:id',
+    preHandler: [authMiddleware],
     schema: {
       tags: ['needs'],
       summary: 'Delete a need by ID',
-      params: paramsSchema,
+      params: z.object({
+        id: z.coerce.number(),
+      }),
       response: {
         200: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
@@ -24,12 +25,12 @@ export const deleteNeedRoute = async (app: FastifyInstance) => {
 
       const isExisted = await app.prisma.need.findUnique({ where: { id } })
       if (!isExisted) {
-        return reply.status(404).send({ message: 'Need not found' })
+        return reply.status(404).send({ message: Messages.needs.NOT_FOUND })
       }
 
       await app.prisma.need.delete({ where: { id } })
 
-      return reply.status(200).send({ message: 'Need deleted successfully' })
+      return reply.status(200).send({ message: Messages.needs.DELETED_SUCCESS })
     },
   })
 }
