@@ -1,3 +1,4 @@
+import { Messages } from '@/constants/messages'
 import { authMiddleware } from '@/middlewares'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
@@ -28,13 +29,27 @@ export const postCategoryRoute = async (app: FastifyInstance) => {
       body: CategorySchema,
       response: {
         201: CategoryResponseSchema,
+        400: z.object({ message: z.string() }),
       },
     },
     handler: async (request, reply) => {
       const data = request.body
 
+      const existing = await app.prisma.category.findUnique({
+        where: { slug: data.slug },
+      })
+
+      if (existing) {
+        return reply.status(400).send({
+          message: Messages.category.SLUG_EXISTS,
+        })
+      }
+
       const category = await app.prisma.category.create({
-        data,
+        data: {
+          ...data,
+          createdById: (request.user as any).id,
+        },
         select: {
           name: true,
           slug: true,
@@ -43,7 +58,7 @@ export const postCategoryRoute = async (app: FastifyInstance) => {
         },
       })
 
-      return reply.status(201).send(categoryResponseSchema.parse({ category }))
+      return reply.status(201).send(CategoryResponseSchema.parse({ category }))
     },
   })
 }

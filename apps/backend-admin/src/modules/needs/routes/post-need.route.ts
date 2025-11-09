@@ -1,3 +1,4 @@
+import { authMiddleware } from '@/middlewares'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
@@ -9,7 +10,7 @@ const needsSchema = z.object({
   provinceCode: z.string(),
   city: z.string(),
   priority: z.number(),
-  deliveryDate: z.date(),
+  deliveryDate: z.coerce.date(),
 })
 
 const NeedResponseSchema = z.object({
@@ -20,19 +21,23 @@ export const postNeedRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/',
+    preHandler: [authMiddleware],
     schema: {
       tags: ['needs'],
       summary: 'Create new need',
-      body: needsSchema, 
+      body: needsSchema,
       response: {
-        201: NeedResponseSchema, 
+        201: NeedResponseSchema,
       },
     },
     handler: async (request, reply) => {
       const data = request.body
 
       const need = await app.prisma.need.create({
-        data,
+        data: {
+          ...data,
+          createdById: (request.user as { id: number }).id,
+        },
         select: {
           title: true,
           categoryId: true,
