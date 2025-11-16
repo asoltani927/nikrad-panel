@@ -4,10 +4,18 @@ import z from 'zod'
 
 const CategorySchema: z.ZodType<any> = z.lazy(() =>
   z.object({
+    id: z.number(),
     name: z.string(),
     slug: z.string(),
     names: z.any(),
-    parentId: z.number().nullable(),
+    parent: z
+      .object({
+        id: z.number(),
+        name: z.string(),
+      })
+      .nullable(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
     children: z.array(CategorySchema).optional(),
   }),
 )
@@ -31,12 +39,14 @@ export const getCategoriesRoute = async (app: FastifyInstance) => {
       const categories = await app.prisma.category.findMany({
         where: { parentId: null },
         include: {
+          parent: {
+            select: { id: true, name: true },
+          },
           children: {
-            select: {
-              slug: true,
-              name: true,
-              names: true,
-              parentId: true,
+            include: {
+              parent: {
+                select: { id: true, name: true },
+              },
             },
           },
         },

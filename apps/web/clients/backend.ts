@@ -1,18 +1,34 @@
-"use server";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosHeaders } from "axios";
 import { getAccessToken } from "@/app/actions/get-token-session";
-import axios from "axios";
 
-export const backend = axios.create({
-  baseURL: process.env.BACKEND_URL,
+const backendInstance: AxiosInstance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-backend.interceptors.request.use((config) => {
-  // return getPrivyAccessToken().then((token) => {
-  //   if (token) config.headers.Authorization = `Bearer ${token}`;
-  //   return config;
-  // });
-  return getAccessToken().then((token) => {
-    if (token) config.headers.Authorization = `Bearer ${token}`;
-    return config;
+export async function backendRequest<T>(
+  config: AxiosRequestConfig
+): Promise<T> {
+  const token = await getAccessToken();
+
+  let headers: AxiosHeaders;
+
+  if (config.headers instanceof AxiosHeaders) {
+    headers = config.headers;
+  } else {
+    headers = new AxiosHeaders(config.headers as any);
+  }
+
+  if (token) {
+    headers.set("Authorization", `Bearer ${token}`);
+  }
+
+  const response = await backendInstance.request<T>({
+    ...config,
+    headers,
   });
-});
+
+  return response.data;
+}
