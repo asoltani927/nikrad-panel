@@ -212,6 +212,8 @@ model Suggestions {
   Need   Need   @relation(fields: [NeedId], references: [id])
   price  BigInt
 
+  status String @default("draft")
+
   createdById Int
   createdBy   User  @relation("suggestionsCreatedBy", fields: [createdById], references: [id])
   updatedById Int?

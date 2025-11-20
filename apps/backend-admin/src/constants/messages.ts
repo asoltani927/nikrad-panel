@@ -20,6 +20,13 @@ export const Messages = {
     UPDATED_STATUS: 'وضعیت نیازمندی با موفقیت به‌روز شد',
     DELETED_SUCCESS: 'درخواست نیازمندی با موفقیت حذف شد',
   },
+  suggestions: {
+    NOT_FOUND: 'پیشنهاد موردنظر وجود ندارد',
+    CREATED_SUCCESS: 'پیشنهاد با موفقیت ایجاد شد',
+    UPDATED_SUCCESS: 'پیشنهاد با موفقیت به‌روز شد',
+    UPDATED_STATUS: 'وضعیت پیشنهاد با موفقیت به‌روز شد',
+    DELETED_SUCCESS: 'پیشنهاد با موفقیت حذف شد',
+  },
   general: {
     INTERNAL_ERROR: 'خطای داخلی سرور',
     BAD_REQUEST: 'درخواست نامعتبر است',
