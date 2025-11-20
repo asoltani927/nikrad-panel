@@ -58,6 +58,7 @@ model Region {
   country     Country         @relation(fields: [countryCode], references: [code])
   users       User[]          @relation("userRegions")
   addresses   Address[]       @relation("addressRegion")
+  needs       Need[]
 
   @@map("regions")
 }
@@ -118,7 +119,7 @@ model User {
   materialBookAttachmentUpdatedBy MaterialBookAttachment[] @relation("materialBookAttachmentUpdatedBy")
   materialBookAttachmentDeletedBy MaterialBookAttachment[] @relation("materialBookAttachmentDeletedBy")
   materialBookOwners              MaterialBook[]           @relation("materialBookOwner")
-  addresses                         Address[]
+  addresses                       Address[]
 }
 
 model Address {
@@ -131,7 +132,7 @@ model Address {
   regionCode RegionCodeEnum @map("region_code")
   region     Region         @relation("addressRegion", fields: [regionCode], references: [code])
 
-  address   String
+  address String
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -181,9 +182,12 @@ model Need {
 
   product      Int
   provinceCode RegionCodeEnum @map("province_code")
+  region       Region         @relation(fields: [provinceCode], references: [code])
   city         String
   priority     Int
   deliveryDate DateTime       @map("delivery_date")
+
+  status String @default("draft")
 
   deleted   Boolean   @default(false)
   createdAt DateTime  @default(now())

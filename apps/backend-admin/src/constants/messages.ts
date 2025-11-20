@@ -17,6 +17,7 @@ export const Messages = {
     NOT_FOUND: 'درخواست نیازمندی موردنظر وجود ندارد',
     CREATED_SUCCESS: 'درخواست نیازمندی با موفقیت ایجاد شد',
     UPDATED_SUCCESS: 'درخواست نیازمندی با موفقیت به‌روز شد',
+    UPDATED_STATUS: 'وضعیت نیازمندی با موفقیت به‌روز شد',
     DELETED_SUCCESS: 'درخواست نیازمندی با موفقیت حذف شد',
   },
   general: {

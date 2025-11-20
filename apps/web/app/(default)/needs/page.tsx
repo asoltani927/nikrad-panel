@@ -1,25 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Search, Check, X } from "lucide-react";
+
+import { Search } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -31,82 +15,22 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { showToast } from "nextjs-toast-notify";
+import NeedsTable from "./components/NeedsTable";
+import { useNeeds } from "./hooks/useNeeds";
+import { useNeedStatus } from "./hooks/useNeedStatus";
 
 export default function Needs() {
+  // states
   const [openDialog, setOpenDialog] = useState(false);
+  const { needs, loading, error, needsRefetch } = useNeeds();
+  const { updateStatus, loading: needStatusLoading } = useNeedStatus();
 
-  const [filters, setFilters] = useState({
-    name: "",
-    phone: "",
-    title: "",
-    category: "",
-    product: "",
-    province: "",
-    city: "",
-    priority: "",
-    deadline: "",
-    registration: "",
-    publication: "",
-    status: "",
-  });
+  // finish states
 
-  const data = [
-    {
-      id: 1,
-      name: "تست کاربری",
-      phone: "09133333333",
-      title: "نام نیازمندی",
-      category: "صنعتی - تجاری",
-      product: "پکیج طلایی دمو",
-      province: "اصفهان",
-      city: "تیران",
-      priority: "اول",
-      deadline: "1405/01/01",
-      registration: "1404/01/01",
-      publication: "1404/02/01",
-      status: "تایید شده",
-    },
-    {
-      id: 2,
-      name: "تست کاربری",
-      phone: "09133333333",
-      title: "2نام نیازمندی",
-      category: "صنعتی - تجاری",
-      product: "پکیج نقره ای دمو",
-      province: "اصفهان",
-      city: "نجف آباد",
-      priority: "2",
-      deadline: "1405/01/01",
-      registration: "1404/01/01",
-      publication: "1404/02/01",
-      status: "در انتظار تایید",
-    },
-    {
-      id: 3,
-      name: "تست کاربری",
-      phone: "09133333333",
-      title: "3نام نیازمندی",
-      category: "صنعتی - تجاری",
-      product: "پکیج نقره ای دمو",
-      province: "اصفهان",
-      city: "اصفهان",
-      priority: "3",
-      deadline: "1405/01/01",
-      registration: "1404/01/01",
-      publication: "1404/02/01",
-      status: "رد شده",
-    },
-  ];
+  // hooks
+  // finish hooks
 
-  const filteredData = data.filter((item) => {
-    return (
-      item.phone.includes(filters.phone) &&
-      (filters.status ? item.status === filters.status : true) &&
-      (filters.province ? item.province === filters.province : true) &&
-      (filters.city ? item.city === filters.city : true)
-    );
-  });
-
+  // actions
   const onConfirmClick = () => {
     setOpenDialog(false);
     showToast.success("تغییر وضعیت با موفقیت اعمال شد", {
@@ -119,6 +43,40 @@ export default function Needs() {
     });
   };
 
+  const handleNeedStatus = async (id: number, status: string) => {
+    try {
+      await updateStatus(id, status, () => {
+        showToast.success("دسته‌بندی با موفقیت حذف شد!", {
+          duration: 3000,
+          position: "top-left",
+        });
+        needsRefetch();
+      });
+    } catch (error) {
+      showToast.error("حذف دسته‌بندی با خطا مواجه شد", {
+        duration: 3000,
+        position: "top-left",
+      });
+    }
+  };
+
+  // finish actions
+
+  // filters
+  // const filteredData = needs.filter((item) => {
+  //   return (
+  //     item.phone?.includes(filters.phone) &&
+  //     (filters.status ? item.status === filters.status : true) &&
+  //     (filters.province ? item.province === filters.province : true) &&
+  //     (filters.city ? item.city === filters.city : true)
+  //   );
+  // });
+
+  // finish filters
+
+  if (loading) return <div>در حال بارگذاری...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <div>
       <Card className="py-4">
@@ -130,7 +88,7 @@ export default function Needs() {
         </CardHeader>
 
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
+          {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
             <Input
               placeholder="شماره موبایل"
               value={filters.phone}
@@ -181,92 +139,14 @@ export default function Needs() {
                 <SelectItem value="رد شده">رد شده</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
 
-          <div className="border rounded-lg overflow-hidden">
-            <Table>
-              <TableHeader className="[&_th]:text-right">
-                <TableRow>
-                  <TableHead>نام کاربر</TableHead>
-                  <TableHead>عنوان درخواست</TableHead>
-                  <TableHead>دسته بندی</TableHead>
-                  <TableHead>محصول</TableHead>
-                  <TableHead>موقعیت</TableHead>
-                  <TableHead>مهلت تحویل</TableHead>
-                  <TableHead>تاریخ ثبت</TableHead>
-                  <TableHead>تاریخ انتشار</TableHead>
-                  <TableHead>وضعیت</TableHead>
-                  <TableHead className="!text-center">عملیات</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredData.length > 0 ? (
-                  filteredData.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell className="grid text-center justify-start">
-                        <span>{user.name}</span>
-                        <span className="text-xs text-gray-600">
-                          {user.phone}
-                        </span>
-                      </TableCell>
-                      <TableCell>{user.title}</TableCell>
-                      <TableCell>{user.category}</TableCell>
-                      <TableCell>{user.product}</TableCell>
-                      <TableCell className="grid text-center justify-start">
-                        <span>{user.province}</span>
-                        <span className="text-xs text-gray-600">
-                          {user.city}
-                        </span>
-                      </TableCell>
-                      <TableCell>{user.deadline}</TableCell>
-                      <TableCell>{user.registration}</TableCell>
-                      <TableCell>{user.publication}</TableCell>
-                      <TableCell>
-                        <span
-                          className={`px-2 py-1 rounded-lg text-xs ${
-                            user.status === "تایید شده"
-                              ? "bg-green-100 text-green-700"
-                              : user.status === "رد شده"
-                                ? "bg-red-100 text-red-700"
-                                : "bg-yellow-100 text-yellow-700"
-                          }`}
-                        >
-                          {user.status}
-                        </span>
-                      </TableCell>
-                      <TableCell className="flex items-center justify-center gap-2">
-                        <Button
-                          variant="secondary"
-                          size="icon"
-                          className="cursor-pointer"
-                          onClick={() => setOpenDialog(true)}
-                        >
-                          <Check className="!h-5 !w-5 text-green-700" />
-                        </Button>
-                        <Button
-                          variant="secondary"
-                          size="icon"
-                          className="cursor-pointer"
-                          onClick={() => setOpenDialog(true)}
-                        >
-                          <X className="!h-5 !w-5 text-red-700" />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell
-                      colSpan={5}
-                      className="text-center py-4 text-gray-500"
-                    >
-                      موردی یافت نشد
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
+          {/* table */}
+          <NeedsTable
+            data={needs}
+            onActionClick={handleNeedStatus}
+            loading={needStatusLoading}
+          />
         </CardContent>
       </Card>
 
