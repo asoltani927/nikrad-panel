@@ -1,14 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { Search } from "lucide-react";
@@ -25,11 +17,13 @@ import {
 import { showToast } from "nextjs-toast-notify";
 import NeedsTable from "./components/NeedsTable";
 import { useNeeds } from "./hooks/useNeeds";
+import { useNeedStatus } from "./hooks/useNeedStatus";
 
 export default function Needs() {
   // states
   const [openDialog, setOpenDialog] = useState(false);
   const { needs, loading, error, needsRefetch } = useNeeds();
+  const { updateStatus, loading: needStatusLoading } = useNeedStatus();
 
   // finish states
 
@@ -47,6 +41,23 @@ export default function Needs() {
       icon: "",
       sound: true,
     });
+  };
+
+  const handleNeedStatus = async (id: number, status: string) => {
+    try {
+      await updateStatus(id, status, () => {
+        showToast.success("دسته‌بندی با موفقیت حذف شد!", {
+          duration: 3000,
+          position: "top-left",
+        });
+        needsRefetch();
+      });
+    } catch (error) {
+      showToast.error("حذف دسته‌بندی با خطا مواجه شد", {
+        duration: 3000,
+        position: "top-left",
+      });
+    }
   };
 
   // finish actions
@@ -133,9 +144,8 @@ export default function Needs() {
           {/* table */}
           <NeedsTable
             data={needs}
-            onActionClick={(id, action) => {
-              // setOpenDialog(true);
-            }}
+            onActionClick={handleNeedStatus}
+            loading={needStatusLoading}
           />
         </CardContent>
       </Card>
