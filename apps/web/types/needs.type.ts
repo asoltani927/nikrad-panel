@@ -1,6 +1,6 @@
-import { User } from "./user";
-import { Category } from "./categories";
-import { Region } from "./region";
+import { User } from "./user.type";
+import { Category } from "./categories.type";
+import { Region } from "./region.type";
 
 export interface Need {
   id: number;
