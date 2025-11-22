@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+
 import Image from "next/image";
 
 export default function Home() {
@@ -16,6 +18,7 @@ export default function Home() {
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             To get started, edit the page.tsx file.
           </h1>
+            <Button variant="default">Click me!</Button>
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
             Looking for a starting point or more instructions? Head over to{" "}
             <a
@@ -33,6 +36,7 @@ export default function Home() {
             </a>{" "}
             center.
           </p>
+          <p className="text-red-400">hana</p>
         </div>
         <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
           <a
