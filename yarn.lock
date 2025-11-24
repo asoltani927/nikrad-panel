@@ -1725,7 +1725,6 @@ __metadata:
     "@fastify/type-provider-typebox": "npm:^6.1.0"
     "@nikrad/database": "workspace:*"
     "@prisma/client": "npm:^6.13.0"
-    "@repo/typescript-config": "workspace:*"
     "@types/node": "npm:^24.9.2"
     eslint: "npm:^9.37.0"
     eslint-config-prettier: "npm:^10.1.8"
@@ -1749,11 +1748,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@nikrad/backend-client@workspace:apps/backend-client"
   dependencies:
+    "@fastify/cors": "npm:^11.1.0"
     "@fastify/swagger": "npm:^9.5.2"
     "@fastify/swagger-ui": "npm:^5.2.3"
     "@fastify/type-provider-typebox": "npm:^6.1.0"
-    "@nikrad/database": "npm:*"
-    "@prisma/client": "npm:^6.17.1"
+    "@nikrad/database": "workspace:*"
+    "@prisma/client": "npm:^6.13.0"
     "@types/node": "npm:^24.9.2"
     eslint: "npm:^9.37.0"
     eslint-config-prettier: "npm:^10.1.8"
@@ -1765,6 +1765,7 @@ __metadata:
     prettier: "npm:^3.6.2"
     redis: "npm:^5.8.3"
     ts-node: "npm:^10.9.2"
+    tsc-alias: "npm:^1.8.16"
     tsx: "npm:^4.20.6"
     typescript: "npm:^5.9.3"
     zod: "npm:^4.1.12"
@@ -1772,7 +1773,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@nikrad/database@npm:*, @nikrad/database@workspace:*, @nikrad/database@workspace:packages/database":
+"@nikrad/database@workspace:*, @nikrad/database@workspace:packages/database":
   version: 0.0.0-use.local
   resolution: "@nikrad/database@workspace:packages/database"
   dependencies:
@@ -1803,9 +1804,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@nikrad/web@workspace:apps/web-admin":
+"@nikrad/web-admin@workspace:apps/web-admin":
   version: 0.0.0-use.local
-  resolution: "@nikrad/web@workspace:apps/web-admin"
+  resolution: "@nikrad/web-admin@workspace:apps/web-admin"
   dependencies:
     "@hookform/resolvers": "npm:^5.2.2"
     "@radix-ui/react-alert-dialog": "npm:^1.1.15"
@@ -1846,6 +1847,25 @@ __metadata:
     tw-animate-css: "npm:^1.4.0"
     typescript: "npm:5.9.2"
     zod: "npm:^4.1.12"
+  languageName: unknown
+  linkType: soft
+
+"@nikrad/web-client@workspace:apps/web-client":
+  version: 0.0.0-use.local
+  resolution: "@nikrad/web-client@workspace:apps/web-client"
+  dependencies:
+    "@tailwindcss/postcss": "npm:^4"
+    "@types/node": "npm:^20"
+    "@types/react": "npm:^19"
+    "@types/react-dom": "npm:^19"
+    babel-plugin-react-compiler: "npm:1.0.0"
+    eslint: "npm:^9"
+    eslint-config-next: "npm:16.0.3"
+    next: "npm:16.0.3"
+    react: "npm:19.2.0"
+    react-dom: "npm:19.2.0"
+    tailwindcss: "npm:^4"
+    typescript: "npm:^5"
   languageName: unknown
   linkType: soft
 
@@ -2851,7 +2871,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/typescript-config@npm:*, @repo/typescript-config@workspace:*, @repo/typescript-config@workspace:packages/typescript-config":
+"@repo/typescript-config@npm:*, @repo/typescript-config@workspace:packages/typescript-config":
   version: 0.0.0-use.local
   resolution: "@repo/typescript-config@workspace:packages/typescript-config"
   languageName: unknown
@@ -10919,25 +10939,6 @@ __metadata:
   checksum: 10/1babc3ada56f182056af6edc10e592534b887116e37cf07b42fa909efd5edf41b7693bfaca3dbdf1a991e43c684549cd15e15a1b1b51a16fa2ee1e828d508bc7
   languageName: node
   linkType: hard
-
-"web-client@workspace:apps/web-client":
-  version: 0.0.0-use.local
-  resolution: "web-client@workspace:apps/web-client"
-  dependencies:
-    "@tailwindcss/postcss": "npm:^4"
-    "@types/node": "npm:^20"
-    "@types/react": "npm:^19"
-    "@types/react-dom": "npm:^19"
-    babel-plugin-react-compiler: "npm:1.0.0"
-    eslint: "npm:^9"
-    eslint-config-next: "npm:16.0.3"
-    next: "npm:16.0.3"
-    react: "npm:19.2.0"
-    react-dom: "npm:19.2.0"
-    tailwindcss: "npm:^4"
-    typescript: "npm:^5"
-  languageName: unknown
-  linkType: soft
 
 "web-streams-polyfill@npm:^3.0.3":
   version: 3.3.3
