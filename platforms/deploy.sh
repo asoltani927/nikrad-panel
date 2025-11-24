@@ -225,3 +225,10 @@ for app in web-client web-admin; do
     echo "Skipping $app due to filter"
   fi
 done
+
+# ---------------------------------
+# Clean up unused Docker resources
+# ---------------------------------
+echo "==> Cleaning up old Docker containers, images, volumes, and networks..."
+docker system prune -a --volumes -f
+echo "✔ Docker cleanup completed"
