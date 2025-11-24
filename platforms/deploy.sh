@@ -65,8 +65,8 @@ deploy_app() {
     if ! docker run --rm \
       --env-file .env \
       --network app_network \
-      -e "DATABASE_URL:$DATABASE_URL" \
-      "$app" sh -c "export DATABASE_URL=$DATABASE_URL && yarn workspace @nikrad/database prisma migrate deploy"; then
+      -e DATABASE_URL="$DATABASE_URL" \
+      "$app" sh -c "yarn workspace @nikrad/database prisma migrate deploy"; then
       echo "❌ Prisma migrate deploy failed — aborting deploy"
       exit 1
   fi
@@ -101,7 +101,7 @@ deploy_app() {
   echo "==> Starting container $app..."
   docker run -d \
     --env-file .env \
-    -e "DATABASE_URL:$DATABASE_URL" \
+    -e DATABASE_URL="$DATABASE_URL" \
     --name "$app" \
     --network app_network \
     -p "$port:$exposed_port" \
