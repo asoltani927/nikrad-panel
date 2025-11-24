@@ -162,7 +162,8 @@ deploy_frontend() {
   if ! docker build \
     --build-arg APP_NAME="$app" \
     -t "$app" \
-    "$app_dir"; then
+    -f "platforms/$app/Dockerfile"
+    .; then
     echo "❌ Build failed for $app — keeping existing container running"
     return 1
   fi
