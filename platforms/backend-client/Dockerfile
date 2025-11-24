@@ -43,7 +43,10 @@ COPY apps/backend-client/package.json ./apps/backend-client/package.json
 COPY packages ./packages
 COPY .yarn ./.yarn
 
-RUN yarn workspaces focus --production --all 
+RUN yarn workspaces focus --production --all
+
+# Generate Prisma client in database workspace
+RUN yarn workspace @nikrad/database prisma generate
 
 # Expose the backend port
 EXPOSE 8000
