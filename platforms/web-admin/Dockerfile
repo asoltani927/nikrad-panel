@@ -17,6 +17,9 @@ COPY .yarn/ .yarn/
 COPY .yarnrc.yml ./
 
 COPY apps/web-admin ./apps/web-admin
+COPY packages/eslint-config ./packages/eslint-config
+COPY packages/typescript-config ./packages/typescript-config
+COPY packages/ui ./packages/ui
 
 # Install workspace root dependencies
 RUN yarn workspaces focus --all
