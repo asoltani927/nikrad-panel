@@ -40,10 +40,12 @@ ENV NODE_ENV=production
 RUN apk add --no-cache libc6-compat
 
 # Copy Nuxt build output
-COPY --from=builder /app/apps/web-admin/.output ./
-COPY --from=builder /app/apps/web-admin/public ./public
+COPY --from=builder /app/apps/web-admin ./apps/web-admin
+COPY --from=builder /app/packages/eslint-config ./packages/eslint-config
+COPY --from=builder /app/packages/typescript-config ./packages/typescript-config
+COPY --from=builder /app/packages/ui ./packages/ui
 
 EXPOSE 3000
 
 # Start Nuxt server
-CMD ["node", "server/index.mjs"]
+CMD ["sh", "-c", "yarn workspace @nikrad/web-admin start"]
