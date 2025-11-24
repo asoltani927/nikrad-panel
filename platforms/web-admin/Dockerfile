@@ -26,7 +26,7 @@ RUN yarn workspaces focus --all
 
 # Build only the target Nuxt app using turbo
 ARG APP_NAME=web-admin
-RUN yarn turbo run build --filter=${APP_NAME}
+RUN yarn turbo run build --filter=@nikrad/${APP_NAME}
 
 
 # -------------------------
