@@ -1,7 +1,7 @@
 # -------------------------
-# 1. Base dependencies
+# 1. Base dependencies and Build App
 # -------------------------
-FROM node:22-alpine AS deps
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
@@ -16,22 +16,10 @@ COPY turbo.json ./
 COPY .yarn/ .yarn/
 COPY .yarnrc.yml ./
 
+COPY apps/web-admin ./apps/web-admin
+
 # Install workspace root dependencies
-RUN yarn install --frozen-lockfile
-
-
-# -------------------------
-# 2. Build App
-# -------------------------
-FROM node:22-alpine AS builder
-
-WORKDIR /app
-
-RUN apk add --no-cache libc6-compat
-RUN corepack enable
-
-# Copy entire monorepo
-COPY . .
+RUN yarn workspaces focus --all
 
 # Build only the target Nuxt app using turbo
 ARG APP_NAME=web-admin
@@ -39,7 +27,7 @@ RUN yarn turbo run build --filter=${APP_NAME}
 
 
 # -------------------------
-# 3. Production Runner
+# 2. Production Runner
 # -------------------------
 FROM node:22-alpine AS runner
 
