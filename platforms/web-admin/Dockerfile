@@ -25,8 +25,7 @@ COPY packages/ui ./packages/ui
 RUN yarn workspaces focus --all
 
 # Build only the target Nuxt app using turbo
-ARG APP_NAME=web-admin
-RUN yarn turbo run build --filter=@nikrad/${APP_NAME}
+RUN yarn turbo run build --filter=@nikrad/web-admin
 
 
 # -------------------------
@@ -41,8 +40,8 @@ ENV NODE_ENV=production
 RUN apk add --no-cache libc6-compat
 
 # Copy Nuxt build output
-COPY --from=builder /app/apps/${APP_NAME}/.output ./
-COPY --from=builder /app/apps/${APP_NAME}/public ./public
+COPY --from=builder /app/apps/web-admin/.output ./
+COPY --from=builder /app/apps/web-admin/public ./public
 
 EXPOSE 3000
 
