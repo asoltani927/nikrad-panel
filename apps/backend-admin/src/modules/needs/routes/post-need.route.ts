@@ -2,6 +2,7 @@ import { authMiddleware } from '@/middlewares'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
+import { RegionCodeEnum } from '@nikrad/database'
 
 const needsSchema = z.object({
   title: z.string(),
@@ -37,6 +38,7 @@ export const postNeedRoute = async (app: FastifyInstance) => {
         data: {
           ...data,
           createdById: (request.user as { id: number }).id,
+          provinceCode: data.provinceCode as RegionCodeEnum,
         },
         select: {
           title: true,

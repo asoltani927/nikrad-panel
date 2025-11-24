@@ -1723,8 +1723,9 @@ __metadata:
     "@fastify/swagger": "npm:^9.5.2"
     "@fastify/swagger-ui": "npm:^5.2.3"
     "@fastify/type-provider-typebox": "npm:^6.1.0"
-    "@nikrad/database": "npm:*"
-    "@prisma/client": "npm:^6.17.1"
+    "@nikrad/database": "workspace:*"
+    "@prisma/client": "npm:^6.13.0"
+    "@repo/typescript-config": "workspace:*"
     "@types/node": "npm:^24.9.2"
     eslint: "npm:^9.37.0"
     eslint-config-prettier: "npm:^10.1.8"
@@ -1736,6 +1737,7 @@ __metadata:
     prettier: "npm:^3.6.2"
     redis: "npm:^5.8.3"
     ts-node: "npm:^10.9.2"
+    tsc-alias: "npm:^1.8.16"
     tsx: "npm:^4.20.6"
     typescript: "npm:^5.9.3"
     zod: "npm:^4.1.12"
@@ -1770,7 +1772,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@nikrad/database@npm:*, @nikrad/database@workspace:packages/database":
+"@nikrad/database@npm:*, @nikrad/database@workspace:*, @nikrad/database@workspace:packages/database":
   version: 0.0.0-use.local
   resolution: "@nikrad/database@workspace:packages/database"
   dependencies:
@@ -1801,9 +1803,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@nikrad/web@workspace:apps/web":
+"@nikrad/web@workspace:apps/web-admin":
   version: 0.0.0-use.local
-  resolution: "@nikrad/web@workspace:apps/web"
+  resolution: "@nikrad/web@workspace:apps/web-admin"
   dependencies:
     "@hookform/resolvers": "npm:^5.2.2"
     "@radix-ui/react-alert-dialog": "npm:^1.1.15"
@@ -1971,7 +1973,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:^6.17.1":
+"@prisma/client@npm:^6.13.0, @prisma/client@npm:^6.17.1":
   version: 6.19.0
   resolution: "@prisma/client@npm:6.19.0"
   peerDependencies:
@@ -2849,7 +2851,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/typescript-config@npm:*, @repo/typescript-config@workspace:packages/typescript-config":
+"@repo/typescript-config@npm:*, @repo/typescript-config@workspace:*, @repo/typescript-config@workspace:packages/typescript-config":
   version: 0.0.0-use.local
   resolution: "@repo/typescript-config@workspace:packages/typescript-config"
   languageName: unknown
@@ -4084,6 +4086,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"array-union@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "array-union@npm:2.1.0"
+  checksum: 10/5bee12395cba82da674931df6d0fea23c4aa4660cb3b338ced9f828782a65caa232573e6bf3968f23e0c5eb301764a382cef2f128b170a9dc59de0e36c39f98d
+  languageName: node
+  linkType: hard
+
 "array.prototype.findlast@npm:^1.2.5":
   version: 1.2.5
   resolution: "array.prototype.findlast@npm:1.2.5"
@@ -4460,7 +4469,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:^3.5.2":
+"chokidar@npm:^3.5.2, chokidar@npm:^3.5.3":
   version: 3.6.0
   resolution: "chokidar@npm:3.6.0"
   dependencies:
@@ -4618,6 +4627,13 @@ __metadata:
   version: 14.0.2
   resolution: "commander@npm:14.0.2"
   checksum: 10/2d202db5e5f9bb770112a3c1579b893d17ac6f6d932183077308bdd96d0f87f0bbe6a68b5b9ed2cf3b2514be6bb7de637480703c0e2db9741ee1b383237deb26
+  languageName: node
+  linkType: hard
+
+"commander@npm:^9.0.0":
+  version: 9.5.0
+  resolution: "commander@npm:9.5.0"
+  checksum: 10/41c49b3d0f94a1fbeb0463c85b13f15aa15a9e0b4d5e10a49c0a1d58d4489b549d62262b052ae0aa6cfda53299bee487bfe337825df15e342114dde543f82906
   languageName: node
   linkType: hard
 
@@ -5044,6 +5060,15 @@ __metadata:
   version: 8.0.2
   resolution: "diff@npm:8.0.2"
   checksum: 10/82a2120d3418f97822e17a6044ccd4b99a91e26e145e8698353673d7146bd2d092bbebb79c112aae7badc7b9c526f9098cbe342f96174feb6beabdd2587b3c42
+  languageName: node
+  linkType: hard
+
+"dir-glob@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "dir-glob@npm:3.0.1"
+  dependencies:
+    path-type: "npm:^4.0.0"
+  checksum: 10/fa05e18324510d7283f55862f3161c6759a3f2f8dbce491a2fc14c8324c498286c54282c1f0e933cb930da8419b30679389499b919122952a4f8592362ef4615
   languageName: node
   linkType: hard
 
@@ -6007,7 +6032,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.3.2, fast-glob@npm:^3.3.3":
+"fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.2, fast-glob@npm:^3.3.3":
   version: 3.3.3
   resolution: "fast-glob@npm:3.3.3"
   dependencies:
@@ -6575,6 +6600,20 @@ __metadata:
     define-properties: "npm:^1.2.1"
     gopd: "npm:^1.0.1"
   checksum: 10/1f1fd078fb2f7296306ef9dd51019491044ccf17a59ed49d375b576ca108ff37e47f3d29aead7add40763574a992f16a5367dd1e2173b8634ef18556ab719ac4
+  languageName: node
+  linkType: hard
+
+"globby@npm:^11.0.4":
+  version: 11.1.0
+  resolution: "globby@npm:11.1.0"
+  dependencies:
+    array-union: "npm:^2.1.0"
+    dir-glob: "npm:^3.0.1"
+    fast-glob: "npm:^3.2.9"
+    ignore: "npm:^5.2.0"
+    merge2: "npm:^1.4.1"
+    slash: "npm:^3.0.0"
+  checksum: 10/288e95e310227bbe037076ea81b7c2598ccbc3122d87abc6dab39e1eec309aa14f0e366a98cdc45237ffcfcbad3db597778c0068217dcb1950fef6249104e1b1
   languageName: node
   linkType: hard
 
@@ -7726,7 +7765,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"merge2@npm:^1.3.0":
+"merge2@npm:^1.3.0, merge2@npm:^1.4.1":
   version: 1.4.1
   resolution: "merge2@npm:1.4.1"
   checksum: 10/7268db63ed5169466540b6fb947aec313200bcf6d40c5ab722c22e242f651994619bcd85601602972d3c85bd2cc45a358a4c61937e9f11a061919a1da569b0c2
@@ -7952,6 +7991,13 @@ __metadata:
   version: 2.0.0
   resolution: "mute-stream@npm:2.0.0"
   checksum: 10/d2e4fd2f5aa342b89b98134a8d899d8ef9b0a6d69274c4af9df46faa2d97aeb1f2ce83d867880d6de63643c52386579b99139801e24e7526c3b9b0a6d1e18d6c
+  languageName: node
+  linkType: hard
+
+"mylas@npm:^2.1.9":
+  version: 2.1.14
+  resolution: "mylas@npm:2.1.14"
+  checksum: 10/cecf0737549db4cedae0a32b8e1f48b019941326aacfff99ceb1d34bdd5408b30cde3372de48c747943d0476359a636450d7b432164a685ebb1a93d611bdc64a
   languageName: node
   linkType: hard
 
@@ -8574,6 +8620,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"path-type@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "path-type@npm:4.0.0"
+  checksum: 10/5b1e2daa247062061325b8fdbfd1fb56dde0a448fb1455453276ea18c60685bdad23a445dc148cf87bc216be1573357509b7d4060494a6fd768c7efad833ee45
+  languageName: node
+  linkType: hard
+
 "pathe@npm:^2.0.3":
   version: 2.0.3
   resolution: "pathe@npm:2.0.3"
@@ -8684,6 +8737,15 @@ __metadata:
     exsolve: "npm:^1.0.7"
     pathe: "npm:^2.0.3"
   checksum: 10/4b36e4eb12693a1beb145573c564ec6fb74b1008d3b457eaa1f0072331edf05cb7c479c47fe0c4bfdec76c2caff5b68215ff270e5fe49634c07984a7a0197118
+  languageName: node
+  linkType: hard
+
+"plimit-lit@npm:^1.2.6":
+  version: 1.6.1
+  resolution: "plimit-lit@npm:1.6.1"
+  dependencies:
+    queue-lit: "npm:^1.5.1"
+  checksum: 10/e4eaf018dc311fd4d452954c10992cd8a9eb72d168ec2274bb831d86558422703e1405a8978ffdd5c418654e6a25e10a0765a39bf3ce3a84dc799fe6268e0ea4
   languageName: node
   linkType: hard
 
@@ -8873,6 +8935,13 @@ __metadata:
   dependencies:
     side-channel: "npm:^1.1.0"
   checksum: 10/a60e49bbd51c935a8a4759e7505677b122e23bf392d6535b8fc31c1e447acba2c901235ecb192764013cd2781723dc1f61978b5fdd93cc31d7043d31cdc01974
+  languageName: node
+  linkType: hard
+
+"queue-lit@npm:^1.5.1":
+  version: 1.5.2
+  resolution: "queue-lit@npm:1.5.2"
+  checksum: 10/8dd45c79bd25b33b0c7d587391eb0b4acc4deb797bf92fef62b2d8e7c03b64083f5304f09d52a18267d34d020cc67ccde97a88185b67590eeccb194938ff1f98
   languageName: node
   linkType: hard
 
@@ -9779,6 +9848,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"slash@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "slash@npm:3.0.0"
+  checksum: 10/94a93fff615f25a999ad4b83c9d5e257a7280c90a32a7cb8b4a87996e4babf322e469c42b7f649fd5796edd8687652f3fb452a86dc97a816f01113183393f11c
+  languageName: node
+  linkType: hard
+
 "smart-buffer@npm:^4.2.0":
   version: 4.2.0
   resolution: "smart-buffer@npm:4.2.0"
@@ -10305,6 +10381,23 @@ __metadata:
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
   checksum: 10/a91a15b3c9f76ac462f006fa88b6bfa528130dcfb849dd7ef7f9d640832ab681e235b8a2bc58ecde42f72851cc1d5d4e22c901b0c11aa51001ea1d395074b794
+  languageName: node
+  linkType: hard
+
+"tsc-alias@npm:^1.8.16":
+  version: 1.8.16
+  resolution: "tsc-alias@npm:1.8.16"
+  dependencies:
+    chokidar: "npm:^3.5.3"
+    commander: "npm:^9.0.0"
+    get-tsconfig: "npm:^4.10.0"
+    globby: "npm:^11.0.4"
+    mylas: "npm:^2.1.9"
+    normalize-path: "npm:^3.0.0"
+    plimit-lit: "npm:^1.2.6"
+  bin:
+    tsc-alias: dist/bin/index.js
+  checksum: 10/a4c1988e645c0bbb993629f1cde79189549db35c2aeff7aa23bbf0864437f6dd15f91de3b51fe05cbd53e56ed32529710cc22855a8925c637357ab4c5e4f862a
   languageName: node
   linkType: hard
 

@@ -17,3 +17,7 @@ export async function setup(app: FastifyInstance) {
 
   await app.register(prismaPlugin);
 }
+
+export default {
+  setup,
+}
