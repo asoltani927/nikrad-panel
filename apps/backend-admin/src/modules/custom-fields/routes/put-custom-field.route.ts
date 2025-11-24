@@ -12,7 +12,7 @@ const UpdateCustomFieldParamsSchema = z.object({
 const UpdateCustomFieldBodySchema = z.object({
   name: z.string().min(1).optional(),
   title: z.string().min(1).optional(),
-  type: z.enum(Object.values(CustomFieldType) as [string, ...string[]]),
+  type: z.nativeEnum(CustomFieldType).optional(),
   required: z.boolean().optional(),
   order: z.number().nullable().optional(),
   step: z.number().nullable().optional(),
