@@ -8,7 +8,7 @@ import { UnauthorizedResponseSchema } from '@/schema/unauthorized-response.schem
 const CreateCustomFieldSchema = z.object({
   name: z.string().min(1),
   title: z.string().min(1),
-  type: z.nativeEnum(CustomFieldType), // ✅ use enum validation for better safety
+  type: z.enum(Object.values(CustomFieldType) as [string, ...string[]]),
   required: z.boolean().default(false),
   order: z.number().nullable().optional(),
   step: z.number().nullable().optional(),
