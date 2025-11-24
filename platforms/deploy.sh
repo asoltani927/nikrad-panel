@@ -1,5 +1,38 @@
 #!/bin/bash
 
+FILTER_APPS=()
+
+# -------------------------
+# Parse CLI arguments
+# -------------------------
+for arg in "$@"; do
+  case $arg in
+    --filter=*)
+      IFS=',' read -ra FILTER_APPS <<< "${arg#*=}"
+      ;;
+    *)
+      echo "❌ Unknown argument: $arg"
+      exit 1
+      ;;
+  esac
+done
+
+# -------------------------
+# Function to check if an app should deploy
+# -------------------------
+should_deploy() {
+  local app=$1
+  if [ ${#FILTER_APPS[@]} -eq 0 ]; then
+    return 0  # No filter → deploy everything
+  fi
+  for f in "${FILTER_APPS[@]}"; do
+    if [ "$f" == "$app" ]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
 # ---------------------------------
 # Load environment variables
 # ---------------------------------
@@ -48,7 +81,7 @@ docker run -d \
 # ---------------------------------
 # Function to deploy a Docker app
 # ---------------------------------
-deploy_app() {
+deploy_backend() {
   local app=$1
 
   echo "-------------------------------------------"
@@ -113,37 +146,82 @@ deploy_app() {
 }
 
 # ---------------------------------
-# Deploy FastAPI apps
+# Function to deploy a frontend app (Next.js / Nuxt)
 # ---------------------------------
+deploy_frontend() {
+  local app=$1
+  local app_dir="apps/$app"
+
+  echo "-------------------------------------------"
+  echo "==> Building frontend $app..."
+
+  # 1️⃣ Remove old container
+  docker rm -f "$app" 2>/dev/null || true
+
+  # 2️⃣ Build Docker image
+  if ! docker build \
+    --build-arg APP_NAME="$app" \
+    -t "$app" \
+    "$app_dir"; then
+    echo "❌ Build failed for $app — keeping existing container running"
+    return 1
+  fi
+  echo "✔ Build succeeded for $app"
+
+  # 3️⃣ Determine port from env
+  normalized_app="${app//-/_}"
+  port_var="${normalized_app^^}_PORT"
+  port="${!port_var:-}"
+
+  if [ -z "$port" ]; then
+    echo "❌ ERROR: Environment variable $port_var is not set"
+    exit 1
+  fi
+
+  # 4️⃣ Extract exposed port from Dockerfile (default to 3000)
+  exposed_port=$(docker inspect "$app" \
+    --format '{{range $k,$v := .Config.ExposedPorts}}{{println $k}}{{end}}' \
+    | cut -d'/' -f1)
+
+  if [ -z "$exposed_port" ]; then
+    exposed_port=3000
+  fi
+
+  echo "✔ Ports resolved → host:$port → container:$exposed_port"
+
+  # 5️⃣ Run container
+  echo "==> Starting container $app..."
+  docker run -d \
+    --env-file .env \
+    --name "$app" \
+    --network app_network \
+    -p "$port:$exposed_port" \
+    --restart unless-stopped \
+    "$app"
+
+  echo "✔ Frontend $app is running"
+  echo "-------------------------------------------"
+}
+
+
+# -------------------------
+# Deploy FastAPI apps
+# -------------------------
 for app in backend-admin backend-client; do
-  deploy_app "$app"
+  if should_deploy "$app"; then
+    deploy_backend "$app"
+  else
+    echo "Skipping $app due to filter"
+  fi
 done
 
-# ---------------------------------
-# Deploy Next.js apps
-# ---------------------------------
-# for app in web-client web-admin; do
-#   echo "-------------------------------------------"
-#   echo "==> Building and running $app..."
-
-#   docker rm -f "$app" 2>/dev/null || true
-#   docker build --build-arg APP_NAME="$app" -t "$app" "./apps/$app"
-
-#   port_var="${app^^}_PORT"
-#   port="${!port_var:-}"
-
-#   if [ -z "$port" ]; then
-#     echo "❌ ERROR: Environment variable $port_var is not set"
-#     exit 1
-#   fi
-
-#   docker run -d \
-#     --name "$app" \
-#     --network app_network \
-#     -p "$port:3000" \
-#     --restart unless-stopped \
-#     "$app"
-
-#   echo "✔ $app is running"
-#   echo "-------------------------------------------"
-# done
+# -------------------------
+# Deploy frontend apps
+# -------------------------
+for app in web-client web-admin; do
+  if should_deploy "$app"; then
+    deploy_frontend "$app"
+  else
+    echo "Skipping $app due to filter"
+  fi
+done
