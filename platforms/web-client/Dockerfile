@@ -39,6 +39,13 @@ ENV NODE_ENV=production
 
 RUN apk add --no-cache libc6-compat
 
+# Copy monorepo package files
+COPY package.json ./
+COPY yarn.lock ./
+COPY turbo.json ./
+COPY .yarn/ .yarn/
+COPY .yarnrc.yml ./
+
 COPY apps/web-client ./apps/web-client
 COPY packages/eslint-config ./packages/eslint-config
 COPY packages/typescript-config ./packages/typescript-config
