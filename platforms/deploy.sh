@@ -115,7 +115,7 @@ deploy_app() {
 # ---------------------------------
 # Deploy FastAPI apps
 # ---------------------------------
-for app in backend-admin; do
+for app in backend-admin backend-client; do
   deploy_app "$app"
 done
 
