@@ -26,7 +26,7 @@ async function start() {
   // TODO: adding Monitoring
   // TODO: adding Logging
 
-  await fastify.listen({ port: 3001 })
+  await fastify.listen({ port: 8000 })
 }
 
 start().catch((err) => {

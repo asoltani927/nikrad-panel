@@ -23,6 +23,6 @@ COPY package.json ./
 
 RUN yarn install --production --frozen-lockfile
 
-EXPOSE 3000
+EXPOSE 8000
 
 CMD ["node", "dist/server.js"]
