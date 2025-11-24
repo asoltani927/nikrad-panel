@@ -39,6 +39,14 @@ ENV NODE_ENV=production
 
 RUN apk add --no-cache libc6-compat
 
+COPY apps/web-client ./apps/web-client
+COPY packages/eslint-config ./packages/eslint-config
+COPY packages/typescript-config ./packages/typescript-config
+COPY packages/ui ./packages/ui
+
+# Install workspace root dependencies
+RUN yarn workspaces focus --all
+
 # Copy Nuxt build output
 COPY --from=builder /app/apps/web-client ./apps/web-client
 COPY --from=builder /app/packages/eslint-config ./packages/eslint-config
