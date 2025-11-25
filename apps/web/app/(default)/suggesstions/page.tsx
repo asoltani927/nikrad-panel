@@ -9,21 +9,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Search, Eye } from "lucide-react";
+import { Search } from "lucide-react";
 import { SuggestionDetailsModal } from "./components/SuggestionDetailsModal";
 import { SuggestionsTable } from "./components/SuggestionsTable";
+import { useSuggestions } from "./hooks/useSuggestions";
+import { useSuggestionStatus } from "./hooks/useSuggestionStatus";
+import { showToast } from "nextjs-toast-notify";
 
 export default function Suggestions() {
+  // states
   const [filters, setFilters] = useState({
     name: "",
     category: "",
@@ -34,61 +29,59 @@ export default function Suggestions() {
     status: "",
   });
   const [selectedItem, setSelectedItem] = useState<any>(null);
-
   const [isOpen, setIsOpen] = useState(false);
+  const {
+    suggestions,
+    loading,
+    error,
+    page,
+    limit,
+    total,
+    setPage,
+    setLimit,
+    suggestionsRefetch
+  } = useSuggestions();
+  const { updateStatus, loading: changeStatusLoading, error: changeStatusError } = useSuggestionStatus()
 
+  // finish states
+
+  // actions
   const handleView = (item: any) => {
     setSelectedItem(item);
     setIsOpen(true);
   };
 
-  const data = [
-    {
-      id: 38,
-      price: "1257826",
-      need: {
-        id: 15,
-        title: "Refined Concrete Cheese",
-        status: "draft",
-        user: "Heloise Hermiston",
-      },
-      createdBy: {
-        id: 12,
-        name: "Heloise Hermiston",
-        phone: "+989140618916",
-      },
-      createdAt: "2025-11-18T12:13:30.366Z",
-      updatedAt: "2025-11-20T12:28:14.710Z",
-      status: "approve",
-    },
-    {
-      id: 36,
-      price: "966088",
-      need: {
-        id: 15,
-        title: "Refined Concrete Cheese",
-        status: "draft",
-        user: "Heloise Hermiston",
-      },
-      createdBy: {
-        id: 16,
-        name: "Owen Torp",
-        phone: "+989152341136",
-      },
-      createdAt: "2025-11-18T12:13:30.365Z",
-      updatedAt: "2025-11-18T12:13:30.365Z",
-      status: "draft",
-    },
-  ];
+  const handleChangeStatus = async (id: number, value: string) => {
+    try {
+      await updateStatus(id, value, () => {
+        showToast.success("تغییر وضعیت با موفقیت حذف شد!", {
+          duration: 3000,
+          position: "top-left",
+        });
+        setIsOpen(false)
+        suggestionsRefetch()
+      })
+    } catch (err) {
+      showToast.error("تغییر وضعیت با خطا مواجه شد", {
+        duration: 3000,
+        position: "top-left",
+      });
+    }
+  }
 
-  // const filteredData = data.filter((item) => {
-  //   return (
-  //     item.name.includes(filters.name) &&
-  //     item.owner.includes(filters.owner) &&
-  //     (filters.category ? item.category === filters.category : true) &&
-  //     (filters.status ? item.status === filters.status : true)
-  //   );
-  // });
+  // finish actions
+
+  // filters
+  const filteredData = suggestions.filter((item) => {
+    return (
+      item.need.title.includes(filters.name)
+      // item?.need?.user.includes(filters?.owner) &&
+      // (filters.category ? item.category === filters.category : true) &&
+      // (filters.status ? item.status === filters.status : true)
+    );
+  });
+
+  // finish filters
 
   return (
     <Card className="py-4">
@@ -141,13 +134,23 @@ export default function Suggestions() {
           </Select>
         </div>
 
-        <SuggestionsTable data={data} />
+        <SuggestionsTable
+          data={suggestions}
+          onView={handleView}
+          page={page}
+          limit={limit}
+          total={total}
+          setPage={setPage}
+          setLimit={setLimit}
+        />
       </CardContent>
 
       <SuggestionDetailsModal
         open={isOpen}
         onClose={() => setIsOpen(false)}
         item={selectedItem}
+        onActionClick={handleChangeStatus}
+        loading={changeStatusLoading}
       />
     </Card>
   );
