@@ -244,6 +244,11 @@ enum CustomFieldTarget {
   MATERIAL_BOOK
 }
 
+enum OptionsType {
+  REGION
+  CUSTOM
+}
+
 model CustomField {
   id   Int    @id @default(autoincrement())
   cuid String @unique @default(cuid())
@@ -253,6 +258,7 @@ model CustomField {
   type     CustomFieldType
   required Boolean         @default(false)
 
+  optionsType  OptionsType @default(CUSTOM) @map("options_type")
   options      Json?
   defaultValue String?
 
@@ -292,6 +298,7 @@ model CustomFieldValue {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([customFieldId, targetId])
   @@map("custom_field_values")
 }
 
@@ -304,10 +311,10 @@ enum MaterialBookStatus {
 }
 
 model MaterialBook {
-  id     Int                @id @default(autoincrement())
-  title  String
-  status MaterialBookStatus @default(DRAFT)
+  id   Int    @id @default(autoincrement())
+  cuid String @unique @default(cuid())
 
+  status          MaterialBookStatus       @default(DRAFT)
   bookPackageInfo MaterialBookPackageInfo?
 
   ownerId Int

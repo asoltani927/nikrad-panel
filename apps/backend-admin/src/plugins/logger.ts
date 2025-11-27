@@ -90,3 +90,7 @@ export async function setup(app: FastifyInstance) {
 
   await app.register(plugin);
 }
+
+export default {
+  setup,
+}

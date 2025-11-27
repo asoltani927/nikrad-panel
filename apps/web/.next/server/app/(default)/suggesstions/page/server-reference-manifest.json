@@ -1,0 +1,20 @@
+{
+  "node": {
+    "006d5af287ed29f9721e37a46284298803eb95da2a": {
+      "workers": {
+        "app/(default)/suggesstions/page": {
+          "moduleId": "[project]/apps/web/.next-internal/server/app/(default)/suggesstions/page/actions.js { ACTIONS_MODULE0 => \"[project]/apps/web/app/actions/get-token-session.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getAccessToken",
+          "filename": "apps/web/app/actions/get-token-session.ts"
+        }
+      },
+      "layer": {
+        "app/(default)/suggesstions/page": "action-browser"
+      },
+      "exportedName": "getAccessToken",
+      "filename": "apps/web/app/actions/get-token-session.ts"
+    }
+  },
+  "edge": {}
+}

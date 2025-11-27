@@ -1,0 +1,50 @@
+{
+  "node": {
+    "40c1e2fbca61ef4b5f4959cb70ad9dad847f751f65": {
+      "workers": {
+        "app/(default)/categories/page": {
+          "moduleId": "[project]/apps/web/.next-internal/server/app/(default)/categories/page/actions.js { ACTIONS_MODULE0 => \"[project]/apps/web/app/(default)/categories/actions/post-category.action.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/apps/web/app/(default)/categories/actions/put-category.action.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/apps/web/app/actions/get-token-session.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "postCategory",
+          "filename": "apps/web/app/(default)/categories/actions/post-category.action.ts"
+        }
+      },
+      "layer": {
+        "app/(default)/categories/page": "action-browser"
+      },
+      "exportedName": "postCategory",
+      "filename": "apps/web/app/(default)/categories/actions/post-category.action.ts"
+    },
+    "40a24a3eb55a9c2c248541c6380bbdb95d902f3fc6": {
+      "workers": {
+        "app/(default)/categories/page": {
+          "moduleId": "[project]/apps/web/.next-internal/server/app/(default)/categories/page/actions.js { ACTIONS_MODULE0 => \"[project]/apps/web/app/(default)/categories/actions/post-category.action.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/apps/web/app/(default)/categories/actions/put-category.action.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/apps/web/app/actions/get-token-session.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "editCategory",
+          "filename": "apps/web/app/(default)/categories/actions/put-category.action.ts"
+        }
+      },
+      "layer": {
+        "app/(default)/categories/page": "action-browser"
+      },
+      "exportedName": "editCategory",
+      "filename": "apps/web/app/(default)/categories/actions/put-category.action.ts"
+    },
+    "006d5af287ed29f9721e37a46284298803eb95da2a": {
+      "workers": {
+        "app/(default)/categories/page": {
+          "moduleId": "[project]/apps/web/.next-internal/server/app/(default)/categories/page/actions.js { ACTIONS_MODULE0 => \"[project]/apps/web/app/(default)/categories/actions/post-category.action.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/apps/web/app/(default)/categories/actions/put-category.action.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/apps/web/app/actions/get-token-session.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getAccessToken",
+          "filename": "apps/web/app/actions/get-token-session.ts"
+        }
+      },
+      "layer": {
+        "app/(default)/categories/page": "action-browser"
+      },
+      "exportedName": "getAccessToken",
+      "filename": "apps/web/app/actions/get-token-session.ts"
+    }
+  },
+  "edge": {}
+}

@@ -1,0 +1,35 @@
+/* [project]/apps/web/app/iransans_2f4dce7.module.css [app-client] (css) */
+@font-face {
+  font-family: iranSans;
+  src: url("../media/IRANSansWebFaNum_Light-s.p.9f3bdee1.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: iranSans;
+  src: url("../media/IRANSansXFaNum_Medium-s.p.102aab9c.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: iranSans Fallback;
+  src: local(Arial);
+  ascent-override: 97.54%;
+  descent-override: 56.9%;
+  line-gap-override: 0.0%;
+  size-adjust: 106.98%;
+}
+
+.iransans_2f4dce7-module__BjT2aa__className {
+  font-family: iranSans, iranSans Fallback;
+}
+
+.iransans_2f4dce7-module__BjT2aa__variable {
+  --font-iransans: "iranSans", "iranSans Fallback";
+}
+
+/*# sourceMappingURL=apps_web_app_iransans_2f4dce7_module_css_bad6b30c._.single.css.map*/

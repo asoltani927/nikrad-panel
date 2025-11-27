@@ -12,7 +12,7 @@ const NeedResponseSchema = z.object({
   product: z.number(),
   region: z.object({
     code: z.string(),
-    name: z.string(),
+    name: z.string().optional(),
   }),
   city: z.string(),
   priority: z.number(),
@@ -51,19 +51,16 @@ export const getNeedsRoute = async (app: FastifyInstance) => {
           select: {
             id: true,
             title: true,
-
             category: {
               select: {
                 id: true,
                 name: true,
               },
             },
-
             product: true,
             city: true,
             priority: true,
             deliveryDate: true,
-
             createdBy: {
               select: {
                 id: true,
@@ -71,14 +68,12 @@ export const getNeedsRoute = async (app: FastifyInstance) => {
                 phone: true,
               },
             },
-
             region: {
               select: {
                 code: true,
                 name: true,
               },
             },
-
             status: true,
             createdAt: true,
             updatedAt: true,
@@ -86,7 +81,15 @@ export const getNeedsRoute = async (app: FastifyInstance) => {
           },
         })
 
-        return reply.status(200).send({ needs })
+        return reply.status(200).send({ needs: needs.map(n => {
+          return {
+            ...n,
+            region: {
+              code: n.region.code.toString(),
+              name: n.region.name?.toString()
+            }
+          }
+        }) })
       } catch (error) {
         app.log.error(error)
       }

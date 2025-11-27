@@ -9,3 +9,7 @@ export function setup(app: FastifyInstance) {
   app.setValidatorCompiler(validatorCompiler)
   app.setSerializerCompiler(serializerCompiler)
 }
+
+export default {
+  setup,
+}

@@ -1,0 +1,11 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/apps/web/app/(default)/materialNoteBook/[id]/page": [
+      "static/media/IRANSansWebFaNum_Light-s.p.9f3bdee1.woff2",
+      "static/media/IRANSansXFaNum_Medium-s.p.102aab9c.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pagesUsingSizeAdjust": false
+}
