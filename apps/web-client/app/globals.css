@@ -112,11 +112,45 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@font-face {
+  font-family: "IRANSans";
+  src: url("/fonts/IRANSansXFaNum-Medium.woff2") format("woff2"),
+    url("/fonts/IRANSansXFaNum-Medium.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+    font-family: "IRANSans", sans-serif;
   }
+}
+
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #AFAFAF;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+.hiddenScrollStyle::-webkit-scrollbar {
+  display: none;
 }
