@@ -1,5 +1,5 @@
 import { backendRequest } from "@/clients/backend";
-import { Need } from "@/types/needs";
+import { Need } from "@/types/needs.type";
 
 export async function patchNeedStatus(
   id: number,
