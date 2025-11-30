@@ -12,6 +12,7 @@ export const Messages = {
     REQUIRED_AUTH_HEADER: 'هدر Authorization الزامی است',
     LOGIN_SUCCESS: 'ورود موفقیت‌آمیز بود',
     LOGOUT_SUCCESS: 'خروج با موفقیت انجام شد',
+    ACCESS_DENIED: 'شما دسترسی لازم را ندارید',
   },
   needs: {
     NOT_FOUND: 'درخواست نیازمندی موردنظر وجود ندارد',

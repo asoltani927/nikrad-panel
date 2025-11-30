@@ -7,28 +7,45 @@ import z from 'zod'
 export const deleteNeedRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'DELETE',
-    url: '/:id',
+    url: '/:cuid',
     preHandler: [authMiddleware],
     schema: {
       tags: ['needs'],
-      summary: 'Delete a need by ID',
+      summary: 'Delete a need by CUID (owner only)',
       params: z.object({
-        id: z.coerce.number(),
+        cuid: z.string().cuid(),
       }),
       response: {
         200: z.object({ message: z.string() }),
+        403: z.object({ message: z.string() }),
         404: z.object({ message: z.string() }),
       },
     },
     handler: async (request, reply) => {
-      const { id } = request.params
+      const { cuid } = request.params
+      const userId = request.user?.id
 
-      const isExisted = await app.prisma.need.findUnique({ where: { id } })
-      if (!isExisted) {
+      if (!userId) {
+        return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
+      }
+
+      const need = await app.prisma.need.findUnique({
+        where: { cuid },
+        select: { createdById: true, deleted: true },
+      })
+
+      if (!need || need.deleted) {
         return reply.status(404).send({ message: Messages.needs.NOT_FOUND })
       }
 
-      await app.prisma.need.delete({ where: { id } })
+      if (need.createdById !== userId) {
+        return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
+      }
+
+      await app.prisma.need.update({
+        where: { cuid },
+        data: { deleted: true, deletedAt: new Date(), deletedById: userId },
+      })
 
       return reply.status(200).send({ message: Messages.needs.DELETED_SUCCESS })
     },
