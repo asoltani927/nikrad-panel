@@ -6,20 +6,36 @@ import { jsonSchemaTransform } from 'fastify-type-provider-zod'
 export async function setup(app: FastifyInstance) {
   await app.register(swagger, {
     openapi: {
-      info: { title: 'My API', version: '1.0.0' },
+      info: {
+        title: 'My API',
+        version: '1.0.0',
+      },
       servers: [],
       components: {
         securitySchemes: {
-          bearer: {
-            type: 'apiKey',
-            in: 'header',
-            name: 'Authorization',
-            description: 'Bearer token for authentication',
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+            description: 'Enter token as: Bearer <your-token>',
           },
         },
       },
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
     },
     transform: jsonSchemaTransform,
   })
-  await app.register(swaggerUi, { routePrefix: '/docs' })
+
+  await app.register(swaggerUi, {
+    routePrefix: '/docs',
+  })
+}
+
+
+export default {
+  setup,
 }
