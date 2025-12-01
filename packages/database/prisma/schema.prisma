@@ -69,7 +69,9 @@ enum UserType {
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
+  id   Int    @id @default(autoincrement())
+  cuid String @unique @default(cuid())
+
   name  String
   phone String @unique
   email String
