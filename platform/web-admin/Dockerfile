@@ -11,7 +11,6 @@ RUN corepack enable \
     && corepack prepare yarn@4.10.3 --activate \
     && yarn -v  # check version
 
-
 # Copy monorepo package files
 COPY package.json ./
 COPY yarn.lock ./
@@ -44,7 +43,6 @@ RUN apk add --no-cache libc6-compat
 RUN corepack enable \
     && corepack prepare yarn@4.10.3 --activate \
     && yarn -v  # check version
-
 
 # Copy monorepo package files
 COPY package.json ./
