@@ -37,8 +37,8 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-RUN apk add --no-cache libc6-compat
 RUN corepack prepare yarn@4.10.3 --activate
+RUN apk add --no-cache libc6-compat
 
 # Copy monorepo package files
 COPY package.json ./
@@ -47,15 +47,7 @@ COPY turbo.json ./
 COPY .yarn/ .yarn/
 COPY .yarnrc.yml ./
 
-COPY apps/web-client ./apps/web-client
-COPY packages/eslint-config ./packages/eslint-config
-COPY packages/typescript-config ./packages/typescript-config
-COPY packages/ui ./packages/ui
-
-# Install workspace root dependencies
-RUN yarn workspaces focus --all
-
-# Copy Nuxt build output
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/web-client ./apps/web-client
 COPY --from=builder /app/packages/eslint-config ./packages/eslint-config
 COPY --from=builder /app/packages/typescript-config ./packages/typescript-config

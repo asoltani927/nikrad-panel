@@ -47,15 +47,7 @@ COPY turbo.json ./
 COPY .yarn/ .yarn/
 COPY .yarnrc.yml ./
 
-COPY apps/web-admin ./apps/web-admin
-COPY packages/eslint-config ./packages/eslint-config
-COPY packages/typescript-config ./packages/typescript-config
-COPY packages/ui ./packages/ui
-
-# Install workspace root dependencies
-RUN yarn workspaces focus --all
-
-# Copy Nuxt build output
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/web-admin ./apps/web-admin
 COPY --from=builder /app/packages/eslint-config ./packages/eslint-config
 COPY --from=builder /app/packages/typescript-config ./packages/typescript-config
