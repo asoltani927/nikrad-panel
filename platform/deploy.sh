@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 FILTER_APPS=()
 
