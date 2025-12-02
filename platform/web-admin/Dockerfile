@@ -7,7 +7,10 @@ WORKDIR /app
 
 # Install libc6 to prevent crashes in Alpine
 RUN apk add --no-cache libc6-compat
-RUN corepack prepare yarn@4.10.3 --activate
+RUN corepack enable \
+    && corepack prepare yarn@4.10.3 --activate \
+    && yarn -v  # check version
+
 
 # Copy monorepo package files
 COPY package.json ./
@@ -37,8 +40,11 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-RUN corepack prepare yarn@4.10.3 --activate
 RUN apk add --no-cache libc6-compat
+RUN corepack enable \
+    && corepack prepare yarn@4.10.3 --activate \
+    && yarn -v  # check version
+
 
 # Copy monorepo package files
 COPY package.json ./
