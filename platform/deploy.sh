@@ -1,8 +1,5 @@
 #!/bin/bash
 
-set -euo pipefail
-IFS=$'\n\t'
-
 FILTER_APPS=()
 
 # -------------------------
@@ -39,34 +36,31 @@ should_deploy() {
 # ---------------------------------
 # Load environment variables
 # ---------------------------------
-if [ -f .env ]; then
-  dos2unix .env 2>/dev/null || true
-  echo "==> Loading environment variables from .env..."
-  export $(grep -v '^#' .env | xargs)
-  echo "✔ Environment variables loaded"
-else
-  echo "❌ .env file not found"
-  exit 1
-fi
+sed -i 's/\r$//' .env
+
+echo "==> Loading environment variables from .env..."
+export $(grep -v '^#' .env | xargs)
+echo "✔ Environment variables loaded"
 
 # ---------------------------------
 # Docker network
 # ---------------------------------
 echo "==> Creating Docker network..."
-docker network create app_network 2>/dev/null || true
+# docker network create app_network 2>/dev/null || true
 
 # ---------------------------------
 # Build and run Postgres
 # ---------------------------------
 echo "==> Starting PostgreSQL..."
 docker rm -f postgres_db 2>/dev/null || true
+# Uncomment to run Postgres
 docker run -d \
   --name postgres_db \
   --network app_network \
-  -e POSTGRES_USER=${POSTGRES_USER:-postgres} \
-  -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres} \
-  -e POSTGRES_DB=${POSTGRES_DB:-postgres} \
-  -p 127.0.0.1:${POSTGRES_PORT:-5432}:5432 \
+  -e POSTGRES_USER=$POSTGRES_USER \
+  -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
+  -e POSTGRES_DB=$POSTGRES_DB \
+  -p 127.0.0.1:$POSTGRES_PORT:5432 \
   -v pgdata:/var/lib/postgresql/data \
   --restart unless-stopped \
   postgres:15
@@ -76,15 +70,16 @@ docker run -d \
 # ---------------------------------
 echo "==> Starting Redis..."
 docker rm -f redis_server 2>/dev/null || true
+# Uncomment to run Redis
 docker run -d \
   --name redis_server \
   --network app_network \
-  -p 127.0.0.1:${REDIS_PORT:-6379}:6379 \
+  -p 127.0.0.1:$REDIS_PORT:6379 \
   --restart unless-stopped \
   redis:7
 
 # ---------------------------------
-# Deploy backend
+# Function to deploy a Docker app
 # ---------------------------------
 deploy_backend() {
   local app=$1
@@ -92,40 +87,51 @@ deploy_backend() {
   echo "-------------------------------------------"
   echo "==> Building $app..."
 
-  # Build image
-  docker build -t "$app" -f "platforms/$app/Dockerfile" . || {
-    echo "❌ Build failed for $app"
+  # 1️⃣ Build image first
+  if ! docker build -t "$app" -f "platforms/$app/Dockerfile" .; then
+    echo "❌ Build failed for $app — keeping existing container running"
     return 1
-  }
+  fi
   echo "✔ Build succeeded for $app"
 
-  # Prisma migration
-  echo "==> Running Prisma migrate deploy for $app..."
-  docker run --rm \
-    --env-file .env \
-    --network app_network \
-    -e DATABASE_URL="$DATABASE_URL" \
-    "$app" sh -c "yarn workspace @nikrad/database prisma migrate deploy" || {
-      echo "❌ Prisma migrate deploy failed"
+    echo "==> Running Prisma migrate deploy for $app..."
+    if ! docker run --rm \
+      --env-file .env \
+      --network app_network \
+      -e DATABASE_URL="$DATABASE_URL" \
+      "$app" sh -c "yarn workspace @nikrad/database prisma migrate deploy"; then
+      echo "❌ Prisma migrate deploy failed — aborting deploy"
       exit 1
-    }
+  fi
 
-  # Remove old container
+  # 3️⃣ Remove old container safely
+  echo "==> Removing old container..."
   docker rm -f "$app" 2>/dev/null || true
 
-  # Ports
+  # 4️⃣ Determine ports
   normalized_app="${app//-/_}"
   port_var="${normalized_app^^}_PORT"
-  port="${!port_var:-8000}"  # default port fallback
+  port="${!port_var:-}"
 
-  # Exposed port
+  if [ -z "$port" ]; then
+    echo "❌ ERROR: Environment variable $port_var is not set"
+    exit 1
+  fi
+
+  # Extract exposed port from Dockerfile
   exposed_port=$(docker inspect "$app" \
     --format '{{range $k,$v := .Config.ExposedPorts}}{{println $k}}{{end}}' \
-    | cut -d'/' -f1 || echo "$port")
+    | cut -d'/' -f1)
 
-  echo "✔ Ports → host:$port → container:$exposed_port"
+  if [ -z "$exposed_port" ]; then
+    echo "❌ ERROR: No EXPOSE found in Dockerfile for $app"
+    exit 1
+  fi
 
-  # Run container
+  echo "✔ Ports resolved → host:$port → container:$exposed_port"
+
+  # 5️⃣ Run container
+  echo "==> Starting container $app..."
   docker run -d \
     --env-file .env \
     -e DATABASE_URL="$DATABASE_URL" \
@@ -140,32 +146,51 @@ deploy_backend() {
 }
 
 # ---------------------------------
-# Deploy frontend
+# Function to deploy a frontend app (Next.js / Nuxt)
 # ---------------------------------
 deploy_frontend() {
   local app=$1
+  local app_dir="apps/$app"
 
   echo "-------------------------------------------"
   echo "==> Building frontend $app..."
 
+  # 1️⃣ Remove old container
   docker rm -f "$app" 2>/dev/null || true
 
-  docker build \
+  # 2️⃣ Build Docker image
+  if ! docker build \
     --build-arg APP_NAME="$app" \
     -t "$app" \
-    -f "platforms/$app/Dockerfile" . || {
-      echo "❌ Build failed for $app"
-      return 1
-    }
+    -f "platforms/$app/Dockerfile" .; then
+    echo "❌ Build failed for $app — keeping existing container running"
+    return 1
+  fi
+  echo "✔ Build succeeded for $app"
 
+  # 3️⃣ Determine port from env
   normalized_app="${app//-/_}"
   port_var="${normalized_app^^}_PORT"
-  port="${!port_var:-3000}"
+  port="${!port_var:-}"
 
+  if [ -z "$port" ]; then
+    echo "❌ ERROR: Environment variable $port_var is not set"
+    exit 1
+  fi
+
+  # 4️⃣ Extract exposed port from Dockerfile (default to 3000)
   exposed_port=$(docker inspect "$app" \
     --format '{{range $k,$v := .Config.ExposedPorts}}{{println $k}}{{end}}' \
-    | cut -d'/' -f1 || echo "$port")
+    | cut -d'/' -f1)
 
+  if [ -z "$exposed_port" ]; then
+    exposed_port=3000
+  fi
+
+  echo "✔ Ports resolved → host:$port → container:$exposed_port"
+
+  # 5️⃣ Run container
+  echo "==> Starting container $app..."
   docker run -d \
     --env-file .env \
     --name "$app" \
@@ -178,8 +203,9 @@ deploy_frontend() {
   echo "-------------------------------------------"
 }
 
+
 # -------------------------
-# Deploy apps
+# Deploy FastAPI apps
 # -------------------------
 for app in backend-admin backend-client; do
   if should_deploy "$app"; then
@@ -189,6 +215,9 @@ for app in backend-admin backend-client; do
   fi
 done
 
+# -------------------------
+# Deploy frontend apps
+# -------------------------
 for app in web-client web-admin; do
   if should_deploy "$app"; then
     deploy_frontend "$app"
@@ -198,8 +227,8 @@ for app in web-client web-admin; do
 done
 
 # ---------------------------------
-# Docker cleanup
+# Clean up unused Docker resources
 # ---------------------------------
-echo "==> Cleaning up unused Docker resources..."
+echo "==> Cleaning up old Docker containers, images, volumes, and networks..."
 docker system prune -a --volumes -f
 echo "✔ Docker cleanup completed"
