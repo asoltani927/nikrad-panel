@@ -59,5 +59,8 @@ COPY --from=builder /app/packages/ui ./packages/ui
 
 EXPOSE 3000
 
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
 # Start Nuxt server
 CMD ["sh", "-c", "yarn workspace @nikrad/web-client start"]

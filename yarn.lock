@@ -1665,7 +1665,7 @@ __metadata:
     eslint: "npm:^9.34.0"
     init: "npm:^0.1.2"
     lucide-react: "npm:^0.554.0"
-    next: "npm:^15.5.0"
+    next: "npm:16.0.3"
     nextjs-toast-notify: "npm:^1.54.0"
     postcss: "npm:^8.5.6"
     react: "npm:^19.1.0"
