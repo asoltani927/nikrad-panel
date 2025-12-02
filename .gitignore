@@ -44,6 +44,4 @@ lerna-debug.log*
 .turbo
 .vercel
 
-.yarn/*
-!.yarn/install-state.gz
-!.yarn/release
+.yarn/cache
