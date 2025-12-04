@@ -4,4 +4,4 @@ export * from "./region.type";
 export * from "./user.type";
 export * from "./suggestions.type";
 export * from "./fields.type";
-
+export * from "./pagination.type";

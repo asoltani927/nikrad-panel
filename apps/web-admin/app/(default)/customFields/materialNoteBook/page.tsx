@@ -12,132 +12,145 @@ import { FieldDialog } from "./components/CreateFieldModal";
 import { EditCustomFieldModal } from "./components/EditFieldModal";
 import { useUpdateFields } from "../hooks/useUpdateFields";
 import { useDeleteFields } from "../hooks/useDeleteFields";
+import { Field } from "@/types";
 
 export default function CustomFieldsMaterialNoteBook() {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [modalEdit, setModalEdit] = useState(false);
-    const [selectedField, setSelectedField] = useState(null);
-    const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(10);
-    const { fields, loading, error, fieldsRefetch } = useFields();
-    const { loading: createFieldLoading, error: createFieldError, createField } = useCreateFields();
-    const { updateField, loading: updateFieldLoading, error: updateFieldError } = useUpdateFields();
-    const { removeField, loading: deleteLoading } = useDeleteFields();
+  type FieldItem = Field["data"][number];
 
-    const handleAddField = async (data: any) => {
-        try {
-            const payload = { ...data, categoryId: data.categoryId ?? 0 };
-            await createField(payload);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+  const [selectedField, setSelectedField] = useState<FieldItem | null>(null);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const { fields, loading, error, fieldsRefetch } = useFields();
+  const {
+    loading: createFieldLoading,
+    error: createFieldError,
+    createField,
+  } = useCreateFields();
+  const {
+    updateField,
+    loading: updateFieldLoading,
+    error: updateFieldError,
+  } = useUpdateFields();
+  const { removeField, loading: deleteLoading } = useDeleteFields();
 
-            showToast.success("فیلد با موفقیت ایجاد شد!", {
-                duration: 3000,
-                position: "top-left",
-            });
-            setModalOpen(false);
-            fieldsRefetch();
-        } catch (err) {
-            showToast.error("افزودن فیلد با خطا مواجه شد", {
-                duration: 3000,
-                position: "top-left",
-            });
-        }
-    };
+  const handleAddField = async (data: any) => {
+    try {
+      const payload = { ...data, categoryId: data.categoryId ?? 0 };
+      await createField(payload);
 
-    const handleEditFieldModal = (field: any) => {
-        setSelectedField(field);
-        setModalEdit(true);
+      showToast.success("فیلد با موفقیت ایجاد شد!", {
+        duration: 3000,
+        position: "top-left",
+      });
+      setModalOpen(false);
+      fieldsRefetch();
+    } catch (err) {
+      showToast.error("افزودن فیلد با خطا مواجه شد", {
+        duration: 3000,
+        position: "top-left",
+      });
     }
+  };
 
-    const handleFieldEdit = async (data: any) => {
-        if (!selectedField) {
-            showToast.error("فیلد معتبر برای ویرایش پیدا نشد!");
-            return;
-        }
-        try {
-            const payload = {
-                ...data,
-                // @ts-ignore TODO @reza remove ts-ignore and fix typescript issue
-                id: selectedField.id,
-                categoryId: data.categoryId ?? 0,
-            };
+  const handleEditFieldModal = (field: FieldItem) => {
+    setSelectedField(field);
+    setModalEdit(true);
+  };
 
-            await updateField(payload);
-
-            showToast.success("فیلد با موفقیت بروزرسانی شد!", {
-                duration: 3000,
-                position: "top-left",
-            });
-
-            setModalEdit(false);
-            fieldsRefetch();
-
-        } catch (err) {
-            showToast.error("بروزرسانی فیلد با خطا مواجه شد", {
-                duration: 3000,
-                position: "top-left",
-            });
-        }
-    };
-
-    const handleDeleteField = async (field: number) => {
-        try {
-                // @ts-ignore TODO @reza remove ts-ignore and fix typescript issue
-            await removeField(field?.id);
-
-            showToast.success("فیلد با موفقیت حذف شد!", {
-                duration: 3000,
-                position: "top-left",
-            });
-            fieldsRefetch();
-        } catch (err) {
-            showToast.error("افزودن فیلد با خطا مواجه شد", {
-                duration: 3000,
-                position: "top-left",
-            });
-        }
+  const handleFieldEdit = async (data: any) => {
+    if (!selectedField) {
+      showToast.error("فیلد معتبر برای ویرایش پیدا نشد!");
+      return;
     }
+    try {
+      const payload = {
+        ...data,
+        id: selectedField.id,
+        categoryId: data.categoryId ?? 0,
+      };
 
-    return (
-        <div className="p-6">
-            <Card>
-                <CardHeader className="flex items-center justify-between">
-                    <CardTitle>لیست فیلدها</CardTitle>
-                    <Button variant="outline" onClick={() => setModalOpen(true)}>
-                        <span>افزودن</span>
-                        <Plus />
-                    </Button>
-                </CardHeader>
+      await updateField(payload);
 
-                <CardContent>
-                    {loading && <p>در حال بارگذاری...</p>}
-                    {error && <p className="text-red-600">{error}</p>}
-                    {!loading && !error && <FieldsTable
-                        data={fields}
-                        page={page}
-                        limit={limit}
-                        total={fields.length}
-                        setPage={setPage}
-                        onEdit={handleEditFieldModal}
-                        // @ts-ignore TODO @reza remove ts-ignore and fix typescript issue
-                        onDelete={handleDeleteField}
-                    />}
-                </CardContent>
-            </Card>
+      showToast.success("فیلد با موفقیت بروزرسانی شد!", {
+        duration: 3000,
+        position: "top-left",
+      });
 
-            <FieldDialog
-                open={modalOpen}
-                onOpenChange={setModalOpen}
-                onSubmit={handleAddField}
-                loading={createFieldLoading}
+      setModalEdit(false);
+      fieldsRefetch();
+    } catch (err) {
+      showToast.error("بروزرسانی فیلد با خطا مواجه شد", {
+        duration: 3000,
+        position: "top-left",
+      });
+    }
+  };
+
+  const handleDeleteField = async (field: FieldItem) => {
+    try {
+      await removeField(field?.id);
+
+      showToast.success("فیلد با موفقیت حذف شد!", {
+        duration: 3000,
+        position: "top-left",
+      });
+      fieldsRefetch();
+    } catch (err) {
+      showToast.error("افزودن فیلد با خطا مواجه شد", {
+        duration: 3000,
+        position: "top-left",
+      });
+    }
+  };
+
+  return (
+    <div className="p-6">
+      <Card>
+        <CardHeader className="flex items-center justify-between">
+          <CardTitle>لیست فیلدها</CardTitle>
+          <Button variant="outline" onClick={() => setModalOpen(true)}>
+            <span>افزودن</span>
+            <Plus />
+          </Button>
+        </CardHeader>
+
+        <CardContent>
+          {loading && <p>در حال بارگذاری...</p>}
+          {error && <p className="text-red-600">{error}</p>}
+          {!loading && !error && (
+            <FieldsTable
+              data={fields}
+              page={page}
+              limit={limit}
+              total={fields.length}
+              setPage={setPage}
+              onEdit={handleEditFieldModal}
+              onDelete={handleDeleteField}
             />
+          )}
+        </CardContent>
+      </Card>
 
-            <EditCustomFieldModal
-                open={modalEdit}
-                onOpenChange={setModalEdit}
-                fieldData={selectedField}
-                loading={updateFieldLoading}
-                onSubmit={handleFieldEdit}
-            />
-        </div>
-    );
+      <FieldDialog
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+        onSubmit={handleAddField}
+        loading={createFieldLoading}
+      />
+
+      <EditCustomFieldModal
+        open={modalEdit}
+        onOpenChange={setModalEdit}
+        fieldData={
+          selectedField
+            ? { ...selectedField, categoryId: selectedField.categoryId ?? 0 }
+            : null
+        }
+        loading={updateFieldLoading}
+        onSubmit={handleFieldEdit}
+      />
+    </div>
+  );
 }

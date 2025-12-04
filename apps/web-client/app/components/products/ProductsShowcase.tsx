@@ -22,10 +22,8 @@ export function ProductsShowcase() {
     const sortedProducts = [...products].sort((a, b) => {
         switch (filter) {
             case "popular":
-                // @ts-expect-error TODO @hanna @reza remove the commented line and fix typescript issue
                 return b.views - a.views;
             case "newest":
-                // @ts-expect-error TODO @hanna @reza remove the commented line and fix typescript issue
                 return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
             case "expensive":
                 return b.price - a.price;
