@@ -6,7 +6,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "deploy": "./platforms/deploy.sh"
+    "deploy": "./platform/deploy.sh"
   },
   "devDependencies": {
     "prettier": "^3.6.2",
