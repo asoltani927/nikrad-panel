@@ -27,6 +27,7 @@ export const Messages = {
     UPDATED_SUCCESS: 'پیشنهاد با موفقیت به‌روز شد',
     UPDATED_STATUS: 'وضعیت پیشنهاد با موفقیت به‌روز شد',
     DELETED_SUCCESS: 'پیشنهاد با موفقیت حذف شد',
+    ALREADY_EXISTS: 'برای این نیازمندی قبلا پیشنهاد ثبت شده است. لطفا آن را ویرایش کنید.',
   },
   general: {
     INTERNAL_ERROR: 'خطای داخلی سرور',
