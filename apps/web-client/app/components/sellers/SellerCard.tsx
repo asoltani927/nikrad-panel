@@ -46,8 +46,8 @@ export const SellerCard = ({ seller }: { seller: sellerType }) => {
                 <div className="">{seller.city}</div>
             </div>
 
-            <div className="w-full flex items-center justify-between gap-1 mt-4 ">
-                <div className="flex gap-2 text-gray-600 ">
+            <div className="w-full flex items-center justify-center gap-1 mt-4 ">
+                {/* <div className="flex gap-2 text-gray-600 ">
                     {seller.social?.instagram &&
                         <a href={seller.social.instagram}>
                             <Image
@@ -73,7 +73,7 @@ export const SellerCard = ({ seller }: { seller: sellerType }) => {
                         height={15}
                         className=""
                     /></a>}
-                </div>
+                </div> */}
                 <Link
                     href={seller.storeLink}
                     className="flex items-center gap-1 text-[#EAAA08] text-xs font-medium text-nowrap transition"

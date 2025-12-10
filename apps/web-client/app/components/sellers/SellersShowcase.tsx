@@ -28,7 +28,7 @@ export const SellerShowcase = () => {
                         در این بخش می‌توانید مستقیماً از فروشندگان خرید کنید یا به عنوان فروشنده محصولات خود را عرضه کنید.
                     </p>
                     <div className="w-full lg:w-fit flex flex-col sm:flex-row items-center gap-4 mt-6">
-                        <Button asChild className="w-full sm:w-fit px-5! py-5 lg:py-1.5  rounded-[3px] bg-[#FAC515] hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-xs font-medium">
+                        <Button asChild className="w-full sm:w-fit px-5! py-5 lg:py-1.5  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-xs font-medium">
                             <Link
                                 href={'#'}
                                 className="flex items-center gap-2 "

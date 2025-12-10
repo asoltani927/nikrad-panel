@@ -66,7 +66,7 @@ export function HeroCarousel() {
                                     <p className="text-center font-light text-sm leading-7 text-[#1C1D1F] lg:text-white">
                                         {item.desc}
                                     </p>
-                                    <Button className="hidden lg:block mt-4 px-7! py-1.5  rounded-[3px] bg-[#FAC515] hover:bg-[#e7bd35] text-[#1C1D1F] text-xs font-medium">
+                                    <Button className="hidden lg:block mt-4 px-7! py-1.5  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-xs font-medium">
                                         <Link
                                             href={item.buttonLink}
                                             className="flex items-center gap-2 text-[#1C1D1F]  "

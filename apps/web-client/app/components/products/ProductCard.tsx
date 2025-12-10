@@ -61,7 +61,7 @@ export const ProductCard = ({ product }: { product: ProductType }) => {
 
             <div className="flex justify-between items-center gap-2 mt-">
 
-                <Button asChild className="grow px-6! h-8  rounded-[3px] bg-[#FAC515] hover:bg-[#e7bd35] text-[#1C1D1F] text-[11px] font-medium">
+                <Button asChild className="grow px-6! h-8  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-[11px] font-medium">
                     <Link
                         href={'#'}
                         className="flex items-center gap-2 "

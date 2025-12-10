@@ -60,7 +60,7 @@ export default function Header() {
 						</Link>
 						<Button asChild className="rounded-full">
 							<Link
-								href={'#'}
+								href={'/material-book'}
 								className="hidden items-center gap-2 rounded-full border border-[#171717] px-5 h-8! text-[11px] font-light  text-white lg:flex"
 							>
 								دفترچه متریال
@@ -80,7 +80,7 @@ export default function Header() {
 				</div>
 				<div className="flex items-center gap-6">
 					<Search className="block lg:hidden  text-zinc-500 size-7" />
-					<Button asChild className="w-fit px-8! lg:px-7! py-1.5  rounded-[3px] bg-[#FAC515] hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-xs font-medium">
+					<Button asChild className="w-fit px-8! lg:px-7! py-1.5  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-xs font-medium">
 						<Link
 							href={'#'}
 							className="flex items-center gap-2 "

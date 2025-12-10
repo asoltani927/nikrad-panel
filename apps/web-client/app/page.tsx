@@ -4,8 +4,6 @@ import { MaterialCatalog } from "./components/material-catalog/MaterialCatalog";
 import { SellerShowcase } from "./components/sellers/SellersShowcase";
 import { ProductsShowcase } from "./components/products/ProductsShowcase";
 import { BlogsShowcase } from "./components/blogs/BlogsShowcase";
-import LayoutFooter from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
 
 
 
@@ -13,33 +11,23 @@ export default function Home() {
   return (
     <div className="w-full min-h-screen items-center justify-center bg-white  font-sans dark:bg-black">
 
-      {/* 👉 Header  */}
-      <Header />
+      {/* 👉 Hero Carousel  */}
+      <HeroCarousel />
 
-      <main className="w-full  ">
+      {/* 👉 Main Categories  */}
+      <MainCategories />
 
-        {/* 👉 Hero Carousel  */}
-        <HeroCarousel />
+      {/* 👉 Material Catalog  */}
+      <MaterialCatalog />
 
-        {/* 👉 Main Categories  */}
-        <MainCategories />
+      {/* 👉 Sellers */}
+      <SellerShowcase />
 
-        {/* 👉 Material Catalog  */}
-        <MaterialCatalog />
+      {/* 👉 Products   */}
+      <ProductsShowcase />
 
-        {/* 👉 Sellers */}
-        <SellerShowcase />
-
-        {/* 👉 Products   */}
-        <ProductsShowcase />
-
-        {/* 👉 Blogs   */}
-        <BlogsShowcase />
-
-      </main>
-
-      {/* 👉 Footer  */}
-      <LayoutFooter />
+      {/* 👉 Blogs   */}
+      <BlogsShowcase />
 
     </div>
   );

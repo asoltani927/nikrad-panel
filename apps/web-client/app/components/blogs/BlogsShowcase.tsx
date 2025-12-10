@@ -21,7 +21,7 @@ export function BlogsShowcase() {
     };
 
     return (
-        <section className="w-full pt-32 lg:pt-40 pb-24 lg:pb-32 bg-gray-50">
+        <section className="w-full pt-32 lg:pt-40 pb-12 lg:pb-32 bg-gray-50">
             <BaseContainer className="lg:px-44">
                 {/* Title + Arrows */}
                 <div className="w-full flex items-center justify-start lg:justify-between mb-7 px-8 lg:px-0">
@@ -70,7 +70,7 @@ export function BlogsShowcase() {
                 </div>
 
                 {/* See All */}
-                <div className="flex justify-end  mt-10 lg:mt-6 pe-8 lg:pe-0">
+                <div className="hidden lg:flex justify-end  mt-10 lg:mt-6 pe-8 lg:pe-0">
                     <Button variant={"outline"} className="border h-9 px-6! bg-transparent border-[#EAAA08] text-[#CA8504] hover:bg-[#e7bd35] text-xs flex items-center gap-1  rounded-xs cursor-pointer">
                         <Link
                             href={`#`}
