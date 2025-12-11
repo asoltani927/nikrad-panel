@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Stepper from "../components/stepper";
+import Stepper from "../components/Stepper";
 import BaseContainer from "@/components/base/BaseContainer";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";

@@ -8,7 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Trash2, X } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import Stepper from "../components/stepper";
+import Stepper from "../components/Stepper";
 import { useRouter } from "next/navigation";
 
 export default function PaymentInfoPage() {

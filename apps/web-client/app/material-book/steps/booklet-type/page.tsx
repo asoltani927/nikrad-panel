@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Stepper from "../components/stepper";
 import BaseContainer from "@/components/base/BaseContainer";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -8,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { booklets } from "./components/booklets.data";
 import BookletCard from "./components/BookletCard";
+import Stepper from "../components/Stepper";
 
 const schema = z.object({
   selectedBooklet: z.string().min(1, "لطفاً نوع دفترچه را انتخاب کنید")

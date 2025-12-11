@@ -6,6 +6,7 @@ import { products } from "./products.data";
 import { ProductCard } from "./ProductCard";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ProductSelectFilter } from "./ProductSelectFilter";
+import Link from "next/link";
 
 export function ProductsShowcase() {
     const sliderRef = useRef<HTMLDivElement>(null);
@@ -75,10 +76,10 @@ export function ProductsShowcase() {
 
                 {/* See All */}
                 <div className=" flex justify-end pe-8 lg:pe-44 mt-6">
-                    <div className="border h-12 lg:h-9 px-8 lg:px-6 text-white lg:text-xs flex items-center gap-1 border-white rounded-xs cursor-pointer">
+                    <Link href={'/products'} className="border h-12 lg:h-9 px-8 lg:px-6 text-white lg:text-xs flex items-center gap-1 border-white rounded-xs cursor-pointer">
                         مشاهده همه
                         <ArrowLeft color="#FFF" className="size-6 lg:size-4" />
-                    </div>
+                    </Link>
                 </div>
             </BaseContainer>
         </section>
