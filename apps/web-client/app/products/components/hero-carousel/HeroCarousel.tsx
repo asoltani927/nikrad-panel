@@ -35,7 +35,7 @@ export function HeroCarousel() {
     }, [api])
 
     return (
-        <section className="relative mt-4 lg:mt-0 bg-white px-8 lg:px-0">
+        <section className="hidden lg:block relative mt-4 lg:mt-0 bg-white px-8 lg:px-0">
             <Carousel setApi={setApi} opts={{ loop: true }} dir="ltr" className="w-full">
                 <CarouselContent>
                     {heroCarouselItems.map((item, index) => (

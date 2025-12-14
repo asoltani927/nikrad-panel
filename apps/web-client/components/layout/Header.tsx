@@ -41,7 +41,7 @@ export default function Header() {
 							فروشگاه
 						</Link>
 						<Link
-							href={'#'}
+							href={'/inquiries'}
 							className=" hover:text-gray-700"
 						>
 							نیازمندی‌ها

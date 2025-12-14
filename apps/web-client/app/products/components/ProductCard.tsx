@@ -1,19 +1,19 @@
 import Image from "next/image";
-import { ProductType } from "../typings/product.types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { ProductType } from "@/app/components/typings/product.types";
 
 export const ProductCard = ({ product }: { product: ProductType }) => {
     return (
-        <div dir="rtl" className=" min-w-[213px] w-[213px] max-w-[213px] bg-[#FAFAFA] text-[#333741] border rounded-[12px]  p-2 flex flex-col gap-2 hover:shadow-lg transition-all">
+        <div dir="rtl" className=" lg:min-w-[207px] lg:w-[207px] lg:max-w-[207px] bg-[#FAFAFA] text-[#333741] border rounded-[12px]  p-2 flex flex-col gap-2 hover:shadow transition-all">
 
-            <div className="w-[196px] h-[196px] rounded-md bg-white ">
+            <div className="lg:w-[190px] lg:h-[190px] rounded-md bg-white ">
                 <Image
                     src={product.image}
                     alt={product.name}
-                    width={196}
-                    height={196}
+                    width={190}
+                    height={190}
                     className="rounded-md object-cover p-6"
                 />
             </div>
@@ -61,21 +61,23 @@ export const ProductCard = ({ product }: { product: ProductType }) => {
 
             <div className="flex justify-between items-center gap-2 mt-">
 
-                <Button asChild className="grow px-6! h-8  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-[11px] font-medium">
+                <Button asChild className="lg:grow lg:px-4! h-8  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-[11px] font-medium">
                     <Link
                         href={'#'}
                         className="flex items-center gap-2 "
                     >
-                        خرید
+                        <span className="hidden lg:block"> افزودن به سبد خرید</span>
+                        <span className="block lg:hidden">خرید</span>
                     </Link>
                 </Button>
 
-                <Button asChild variant={"outline"} className="grow  h-8 bg-transparent  rounded-[3px] border-[#EAAA08] hover:bg-[#e7bd35] text-[#CA8504] text-[11px] font-medium">
+                <Button asChild variant={"outline"} className="px-2 lg:px-auto lg:grow  h-8 bg-transparent  rounded-[3px] border-[#EAAA08] hover:bg-[#e7bd35] text-[#CA8504] text-[11px] font-medium">
                     <Link
                         href={`/product/${product.id}`}
                         className="flex items-center gap-2 "
                     >
-                        مشاهده جزئیات
+                        <span className="hidden lg:block"> جزئیات</span>
+                        <span className="block lg:hidden">مشاهده جزئیات</span>
                     </Link>
                 </Button>
 

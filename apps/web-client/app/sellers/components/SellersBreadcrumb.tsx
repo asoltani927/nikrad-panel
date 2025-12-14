@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/breadcrumb"
 import BaseContainer from "@/components/base/BaseContainer"
 
-export function ProductsBreadcrumb() {
+export function SellersBreadcrumb() {
     return (
         <div className="h-fit w-full flex justify-center bg-[#F5F5F6] py-3">
             <BaseContainer className="w-full">
@@ -26,7 +26,7 @@ export function ProductsBreadcrumb() {
                             <ChevronLeft className="size-4.5!" />
                         </BreadcrumbSeparator>
                         <BreadcrumbItem>
-                            <BreadcrumbPage className="lg:text-[19px] font-medium">محصولات</BreadcrumbPage>
+                            <BreadcrumbPage className="lg:text-[19px] font-medium">فروشندگان</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
