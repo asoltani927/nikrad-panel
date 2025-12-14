@@ -3,16 +3,8 @@
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useState } from "react";
-
-const images = [
-    "/img/product-image.png",
-    "/img/material-book/11879344_Checklist3242.png",
-    "/img/product-image.png",
-    "/img/product-image.png",
-    "/img/product-image.png",
-    "/img/product-image.png",
-    "/img/product-image.png",
-];
+import { product } from "./product.data";
+import { ProductImage } from "./typings/product.type";
 
 export const ProductGallery = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -24,8 +16,7 @@ export const ProductGallery = () => {
 
     useEffect(() => {
         if (!mainApi) return;
-        const onSelect = () =>
-            setSelectedIndex(mainApi.selectedScrollSnap());
+        const onSelect = () => setSelectedIndex(mainApi.selectedScrollSnap());
         mainApi.on("select", onSelect);
         onSelect();
     }, [mainApi]);
@@ -40,18 +31,16 @@ export const ProductGallery = () => {
             {/* Thumbnails - Native Scroll */}
             <div className="h-[420px] overflow-y-auto hiddenScrollStyle">
                 <div className="flex flex-col gap-5">
-                    {images.map((src, i) => (
+                    {product.images.map((image: ProductImage, i: number) => (
                         <button
                             key={i}
                             onClick={() => onThumbClick(i)}
-                            className={`w-14 h-14  cursor-pointer relative aspect-square rounded-md overflow-hidden  ${selectedIndex === i
-                                ? " opacity-100"
-                                : "opacity-50 hover:opacity-60"
+                            className={`w-14 h-14 cursor-pointer relative aspect-square rounded-md overflow-hidden ${selectedIndex === i ? "opacity-100" : "opacity-50 hover:opacity-60"
                                 }`}
                         >
                             <Image
-                                src={src}
-                                alt=""
+                                src={image.src}
+                                alt={image.alt || `تصویر محصول ${i + 1}`}
                                 fill
                                 className="object-cover shadow-xs"
                             />
@@ -63,14 +52,14 @@ export const ProductGallery = () => {
             {/* Main image - Embla */}
             <div dir="ltr" ref={mainRef} className="flex-1 overflow-hidden rounded-xl">
                 <div className="flex">
-                    {images.map((src, i) => (
+                    {product.images.map((image: ProductImage, i: number) => (
                         <div
                             key={i}
                             className="min-w-full relative aspect-square bg-[#F5F5F5]"
                         >
                             <Image
-                                src={src}
-                                alt=""
+                                src={image.src}
+                                alt={image.alt || `تصویر محصول ${i + 1}`}
                                 fill
                                 className="object-contain"
                             />

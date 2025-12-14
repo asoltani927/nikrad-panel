@@ -73,7 +73,7 @@ export const ProductCard = ({ product }: { product: ProductType }) => {
 
                 <Button asChild variant={"outline"} className="px-2 lg:px-auto lg:grow  h-8 bg-transparent  rounded-[3px] border-[#EAAA08] hover:bg-[#e7bd35] text-[#CA8504] text-[11px] font-medium">
                     <Link
-                        href={`/product/${product.id}`}
+                        href={`/products/${product.id}`}
                         className="flex items-center gap-2 "
                     >
                         <span className="hidden lg:block"> جزئیات</span>
