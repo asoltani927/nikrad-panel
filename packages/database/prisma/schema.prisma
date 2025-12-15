@@ -122,6 +122,7 @@ model User {
   materialBookAttachmentDeletedBy MaterialBookAttachment[] @relation("materialBookAttachmentDeletedBy")
   materialBookOwners              MaterialBook[]           @relation("materialBookOwner")
   addresses                       Address[]
+  transaction                     Transaction[]
 }
 
 model Address {
@@ -406,4 +407,39 @@ model MaterialBookPackageInfo {
   updatedAt DateTime @updatedAt
 
   @@map("material_book_package_info")
+}
+
+enum PaymentGateway {
+  ZARINPAL
+  ZIBAL
+  PAYIR
+  MELLAT
+}
+
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model Transaction {
+  id Int @id @default(autoincrement())
+
+  amount    Int
+  authority String?
+  refId     String?
+
+  status  TransactionStatus @default(PENDING)
+  gateway PaymentGateway
+
+  userId  Int?
+  orderId Int?
+
+  createdAt DateTime  @default(now())
+  paidAt    DateTime?
+  user      User?     @relation(fields: [userId], references: [id])
+
+  @@index([authority])
+  @@index([userId])
+  @@index([orderId])
 }
