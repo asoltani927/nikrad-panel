@@ -34,4 +34,8 @@ export const Messages = {
     BAD_REQUEST: 'درخواست نامعتبر است',
     FORBIDDEN: 'دسترسی غیرمجاز',
   },
+  shops: {
+    NOT_FOUND: 'فروشگاه با این مشخصات وجود ندارد',
+    CREATED_SUCCESSFULLY: 'فروشگاه با موفقیت ثبت شد.',
+  },
 }

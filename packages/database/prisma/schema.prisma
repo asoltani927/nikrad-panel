@@ -123,6 +123,8 @@ model User {
   materialBookOwners              MaterialBook[]           @relation("materialBookOwner")
   addresses                       Address[]
   transaction                     Transaction[]
+  shops                           Shop[]
+  shopReviews                     ShopReview[]
 }
 
 model Address {
@@ -171,6 +173,7 @@ model Category {
   Need        Need[]
   CustomField CustomField[]
   User        User[]
+  shops       Shop[]
 
   @@map("categories")
 }
@@ -442,4 +445,54 @@ model Transaction {
   @@index([authority])
   @@index([userId])
   @@index([orderId])
+}
+
+model Shop {
+  id   Int    @id @default(autoincrement())
+  cuid String @unique @default(cuid())
+
+  name        String
+  aboutShop   String
+  aboutSeller String
+
+  daysOfActivity String[]
+  workingHours   Json
+  responseHours  Json
+  socialMedia    Json?
+
+  successDeals Int @default(0)
+  failedDeals  Int @default(0)
+
+  thumbnailImage String?
+
+  ownerId Int
+  owner   User @relation(fields: [ownerId], references: [id])
+
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  galleryImages ShopGallery[]
+
+  deleted     Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  shopReviews ShopReview[]
+}
+
+model ShopGallery {
+  id       Int    @id @default(autoincrement())
+  imageUrl String
+  shopId   Int
+  shop     Shop   @relation(fields: [shopId], references: [id])
+}
+
+model ShopReview {
+  id        Int      @id @default(autoincrement())
+  rating    Int
+  comment   String?
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  shopId    Int
+  shop      Shop     @relation(fields: [shopId], references: [id])
+  createdAt DateTime @default(now())
 }
