@@ -47,7 +47,7 @@ export default function Header() {
 							نیازمندی‌ها
 						</Link>
 						<Link
-							href={'#'}
+							href={'about'}
 							className=" hover:text-gray-700"
 						>
 							درباره ما
@@ -82,7 +82,7 @@ export default function Header() {
 					<Search className="block lg:hidden  text-zinc-500 size-7" />
 					<Button asChild className="w-fit px-8! lg:px-7! py-1.5  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-xs font-medium">
 						<Link
-							href={'#'}
+							href={'/auth/login'}
 							className="flex items-center gap-2 "
 						>
 							ورود / ثبت نام

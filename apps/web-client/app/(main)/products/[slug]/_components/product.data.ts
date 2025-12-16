@@ -5,7 +5,7 @@ export const product: ProductType = {
     name: "نام محصول",
     price: "12,500,000 تومان",
     description:
-        "این محصول از بهترین متریال ساخته شده و مناسب استفاده در پروژه‌های معماری و دکوراسیون داخلی می‌باشد.",
+        "این محصول از بهترین متریال ساخته شده و مناسب استفاده در پروژه‌های معماری و دکوراسیون داخلی می‌باشد.این محصول از بهترین متریال ساخته شده و مناسب استفاده در پروژه‌های معماری و دکوراسیون داخلی می‌باشد.",
     rating: 3,
     reviewsCount: 245,
     colors: [
@@ -17,7 +17,7 @@ export const product: ProductType = {
     ],
     images: [
         { src: "/img/product-image.png", alt: "تصویر محصول 1" },
-        { src: "/img/material-book/11879344_Checklist3242.png", alt: "تصویر محصول 2" },
+        { src: "/img/product-image.png", alt: "تصویر محصول 2" },
         { src: "/img/product-image.png", alt: "تصویر محصول 3" },
         { src: "/img/product-image.png", alt: "تصویر محصول 4" },
         { src: "/img/product-image.png", alt: "تصویر محصول 5" },

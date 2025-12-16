@@ -1,4 +1,4 @@
-import { ProductType } from "@/app/components/typings/product.types";
+import { ProductType } from "@/app/(main)/components/typings/product.types";
 
 export const products: ProductType[] = [
     { id: 1, code: '34er443', name: "ورق استیل 304 خش‌دار11", image: "/svg/home/product11.svg", price: 1250000, stock: 42, sellerName: "نیکراد استیل" },

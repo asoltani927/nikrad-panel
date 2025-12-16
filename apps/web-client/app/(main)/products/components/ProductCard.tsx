@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
-import { ProductType } from "@/app/components/typings/product.types";
+import { ProductType } from "@/app/(main)/components/typings/product.types";
 
 export const ProductCard = ({ product }: { product: ProductType }) => {
     return (

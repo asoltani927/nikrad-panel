@@ -1,4 +1,4 @@
-import { HeroCarouselItemType } from "@/app/components/typings/hero-carousel-typing";
+import { HeroCarouselItemType } from "@/app/(main)/components/typings/hero-carousel-typing";
 
 export const heroCarouselItems: HeroCarouselItemType[] = [
     {

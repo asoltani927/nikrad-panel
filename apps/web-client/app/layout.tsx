@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import LayoutFooter from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -32,13 +30,7 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl" >
       <body className={iranSans.variable} >
-        {/* 👉 Header  */}
-        <Header />
-        <main>
-          {children}
-        </main>
-        {/* 👉 Footer  */}
-        <LayoutFooter />
+        {children}
       </body>
     </html>
   );

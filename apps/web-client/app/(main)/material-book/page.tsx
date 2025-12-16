@@ -3,9 +3,9 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
-import { materialCatalogItems } from "../components/material-catalog/materialCatalog.data"
 import { MaterialCatalogCard } from "../components/material-catalog/MaterialCatalogCard"
 import { useRouter } from "next/navigation"
+import { materialCatalogItems } from "../components/material-catalog/materialCatalog.data"
 
 export default function MaterialBookLanding() {
 

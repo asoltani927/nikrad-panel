@@ -1,4 +1,4 @@
-import { sellerType } from "@/app/components/typings/seller.types";
+import { sellerType } from "@/app/(main)/components/typings/seller.types";
 
 export const sellers: sellerType[] = [
     {

@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useState } from "react";
 import { product } from "./product.data";
 import { ProductImage } from "./typings/product.type";
+import { ZoomIn } from "lucide-react";
 
 export const ProductGallery = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -29,7 +30,7 @@ export const ProductGallery = () => {
     return (
         <div className="flex gap-4">
             {/* Thumbnails - Native Scroll */}
-            <div className="h-[420px] overflow-y-auto hiddenScrollStyle">
+            <div className="h-[447px] overflow-y-auto hiddenScrollStyle">
                 <div className="flex flex-col gap-5">
                     {product.images.map((image: ProductImage, i: number) => (
                         <button
@@ -63,6 +64,9 @@ export const ProductGallery = () => {
                                 fill
                                 className="object-contain"
                             />
+                            <div className="absolute cursor-pointer top-4 end-4 flex items-center justify-center rounded-sm bg-brand-primary p-[7px] ">
+                                <ZoomIn size={16} color="#333741" />
+                            </div>
                         </div>
                     ))}
                 </div>

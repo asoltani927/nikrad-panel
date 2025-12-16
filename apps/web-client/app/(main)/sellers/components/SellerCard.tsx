@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ArrowUpLeft, CircleCheck, Star } from "lucide-react";
 import Link from "next/link";
-import { sellerType } from "@/app/components/typings/seller.types";
+import { sellerType } from "@/app/(main)/components/typings/seller.types";
 
 export const SellerCard = ({ seller }: { seller: sellerType }) => {
     return (
