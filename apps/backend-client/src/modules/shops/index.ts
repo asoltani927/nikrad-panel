@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify'
 import { getShopsRoute } from './routes/get-shops.route'
 import { getShopByCuidRoute } from './routes/get-shop.route'
 import { postShopRoute } from './routes/post-shop.route'
+import { putShopRoute } from './routes/put-shop.route'
 
 export async function shopsModule(app: FastifyInstance) {
   app.register(
@@ -9,6 +10,7 @@ export async function shopsModule(app: FastifyInstance) {
       shopsApp.register(getShopsRoute)
       shopsApp.register(getShopByCuidRoute)
       shopsApp.register(postShopRoute)
+      shopsApp.register(putShopRoute)
     },
     { prefix: '/shops' },
   )

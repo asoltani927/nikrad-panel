@@ -37,5 +37,6 @@ export const Messages = {
   shops: {
     NOT_FOUND: 'فروشگاه با این مشخصات وجود ندارد',
     CREATED_SUCCESSFULLY: 'فروشگاه با موفقیت ثبت شد.',
+    UPDATED_SUCCESSFULLY: 'فروشگاه با موفقیت بروزرسانی شد.',
   },
 }
