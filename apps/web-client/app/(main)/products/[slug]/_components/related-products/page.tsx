@@ -40,8 +40,8 @@ export const RelatedProducts = () => {
     return (
         <div className="w-full mt-8">
             {/* Title + Filter */}
-            <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between  mb-4 ">
-                <h2 className="text-[30px] font-black text-[#333741] ">محصولات مشابه</h2>
+            <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between  mb-4 px-4 lg:px-0">
+                <h2 className="text-[28px] lg:text-[30px] font-black text-[#333741] ">محصولات مشابه</h2>
 
                 <div className="flex items-center gap-2.5">
                     <button
@@ -63,7 +63,7 @@ export const RelatedProducts = () => {
             <div dir="ltr" className="relative w-full">
                 <div
                     ref={sliderRef}
-                    className="flex flex-row-reverse gap-[19px] overflow-x-auto hiddenScrollStyle scroll-smooth px-8 lg:pe-0  pt-2 pb-10"
+                    className="flex flex-row-reverse gap-[19px] overflow-x-auto hiddenScrollStyle scroll-smooth px-6 lg:pe-0  pt-2 pb-10"
                 >
                     {sortedProducts.map((product) => (
                         <div key={product.id}>

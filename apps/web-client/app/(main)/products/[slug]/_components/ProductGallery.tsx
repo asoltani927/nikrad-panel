@@ -28,15 +28,15 @@ export const ProductGallery = () => {
     };
 
     return (
-        <div className="flex gap-4">
+        <div className="flex flex-col-reverse lg:flex-row gap-6 lg:gap-4">
             {/* Thumbnails - Native Scroll */}
-            <div className="h-[447px] overflow-y-auto hiddenScrollStyle">
-                <div className="flex flex-col gap-5">
+            <div className="lg:h-[447px]  lg:overflow-y-auto hiddenScrollStyle">
+                <div className="w-full flex lg:flex-col gap-6 lg:gap-5 overflow-x-auto hiddenScrollStyle lg:overflow-x-hidden px-6 lg:px-0">
                     {product.images.map((image: ProductImage, i: number) => (
                         <button
                             key={i}
                             onClick={() => onThumbClick(i)}
-                            className={`w-14 h-14 cursor-pointer relative aspect-square rounded-md overflow-hidden ${selectedIndex === i ? "opacity-100" : "opacity-50 hover:opacity-60"
+                            className={`shrink  min-w-14 w-14 h-14 lg:min-w-14 max-w-14 lg:w-14 lg:h-14 cursor-pointer relative aspect-square rounded-md overflow-hidden ${selectedIndex === i ? "opacity-100" : "opacity-50 hover:opacity-60"
                                 }`}
                         >
                             <Image
@@ -51,8 +51,8 @@ export const ProductGallery = () => {
             </div>
 
             {/* Main image - Embla */}
-            <div dir="ltr" ref={mainRef} className="flex-1 overflow-hidden rounded-xl">
-                <div className="flex">
+            <div dir="ltr" ref={mainRef} className="flex-1 overflow-hidden rounded-xl mx-6 lg:mx-0">
+                <div className="flex ">
                     {product.images.map((image: ProductImage, i: number) => (
                         <div
                             key={i}

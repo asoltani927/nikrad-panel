@@ -47,7 +47,7 @@ export default function Header() {
 							نیازمندی‌ها
 						</Link>
 						<Link
-							href={'about'}
+							href={'/about'}
 							className=" hover:text-gray-700"
 						>
 							درباره ما
@@ -80,15 +80,16 @@ export default function Header() {
 				</div>
 				<div className="flex items-center gap-6">
 					<Search className="block lg:hidden  text-zinc-500 size-7" />
-					<Button asChild className="w-fit px-8! lg:px-7! py-1.5  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-xs font-medium">
-						<Link
-							href={'/auth/login'}
-							className="flex items-center gap-2 "
-						>
+					<Link
+						href={'/auth/login'}
+						className=" "
+					>
+						<Button className="flex items-center gap-2 w-fit px-8! lg:px-7! py-1.5  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-xs font-medium">
+
 							ورود / ثبت نام
 							<ChevronLeft className="hidden lg:block h-4 w-4" />
-						</Link>
-					</Button>
+						</Button>
+					</Link>
 				</div>
 			</BaseContainer>
 		</header>

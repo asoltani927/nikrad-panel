@@ -49,13 +49,17 @@ export default function MobileDrawer() {
                 <nav className="flex flex-col gap-5 text-sm font-medium">
                     <Link href="#">فروشگاه</Link>
                     <Link href="#">نیازمندی‌ها</Link>
-                    <Link href="#">درباره ما</Link>
+                    <Link href="/about">درباره ما</Link>
                     <Link href="#">تماس با ما</Link>
                 </nav>
-
-                <Button className="w-full mt-10 h-12 bg-[#FAC515] text-black rounded-sm">
-                    ورود / ثبت نام
-                </Button>
+                <Link
+                    href={'/auth/login'}
+                    className=" "
+                >
+                    <Button className="w-full mt-10 h-12 bg-[#FAC515] text-black rounded-sm">
+                        ورود / ثبت نام
+                    </Button>
+                </Link>
             </DrawerContent>
         </Drawer>
     );

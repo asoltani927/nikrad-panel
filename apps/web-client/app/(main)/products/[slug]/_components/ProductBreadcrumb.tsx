@@ -15,7 +15,7 @@ export function ProductBreadcrumb() {
     return (
         <div className="h-fit w-full flex justify-center bg-[#F5F5F6] py-3">
             <BaseContainer className="w-full">
-                <Breadcrumb className="px-4 lg:px-[184px] ">
+                <Breadcrumb className="px-6 lg:px-[184px] ">
                     <BreadcrumbList>
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>

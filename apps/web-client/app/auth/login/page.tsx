@@ -38,18 +38,18 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="w-full min-h-screen flex items-center gap-6 bg-white py-6">
-            <section className="relative h-full flex items-center justify-center w-[43%]  " >
+        <div className="w-full min-h-screen flex items-center gap-6 bg-white py-6 px-8 lg:px-0">
+            <section className="relative h-full flex items-center justify-center w-full lg:w-[43%]  " >
                 <Image
                     src="/svg/Backgroundpatterndecorative(1).svg"
                     width={580}
                     height={580}
                     alt="phone"
-                    className="absolute"
+                    className="hidden lg:block absolute"
                 />
                 <div className="relative w-full flex flex-col items-center justify-center z-20">
 
-                    <div className="w-8 h-8 lg:w-12 lg:h-[50px] relative ">
+                    <div className="w-16 h-16 lg:w-12 lg:h-[50px] relative ">
                         <Image
                             src="/img/nikrad-logo.png"
                             alt="Nikrad_Logo"
@@ -57,16 +57,16 @@ export default function LoginPage() {
                             className="object-contain"
                         />
                     </div>
-                    <h3 className="text-[22px] font-medium mt-4">وارد حساب کاربری خود شوید</h3>
-                    <p className="w-[275px] text-center text-[11px] text-muted-foreground mb-6 leading-6 ">
+                    <h3 className="text-[24px] lg:text-[22px] font-semibold lg:font-medium mt-6 lg:mt-4">وارد حساب کاربری خود شوید</h3>
+                    <p className="w-full lg:w-[275px] text-center text-sm lg:text-[11px] text-muted-foreground mt-2 lg:mt-0 mb-10 lg:mb-6 leading-6 ">
                         خوش آمدید! لطفا شماره موبایل خود را وارد کنید.
                     </p>
-                    <div className="w-[275px] relative z-10 grid items-center gap-1 ">
+                    <div className="w-full lg:w-[275px] relative z-10 grid items-center gap-1 ">
                         <Label htmlFor="phone" className="text-[#5B5C5F] text-[10px]">
                             شماره موبایل
                         </Label>
                         <Input
-                            className="h-9 mb-4 rounded-sm bg-white ps-10 text-[#5B5C5F] text-[11px]! 
+                            className="h-10 lg:h-9 mb-4 rounded-sm bg-white ps-10 text-[#5B5C5F] text-[11px]! 
                                border border-[#D0D5DD]  
                                focus-visible:ring-0 focus-visible:ring-offset-0  
                                focus-visible:border-[#EAAA08] focus-visible:outline-none"
@@ -85,24 +85,24 @@ export default function LoginPage() {
                         }
                     </div>
                     <Button
-                        className="w-[275px] h-9 text-[11px] cursor-pointer rounded-sm mt-1 font-light! bg-[#EAAA08] hover:bg-[#d8a708]"
+                        className="w-full lg:w-[275px] h-10 lg:h-9 text-[11px] cursor-pointer rounded-sm mt-1 font-light! bg-[#EAAA08] hover:bg-[#d8a708]"
                         onClick={handleNext}
                     >
                         ورود به حساب
                     </Button>
-                    <div className="w-[275px] flex flex-col items-start gap-4">
+                    <div className="w-full lg:w-[275px] flex flex-col items-start gap-4">
                         <label className="flex items-end gap-2 text-xs font-thin text-[#1C1D1F] cursor-pointer mt-4">
                             <Checkbox className="h-4 w-4" />
-                            <span className="text-[#5B5C5F] text-[10px] ">با ثبت‌نام و ورود، <Link href="/rules" className="text-yellow-600 underline cursor-pointer">قوانین فروشگاه </Link>را می‌پذیرم.</span>
+                            <span className="text-[#5B5C5F] text-sm lg:text-[10px] ">با ثبت‌نام و ورود، <Link href="/rules" className="text-yellow-600 underline cursor-pointer">قوانین فروشگاه </Link>را می‌پذیرم.</span>
                         </label>
-                        <div className="text-[#5B5C5F] text-[10px] ">
+                        <div className="text-[#5B5C5F] text-sm lg:text-[10px] ">
                             حساب کاربری ندارید؟
                             <Link href="/auth/register" className="text-yellow-600"> ثبت‌نام</Link>
                         </div>
                     </div>
                 </div>
             </section>
-            <section className="flex justify-center h-full w-[57%]  " >
+            <section className="hidden lg:flex justify-center h-full w-[57%]  " >
                 <div className="relative  flex justify-center w-8 h-8 lg:w-full lg:h-[140vh] ">
                     <img
                         src="/img/login-bg-21.png"

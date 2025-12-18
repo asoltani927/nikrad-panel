@@ -1,16 +1,32 @@
 import { Clock, Star } from "lucide-react";
 import { ReviewsPagination } from "./ReviewsPagination";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export const ReviewsTab = () => {
     return (
         <div className="flex flex-col gap-3">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-0 mb-1">
+                <span className="font-medium text-lg">نظرات کاربران درباره این محصول</span>
+                <div className="lg:w-50 custom-style-select flex flex-col justify-end gap-2">
+                    <Select>
+                        <SelectTrigger>
+                            <SelectValue placeholder="جدیدترین نظرات" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {["قدیمی ترین", "محبوب ترین", "تست"].map(o => (
+                                <SelectItem key={o} value={o}>{o}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+            </div>
             {Array.from({ length: 3 }, (_, index) => (
                 <div
                     key={index}
                     className="flex flex-col gap-4 border border-gray-200 rounded-[12px] p-6"
                 >
-                    <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-1">
+                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-2">
+                        <div className="flex  items-center justify-between lg:justify-self-auto gap-1">
                             <span className="text-[13px] text-gray-800">
                                 عنوان نظر
                             </span>
@@ -19,7 +35,7 @@ export const ReviewsTab = () => {
                             </span>
                         </div>
 
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center justify-between lg: gap-1">
                             <span className="text-gray-500 text-[8.5px] me-1.5">
                                 امتیاز ثبت شده توسط این کاربر:
                             </span>
@@ -46,7 +62,7 @@ export const ReviewsTab = () => {
                         </div>
                     </div>
 
-                    <p className="text-[10px] text-gray-600 leading-[18px]">
+                    <p className="text-[10px] text-gray-600 leading-[18px] text-justify">
                         کیفیت محصول بسیار خوب بود و بسته‌بندی مناسبی داشت.
                         کیفیت محصول بسیار خوب بود و بسته‌بندی مناسبی داشت.
                         کیفیت محصول بسیار خوب بود و بسته‌بندی مناسبی داشت.

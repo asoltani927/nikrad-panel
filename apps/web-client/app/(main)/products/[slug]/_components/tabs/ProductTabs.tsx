@@ -11,7 +11,7 @@ export const ProductTabs = () => {
     const [activeTab, setActiveTab] = useState<TabKey>("description");
 
     return (
-        <div className="w-full mt-16 border border-[#ECECED] rounded-[12px] ">
+        <div className="w-full mt-16 border border-[#ECECED] rounded-[12px]">
             {/* Tabs Header */}
             <div className="h-9 flex items-center gap-2 border-gray-200 bg-[#F5F5F6] mb-7 rounded-t-[12px] ">
 
