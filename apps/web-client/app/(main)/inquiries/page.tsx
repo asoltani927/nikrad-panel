@@ -13,7 +13,7 @@ export default function ProductsPage() {
   return (
     <div className="w-full bg-white  font-sans dark:bg-black">
 
-      <div className="relative w-full  h-auto ">
+      <div className="hidden lg:block relative w-full  h-auto ">
         <img
           src="/img/needs-bg.png"
           alt="img"
@@ -32,14 +32,13 @@ export default function ProductsPage() {
             </Button>
           </BaseContainer>
         </div>
-
       </div>
 
       <InquiriesBreadcrumb />
 
       <InquiriesTitle />
 
-      <BaseContainer className="w-full flex flex-col items-center mt-2 lg:mt-8">
+      <BaseContainer className="w-full flex flex-col items-center mt-0 lg:mt-8">
         <div className="w-full px-4 lg:px-[202px] lg:grid grid-cols-4 gap-4">
           <div className=" hidden lg:block col-span-1">
             <InquiriesFilters />

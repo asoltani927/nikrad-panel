@@ -10,7 +10,7 @@ export const sellers: sellerType[] = [
         rate: 3,
         comments: 245,
         productsCount: 126,
-        storeLink: "/vendors/nikrad-steel",
+        slug: "nikrad-steel",
         social: {
             instagram: "https://instagram.com/vendor-name",
             whatsapp: "https://wa.me/989123456789",
@@ -26,7 +26,7 @@ export const sellers: sellerType[] = [
         rate: 5,
         comments: 190,
         productsCount: 102,
-        storeLink: "/vendors/ahan-pars",
+        slug: "ahan-pars",
         social: {
             instagram: "https://instagram.com/vendor-name",
             whatsapp: "https://wa.me/989123456789",
@@ -42,7 +42,7 @@ export const sellers: sellerType[] = [
         rate: 1,
         comments: 310,
         productsCount: 158,
-        storeLink: "/vendors/arian-steel",
+        slug: "arian-steel",
         social: {
             instagram: "https://instagram.com/ariansteel",
             telegram: "https://t.me/ariansteel",
@@ -58,7 +58,7 @@ export const sellers: sellerType[] = [
         rate: 3,
         comments: 220,
         productsCount: 97,
-        storeLink: "/vendors/alborz-steel",
+        slug: "alborz-steel",
         social: {
             instagram: "https://instagram.com/vendor-name",
             whatsapp: "https://wa.me/989123456789",

@@ -7,7 +7,7 @@ import { RelatedProducts } from "./_components/related-products/page";
 
 export default function ProductDetailsPage() {
     return (
-        <div className="mt-14">
+        <div className="lg:mt-14">
             <ProductBreadcrumb />
             <BaseContainer className="w-full flex flex-col items-center mt-8 lg:mt-16">
                 <div className="w-full lg:px-[184px] lg:grid grid-cols-1 lg:grid-cols-12 gap-5">

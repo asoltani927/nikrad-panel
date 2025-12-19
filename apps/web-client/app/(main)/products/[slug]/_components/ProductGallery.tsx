@@ -64,7 +64,7 @@ export const ProductGallery = () => {
                                 fill
                                 className="object-contain"
                             />
-                            <div className="absolute cursor-pointer top-4 end-4 flex items-center justify-center rounded-sm bg-brand-primary p-[7px] ">
+                            <div className="absolute cursor-pointer top-4 end-4 hidden lg:flex items-center justify-center rounded-sm bg-brand-primary p-[7px] ">
                                 <ZoomIn size={16} color="#333741" />
                             </div>
                         </div>

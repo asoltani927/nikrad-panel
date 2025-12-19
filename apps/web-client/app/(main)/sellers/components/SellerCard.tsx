@@ -1,13 +1,13 @@
 import Image from "next/image";
-import { ArrowUpLeft, CircleCheck, Star } from "lucide-react";
+import { CircleCheck, Star } from "lucide-react";
 import Link from "next/link";
 import { sellerType } from "@/app/(main)/components/typings/seller.types";
 
 export const SellerCard = ({ seller }: { seller: sellerType }) => {
     return (
-        <Link href={seller.storeLink} className="lg:mt-12 shrink-0 relative lg:min-w-[207px] lg:w-[207px] lg:max-w-[207px] h-80 lg:h-[270px] bg-[#FAFAFA] text-[#1F242F] rounded-[12px] pb-4 px-4 flex flex-col items-center justify-end gap-2  hover:shadow-sm transition-all duration-300">
+        <Link href={`/sellers/${seller.slug}`} className="mt-10 lg:mt-12 shrink-0 relative lg:min-w-[207px] lg:w-[207px] lg:max-w-[207px] h-[262px] lg:h-[270px] bg-[#FAFAFA] text-[#1F242F] rounded-[12px] pb-4 px-4 flex flex-col items-center justify-end gap-2  hover:shadow-sm transition-all duration-300">
 
-            <div className="relative lg:absolute -top-4 lg:-top-12 rounded-full w-[81px] h-[81px]  lg:w-[90px]  lg:h-[90px] flex items-center justify-center ">
+            <div className="absolute -top-10 lg:-top-12 rounded-full w-[81px] h-[81px]  lg:w-[90px]  lg:h-[90px] flex items-center justify-center ">
                 <Image src={seller.avatar}
                     alt={seller.name} fill />
             </div>

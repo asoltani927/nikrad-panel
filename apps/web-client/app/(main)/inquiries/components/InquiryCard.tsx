@@ -5,7 +5,7 @@ import { inquiryType } from "./typings/inquiry.types";
 
 export const InquiryCard = ({ inquiry }: { inquiry: inquiryType }) => {
     return (
-        <div className="shrink-0 relative lg:min-w-[207px] lg:w-[207px] lg:max-w-[207px] h-80 lg:h-[223px] bg-[#FAFAFA] text-[#1F242F] rounded-[12px] pb-6 px-4 flex flex-col items-center justify-end gap-2  hover:shadow-sm transition-all duration-300">
+        <div className="shrink-0 relative lg:min-w-[207px] lg:w-[207px] lg:max-w-[207px] h-[223px] lg:h-[223px] bg-[#FAFAFA] text-[#1F242F] rounded-[12px] pb-6 px-4 flex flex-col items-center justify-end gap-2  hover:shadow-sm transition-all duration-300">
             <Image className="absolute top-0 start-0 object-contain rounded-tr-[12px]"
                 width={50}
                 height={10}
@@ -53,7 +53,7 @@ export const InquiryCard = ({ inquiry }: { inquiry: inquiryType }) => {
                     <div className="">{inquiry.offersCount}</div>
                 </div>
 
-                <Button asChild className=" w-full lg:px-[23px]! h-6  rounded-[6px] bg-brand-primary hover:bg-[#e7bd35] text-black text-sm lg:text-[10px] font-medium">
+                <Button asChild className=" w-full lg:px-[23px]! h-6  rounded-[6px] bg-brand-primary hover:bg-[#e7bd35] text-black text-xs lg:text-[10px] font-medium">
                     <Link
                         href={inquiry.inquiryLink}
                         className="flex items-center gap-2 "

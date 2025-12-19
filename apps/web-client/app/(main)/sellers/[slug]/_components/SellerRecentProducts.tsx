@@ -1,12 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
+
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { products } from "@/app/(main)/components/products/products.data";
-import { ProductCard } from "@/app/(main)/components/products/ProductCard";
+import { ProductCard } from "@/app/(main)/products/components/ProductCard";
 
-
-export const RelatedProducts = () => {
+export function SellerRecentProducts() {
     const sliderRef = useRef<HTMLDivElement>(null);
     const [filter, setFilter] = useState("popular");
 
@@ -33,14 +33,13 @@ export const RelatedProducts = () => {
         }
     });
 
-
     return (
-        <div className="w-full mt-8">
+        <>
             {/* Title + Filter */}
-            <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between  mb-4 px-4 lg:px-0">
-                <h2 className="text-[28px] lg:text-[30px] font-black text-[#333741] ">محصولات مشابه</h2>
+            <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between  mb-2 ps-6 lg:ps-0 mt-10 pe-4 lg:pe-[202px]">
+                <h2 className="text-[23px] lg:text-[18px] font-medium text-gray-800 ">محصولات اخیر</h2>
 
-                <div className="flex items-center gap-2.5">
+                <div className="hidden lg:flex items-center gap-2.5 ">
                     <button
                         onClick={goLeftToRight}
                         className="cursor-pointer ms-3 w-9 h-9 hidden lg:flex items-center justify-center border border-yellow-500 rounded-xs bg-transparent"
@@ -56,11 +55,12 @@ export const RelatedProducts = () => {
                     </button>
                 </div>
             </div>
+
             {/* RTL Slider */}
             <div dir="ltr" className="relative w-full">
                 <div
                     ref={sliderRef}
-                    className="flex flex-row-reverse gap-[19px] overflow-x-auto hiddenScrollStyle scroll-smooth px-6 lg:pe-0  pt-2 pb-10"
+                    className="flex flex-row-reverse gap-5 overflow-x-auto hiddenScrollStyle scroll-smooth px-6 lg:pe-0 lg:ps-44 py-2"
                 >
                     {sortedProducts.map((product) => (
                         <div key={product.id}>
@@ -70,6 +70,6 @@ export const RelatedProducts = () => {
                 </div>
             </div>
 
-        </div>
+        </>
     );
-};
+}

@@ -7,7 +7,7 @@ export interface sellerType {
     rate: number;
     comments: number;
     productsCount: number;
-    storeLink: string;
+    slug: string;
     social?: {
         instagram?: string;
         whatsapp?: string;

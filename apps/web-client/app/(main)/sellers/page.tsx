@@ -21,7 +21,7 @@ export default function ProductsPage() {
 
       <SellersTitle />
 
-      <BaseContainer className="w-full flex flex-col items-center mt-2 lg:mt-8">
+      <BaseContainer className="w-full flex flex-col items-center mt-0 lg:mt-8">
         <div className="w-full px-4 lg:px-[202px] lg:grid grid-cols-4 gap-4">
           <div className=" hidden lg:block col-span-1">
             <SellersFilters />

@@ -75,7 +75,7 @@ export const SellerCard = ({ seller }: { seller: sellerType }) => {
                     /></a>}
                 </div> */}
                 <Link
-                    href={seller.storeLink}
+                    href={`sellers/${seller.slug}`}
                     className="flex items-center gap-1 text-[#EAAA08] text-xs font-medium text-nowrap transition"
                 >
                     ورود به فروشگاه
