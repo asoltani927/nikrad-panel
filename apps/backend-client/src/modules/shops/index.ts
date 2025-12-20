@@ -3,6 +3,7 @@ import { getShopsRoute } from './routes/get-shops.route'
 import { getShopByCuidRoute } from './routes/get-shop.route'
 import { postShopRoute } from './routes/post-shop.route'
 import { putShopRoute } from './routes/put-shop.route'
+import { deleteShopRoute } from './routes/delete-shop.route'
 
 export async function shopsModule(app: FastifyInstance) {
   app.register(
@@ -11,6 +12,7 @@ export async function shopsModule(app: FastifyInstance) {
       shopsApp.register(getShopByCuidRoute)
       shopsApp.register(postShopRoute)
       shopsApp.register(putShopRoute)
+      shopsApp.register(deleteShopRoute)
     },
     { prefix: '/shops' },
   )
