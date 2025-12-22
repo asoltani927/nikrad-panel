@@ -14,7 +14,7 @@ export default function BookletCard({ booklet, selected, onSelect }: Props) {
     return (
         <div
             onClick={() => onSelect(booklet.titleFa)}
-            className={`relative w-full lg:w-[235px] bg-[#FAFAFA] rounded-md px-6 pb-6 pt-7  flex flex-col justify-between hover:shadow-sm transition ${selected ? "border border-[#EAAA08]" : ""
+            className={`relative w-full sm:w-[280px]  lg:w-[235px] bg-[#FAFAFA] rounded-md px-6 pb-6 pt-7  flex flex-col justify-between hover:shadow-sm transition ${selected ? "border border-[#EAAA08]" : ""
                 }`}
         >
             <Image

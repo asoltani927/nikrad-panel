@@ -172,3 +172,16 @@
 .rtl {
   direction: rtl;
 }
+
+
+@media (max-width: 1024px) {
+  .custom-select-height button {
+    height: 48px !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .custom-select-height button {
+    height: 36px !important;
+  }
+}

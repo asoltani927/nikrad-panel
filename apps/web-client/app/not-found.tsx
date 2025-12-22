@@ -18,8 +18,11 @@ export default function PaymentSuccessPage() {
     }
 
     return (
-        <>
-            <div className="relative h-screen w-full flex flex-col items-center justify-center lg:justify-start px-10 pt-6 pb-20 lg:pb-44">
+        <div className="w-full min-h-screen">
+            <div className="hidden lg:block">
+                <Header />
+            </div>
+            <div className="relative min-h-screen w-full flex flex-col items-center justify-center  px-10 pt-6 pb-20 lg:pb-44">
 
                 <Image
                     src="/svg/Content.svg"
@@ -76,6 +79,9 @@ export default function PaymentSuccessPage() {
                 </div>
 
             </div>
-        </>
+            <div className="hidden lg:block">
+                <LayoutFooter />
+            </div>
+        </div>
     )
 }

@@ -7,11 +7,14 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Label } from "@/components/ui/label"
 import { z } from "zod";
+import { useSearchParams } from "next/navigation";
 
 
 export default function PhonePage() {
     const router = useRouter()
     const [phone, setPhone] = useState("")
+    const searchParams = useSearchParams();
+    const redirect = searchParams.get("redirect") || "/";
 
     const phoneSchema = z.string()
         .min(1, "شماره موبایل الزامی است")
@@ -32,12 +35,12 @@ export default function PhonePage() {
 
         setError("");
         console.log("Phone:", phone);
-        router.push("/material-book/verify");
+        router.push(`/auth-redirect/otp?redirect=${encodeURIComponent(redirect)}`);
     };
 
 
     return (
-        <div className="relative w-full flex flex-col items-center -mt-4 lg:mt-0 px-6 lg:px-10 pt-0 lg:pt-16 pb-24 lg:pb-44">
+        <div className="relative lg:min-h-screen w-full flex flex-col items-center -mt-4 lg:mt-0 px-6 lg:px-10 pt-0 lg:pt-16 pb-24 lg:pb-44">
 
             <Image
                 src="/svg/material-book/Backgroundpatterndecorative.svg"

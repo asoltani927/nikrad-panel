@@ -20,7 +20,7 @@ export function SellerToolbar() {
                     </span>
                 </Badge>
             </div>
-            <Button className=" w-full lg:w-1/3 bg-white  lg:bg-brand-primary h-12 lg:h-10 text-yellow-600 lg:text-gray-900  border lg:border-none border-yellow-500 rounded-[4px] lg:text-[10.5px]  ">مشاهده تمام محصولات</Button>
+            <Button className=" w-full lg:w-1/3 bg-white  lg:bg-brand-primary h-12 lg:h-10 text-yellow-600 lg:text-gray-900  border lg:border-none border-yellow-500 rounded-[4px] lg:text-[10.5px] hover:bg-yellow-500 cursor-pointer ">مشاهده تمام محصولات</Button>
             <Button
                 className="w-full block lg:hidden mt-6 items-center gap-2 px-7! h-12 lg:h-7 rounded-[3px] bg-yellow-500  lg:bg-white text-white  border border-yellow-500 cursor-pointer lg:text-[11px] font-normal">
                 درخواست مشاوره

@@ -7,11 +7,16 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Info } from "lucide-react"
 import { z } from "zod"
+import { useSearchParams } from "next/navigation";
+
 
 export default function VerifyPage() {
     const router = useRouter()
     const [codes, setCodes] = useState(["", "", "", "", "", ""])
     const [error, setError] = useState("")
+    const searchParams = useSearchParams();
+    const redirect = searchParams.get("redirect") || "/";
+
 
     const inputsRef = useRef<(HTMLInputElement | null)[]>([])
 
@@ -48,11 +53,11 @@ export default function VerifyPage() {
         }
 
         setError("")
-        router.push("/material-book/steps/project-info")
+        router.push(redirect);
     }
 
     return (
-        <div className="relative w-full flex flex-col items-center -mt-4 lg:mt-0 px-6 lg:px-10 pt-0 lg:pt-16 pb-24 lg:pb-44">
+        <div className="relative lg:min-h-screen w-full flex flex-col items-center -mt-4 lg:mt-0 px-6 lg:px-10 pt-0 lg:pt-16 pb-24 lg:pb-44">
             <Image
                 src="/svg/material-book/Backgroundpatterndecorative.svg"
                 width={580}

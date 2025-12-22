@@ -24,7 +24,9 @@ export default function SellerDetailsPage() {
             <SellerAbout />
           </div>
           <div className=" w-full lg:w-[72%]">
-            <div className="hidden lg:block">  <SellerToolbar /></div>
+            <div className="hidden lg:block">
+              <SellerToolbar />
+            </div>
             <SellerBestSellingProducts />
             <SellerRecentProducts />
             <SellerGallery

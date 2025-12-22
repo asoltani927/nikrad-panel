@@ -62,7 +62,7 @@ export default function ProjectInfoPage() {
 
     return (
         <BaseContainer>
-            <div className="w-full flex flex-col items-center justify-start pb-24 lg:pt-16 px-6">
+            <div className="w-full lg:min-h-screen flex flex-col items-center justify-start pb-24 lg:pt-16 px-6">
                 <div className="w-full lg:w-[45%] flex justify-center mb-12 lg:mb-16">
                     <Stepper
                         currentIndex={0}
@@ -116,7 +116,7 @@ export default function ProjectInfoPage() {
                         <p className="h-3  text-red-500 text-[9px] -mt-0.5">{errors.area}</p>
                     </div>
 
-                    <div className="custom-style-select w-full flex flex-col justify-end gap-1   ">
+                    <div className="custom-style-select custom-select-height w-full flex flex-col justify-end gap-1   ">
                         <Select onValueChange={(v) => handleChange("province", v)}>
                             <SelectTrigger>
                                 <SelectValue placeholder="استان" />
@@ -142,7 +142,7 @@ export default function ProjectInfoPage() {
                         <p className="h-3  text-red-500 text-[9px] -mt-0.5">{errors.foundation}</p>
                     </div>
 
-                    <div className="custom-style-select w-full flex flex-col justify-end gap-1   ">
+                    <div className="custom-style-select custom-select-height w-full flex flex-col justify-end gap-1   ">
                         <Select onValueChange={(v) => handleChange("city", v)}>
                             <SelectTrigger>
                                 <SelectValue placeholder="شهر" />
@@ -180,7 +180,7 @@ export default function ProjectInfoPage() {
                         <p className="h-3  text-red-500 text-[9px] -mt-0.5">{errors.units}</p>
                     </div>
 
-                    <div className="custom-style-select w-full flex flex-col justify-end gap-1   ">
+                    <div className="custom-style-select custom-select-height w-full flex flex-col justify-end gap-1   ">
                         <Select onValueChange={(v) => handleChange("usage", v)}>
                             <SelectTrigger>
                                 <SelectValue placeholder="کاربری ساختمان" />
@@ -206,7 +206,7 @@ export default function ProjectInfoPage() {
                         <p className="h-3  text-red-500 text-[9px] -mt-0.5">{errors.startYear}</p>
                     </div>
 
-                    <div className="custom-style-select w-full flex flex-col justify-end gap-1   ">
+                    <div className="custom-style-select custom-select-height w-full flex flex-col justify-end gap-1   ">
                         <Select onValueChange={(v) => handleChange("status", v)}>
                             <SelectTrigger>
                                 <SelectValue placeholder="وضعیت فعلی پروژه" />
@@ -223,7 +223,7 @@ export default function ProjectInfoPage() {
                 </div>
 
                 <Button
-                    className="w-full lg:w-[275px] h-12 lg:h-9 lg:text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708]"
+                    className="w-full sm:w-[275px] h-12 lg:h-9 lg:text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708]"
                     onClick={handleSubmit}
                 >
                     مرحله بعد

@@ -16,7 +16,7 @@ export default function MaterialBookLanding() {
         if (isLoggedIn) {
             router.push("/material-book/steps/basic-info")
         } else {
-            router.push("/material-book/phone")
+            router.push(`/auth-redirect/phone?redirect=/material-book/steps/project-info`)
         }
     }
 

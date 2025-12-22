@@ -51,7 +51,7 @@ export default function Stepper({ currentIndex, steps }: StepperProps) {
 
                 {/* Background Line */}
                 <div
-                    className="absolute h-full w-[1.5px] lg:w-auto lg:h-[1.5px] bg-gray-200 lg:bg-[#CECFD2] -z-10"
+                    className="absolute ms-[1.5px] lg:ms-auto h-full w-[1.5px] lg:w-auto lg:h-[1.5px] bg-gray-200 lg:bg-[#CECFD2] -z-10"
                     style={{
                         ...(!isMobile && {
                             left: offset,
@@ -63,7 +63,7 @@ export default function Stepper({ currentIndex, steps }: StepperProps) {
 
                 {/* Progress Line */}
                 <div
-                    className="  hidden lg:block absolute start-2.5 lg:start-0 bg-[#EAAA08] -z-10 transition-all"
+                    className="  hidden lg:block absolute start-1 lg:start-0 bg-[#EAAA08] -z-10 transition-all"
                     style={{
                         left: offset,
                         ...(isMobile
@@ -82,8 +82,11 @@ export default function Stepper({ currentIndex, steps }: StepperProps) {
                                         : `calc(${progressIndex} * (100% / ${totalSteps - 1}) + 7px)`,
                             }),
                     }}
-                ></div><div
-                    className="absolute start- bg-[#EAAA08] -z-10 transition-all lg:hidden"
+                >
+
+                </div>
+                <div
+                    className="absolute -ms-[0.3px] bg-[#EAAA08] -z-10 transition-all lg:hidden"
                     style={{
                         width: "1.5px",
                         height:

@@ -68,7 +68,7 @@ export default function DocumentationDesignPage() {
 
     return (
         <BaseContainer>
-            <div className="w-full flex flex-col items-center justify-start pb-24 lg:pt-16 px-6">
+            <div className="w-full lg:min-h-screen flex flex-col items-center justify-start pb-24 lg:pt-16 px-6">
 
                 {/* Stepper */}
                 <div className="w-full lg:w-[45%] flex justify-center mb-12 lg:mb-16">
@@ -250,7 +250,7 @@ export default function DocumentationDesignPage() {
 
                 {/* Next Button */}
                 <Button
-                    className="w-full lg:w-[275px] h-12 lg:h-9 text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708] "
+                    className="w-full sm:w-[275px] h-12 lg:h-9 text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708] "
                     onClick={handleSubmit}
                 >
                     مرحله بعد

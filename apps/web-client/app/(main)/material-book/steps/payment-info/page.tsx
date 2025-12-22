@@ -26,7 +26,7 @@ export default function PaymentInfoPage() {
 
     return (
         <BaseContainer>
-            <div className="w-full flex flex-col items-center justify-start pb-24 lg:py-16  px-6">
+            <div className="w-full lg:min-h-screen flex flex-col items-center justify-start pb-24 lg:py-16  px-6">
 
                 {/* Stepper */}
                 <div className="w-full lg:w-[45%] flex justify-center mb-12 lg:mb-16">
@@ -78,7 +78,7 @@ export default function PaymentInfoPage() {
                             </div>
                         </div>
 
-                        <RadioGroup dir="rtl" value={gateway} onValueChange={setGateway} className="w-fit flex lg:flex-col gap-4">
+                        <RadioGroup dir="rtl" value={gateway} onValueChange={setGateway} className="w-fit flex lg:flex-col gap-6 lg:gap-4">
 
                             {/* Mellat */}
                             <div
@@ -91,7 +91,10 @@ export default function PaymentInfoPage() {
                                 }
                             >
                                 <div className="flex flex-col lg:flex-row  items-center gap-6 lg:gap-4">
-                                    <div className="bg-white rounded-full p-1.5 ">
+                                    <div className="block lg:hidden bg-white rounded-full p-1.5 ">
+                                        <Image src="/svg/material-book/melat-img11.svg" width={30} height={30} alt="mellat" />
+                                    </div>
+                                    <div className="hidden lg:block bg-white rounded-full p-1.5 ">
                                         <Image src="/svg/material-book/melat-img11.svg" width={20} height={20} alt="mellat" />
                                     </div>
                                     <div className="flex flex-col items-center lg:items-start">
@@ -114,7 +117,10 @@ export default function PaymentInfoPage() {
                                 }
                             >
                                 <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-4">
-                                    <div className="bg-white rounded-full p-1.5 ">
+                                    <div className="block lg:hidden bg-white rounded-full p-1.5 ">
+                                        <Image src="/svg/material-book/saman11-img.svg" width={30} height={30} alt="saman" />
+                                    </div>
+                                    <div className="hidden lg:block bg-white rounded-full p-1.5 ">
                                         <Image src="/svg/material-book/saman11-img.svg" width={20} height={20} alt="saman" />
                                     </div>
 

@@ -62,7 +62,7 @@ export default function TechnicalInfoPage() {
 
     return (
         <BaseContainer>
-            <div className="w-full flex flex-col items-center justify-start pb-24 lg:pt-16 px-6">
+            <div className="w-full lg:min-h-screen flex flex-col items-center justify-start pb-24 lg:pt-16 px-6">
 
                 {/* Stepper */}
                 <div className="w-full lg:w-[45%] flex justify-center mb-12 lg:mb-16">
@@ -96,7 +96,7 @@ export default function TechnicalInfoPage() {
                 {/* Form Fields */}
                 <div className="w-full lg:w-[42%] grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 mb-4 lg:mb-8">
 
-                    <div className="custom-style-select w-full flex flex-col gap-1">
+                    <div className="custom-style-select custom-select-height w-full flex flex-col gap-1">
                         <Select onValueChange={(v) => handleChange("roof", v)}>
                             <SelectTrigger>
                                 <SelectValue placeholder="نوع سقف" />
@@ -110,7 +110,7 @@ export default function TechnicalInfoPage() {
                         <p className="h-3 text-red-500 text-[9px]">{errors.roof}</p>
                     </div>
 
-                    <div className="custom-style-select w-full flex flex-col gap-1">
+                    <div className="custom-style-select custom-select-height w-full flex flex-col gap-1">
                         <Select onValueChange={(v) => handleChange("skeleton", v)}>
                             <SelectTrigger>
                                 <SelectValue placeholder="نوع اسکلت سازه" />
@@ -124,7 +124,7 @@ export default function TechnicalInfoPage() {
                         <p className="h-3 text-red-500 text-[9px]">{errors.skeleton}</p>
                     </div>
 
-                    <div className="custom-style-select w-full flex flex-col gap-1">
+                    <div className="custom-style-select custom-select-height w-full flex flex-col gap-1">
                         <Select onValueChange={(v) => handleChange("materials", v)}>
                             <SelectTrigger>
                                 <SelectValue placeholder="نوع مصالح ساختمانی" />
@@ -138,7 +138,7 @@ export default function TechnicalInfoPage() {
                         <p className="h-3 text-red-500 text-[9px]">{errors.materials}</p>
                     </div>
 
-                    <div className="custom-style-select w-full flex flex-col gap-1">
+                    <div className="custom-style-select custom-select-height w-full flex flex-col gap-1">
                         <Select onValueChange={(v) => handleChange("foundationType", v)}>
                             <SelectTrigger>
                                 <SelectValue placeholder="نوع فونداسیون" />
@@ -152,7 +152,7 @@ export default function TechnicalInfoPage() {
                         <p className="h-3 text-red-500 text-[9px]">{errors.foundationType}</p>
                     </div>
 
-                    <div className="custom-style-select w-full flex flex-col gap-1">
+                    <div className="custom-style-select custom-select-height w-full flex flex-col gap-1">
                         <Select onValueChange={(v) => handleChange("electric", v)}>
                             <SelectTrigger>
                                 <SelectValue placeholder="نوع تأسیسات برقی" />
@@ -166,7 +166,7 @@ export default function TechnicalInfoPage() {
                         <p className="h-3 text-red-500 text-[9px]">{errors.electric}</p>
                     </div>
 
-                    <div className="custom-style-select w-full flex flex-col gap-1">
+                    <div className="custom-style-select custom-select-height w-full flex flex-col gap-1">
                         <Select onValueChange={(v) => handleChange("heating", v)}>
                             <SelectTrigger>
                                 <SelectValue placeholder="نوع تأسیسات گرمایشی" />
@@ -216,7 +216,7 @@ export default function TechnicalInfoPage() {
 
                 {/* Next Button */}
                 <Button
-                    className="w-full lg:w-[275px] h-12 lg:h-9 lg:text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708] "
+                    className="w-full sm:w-[275px] h-12 lg:h-9 lg:text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708] "
                     onClick={handleSubmit}
                 >
                     مرحله بعد

@@ -1,9 +1,27 @@
+"use client"
+
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { inquiryType } from "./typings/inquiry.types";
+import { useRouter } from "next/navigation"
 
 export const InquiryCard = ({ inquiry }: { inquiry: inquiryType }) => {
+
+    const router = useRouter()
+    const isLoggedIn = false
+
+    const handleStart = () => {
+        if (isLoggedIn) {
+            router.push("/inquiries/create-offer")
+        } else {
+            router.push(`/auth-redirect/phone?redirect=/inquiries/${inquiry.id}/create-offer`)
+        }
+    }
+
+
+
     return (
         <div className="shrink-0 relative lg:min-w-[207px] lg:w-[207px] lg:max-w-[207px] h-[223px] lg:h-[223px] bg-[#FAFAFA] text-[#1F242F] rounded-[12px] pb-6 px-4 flex flex-col items-center justify-end gap-2  hover:shadow-sm transition-all duration-300">
             <Image className="absolute top-0 start-0 object-contain rounded-tr-[12px]"
@@ -53,13 +71,8 @@ export const InquiryCard = ({ inquiry }: { inquiry: inquiryType }) => {
                     <div className="">{inquiry.offersCount}</div>
                 </div>
 
-                <Button asChild className=" w-full lg:px-[23px]! h-6  rounded-[6px] bg-brand-primary hover:bg-[#e7bd35] text-black text-xs lg:text-[10px] font-medium">
-                    <Link
-                        href={inquiry.inquiryLink}
-                        className="flex items-center gap-2 "
-                    >
-                        ثبت پیشنهاد
-                    </Link>
+                <Button onClick={handleStart} className="cursor-pointer flex items-center gap-2 w-full lg:px-[23px]! h-6  rounded-[6px] bg-brand-primary hover:bg-[#e7bd35] text-black text-xs lg:text-[10px] font-medium">
+                    ثبت پیشنهاد
                 </Button>
             </div>
         </div>

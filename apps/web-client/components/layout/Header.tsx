@@ -84,7 +84,7 @@ export default function Header() {
 						href={'/auth/login'}
 						className=" "
 					>
-						<Button className="flex items-center gap-2 w-fit px-8! lg:px-7! py-1.5  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-xs font-medium">
+						<Button className="cursor-pointer flex items-center gap-2 w-fit px-8! lg:px-7! py-1.5  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-xs font-medium">
 
 							ورود / ثبت نام
 							<ChevronLeft className="hidden lg:block h-4 w-4" />
