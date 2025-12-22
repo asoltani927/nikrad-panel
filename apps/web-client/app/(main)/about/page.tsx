@@ -11,7 +11,7 @@ export default function MaterialBookLanding() {
                     <h1 className="text-xl lg:text-[24px] text-start font-semibold mb-2 lg:mb-4 leading-10">
                         بازار آنلاین مصالح ساختمانی، خریدی سریع،<br />مطمئن و بی‌واسطه
                     </h1>
-                    <p className=" mb-4 font-medium te text-justify lg:text-start lg:text-[14px] max-w-md text-[#0C111D] leading-6">
+                    <p className=" mb-4 font-medium text-justify lg:text-start lg:text-[14px] max-w-md text-[#0C111D] leading-6">
                         ما بستری ایجاد کرده‌ایم تا خریداران و فروشندگان مصالح ساختمانی به صورت مستقیم و بدون واسطه با هم در ارتباط باشند. در این بازار آنلاین می‌توانید انواع متریال ساختمانی و دکوراتیو را با مقایسه‌ی قیمت، کیفیت و تامین کنندگان مختلف تهیه کنید. هدف ما ساده‌تر کردن روند خرید، صرفه‌جویی در زمان و تضمین شفافیت در معاملات است.
                     </p>
                 </div>

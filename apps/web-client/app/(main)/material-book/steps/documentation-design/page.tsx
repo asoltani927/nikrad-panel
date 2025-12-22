@@ -68,10 +68,10 @@ export default function DocumentationDesignPage() {
 
     return (
         <BaseContainer>
-            <div className="w-full flex flex-col items-center justify-start pb-15 pt-16 px-6">
+            <div className="w-full flex flex-col items-center justify-start pb-24 lg:pt-16 px-6">
 
                 {/* Stepper */}
-                <div className="w-[45%] flex justify-center mb-16">
+                <div className="w-full lg:w-[45%] flex justify-center mb-12 lg:mb-16">
                     <Stepper
                         currentIndex={2}
                         steps={[
@@ -100,12 +100,12 @@ export default function DocumentationDesignPage() {
                 </div>
 
                 {/* Form Fields */}
-                <div className="w-[42%] grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 mb-8">
+                <div className="w-full lg:w-[42%] grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 mb-4 lg:mb-8">
 
                     <div className="flex flex-col gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">متراژ عرصه</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             type="text"
                             value={form.area1}
                             onChange={(e) => handleChange("area1", e.target.value)}
@@ -117,7 +117,7 @@ export default function DocumentationDesignPage() {
                     <div className="flex flex-col gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">متراژ عرصه</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             type="text"
                             value={form.area2}
                             onChange={(e) => handleChange("area2", e.target.value)}
@@ -129,7 +129,7 @@ export default function DocumentationDesignPage() {
                     <div className="flex flex-col gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">متراژ زیربنا</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             type="text"
                             value={form.built1}
                             onChange={(e) => handleChange("built1", e.target.value)}
@@ -141,7 +141,7 @@ export default function DocumentationDesignPage() {
                     <div className="flex flex-col gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">متراژ زیربنا</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             type="text"
                             value={form.built2}
                             onChange={(e) => handleChange("built2", e.target.value)}
@@ -153,7 +153,7 @@ export default function DocumentationDesignPage() {
                     <div className="flex flex-col gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">تعداد طبقات پروژه</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             type="text"
                             value={form.floors1}
                             onChange={(e) => handleChange("floors1", e.target.value)}
@@ -165,7 +165,7 @@ export default function DocumentationDesignPage() {
                     <div className="flex flex-col gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">تعداد طبقات پروژه</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             type="text"
                             value={form.floors2}
                             onChange={(e) => handleChange("floors2", e.target.value)}
@@ -177,7 +177,7 @@ export default function DocumentationDesignPage() {
                     <div className="flex flex-col gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">تعداد طبقات پروژه</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             type="text"
                             value={form.floors3}
                             onChange={(e) => handleChange("floors3", e.target.value)}
@@ -189,7 +189,7 @@ export default function DocumentationDesignPage() {
                     <div className="flex flex-col gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">تعداد طبقات پروژه</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             type="text"
                             value={form.floors4}
                             onChange={(e) => handleChange("floors4", e.target.value)}
@@ -201,7 +201,7 @@ export default function DocumentationDesignPage() {
                     <div className="flex flex-col gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">متراژ عرصه</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             type="text"
                             value={form.area3}
                             onChange={(e) => handleChange("area3", e.target.value)}
@@ -213,7 +213,7 @@ export default function DocumentationDesignPage() {
                     <div className="flex flex-col gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">متراژ عرصه</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             type="text"
                             value={form.area4}
                             onChange={(e) => handleChange("area4", e.target.value)}
@@ -225,7 +225,7 @@ export default function DocumentationDesignPage() {
                     <div className="flex flex-col gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">متراژ زیربنا</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             type="text"
                             value={form.built3}
                             onChange={(e) => handleChange("built3", e.target.value)}
@@ -237,7 +237,7 @@ export default function DocumentationDesignPage() {
                     <div className="flex flex-col gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">متراژ زیربنا</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             type="text"
                             value={form.built4}
                             onChange={(e) => handleChange("built4", e.target.value)}
@@ -250,7 +250,7 @@ export default function DocumentationDesignPage() {
 
                 {/* Next Button */}
                 <Button
-                    className="w-[275px] h-9 text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708] "
+                    className="w-full lg:w-[275px] h-12 lg:h-9 text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708] "
                     onClick={handleSubmit}
                 >
                     مرحله بعد

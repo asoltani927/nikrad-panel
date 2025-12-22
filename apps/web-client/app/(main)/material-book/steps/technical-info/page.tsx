@@ -62,10 +62,10 @@ export default function TechnicalInfoPage() {
 
     return (
         <BaseContainer>
-            <div className="w-full flex flex-col items-center justify-start pb-15 pt-16 px-6">
+            <div className="w-full flex flex-col items-center justify-start pb-24 lg:pt-16 px-6">
 
                 {/* Stepper */}
-                <div className="w-[45%] flex justify-center mb-16">
+                <div className="w-full lg:w-[45%] flex justify-center mb-12 lg:mb-16">
                     <Stepper
                         currentIndex={1}
                         steps={[
@@ -94,7 +94,7 @@ export default function TechnicalInfoPage() {
                 </div>
 
                 {/* Form Fields */}
-                <div className="w-[42%] grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 mb-8">
+                <div className="w-full lg:w-[42%] grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 mb-4 lg:mb-8">
 
                     <div className="custom-style-select w-full flex flex-col gap-1">
                         <Select onValueChange={(v) => handleChange("roof", v)}>
@@ -183,7 +183,7 @@ export default function TechnicalInfoPage() {
                     <div className="flex flex-col gap-1">
                         <Label className="text-[#5B5C5F] text-[10px] ">هزینه مدنظر برای هر متر مربع</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             type="number"
                             value={form.cost}
                             onChange={(e) => handleChange("cost", e.target.value)}
@@ -216,7 +216,7 @@ export default function TechnicalInfoPage() {
 
                 {/* Next Button */}
                 <Button
-                    className="w-[275px] h-9 text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708] "
+                    className="w-full lg:w-[275px] h-12 lg:h-9 lg:text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708] "
                     onClick={handleSubmit}
                 >
                     مرحله بعد

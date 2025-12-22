@@ -34,8 +34,8 @@ export default function BookletTypePage() {
 
   return (
     <BaseContainer>
-      <div className="w-full flex flex-col items-center justify-start pb-15 pt-16 px-6">
-        <div className="w-[45%] flex justify-center mb-16">
+      <div className="w-full flex flex-col items-center justify-start pb-24 lg:pt-16 px-6">
+        <div className="w-full lg:w-[45%] flex justify-center mb-12 lg:mb-16">
           <Stepper
             currentIndex={4}
             steps={[
@@ -60,7 +60,8 @@ export default function BookletTypePage() {
             انتخاب نوع دفترچه
           </h1>
         </div>
-        <div className="w-[90%] flex flex-wrap justify-center gap-5 mb-4">
+
+        <div className="w-[90%] lg:w-[90%] flex flex-col lg:flex-row lg:flex-wrap justify-center gap-5 mb-4">
           {booklets.map((booklet, idx) => (
             <BookletCard
               key={idx}
@@ -73,7 +74,7 @@ export default function BookletTypePage() {
 
         {error && <p className="text-red-500 text-[11px] mb-2">{error}</p>}
         <Button
-          className="w-[275px] h-9 text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708] mt-2"
+          className="w-full lg:w-[275px] h-12 lg:h-9 lg:text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708] mt-2"
           onClick={handleSubmit}
         >
           مرحله بعد

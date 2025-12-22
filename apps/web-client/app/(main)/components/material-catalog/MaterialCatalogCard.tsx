@@ -8,8 +8,8 @@ export function MaterialCatalogCard({ icon, title, description }: MaterialCatalo
                 <Image src={icon} alt={title} width={28} height={28} />
             </div>
 
-            <h5 className="font-medium text-sm lg:text-[18px]">{title}</h5>
-            <p className="text-center font-light text-[#61646C] lg:leading-6 text-[11px] lg:text-[13px]">{description}</p>
+            <h5 className="text-nowrap font-medium text-[13.5px] lg:text-[18px]">{title}</h5>
+            <p className="text-center font-light text-[#61646C] lg:leading-6 text-[10px] lg:text-[13px]">{description}</p>
         </div>
     );
 }

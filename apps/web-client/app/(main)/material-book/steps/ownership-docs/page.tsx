@@ -63,10 +63,10 @@ export default function OwnershipDocsPage() {
 
     return (
         <BaseContainer>
-            <div className="w-full flex flex-col items-center justify-start pb-15 pt-16 px-6">
+            <div className="w-full flex flex-col items-center justify-start pb-24 lg:pt-16 px-6">
 
                 {/* Stepper */}
-                <div className="w-[45%] flex justify-center mb-16">
+                <div className="w-full lg:w-[45%] flex justify-center mb-12 lg:mb-16">
                     <Stepper
                         currentIndex={3}
                         steps={[
@@ -95,12 +95,12 @@ export default function OwnershipDocsPage() {
                 </div>
 
                 {/* Form Fields */}
-                <div className="w-[42%] grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1.5 mb-8">
+                <div className="w-full lg:w-[42%] grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1.5 mb-4 lg:mb-8">
 
                     <div className="flex flex-col justify-end gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">نام پروژه</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             value={form.projectName}
                             onChange={(e) => handleChange("projectName", e.target.value)}
                             type="text"
@@ -112,7 +112,7 @@ export default function OwnershipDocsPage() {
                     <div className="flex flex-col justify-end gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">متراژ عرصه</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             value={form.area}
                             onChange={(e) => handleChange("area", e.target.value)}
                             type="number"
@@ -138,7 +138,7 @@ export default function OwnershipDocsPage() {
                     <div className="flex flex-col justify-end gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">متراژ زیربنا</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             value={form.foundation}
                             onChange={(e) => handleChange("foundation", e.target.value)}
                             type="number"
@@ -164,7 +164,7 @@ export default function OwnershipDocsPage() {
                     <div className="flex flex-col justify-end gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">تعداد طبقات پروژه</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             value={form.floors}
                             onChange={(e) => handleChange("floors", e.target.value)}
                             type="number"
@@ -176,7 +176,7 @@ export default function OwnershipDocsPage() {
                     <div className="flex flex-col justify-end gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">تعداد واحدها</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             value={form.units}
                             onChange={(e) => handleChange("units", e.target.value)}
                             type="number"
@@ -202,7 +202,7 @@ export default function OwnershipDocsPage() {
                     <div className="flex flex-col justify-end gap-1">
                         <Label className="text-[#5B5C5F] text-[10px]">سال شروع پروژه</Label>
                         <Input
-                            className="placeholder:text-[11px]"
+                            className="placeholder:text-[11px] h-12 lg:h-9"
                             value={form.startYear}
                             onChange={(e) => handleChange("startYear", e.target.value)}
                             type="number"
@@ -229,7 +229,7 @@ export default function OwnershipDocsPage() {
 
                 {/* Next Button */}
                 <Button
-                    className="w-[275px] h-9 text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708] "
+                    className="w-full lg:w-[275px] h-12 lg:h-9 lg:text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708] "
                     onClick={handleSubmit}
                 >
                     مرحله بعد

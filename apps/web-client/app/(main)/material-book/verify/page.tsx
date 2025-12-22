@@ -52,16 +52,16 @@ export default function VerifyPage() {
     }
 
     return (
-        <div className="relative w-full flex flex-col items-center px-10 pt-16 pb-44">
+        <div className="relative w-full flex flex-col items-center -mt-4 lg:mt-0 px-6 lg:px-10 pt-0 lg:pt-16 pb-24 lg:pb-44">
             <Image
                 src="/svg/material-book/Backgroundpatterndecorative.svg"
                 width={580}
                 height={580}
                 alt="verify"
-                className="absolute"
+                className="hidden lg:block absolute"
             />
 
-            <div className="w-[275px] h-[270px] relative mt-52">
+            <div className="w-[350px] h-[285px]  lg:w-[275px] lg:h-[270px] relative lg:mt-52">
                 <Image
                     src="/img/material-book/11879344_Checklist3242.png"
                     fill
@@ -70,7 +70,7 @@ export default function VerifyPage() {
                 />
             </div>
 
-            <p className="w-[270px] text-center text-sm text-muted-foreground mb-5 leading-6 -mt-8">
+            <p className="w-[270px] text-center text-sm text-muted-foreground mb-5 leading-6 lg:-mt-8">
                 کد تأیید ۶ رقمی ارسال شده به شماره وارد شده را وارد کنید.
             </p>
 
@@ -106,7 +106,7 @@ export default function VerifyPage() {
             </div>
 
             <Button
-                className="w-[275px] h-9 text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708]"
+                className="w-full lg:w-[275px] h-12 sm:h-9 lg:text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708]"
                 onClick={handleSubmit}
             >
                 مرحله بعد
