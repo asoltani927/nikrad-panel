@@ -865,6 +865,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphql-typed-document-node/core@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "@graphql-typed-document-node/core@npm:3.2.0"
+  peerDependencies:
+    graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: 10/fa44443accd28c8cf4cb96aaaf39d144a22e8b091b13366843f4e97d19c7bfeaf609ce3c7603a4aeffe385081eaf8ea245d078633a7324c11c5ec4b2011bb76d
+  languageName: node
+  linkType: hard
+
 "@hookform/resolvers@npm:^5.2.2":
   version: 5.2.2
   resolution: "@hookform/resolvers@npm:5.2.2"
@@ -1545,6 +1554,7 @@ __metadata:
     "@fastify/type-provider-typebox": "npm:^6.1.0"
     "@nikrad/database": "workspace:*"
     "@prisma/client": "npm:^6.13.0"
+    "@shop/web-sdk": "file:../../web-sdk"
     "@types/node": "npm:^24.9.2"
     eslint: "npm:^9.37.0"
     eslint-config-prettier: "npm:^10.1.8"
@@ -2708,6 +2718,16 @@ __metadata:
   version: 0.4.1
   resolution: "@sec-ant/readable-stream@npm:0.4.1"
   checksum: 10/aac89581652ac85debe7c5303451c2ebf8bf25ca25db680e4b9b73168f6940616d9a4bbe3348981827b1159b14e2f2e6af4b7bd5735cac898c12d5c51909c102
+  languageName: node
+  linkType: hard
+
+"@shop/web-sdk@file:../../web-sdk::locator=%40nikrad%2Fbackend-client%40workspace%3Aapps%2Fbackend-client":
+  version: 0.1.0
+  resolution: "@shop/web-sdk@file:../../web-sdk#../../web-sdk::hash=1b327b&locator=%40nikrad%2Fbackend-client%40workspace%3Aapps%2Fbackend-client"
+  dependencies:
+    graphql: "npm:^16.11.0"
+    graphql-request: "npm:^7.2.0"
+  checksum: 10/bc0c9ab4bd40f7e0a707d05db55b874df28506d4e597862c012d12f5adadd62c04c16bd1956797f8a0ef1feba1307049833d43d09cfc62183e89962c6de6c9c7
   languageName: node
   linkType: hard
 
@@ -6204,7 +6224,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:^16.12.0":
+"graphql-request@npm:^7.2.0":
+  version: 7.4.0
+  resolution: "graphql-request@npm:7.4.0"
+  dependencies:
+    "@graphql-typed-document-node/core": "npm:^3.2.0"
+  peerDependencies:
+    graphql: 14 - 16
+  checksum: 10/bdf657ffd2017a4c404f2b18fc21dabb7094866059e80312632c38c21f3936cd790c1c635de5dba568f90c096725eaf50d6ec98db75229f260a5b9d6717744c5
+  languageName: node
+  linkType: hard
+
+"graphql@npm:^16.11.0, graphql@npm:^16.12.0":
   version: 16.12.0
   resolution: "graphql@npm:16.12.0"
   checksum: 10/e299bc97cca178e549c8c1ed4cb164f631f07be987d3657f76cdf18c0250040cc0d456d4b6d41c87b855cac97b15a62ed345557527efcb0546492895a893bb87

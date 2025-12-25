@@ -1,0 +1,11 @@
+schema: "https://api.example.com/graphql"
+documents: "src/queries/**/*.graphql"
+generates:
+  src/types/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-request"
+    config:
+      rawRequest: false
+      useTypeImports: true

@@ -1,0 +1,8 @@
+ls:
+  src:
+    .ts: regex:[a-z0-9-]+(\.[a-z]+)?(\.spec)? | regex:[a-z0-9-]+(\.[a-z]+)?(\.mock)?
+    .d.ts: regex:[a-z0-9-]+(\.[a-z]+)?(\.spec)? | regex:[a-z0-9-]+(\.[a-z]+)?(\.mock)?
+
+ignore:
+  - .git
+  - node_modules

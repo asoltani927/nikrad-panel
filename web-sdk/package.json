@@ -1,0 +1,21 @@
+{
+  "name": "@shop/web-sdk",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "ls-lint": "ls-lint",
+    "test": "jest",
+    "ts:check": "tsc --noEmit --skipLibCheck"
+  },
+  "dependencies": {
+    "graphql": "^16.11.0",
+    "graphql-request": "^7.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
