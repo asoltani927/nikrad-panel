@@ -452,20 +452,20 @@ model Shop {
   cuid String @unique @default(cuid())
 
   name        String
-  aboutShop   String
-  aboutSeller String
+  about       String
+  aboutSeller String @map("about_seller")
 
-  daysOfActivity String[]
-  workingHours   Json
-  responseHours  Json
-  socialMedia    Json?
+  daysOfActivity String[] @map("days_of_activity")
+  workingHours   Json     @map("working_hours")
+  responseHours  Json     @map("response_hours")
+  socialMedia    Json?    @map("social_media")
 
-  successDeals Int @default(0)
-  failedDeals  Int @default(0)
+  successDeals Int @default(0) @map("success_deals")
+  failedDeals  Int @default(0) @map("failed_deals")
 
-  thumbnailImage String?
+  thumbnailImage String? @map("thumbnail_image")
 
-  ownerId Int
+  ownerId Int  @map("owner_id")
   owner   User @relation(fields: [ownerId], references: [id])
 
   categoryId Int
@@ -481,7 +481,7 @@ model Shop {
 
 model ShopGallery {
   id       Int    @id @default(autoincrement())
-  imageUrl String
+  imageUrl String @map("image_url")
   shopId   Int
   shop     Shop   @relation(fields: [shopId], references: [id])
 }
@@ -490,9 +490,9 @@ model ShopReview {
   id        Int      @id @default(autoincrement())
   rating    Int
   comment   String?
-  userId    Int
+  userId    Int      @map("user_id")
   user      User     @relation(fields: [userId], references: [id])
-  shopId    Int
+  shopId    Int      @map("shop_id")
   shop      Shop     @relation(fields: [shopId], references: [id])
   createdAt DateTime @default(now())
 }
