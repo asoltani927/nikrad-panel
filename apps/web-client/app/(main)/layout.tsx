@@ -14,18 +14,13 @@ export default function MainLayout({
     const pathname = usePathname();
 
     const isHome = pathname === "/";
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
 
     return (
         <>
-            {/* Desktop Header — always visible */}
-            <div className="hidden lg:block">
-                <Header />
-            </div>
 
-            {/* Mobile Header Logic */}
-            <div className=" block lg:hidden">
-                {isHome ? <Header /> : <MobileSecondaryHeader />}
-            </div>
+            {/*  Header Logic */}
+            {!isHome && isMobile ? <MobileSecondaryHeader /> : <Header />}
 
             <main>
                 {children}

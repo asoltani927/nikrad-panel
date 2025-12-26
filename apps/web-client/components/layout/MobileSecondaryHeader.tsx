@@ -2,11 +2,12 @@ import Link from "next/link";
 import BaseContainer from "../base/BaseContainer";
 import { Search, User } from "lucide-react";
 import MobileDrawer from "./MobileDrawer"
+import CartPreview from "@/app/(main)/cart/components/CartPreview";
 
 export default function MobileSecondaryHeader() {
     return (
         <header
-            className="w-full bg-white border-b mb-8 px-[6%] lg:px-[10%] lg:sticky flex items-center justify-center top-0 z-50 lg:shadow-xs pt-6 pb-2 lg:py-3.5 text-[#1C1D1F]">
+            className="w-full bg-white border-b mb-8 px-[6%] lg:px-[10%] lg:sticky block lg:hidden items-center justify-center top-0 z-50 lg:shadow-xs pt-6 pb-2 lg:py-3.5 text-[#1C1D1F]">
             <BaseContainer className="flex lg:items-center gap-6 lg:gap-4">
                 <div className="w-full flex flex-col lg:flex-row lg:items-center gap-4">
                     <div className="flex items-center gap-4">
@@ -16,7 +17,8 @@ export default function MobileSecondaryHeader() {
                         </Link>
                     </div>
                 </div>
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-3">
+                    <CartPreview />
                     <Link
                         href={'/auth/login'}
                         className=" "

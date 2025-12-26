@@ -21,7 +21,7 @@ export default function PaymentInfoPage() {
         "flex justify-between items-center gap-8 border border-[#ECECED] p-4 px-2 rounded-sm cursor-pointer";
 
     const handleSubmit = () => {
-        router.push("/payment/success/34kj5hkjh53kj");
+        router.push("/cart/payment/success/34kj5hkjh53kj");
     };
 
     return (
