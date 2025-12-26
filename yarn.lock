@@ -2723,11 +2723,11 @@ __metadata:
 
 "@shop/web-sdk@file:../../web-sdk::locator=%40nikrad%2Fbackend-client%40workspace%3Aapps%2Fbackend-client":
   version: 0.1.0
-  resolution: "@shop/web-sdk@file:../../web-sdk#../../web-sdk::hash=1b327b&locator=%40nikrad%2Fbackend-client%40workspace%3Aapps%2Fbackend-client"
+  resolution: "@shop/web-sdk@file:../../web-sdk#../../web-sdk::hash=8a9237&locator=%40nikrad%2Fbackend-client%40workspace%3Aapps%2Fbackend-client"
   dependencies:
     graphql: "npm:^16.11.0"
     graphql-request: "npm:^7.2.0"
-  checksum: 10/bc0c9ab4bd40f7e0a707d05db55b874df28506d4e597862c012d12f5adadd62c04c16bd1956797f8a0ef1feba1307049833d43d09cfc62183e89962c6de6c9c7
+  checksum: 10/c123bf7f4cbf2db729c951c448a037b054c26721be1b1ddd87858c48013ccef4029fac427aa15f2ca93e423f43c251d725bf2095178c8b31d2e6b7cffce04eb1
   languageName: node
   linkType: hard
 
