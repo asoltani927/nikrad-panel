@@ -13,12 +13,12 @@
     "types": ["node", "fastify"],
     "paths": {
       "@/*": ["./src/*"],
-      "@shop/web-sdk": ["../../web-sdk/src"],
+      "@shop/web-sdk": ["../../../web-sdk/src"],
       "@nikrad/database": ["../packages/database"],
     }
   },
     "references": [
-    { "path": "../../web-sdk" }
+    { "path": "../../../web-sdk" }
   ],
   "include": ["src/**/*.ts", "fastify.d.ts"],
   "exclude": ["node_modules", "prisma", "dist", "../../web-sdk/src"]
