@@ -98,9 +98,9 @@ model User {
   category   Category? @relation(fields: [categoryId], references: [id])
 
   deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
   categoriesCreatedBy             Category[]               @relation("categoriesCreatedBy")
   categoriesUpdatedBy             Category[]               @relation("categoriesUpdatedBy")
@@ -123,6 +123,8 @@ model User {
   materialBookOwners              MaterialBook[]           @relation("materialBookOwner")
   addresses                       Address[]
   transaction                     Transaction[]
+  shops                           Shop[]
+  shopReviews                     ShopReview[]
 }
 
 model Address {
@@ -137,9 +139,9 @@ model Address {
 
   address String
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
   deleted   Boolean   @default(false)
 }
 
@@ -158,9 +160,9 @@ model Category {
   children Category[] @relation("CategoryToCategory")
 
   deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
   createdById Int
   createdBy   User          @relation("categoriesCreatedBy", fields: [createdById], references: [id])
@@ -171,6 +173,7 @@ model Category {
   Need        Need[]
   CustomField CustomField[]
   User        User[]
+  shops       Shop[]
 
   @@map("categories")
 }
@@ -193,9 +196,9 @@ model Need {
   status String @default("draft")
 
   deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
   createdById Int
   createdBy   User          @relation("NeedsCreatedBy", fields: [createdById], references: [id])
@@ -225,9 +228,9 @@ model Suggestions {
   deletedBy   User? @relation("suggestionsDeletedBy", fields: [deletedById], references: [id])
 
   deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
   @@map("suggestions")
 }
@@ -281,9 +284,9 @@ model CustomField {
   deletedBy   User? @relation("customFieldsDeletedBy", fields: [deletedById], references: [id])
 
   deleted          Boolean            @default(false)
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  deletedAt        DateTime?
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime           @updatedAt @map("updated_at")
+  deletedAt        DateTime?          @map("deleted_at")
   CustomFieldValue CustomFieldValue[]
 
   @@map("custom_fields")
@@ -298,8 +301,8 @@ model CustomFieldValue {
 
   value String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@unique([customFieldId, targetId])
   @@map("custom_field_values")
@@ -320,7 +323,7 @@ model MaterialBook {
   status          MaterialBookStatus       @default(DRAFT)
   bookPackageInfo MaterialBookPackageInfo?
 
-  ownerId Int
+  ownerId Int  @map("owner_id")
   owner   User @relation("materialBookOwner", fields: [ownerId], references: [id])
 
   createdById Int
@@ -333,9 +336,9 @@ model MaterialBook {
   attachments MaterialBookAttachment[]
 
   deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
   @@map("material_book")
 }
@@ -356,9 +359,9 @@ model MaterialBookAttachment {
   deletedBy   User? @relation("materialBookAttachmentDeletedBy", fields: [deletedById], references: [id])
 
   deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 }
 
 model File {
@@ -369,9 +372,9 @@ model File {
   type String
   size Int
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
   deleted   Boolean   @default(false)
 
   MaterialBookAttachment MaterialBookAttachment[] @relation("materialBookAttachmentFile")
@@ -403,8 +406,8 @@ model MaterialBookPackageInfo {
   paidAt          DateTime?
   transactionInfo Json?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("material_book_package_info")
 }
@@ -435,11 +438,61 @@ model Transaction {
   userId  Int?
   orderId Int?
 
-  createdAt DateTime  @default(now())
+  createdAt DateTime  @default(now()) @map("created_at")
   paidAt    DateTime?
   user      User?     @relation(fields: [userId], references: [id])
 
   @@index([authority])
   @@index([userId])
   @@index([orderId])
+}
+
+model Shop {
+  id   Int    @id @default(autoincrement())
+  cuid String @unique @default(cuid())
+
+  name        String
+  about       String
+  aboutSeller String @map("about_seller")
+
+  daysOfActivity String[] @map("days_of_activity")
+  workingHours   Json     @map("working_hours")
+  responseHours  Json     @map("response_hours")
+  socialMedia    Json?    @map("social_media")
+
+  successDeals Int @default(0) @map("success_deals")
+  failedDeals  Int @default(0) @map("failed_deals")
+
+  thumbnailImage String? @map("thumbnail_image")
+
+  ownerId Int  @map("owner_id")
+  owner   User @relation(fields: [ownerId], references: [id])
+
+  categoryId Int      @map("category_id")
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  galleryImages ShopGallery[]
+
+  deleted     Boolean      @default(false)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  shopReviews ShopReview[]
+}
+
+model ShopGallery {
+  id       Int    @id @default(autoincrement())
+  imageUrl String @map("image_url")
+  shopId   Int
+  shop     Shop   @relation(fields: [shopId], references: [id])
+}
+
+model ShopReview {
+  id        Int      @id @default(autoincrement())
+  rating    Int
+  comment   String?
+  userId    Int      @map("user_id")
+  user      User     @relation(fields: [userId], references: [id])
+  shopId    Int      @map("shop_id")
+  shop      Shop     @relation(fields: [shopId], references: [id])
+  createdAt DateTime @default(now()) @map("created_at")
 }
