@@ -27,11 +27,11 @@ export function CheckoutBreadcrumb() {
                         </BreadcrumbSeparator>
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>
-                                <Link href="/" className="lg:text-[17px] font-normal!  ">دسته‌بندی محصولات</Link>
+                                <Link href="/" className="lg:text-[17px] font-normal! hidden lg:block  ">دسته‌بندی محصولات</Link>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator>
-                            <ChevronLeft className="size-4.5!" />
+                            <ChevronLeft className="size-4.5! hidden lg:block " />
                         </BreadcrumbSeparator>
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>

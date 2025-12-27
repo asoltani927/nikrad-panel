@@ -58,7 +58,6 @@ export default function CartPreviewItem({
                     </div>
                 </div>
             </div>
-
             <div className="w-full lg:w-fit items-end lg:items-start flex flex-col text-gray-900 lg:text-gray-700 gap-1 pe-4 lg:pe-0 -mt-4 lg:mt-0">
                 <div className="flex items-center gap-2">
                     <span className="line-through">{oldPrice}</span>
