@@ -7,6 +7,7 @@ import { provincesModule } from './provinces'
 import { suggestionsModule } from './suggestions'
 import { categoriesModule } from './categories'
 import { paymentsModule } from './payment'
+import { shopsModule } from './shops'
 
 export async function initialModules(app: FastifyInstance) {
   await countriesModule(app)
@@ -17,4 +18,5 @@ export async function initialModules(app: FastifyInstance) {
   await suggestionsModule(app)
   await categoriesModule(app)
   await paymentsModule(app)
+  await shopsModule(app)
 }
