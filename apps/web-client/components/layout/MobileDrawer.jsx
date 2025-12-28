@@ -25,17 +25,19 @@ export default function MobileDrawer() {
                     <button className="me-4" onClick={() => setOpen(false)}>
                         <X size={26} />
                     </button>
-                    <div className="w-9 h-9 relative">
+                    <Link href={'/'} className="w-9 h-9 relative">
                         <Image src="/img/nikrad-logo.png" alt="logo" fill className="object-contain" />
-                    </div>
-                    <div className="w-[150px] h-8 relative">
+                    </Link>
+                    <Link href={'/'} className="w-[150px] h-8 relative">
                         <Image src="/svg/nikrad-label1.svg" alt="logo" fill className="object-contain" />
-                    </div>
+                    </Link>
                 </div>
 
-                <Button className="w-full h-11 mb-5 rounded-full border border-black text-[12px] font-light">
-                    دفترچه متریال
-                </Button>
+                <Link href={'/material-book'}>
+                    <Button className="w-full h-11 mb-5 rounded-full border border-black text-[12px] font-light">
+                        دفترچه متریال
+                    </Button>
+                </Link>
 
                 <div className="relative mb-6">
                     <Input
@@ -48,15 +50,19 @@ export default function MobileDrawer() {
 
                 <nav className="flex flex-col gap-5 text-sm font-medium">
                     <Link href="#">فروشگاه</Link>
-                    <Link href="#">نیازمندی‌ها</Link>
-                    <Link href="#">درباره ما</Link>
+                    <Link href={'/inquiries'}>نیازمندی‌ها</Link>
+                    <Link href="/about">درباره ما</Link>
                     <Link href="#">تماس با ما</Link>
                 </nav>
-
-                <Button className="w-full mt-10 h-12 bg-[#FAC515] text-black rounded-sm">
-                    ورود / ثبت نام
-                </Button>
+                <Link
+                    href={'/auth/login'}
+                    className=" "
+                >
+                    <Button className="w-full mt-10 h-12 bg-[#FAC515] text-black rounded-sm">
+                        ورود / ثبت نام
+                    </Button>
+                </Link>
             </DrawerContent>
-        </Drawer>
+        </Drawer >
     );
 }

@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@theme {
+  --color-brand-primary: #FAC515;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -153,4 +157,31 @@
 
 .hiddenScrollStyle::-webkit-scrollbar {
   display: none;
+}
+
+.custom-style-select button {
+  width: 100%;
+  direction: rtl;
+}
+
+.custom-style-select button span {
+  font-size: 11px;
+  color: #161B26;
+}
+
+.rtl {
+  direction: rtl;
+}
+
+
+@media (max-width: 1024px) {
+  .custom-select-height button {
+    height: 48px !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .custom-select-height button {
+    height: 36px !important;
+  }
 }

@@ -28,7 +28,7 @@ export default function LayoutFooter() {
 							/>
 							<Mail className="absolute start-4 top-1/2 -translate-y-1/2 text-[#CECFD2] size-5" />
 						</div>
-						<Button asChild className="w-full sm:w-1/2 px-7! h-12  rounded-[3px] bg-[#FAC515] hover:bg-[#e7bd35] text-[#1C1D1F] text-[15px] font-medium">
+						<Button asChild className="w-full sm:w-1/2 px-7! h-12  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-[15px] font-medium">
 							<Link
 								href={'#'}
 								className="flex items-center gap-2 "

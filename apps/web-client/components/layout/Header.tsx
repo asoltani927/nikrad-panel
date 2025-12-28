@@ -2,11 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import BaseContainer from "../base/BaseContainer";
-import { ChevronLeft, Search } from "lucide-react";
+import { ChevronLeft, Search, User } from "lucide-react";
 import { Input } from "../ui/input";
 import MobileDrawer from "./MobileDrawer"
+import CartPreview from "@/app/(main)/cart/components/CartPreview";
 
 export default function Header() {
+
+	const isLoggedIn = true
+
 	return (
 		<header
 			className="w-full bg-white px-[6%] lg:px-[10%] lg:sticky flex items-center justify-center top-0 z-50 lg:shadow-xs py-6 lg:py-3.5 text-[#1C1D1F]">
@@ -41,13 +45,13 @@ export default function Header() {
 							فروشگاه
 						</Link>
 						<Link
-							href={'#'}
+							href={'/inquiries'}
 							className=" hover:text-gray-700"
 						>
 							نیازمندی‌ها
 						</Link>
 						<Link
-							href={'#'}
+							href={'/about'}
 							className=" hover:text-gray-700"
 						>
 							درباره ما
@@ -60,7 +64,7 @@ export default function Header() {
 						</Link>
 						<Button asChild className="rounded-full">
 							<Link
-								href={'#'}
+								href={'/material-book'}
 								className="hidden items-center gap-2 rounded-full border border-[#171717] px-5 h-8! text-[11px] font-light  text-white lg:flex"
 							>
 								دفترچه متریال
@@ -80,15 +84,25 @@ export default function Header() {
 				</div>
 				<div className="flex items-center gap-6">
 					<Search className="block lg:hidden  text-zinc-500 size-7" />
-					<Button asChild className="w-fit px-8! lg:px-7! py-1.5  rounded-[3px] bg-[#FAC515] hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-xs font-medium">
+					{isLoggedIn ? (
+						<div className="flex items-center gap-4">
+							<CartPreview />
+							{/* <ShoppingBasket color="#EAAA08" className="size-6 cursor-pointer" /> */}
+							<User color="#333741" className="size-5.5 cursor-pointer" />
+						</div>
+					) : (
 						<Link
-							href={'#'}
-							className="flex items-center gap-2 "
+							href={'/auth/login'}
+							className=" "
 						>
-							ورود / ثبت نام
-							<ChevronLeft className="hidden lg:block h-4 w-4" />
+							<Button className="cursor-pointer flex items-center gap-2 w-fit px-8! lg:px-7! py-1.5  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-xs font-medium">
+
+								ورود / ثبت نام
+								<ChevronLeft className="hidden lg:block h-4 w-4" />
+							</Button>
 						</Link>
-					</Button>
+					)}
+
 				</div>
 			</BaseContainer>
 		</header>
