@@ -5,6 +5,7 @@ import { provincesModule } from './provinces'
 import { needsModule } from './needs'
 import { categoriesModule } from './categories'
 import { customFieldsModule } from './custom-fields'
+import { suggestionsModule } from './suggestions'
 
 export async function initialModules(app: FastifyInstance) {
   await countriesModule(app)
@@ -13,4 +14,5 @@ export async function initialModules(app: FastifyInstance) {
   await needsModule(app)
   await categoriesModule(app)
   await customFieldsModule(app)
+  await suggestionsModule(app)
 }

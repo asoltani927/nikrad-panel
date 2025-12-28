@@ -2,6 +2,7 @@ import { Messages } from '@/constants/messages'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
+import { RegionCodeEnum } from '@nikrad/database'
 
 const paramsSchema = z.object({
   id: z.coerce.number(),
@@ -46,7 +47,10 @@ export const putNeedRoute = async (app: FastifyInstance) => {
 
       const need = await app.prisma.need.update({
         where: { id },
-        data,
+        data: {
+          ...data,
+          provinceCode: data.provinceCode as RegionCodeEnum,
+        },
         select: {
           title: true,
           categoryId: true,

@@ -34,3 +34,8 @@ export async function setup(app: FastifyInstance) {
     routePrefix: '/docs',
   })
 }
+
+
+export default {
+  setup,
+}
