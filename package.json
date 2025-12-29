@@ -21,5 +21,8 @@
     "apps/*",
     "packages/*"
   ],
-  "packageManager": "yarn@4.10.3"
+  "packageManager": "yarn@4.10.3",
+  "dependencies": {
+    "@dokamerce/web-sdk": "^0.9.0"
+  }
 }

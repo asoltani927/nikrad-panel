@@ -36,7 +36,6 @@
     "zod-to-json-schema": "^3.24.6"
   },
   "devDependencies": {
-    "@prisma/client": "^6.13.0",
     "@types/node": "^24.9.2"
   }
 }
