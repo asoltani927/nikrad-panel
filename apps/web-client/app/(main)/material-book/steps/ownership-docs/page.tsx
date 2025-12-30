@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
+import CircularStepProgress from "../components/CircularStepProgress";
 
 // ------------------ ZOD SCHEMA ------------------
 const schema = z.object({
@@ -66,7 +67,7 @@ export default function OwnershipDocsPage() {
             <div className="w-full lg:min-h-screen flex flex-col items-center justify-start pb-24 lg:pt-16 px-6">
 
                 {/* Stepper */}
-                <div className="w-full lg:w-[45%] flex justify-center mb-12 lg:mb-16">
+                <div className="w-full lg:w-[45%] hidden lg:flex justify-center mb-12 lg:mb-16">
                     <Stepper
                         currentIndex={3}
                         steps={[
@@ -79,6 +80,18 @@ export default function OwnershipDocsPage() {
                         ]}
                     />
                 </div>
+
+                <CircularStepProgress
+                    currentIndex={3}
+                    steps={[
+                        "مشخصات کلی پروژه",
+                        "مشخصات فنی",
+                        "طراحی مستندات",
+                        "مالکیت و مدارک",
+                        "انتخاب نوع دفترچه",
+                        "صورت حساب"
+                    ]}
+                />
 
                 {/* Title */}
                 <div className="relative flex items-center mb-11">

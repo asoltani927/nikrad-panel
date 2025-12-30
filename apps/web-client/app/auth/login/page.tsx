@@ -34,7 +34,7 @@ export default function LoginPage() {
 
         setError("");
         console.log("Phone:", phone);
-        router.push("/auth/verify");
+        router.push("/auth/otp");
     };
 
     return (
@@ -95,10 +95,10 @@ export default function LoginPage() {
                             <Checkbox className="h-4 w-4" />
                             <span className="text-[#5B5C5F] text-sm lg:text-[10px] ">با ثبت‌نام و ورود، <Link href="/rules" className="text-yellow-600 underline cursor-pointer">قوانین فروشگاه </Link>را می‌پذیرم.</span>
                         </label>
-                        <div className="text-[#5B5C5F] text-sm lg:text-[10px] ">
+                        {/* <div className="text-[#5B5C5F] text-sm lg:text-[10px] ">
                             حساب کاربری ندارید؟
                             <Link href="/auth/register" className="text-yellow-600"> ثبت‌نام</Link>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </section>
