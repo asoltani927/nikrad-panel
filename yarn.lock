@@ -1554,13 +1554,14 @@ __metadata:
     "@fastify/type-provider-typebox": "npm:^6.1.0"
     "@nikrad/database": "workspace:*"
     "@prisma/client": "npm:^6.13.0"
-    "@shop/web-sdk": "file:../../web-sdk"
+    "@shop/web-sdk": "file:../../../web-sdk"
     "@types/node": "npm:^24.9.2"
     eslint: "npm:^9.37.0"
     eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-prettier: "npm:^5.5.4"
     fastify: "npm:^5.6.1"
     fastify-type-provider-zod: "npm:^6.1.0"
+    graphql-request: "npm:^7.4.0"
     nodemon: "npm:^3.1.10"
     pino-pretty: "npm:^13.1.2"
     prettier: "npm:^3.6.2"
@@ -2721,13 +2722,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shop/web-sdk@file:../../web-sdk::locator=%40nikrad%2Fbackend-client%40workspace%3Aapps%2Fbackend-client":
-  version: 0.1.0
-  resolution: "@shop/web-sdk@file:../../web-sdk#../../web-sdk::hash=8a9237&locator=%40nikrad%2Fbackend-client%40workspace%3Aapps%2Fbackend-client"
+"@shop/web-sdk@file:../../../web-sdk::locator=%40nikrad%2Fbackend-client%40workspace%3Aapps%2Fbackend-client":
+  version: 0.9.8
+  resolution: "@shop/web-sdk@file:../../../web-sdk#../../../web-sdk::hash=dbae19&locator=%40nikrad%2Fbackend-client%40workspace%3Aapps%2Fbackend-client"
   dependencies:
-    graphql: "npm:^16.11.0"
+    graphql: "npm:^16.12.0"
     graphql-request: "npm:^7.2.0"
-  checksum: 10/c123bf7f4cbf2db729c951c448a037b054c26721be1b1ddd87858c48013ccef4029fac427aa15f2ca93e423f43c251d725bf2095178c8b31d2e6b7cffce04eb1
+    graphql-tag: "npm:^2.12.6"
+  checksum: 10/c0ce8cd4786882b07583b5445e3e8b3ed557b40090d34c10e961ae8467a37fb669e8f419760548a65947a633981d824882ac4f4e80bb38215e77f2bee4862741
   languageName: node
   linkType: hard
 
@@ -6224,7 +6226,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-request@npm:^7.2.0":
+"graphql-request@npm:^7.2.0, graphql-request@npm:^7.4.0":
   version: 7.4.0
   resolution: "graphql-request@npm:7.4.0"
   dependencies:
@@ -6235,7 +6237,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:^16.11.0, graphql@npm:^16.12.0":
+"graphql-tag@npm:^2.12.6":
+  version: 2.12.6
+  resolution: "graphql-tag@npm:2.12.6"
+  dependencies:
+    tslib: "npm:^2.1.0"
+  peerDependencies:
+    graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+  checksum: 10/23a2bc1d3fbeae86444204e0ac08522e09dc369559ba75768e47421a7321b59f352fb5b2c9a5c37d3cf6de890dca4e5ac47e740c7cc622e728572ecaa649089e
+  languageName: node
+  linkType: hard
+
+"graphql@npm:^16.12.0":
   version: 16.12.0
   resolution: "graphql@npm:16.12.0"
   checksum: 10/e299bc97cca178e549c8c1ed4cb164f631f07be987d3657f76cdf18c0250040cc0d456d4b6d41c87b855cac97b15a62ed345557527efcb0546492895a893bb87
