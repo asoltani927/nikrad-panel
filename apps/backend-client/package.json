@@ -13,12 +13,14 @@
     "prisma": "prisma"
   },
   "dependencies": {
+    "@dokamerce/web-sdk": "0.9.8",
     "@fastify/cors": "^11.1.0",
     "@fastify/swagger": "^9.5.2",
     "@fastify/swagger-ui": "^5.2.3",
     "@fastify/type-provider-typebox": "^6.1.0",
     "@nikrad/database": "workspace:*",
     "@prisma/client": "^6.17.1",
+    "@vue/apollo-composable": "^4.2.2",
     "eslint": "^9.37.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
@@ -37,8 +39,6 @@
     "zod-to-json-schema": "^3.24.6"
   },
   "devDependencies": {
-    "@prisma/client": "^6.13.0",
-    "@shop/web-sdk": "file:../../../web-sdk",
     "@types/node": "^24.9.2"
   }
 }
