@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
-import { Prisma, CustomFieldTarget } from '@nikrad/database'
+import { CustomFieldTarget, Prisma } from '@nikrad/database'
 import { authMiddleware } from '@/middlewares'
 
 const customFieldsSchema = z.object({

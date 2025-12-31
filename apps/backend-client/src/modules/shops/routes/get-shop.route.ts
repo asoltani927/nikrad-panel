@@ -26,15 +26,7 @@ export const getShopByCuidRoute = async (app: FastifyInstance) => {
           cuid,
           deleted: false,
         },
-        select: {
-          cuid: true,
-          name: true,
-          aboutShop: true,
-          aboutSeller: true,
-          successDeals: true,
-          failedDeals: true,
-          thumbnailImage: true,
-
+        include: {
           owner: {
             select: {
               id: true,
@@ -43,21 +35,18 @@ export const getShopByCuidRoute = async (app: FastifyInstance) => {
               lastName: true,
             },
           },
-
           category: {
             select: {
               id: true,
               name: true,
             },
           },
-
           galleryImages: {
             select: {
               imageUrl: true,
             },
           },
-
-          reviews: {
+          shopReviews: {
             orderBy: { createdAt: 'desc' },
             select: {
               rating: true,
@@ -80,14 +69,23 @@ export const getShopByCuidRoute = async (app: FastifyInstance) => {
       }
 
       const response = {
-        ...shop,
+        cuid: shop.cuid,
+        name: shop.name,
+        about: shop.about,
+        aboutSeller: shop.aboutSeller,
+        successDeals: shop.successDeals,
+        failedDeals: shop.failedDeals,
+        thumbnailImage: shop.thumbnailImage,
         owner: {
           id: shop.owner.id,
           name: shop.owner.name,
           fullName: `${shop.owner.firstName} ${shop.owner.lastName}`,
         },
-        reviews: shop.reviews.map((review) => ({
-          ...review,
+        category: shop.category,
+        galleryImages: shop.galleryImages.map((g) => g.imageUrl),
+        shopReviews: shop.shopReviews.map((review) => ({
+          rating: review.rating,
+          comment: review.comment,
           user: {
             fullName: `${review.user.firstName} ${review.user.lastName}`,
           },

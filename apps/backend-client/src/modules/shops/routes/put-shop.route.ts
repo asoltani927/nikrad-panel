@@ -53,7 +53,7 @@ export const putShopRoute = async (app: FastifyInstance) => {
           data: {
             name: body.name,
             categoryId: body.categoryId,
-            aboutShop: body.aboutShop,
+            about: body.aboutShop,
             aboutSeller: body.aboutSeller,
             daysOfActivity: body.daysOfActivity,
             workingHours: body.workingHours,

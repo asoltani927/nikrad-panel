@@ -1,10 +1,21 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ChevronLeft, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -25,10 +36,14 @@ const schema = z.object({
   zipCode: z.string().min(1, "کد پستی الزامی است"),
   details: z.string().min(1, "جزئیات آدرس الزامی است"),
   name: z.string().min(1, "نام تحویل گیرنده الزامی است"),
-  phone: z.string().min(1, "شماره موبایل الزامی است")
+  phone: z.string().min(1, "شماره موبایل الزامی است"),
 });
 
-export function AddressFormModal({ open, mode, onClose }: AddressFormModalProps) {
+export function AddressFormModal({
+  open,
+  mode,
+  onClose,
+}: AddressFormModalProps) {
   const [showMap, setShowMap] = useState(false);
 
   const [form, setForm] = useState({
@@ -38,10 +53,10 @@ export function AddressFormModal({ open, mode, onClose }: AddressFormModalProps)
     zipCode: "",
     details: "",
     name: "",
-    phone: ""
+    phone: "",
   });
 
-  const [errors, setErrors] = useState<any>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (name: string, value: string) => {
     setForm({ ...form, [name]: value });
@@ -57,8 +72,15 @@ export function AddressFormModal({ open, mode, onClose }: AddressFormModalProps)
     const result = schema.safeParse(form);
 
     if (!result.success) {
-      const formatted: any = {};
-      result.error.issues.forEach(i => (formatted[i.path[0]] = i.message));
+      const formatted: Record<string, string> = {};
+
+      result.error.issues.forEach((issue) => {
+        const key = issue.path[0];
+        if (typeof key === "string") {
+          formatted[key] = issue.message;
+        }
+      });
+
       setErrors(formatted);
       return;
     }
@@ -98,8 +120,12 @@ export function AddressFormModal({ open, mode, onClose }: AddressFormModalProps)
                 type="text"
                 placeholder="آدرس را وارد کنید"
               />
-              <p className="h-3 text-gray-600 text-[9px] -mt-0.5">آدرس را یادداشت کنید</p>
-              <p className="h-3 text-red-500 text-[9px] -mt-0.5">{errors.address}</p>
+              <p className="h-3 text-gray-600 text-[9px] -mt-0.5">
+                آدرس را یادداشت کنید
+              </p>
+              <p className="h-3 text-red-500 text-[9px] -mt-0.5">
+                {errors.address}
+              </p>
             </div>
 
             {!showMap && (
@@ -115,7 +141,13 @@ export function AddressFormModal({ open, mode, onClose }: AddressFormModalProps)
             )}
             <div className="border-t border-gray-200 pt-4 mt-6">
               {showMap && (
-                <Image src="/img/map.png" width="500" height={350} className="object-contain mb-2" />
+                <Image
+                  alt="map"
+                  src="/img/map.png"
+                  width="500"
+                  height={350}
+                  className="object-contain mb-2"
+                />
               )}
 
               {!showMap && (
@@ -126,12 +158,16 @@ export function AddressFormModal({ open, mode, onClose }: AddressFormModalProps)
                         <SelectValue placeholder="استان" />
                       </SelectTrigger>
                       <SelectContent>
-                        {["تهران", "اصفهان", "شیراز"].map(o => (
-                          <SelectItem key={o} value={o}>{o}</SelectItem>
+                        {["تهران", "اصفهان", "شیراز"].map((o) => (
+                          <SelectItem key={o} value={o}>
+                            {o}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
-                    <p className="h-3 text-red-500 text-[9px] -mt-0.5">{errors.province}</p>
+                    <p className="h-3 text-red-500 text-[9px] -mt-0.5">
+                      {errors.province}
+                    </p>
                   </div>
 
                   <div className="custom-style-select custom-select-height w-full flex flex-col justify-end gap-1">
@@ -140,16 +176,22 @@ export function AddressFormModal({ open, mode, onClose }: AddressFormModalProps)
                         <SelectValue placeholder="شهر" />
                       </SelectTrigger>
                       <SelectContent>
-                        {["تهران", "اصفهان", "شیراز"].map(o => (
-                          <SelectItem key={o} value={o}>{o}</SelectItem>
+                        {["تهران", "اصفهان", "شیراز"].map((o) => (
+                          <SelectItem key={o} value={o}>
+                            {o}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
-                    <p className="h-3 text-red-500 text-[9px] -mt-0.5">{errors.city}</p>
+                    <p className="h-3 text-red-500 text-[9px] -mt-0.5">
+                      {errors.city}
+                    </p>
                   </div>
 
                   <div className="flex flex-col justify-end gap-1">
-                    <Label className="text-[#5B5C5F] text-[10px]">کد پستی</Label>
+                    <Label className="text-[#5B5C5F] text-[10px]">
+                      کد پستی
+                    </Label>
                     <Input
                       className="placeholder:text-[11px] h-12 lg:h-9"
                       value={form.zipCode}
@@ -157,11 +199,15 @@ export function AddressFormModal({ open, mode, onClose }: AddressFormModalProps)
                       type="number"
                       placeholder="کد پستی را وارد کنید"
                     />
-                    <p className="h-3 text-red-500 text-[9px] -mt-0.5">{errors.zipCode}</p>
+                    <p className="h-3 text-red-500 text-[9px] -mt-0.5">
+                      {errors.zipCode}
+                    </p>
                   </div>
 
                   <div className="flex flex-col justify-end gap-1">
-                    <Label className="text-[#5B5C5F] text-[10px]">جزئیات آدرس</Label>
+                    <Label className="text-[#5B5C5F] text-[10px]">
+                      جزئیات آدرس
+                    </Label>
                     <Input
                       className="placeholder:text-[11px] h-12 lg:h-9"
                       value={form.details}
@@ -169,11 +215,15 @@ export function AddressFormModal({ open, mode, onClose }: AddressFormModalProps)
                       type="text"
                       placeholder="جزئیات آدرس را وارد کنید"
                     />
-                    <p className="h-3 text-red-500 text-[9px] -mt-0.5">{errors.details}</p>
+                    <p className="h-3 text-red-500 text-[9px] -mt-0.5">
+                      {errors.details}
+                    </p>
                   </div>
 
                   <div className="flex flex-col justify-end gap-1">
-                    <Label className="text-[#5B5C5F] text-[10px]">نام و نام خانوادگی تحویل گیرنده</Label>
+                    <Label className="text-[#5B5C5F] text-[10px]">
+                      نام و نام خانوادگی تحویل گیرنده
+                    </Label>
                     <Input
                       className="placeholder:text-[11px] h-12 lg:h-9"
                       value={form.name}
@@ -181,11 +231,15 @@ export function AddressFormModal({ open, mode, onClose }: AddressFormModalProps)
                       type="text"
                       placeholder="نام تحویل گیرنده را وارد کنید"
                     />
-                    <p className="h-3 text-red-500 text-[9px] -mt-0.5">{errors.name}</p>
+                    <p className="h-3 text-red-500 text-[9px] -mt-0.5">
+                      {errors.name}
+                    </p>
                   </div>
 
                   <div className="flex flex-col justify-end gap-1">
-                    <Label className="text-[#5B5C5F] text-[10px]">شماره موبایل تحویل گیرنده</Label>
+                    <Label className="text-[#5B5C5F] text-[10px]">
+                      شماره موبایل تحویل گیرنده
+                    </Label>
                     <Input
                       className="placeholder:text-[11px] h-12 lg:h-9"
                       value={form.phone}
@@ -193,7 +247,9 @@ export function AddressFormModal({ open, mode, onClose }: AddressFormModalProps)
                       type="number"
                       placeholder="شماره موبایل تحویل گیرنده را وارد کنید"
                     />
-                    <p className="h-3 text-red-500 text-[9px] -mt-0.5">{errors.phone}</p>
+                    <p className="h-3 text-red-500 text-[9px] -mt-0.5">
+                      {errors.phone}
+                    </p>
                   </div>
                 </div>
               )}
@@ -203,7 +259,11 @@ export function AddressFormModal({ open, mode, onClose }: AddressFormModalProps)
                   onClick={handleSubmit}
                   className="bg-yellow-400 hover:bg-yellow-500 text-black text-base lg:text-[11px] h-11 lg:h-8 rounded-sm"
                 >
-                  {showMap ? "تایید و ادامه" : mode === "create" ? "ثبت آدرس" : "ویرایش آدرس"}
+                  {showMap
+                    ? "تایید و ادامه"
+                    : mode === "create"
+                      ? "ثبت آدرس"
+                      : "ویرایش آدرس"}
                 </Button>
 
                 <Button
