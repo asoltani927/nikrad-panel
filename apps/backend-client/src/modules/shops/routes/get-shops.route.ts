@@ -37,7 +37,7 @@ export const getShopsRoute = async (app: FastifyInstance) => {
         select: {
           cuid: true,
           name: true,
-          aboutShop: true,
+          about: true,
           aboutSeller: true,
           successDeals: true,
           failedDeals: true,
@@ -60,7 +60,7 @@ export const getShopsRoute = async (app: FastifyInstance) => {
               imageUrl: true,
             },
           },
-          reviews: {
+          shopReviews: {
             select: {
               rating: true,
               comment: true,

@@ -362,7 +362,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dokamerce/web-sdk@npm:0.9.8":
+"@dokamerce/web-sdk@npm:^0.9.8":
   version: 0.9.8
   resolution: "@dokamerce/web-sdk@npm:0.9.8"
   dependencies:
@@ -1570,7 +1570,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@nikrad/backend-client@workspace:apps/backend-client"
   dependencies:
-    "@dokamerce/web-sdk": "npm:0.9.8"
+    "@dokamerce/web-sdk": "npm:^0.9.8"
     "@fastify/cors": "npm:^11.1.0"
     "@fastify/swagger": "npm:^9.5.2"
     "@fastify/swagger-ui": "npm:^5.2.3"
