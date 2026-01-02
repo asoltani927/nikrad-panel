@@ -64,5 +64,37 @@ export const sellers: sellerType[] = [
             whatsapp: "https://wa.me/989123456789",
             telegram: "https://vendor-site.com",
         }
+    },
+     {
+        id: 5,
+        name: "فروشگاه استیل البرز",
+        owner: "مجتبی آذری",
+        avatar: "/svg/home/Avatar.svg",
+        city: "مشهد",
+        rate: 3,
+        comments: 220,
+        productsCount: 97,
+        slug: "alborz-steel",
+        social: {
+            instagram: "https://instagram.com/vendor-name",
+            whatsapp: "https://wa.me/989123456789",
+            telegram: "https://vendor-site.com",
+        }
+    },
+     {
+        id: 6,
+        name: "فروشگاه استیل البرز",
+        owner: "مجتبی آذری",
+        avatar: "/svg/home/Avatar.svg",
+        city: "مشهد",
+        rate: 3,
+        comments: 220,
+        productsCount: 97,
+        slug: "alborz-steel",
+        social: {
+            instagram: "https://instagram.com/vendor-name",
+            whatsapp: "https://wa.me/989123456789",
+            telegram: "https://vendor-site.com",
+        }
     }
 ];

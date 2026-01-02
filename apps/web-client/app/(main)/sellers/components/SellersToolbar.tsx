@@ -5,9 +5,9 @@ import { Search } from "lucide-react";
 
 export function SellersToolbar() {
     return (
-        <div className=" w-full flex flex-row-reverse lg:flex-row items-center justify-between gap-4 mb-7">
+        <div className=" w-full flex flex-row-reverse lg:flex-row items-center justify-end gap-4 mb-7">
 
-            <div className="w-1/2 lg:grow relative">
+            <div className="w-1/3  relative">
                 <Input
                     placeholder="جستجو"
                     className=" w-full h-9 placeholder:text-[11px]! placeholder:font-thin text-[11px]!  ps-9 border-[#CECFD2] focus-within:outline-0 rounded-full  focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none"

@@ -15,18 +15,18 @@ export function SellersBreadcrumb() {
     return (
         <div className="h-fit w-full flex justify-center bg-[#F5F5F6] py-3">
             <BaseContainer className="w-full">
-                <Breadcrumb className="px-4 lg:px-[202px] ">
+                <Breadcrumb className="px-4 lg:px-14 ">
                     <BreadcrumbList>
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>
-                                <Link href="/" className="lg:text-[17px] font-normal! underline ">صفحه اصلی</Link>
+                                <Link href="/" className="lg:text-base font-normal! underline ">صفحه اصلی</Link>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator>
                             <ChevronLeft className="size-4.5!" />
                         </BreadcrumbSeparator>
                         <BreadcrumbItem>
-                            <BreadcrumbPage className="lg:text-[19px] font-medium">فروشندگان</BreadcrumbPage>
+                            <BreadcrumbPage className="lg:text-base font-medium">فروشندگان</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
