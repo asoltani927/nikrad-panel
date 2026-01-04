@@ -9,7 +9,7 @@ import { CREATE_PRODUCT_MUTATION } from '@/graphql/mutations/create-product.gql'
 export const postProductRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
-    url: '/products',
+    url: '/',
     preHandler: [authMiddleware],
     schema: {
       tags: ['products'],
