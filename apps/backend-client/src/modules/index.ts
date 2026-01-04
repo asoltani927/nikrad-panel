@@ -8,8 +8,11 @@ import { suggestionsModule } from './suggestions'
 import { categoriesModule } from './categories'
 import { paymentsModule } from './payment'
 import { shopsModule } from './shops'
+import { productsModule } from './products'
+import { authModule } from './auth'
 
 export async function initialModules(app: FastifyInstance) {
+  await authModule(app)
   await countriesModule(app)
   await usersModule(app)
   await customFieldsModule(app)
@@ -19,4 +22,5 @@ export async function initialModules(app: FastifyInstance) {
   await categoriesModule(app)
   await paymentsModule(app)
   await shopsModule(app)
+  await productsModule(app)
 }

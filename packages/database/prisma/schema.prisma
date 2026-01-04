@@ -497,3 +497,25 @@ model ShopReview {
   shop      Shop     @relation(fields: [shopId], references: [id])
   createdAt DateTime @default(now()) @map("created_at")
 }
+
+model Otp {
+  id        String   @id @default(cuid())
+  phone     String
+  type      OtpType
+  code      String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  // Prevent multiple active OTPs of same type for same phone
+  @@index([phone])
+  @@index([expiresAt])
+  @@unique([phone, type, code, usedAt])
+  @@map("otps")
+}
+
+enum OtpType {
+  login
+  verify
+  reset
+}
