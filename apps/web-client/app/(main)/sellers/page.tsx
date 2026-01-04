@@ -21,8 +21,8 @@ export default function ProductsPage() {
 
       <SellersTitle />
 
-      <BaseContainer className="w-full flex flex-col items-center mt-0 lg:mt-8">
-        <div className="w-full px-4 lg:px-[202px] lg:grid grid-cols-4 gap-4">
+      <BaseContainer className="w-full flex flex-col items-center mt-0 lg:mt-4">
+        <div className="w-full px-4 sm:px-10 lg:px-14 lg:grid grid-cols-4 gap-4">
           <div className=" hidden lg:block col-span-1">
             <SellersFilters />
           </div>
@@ -31,7 +31,7 @@ export default function ProductsPage() {
             <SellersList />
           </div>
         </div>
-        <div className="w-full px-4 lg:px-[202px] ">
+        <div className="w-full px-4 lg:px-14 ">
           <SellersPagination />
         </div>
       </BaseContainer>
