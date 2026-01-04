@@ -1,10 +1,10 @@
-import { FastifyRequest, FastifyReply } from "fastify";
-import { UnauthorizedError } from "../_errors/unauthorized";
+import { FastifyRequest, FastifyReply } from 'fastify'
+import { UnauthorizedError } from '../_errors/unauthorized'
 
 /**
  * Auth Middleware
  * Protects routes by requiring authentication
- * 
+ *
  * Usage in routes:
  * app.get('/protected', { preHandler: authMiddleware }, async (request, reply) => {
  *   // request.user will be available here
@@ -12,38 +12,39 @@ import { UnauthorizedError } from "../_errors/unauthorized";
  * });
  */
 export async function authMiddleware(request: FastifyRequest, reply: FastifyReply) {
-  const token = request.headers.authorization?.replace("Bearer ", "");
-  
+  const token = request.headers.authorization?.replace('Bearer ', '')
+
   if (!token) {
-    throw new UnauthorizedError("Authorization header is required.");
+    throw new UnauthorizedError('Authorization header is required.')
   }
 
   try {
-    // TODO: Replace this with your actual authentication logic
-    // Example with JWT:
-    // const decoded = jwt.verify(token, process.env.JWT_SECRET) as { userId: number };
-    // const user = await request.server.prisma.user.findUnique({
-    //   where: { id: decoded.userId }
-    // });
-    
-    // Example with Privy:
-    // const privyUser = await request.server.privy.getUser({ idToken: token });
-    // const user = await request.server.prisma.user.findUnique({
-    //   where: { phone: privyUser.phone }
-    // });
-    
-    // TEMPORARY: For development, find admin user by phone
-    const user = await request.server.prisma.user.findUnique({
-      where: { phone: "+989123456789" } // Admin phone from seeds
-    });
-    
-    if (!user) {
-      throw new UnauthorizedError("User not found.");
+    // 1. Verify JWT c
+    const decoded = (await request.server.jwt.verify(token)) as { sub: string }
+    if (!decoded?.sub) {
+      throw new UnauthorizedError('Invalid token payload.')
     }
-    
-    request.user = user;
+
+    const customer = request.server.dokamerce.customers.find({
+      id: decoded.sub,
+    })
+
+    if (!customer) {
+      throw new UnauthorizedError('User not found.')
+    }
+
+    const seller = request.server.dokamerce.sellers.find({
+      user: {
+        username: customer.username,
+      },
+    })
+
+    request.user = {
+      customer: customer,
+      seller: seller ?? null,
+    }
   } catch (error) {
-    console.error(error);
-    throw new UnauthorizedError("Invalid token.");
+    console.error(error)
+    throw new UnauthorizedError('Invalid token.')
   }
 }
