@@ -15,8 +15,6 @@ export const getProductsRoute = async (app: FastifyInstance) => {
     },
     handler: async (request, reply) => {
       const products = await app.dokamerce.products.paginated()
-      console.log(products)
-
       return reply
         .status(200)
         .send(GetProductsResponseSchema.parse({ products: products.paginatedProducts.edges }))

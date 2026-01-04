@@ -1,10 +1,10 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
+import { z } from 'zod'
 
 const CreateOtpBodySchema = z.object({
-  phone: z.string().min(8).max(20),
-  type: z.enum(['login', 'verify', 'reset']),
+  phone: z.string().min(8).max(20), // TODO: mobile validatiomn @reza 
+  // type: z.enum(['login', 'verify', 'reset']),
 })
 
 const OtpResponseSchema = z.object({
@@ -26,33 +26,62 @@ export const postAuthSendOtpRoute = async (app: FastifyInstance) => {
     },
 
     handler: async (request, reply) => {
-      const { phone, type } = request.body
+      const { phone } = request.body // TODO: all phones should map to 989134241882 @reza
 
-      const customer = await app.dokamerce.customers.find({
-        username: phone,
+      // 1. Find customer or create
+      const {
+        paginatedCustomers: { edges: customers },
+      } = await app.dokamerce.customers.paginated({ username: phone })
+
+      let customer = null
+      if (!customers || customers.length <= 0) {
+        const { createCustomer: created } = await app.dokamerce.customers.create({
+          data: {
+            fullName: phone,
+            username: phone,
+            active: true,
+            telephoneNumbers: [{ targets: ['OWNER'], value: phone }],
+          },
+        })
+        customer = created
+      } else {
+        customer = customers[0]
+      }
+
+      // 2. Check if an active OTP already exists
+      const existingOtp = await app.prisma.otp.findFirst({
+        where: {
+          phone,
+          type: 'login',
+          expiresAt: { gt: new Date() }, // not expired
+          usedAt: null
+        },
+        orderBy: { createdAt: 'desc' },
       })
 
-      if (!customer) {
-        const customer = await app.dokamerce.customers.create({
-          data: { fullName: phone, username: phone },
+      if (existingOtp) {
+        // Already has a valid OTP → don't resend SMS
+        return reply.status(200).send({
+          success: true,
+          message: 'OTP generated and sent', // empty message as you requested
         })
       }
 
-      // Generate OTP (6 digits)
+      // 3. Generate new OTP
       const otp = Math.floor(100000 + Math.random() * 900000).toString()
 
-      // Store OTP in DB
+      // 4. Store OTP in DB
       await app.prisma.otp.create({
         data: {
           phone,
-          type,
+          type: 'login',
           code: otp,
           expiresAt: new Date(Date.now() + 2 * 60 * 1000), // 2 minutes
         },
       })
 
-      // TODO: integrate SMS provider
-      // await app.sms.send(phone, `Your OTP is ${otp}`)
+      // 5. Send SMS
+      await app.texting.sendOtp(phone, otp)
 
       return reply.status(200).send({
         success: true,

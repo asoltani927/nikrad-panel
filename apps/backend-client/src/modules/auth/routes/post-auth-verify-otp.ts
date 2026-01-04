@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z from 'zod'
+import { z } from 'zod'
 
 const VerifyOtpBodySchema = z.object({
   phone: z.string().min(8).max(20),
@@ -59,16 +59,30 @@ export const postAuthVerifyOtpRoute = async (app: FastifyInstance) => {
         data: { usedAt: new Date() },
       })
 
-      // find customer by username (phone)
-      let customer = await app.dokamerce.customers.find({
-        username: otp.phone,
-      })
+      // 1. Find customer or create
+      const {
+        paginatedCustomers: { edges: customers },
+      } = await app.dokamerce.customers.paginated({ username: phone })
 
-      // If customer does not exist, create one
-      if (!customer) {
-        customer = await app.dokamerce.customers.create({
-          username: otp.phone,
-          phone: otp.phone,
+      let customer = null
+      if (!customers || customers.length !== 1) {
+        const { createCustomer: created } = await app.dokamerce.customers.create({
+          data: {
+            fullName: phone,
+            active: true,
+            username: phone,
+            telephoneNumbers: [{ targets: ['OWNER'], value: phone }],
+          },
+        })
+        customer = created
+      } else {
+        customer = customers[0].node
+      }
+
+      if (!customer || !customer.id) {
+        return reply.status(200).send({
+          success: false,
+          message: 'Customer Not Found',
         })
       }
 
@@ -76,7 +90,7 @@ export const postAuthVerifyOtpRoute = async (app: FastifyInstance) => {
       const token = app.jwt.sign(
         {
           sub: customer.id,
-          phone: customer.phone,
+          ...customer,
         },
         {
           expiresIn: '7d',

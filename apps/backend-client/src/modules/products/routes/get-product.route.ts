@@ -27,11 +27,7 @@ export const getProductByIdRoute = async (app: FastifyInstance) => {
 
     handler: async (request, reply) => {
       const { id } = request.params as { id: string }
-
       const product = await app.dokamerce.products.find({id: id})
-      console.log(product);
-      
-
       if (!product) {
         return reply.status(404).send({
           message: 'Product not found',
