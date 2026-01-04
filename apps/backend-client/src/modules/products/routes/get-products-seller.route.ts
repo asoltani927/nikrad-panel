@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 import { ProductSchema } from '../schema/get-products.schema'
+import { authMiddleware } from '@/middlewares'
 
 export const GetProductParamsSchema = z.object({
   id: z.string(),
@@ -11,13 +12,14 @@ export const GetProductResponseSchema = z.object({
   product: ProductSchema,
 })
 
-export const getProductByIdRoute = async (app: FastifyInstance) => {
+export const getProductBySellerIdRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/:id',
+    url: '/seller/:id',
     schema: {
       tags: ['products'],
-      summary: 'Get product by id',
+      preHandler: [authMiddleware],
+      summary: 'Get product by seller id',
       params: GetProductParamsSchema,
       response: {
         200: GetProductResponseSchema,
@@ -28,9 +30,8 @@ export const getProductByIdRoute = async (app: FastifyInstance) => {
     handler: async (request, reply) => {
       const { id } = request.params as { id: string }
 
-      const product = await app.dokamerce.products.find({id: id})
-      console.log(product);
-      
+      const product = await app.dokamerce.products.find({ seller: id })
+      console.log(product)
 
       if (!product) {
         return reply.status(404).send({
@@ -38,7 +39,9 @@ export const getProductByIdRoute = async (app: FastifyInstance) => {
         })
       }
 
-      return reply.status(200).send(GetProductResponseSchema.parse({ product: product.response.data }))
+      return reply
+        .status(200)
+        .send(GetProductResponseSchema.parse({ product: product.response.data }))
     },
   })
 }

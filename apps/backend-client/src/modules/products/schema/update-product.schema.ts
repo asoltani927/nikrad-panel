@@ -29,7 +29,7 @@ export const ProductVariantSchema = z.object({
   sellers: z.array(ProductVariantSellerSchema).optional(),
 })
 
-export const CreateProductBodySchema = z.object({
+export const UpdateProductBodySchema = z.object({
   name: z.string().min(2),
   price: z.number().positive(),
 
@@ -69,7 +69,7 @@ export const CreateProductBodySchema = z.object({
   variants: z.array(ProductVariantSchema),
 })
 
-export const CreateProductResponseSchema = z.object({
+export const UpdateProductResponseSchema = z.object({
   id: z.string(),
   name: z.string(),
   price: z.number(),
