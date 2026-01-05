@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator";
 import Stepper from "../components/Stepper";
 import { useRouter } from "next/navigation";
+import CircularStepProgress from "../components/CircularStepProgress";
 
 export default function PaymentInfoPage() {
     const router = useRouter();
@@ -29,7 +30,7 @@ export default function PaymentInfoPage() {
             <div className="w-full lg:min-h-screen flex flex-col items-center justify-start pb-24 lg:py-16  px-6">
 
                 {/* Stepper */}
-                <div className="w-full lg:w-[45%] flex justify-center mb-12 lg:mb-16">
+                <div className="w-full lg:w-[45%] hidden lg:flex justify-center mb-12 lg:mb-16">
                     <Stepper
                         currentIndex={5}
                         steps={[
@@ -42,6 +43,18 @@ export default function PaymentInfoPage() {
                         ]}
                     />
                 </div>
+
+                <CircularStepProgress
+                    currentIndex={5}
+                    steps={[
+                        "مشخصات کلی پروژه",
+                        "مشخصات فنی",
+                        "طراحی مستندات",
+                        "مالکیت و مدارک",
+                        "انتخاب نوع دفترچه",
+                        "صورت حساب"
+                    ]}
+                />
 
                 {/* ------------------ TITLE ------------------ */}
                 <div className="relative flex items-center mb-11">
@@ -194,7 +207,7 @@ export default function PaymentInfoPage() {
 
                         <div className="flex justify-between items-center px-3">
                             <h3 className="font-medium text-xl lg:text-[15px] text-[#2E2F39]">سبد خرید</h3>
-                            <Trash2 color="#EAAA08"  className="cursor-pointer size-6 lg:size-4" />
+                            <Trash2 color="#EAAA08" className="cursor-pointer size-6 lg:size-4" />
                         </div>
 
                         <div className="border-t border-[#ECECED] pt-3 text-sm flex flex-col gap-4 lg:gap-2 px-3">

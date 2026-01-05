@@ -8,6 +8,7 @@ import { z } from "zod";
 import { booklets } from "./components/booklets.data";
 import BookletCard from "./components/BookletCard";
 import Stepper from "../components/Stepper";
+import CircularStepProgress from "../components/CircularStepProgress";
 
 const schema = z.object({
   selectedBooklet: z.string().min(1, "لطفاً نوع دفترچه را انتخاب کنید")
@@ -35,7 +36,7 @@ export default function BookletTypePage() {
   return (
     <BaseContainer>
       <div className="w-full lg:min-h-screen flex flex-col items-center justify-start pb-24 lg:pt-16 px-6">
-        <div className="w-full lg:w-[45%] flex justify-center mb-12 lg:mb-16">
+        <div className="w-full lg:w-[45%] hidden lg:flex justify-center mb-12 lg:mb-16">
           <Stepper
             currentIndex={4}
             steps={[
@@ -48,6 +49,17 @@ export default function BookletTypePage() {
             ]}
           />
         </div>
+        <CircularStepProgress
+          currentIndex={4}
+          steps={[
+            "مشخصات کلی پروژه",
+            "مشخصات فنی",
+            "طراحی مستندات",
+            "مالکیت و مدارک",
+            "انتخاب نوع دفترچه",
+            "صورت حساب"
+          ]}
+        />
         <div className="relative flex items-center mb-11">
           <Image
             src="/svg/material-book/material-bg-text.svg"

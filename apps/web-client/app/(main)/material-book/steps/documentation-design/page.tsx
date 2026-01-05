@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
+import CircularStepProgress from "../components/CircularStepProgress";
 
 export default function DocumentationDesignPage() {
     const router = useRouter();
@@ -71,7 +72,7 @@ export default function DocumentationDesignPage() {
             <div className="w-full lg:min-h-screen flex flex-col items-center justify-start pb-24 lg:pt-16 px-6">
 
                 {/* Stepper */}
-                <div className="w-full lg:w-[45%] flex justify-center mb-12 lg:mb-16">
+                <div className="w-full lg:w-[45%] hidden lg:flex justify-center mb-12 lg:mb-16">
                     <Stepper
                         currentIndex={2}
                         steps={[
@@ -84,7 +85,17 @@ export default function DocumentationDesignPage() {
                         ]}
                     />
                 </div>
-
+                <CircularStepProgress
+                    currentIndex={2}
+                    steps={[
+                        "مشخصات کلی پروژه",
+                        "مشخصات فنی",
+                        "طراحی مستندات",
+                        "مالکیت و مدارک",
+                        "انتخاب نوع دفترچه",
+                        "صورت حساب"
+                    ]}
+                />
                 {/* Title */}
                 <div className="relative flex items-center mb-11">
                     <Image
