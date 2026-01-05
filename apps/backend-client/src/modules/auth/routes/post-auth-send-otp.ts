@@ -3,7 +3,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
 const CreateOtpBodySchema = z.object({
-  phone: z.string().min(8).max(20), // TODO: mobile validatiomn @reza 
+  phone: z.string().min(8).max(20), // TODO: mobile validatiomn @reza
   // type: z.enum(['login', 'verify', 'reset']),
 })
 
@@ -29,13 +29,11 @@ export const postAuthSendOtpRoute = async (app: FastifyInstance) => {
       const { phone } = request.body // TODO: all phones should map to 989134241882 @reza
 
       // 1. Find customer or create
-      const {
-        paginatedCustomers: { edges: customers },
-      } = await app.dokamerce.customers.paginated({ username: phone })
+      const { edges: customers } = await app.dokamerce.customers.paginated({ username: phone })
 
       let customer = null
       if (!customers || customers.length <= 0) {
-        const { createCustomer: created } = await app.dokamerce.customers.create({
+        const created = await app.dokamerce.customers.create({
           data: {
             fullName: phone,
             username: phone,
@@ -54,7 +52,7 @@ export const postAuthSendOtpRoute = async (app: FastifyInstance) => {
           phone,
           type: 'login',
           expiresAt: { gt: new Date() }, // not expired
-          usedAt: null
+          usedAt: null,
         },
         orderBy: { createdAt: 'desc' },
       })

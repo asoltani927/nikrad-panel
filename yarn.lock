@@ -397,14 +397,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dokamerce/web-sdk@npm:^0.15.9":
-  version: 0.15.9
-  resolution: "@dokamerce/web-sdk@npm:0.15.9"
+"@dokamerce/web-sdk@npm:^0.17.0":
+  version: 0.17.0
+  resolution: "@dokamerce/web-sdk@npm:0.17.0"
   dependencies:
     graphql: "npm:^16.12.0"
     graphql-request: "npm:^7.2.0"
     graphql-tag: "npm:^2.12.6"
-  checksum: 10/1c8bd99127b5e95b1fe6416df0d10cc6b294cfdd99aacbcfbf10f70e32c45e6e5d38f549966bfd4c9454d0f035403cf585eaf66411fa6b31238161eefe56f253
+  checksum: 10/b0cea8b55685e2666deddc4dcd838bcb2eb414206a8c739054fd21886be9702cfc092962d68e02f24f3411fbc876949a34782c61e389ab6be0c798fa18c7b2a0
   languageName: node
   linkType: hard
 
@@ -1682,7 +1682,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@nikrad/backend-client@workspace:apps/backend-client"
   dependencies:
-    "@dokamerce/web-sdk": "npm:^0.15.9"
+    "@dokamerce/web-sdk": "npm:^0.17.0"
     "@fastify/cors": "npm:^11.1.0"
     "@fastify/jwt": "npm:^10.0.0"
     "@fastify/redis": "npm:^7.1.0"

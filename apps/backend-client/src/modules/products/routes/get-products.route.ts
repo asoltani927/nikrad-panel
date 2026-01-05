@@ -17,7 +17,7 @@ export const getProductsRoute = async (app: FastifyInstance) => {
       const products = await app.dokamerce.products.paginated()
       return reply
         .status(200)
-        .send(GetProductsResponseSchema.parse({ products: products.paginatedProducts.edges }))
+        .send(GetProductsResponseSchema.parse({ products: products.edges }))
     },
   })
 }

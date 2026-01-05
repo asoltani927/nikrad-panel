@@ -23,7 +23,7 @@ export const postProductRoute = async (app: FastifyInstance) => {
     },
 
     handler: async (request, reply) => {
-      if (!request.user?.id) {
+      if (!request.user?.id) { // @reza
         return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
       }
 
