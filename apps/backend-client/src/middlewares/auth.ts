@@ -1,22 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { UnauthorizedError } from '../_errors/unauthorized'
+import { AuthenticatedPayload } from '@/types/auth'
 
-
-// تعریف تایپ Payload که در request.user ست می‌شود
-export interface AuthenticatedPayload {
-  customer: {
-    id: string
-    fullName: string
-    username: string
-    active: boolean
-    createdAt: Date
-    updatedAt: Date
-    phone?: string | null
-  }
-  sellers: {
-    id: string
-  }[]
-}
 /**
  * Auth Middleware
  * Protects routes by requiring authentication
@@ -43,6 +28,7 @@ export async function authMiddleware(request: FastifyRequest, reply: FastifyRepl
 
     const { customer } = await request.server.dokamerce.customers.find({
       id: decoded.sub,
+      includes: { phones: true },
     })
     if (!customer) {
       throw new UnauthorizedError('User not found.')
@@ -57,7 +43,7 @@ export async function authMiddleware(request: FastifyRequest, reply: FastifyRepl
       },
     })
 
-    // TODO: make a global interface named AuthenitactedPayload @reza
+    // TODO: make a global interface named AuthenitactedPayload @reza (Done)
     request.user = {
       customer: customer,
       sellers: sellers ?? [],

@@ -20,14 +20,16 @@ export const deleteProductRoute = async (app: FastifyInstance) => {
       },
     },
     handler: async (request, reply) => {
-      const userId = request.user?.id // TIDO: @reza why? we have authMiddlware
-      if (!userId) {
-        return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
-      }
+      // TODO: @reza why? we have authMiddlware
+      // const userId = request.user?.id
+      // if (!userId) {
+      //   return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
+      // }
 
       const { id } = request.params as { id: string }
 
       // @reze I think we can remoe this.
+      // @Amin I should think about it
       const product = await app.dokamerce.products.find({ id })
       if (!product) {
         return reply.status(404).send({ message: 'Product not found' })
