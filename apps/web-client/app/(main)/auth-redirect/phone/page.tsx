@@ -38,21 +38,21 @@ export default function PhonePage({ searchParams }: PhonePageProps) {
   };
 
   return (
-    <div className="relative lg:min-h-screen w-full flex flex-col items-center -mt-4 lg:mt-0 px-6 lg:px-10 pt-0 lg:pt-16 pb-24 lg:pb-44">
+    <div className="relative lg:min-h-screen w-full flex flex-col items-center -mt-4 lg:mt-0 px-6 lg:px-10 pt-0 lg:pt-6 pb-24 lg:pb-44">
       <Image
         src="/svg/material-book/Backgroundpatterndecorative.svg"
         width={580}
         height={580}
         alt="phone"
-        className="hidden lg:block absolute"
+        className="hidden lg:block absolute opacity-[0.5] "
       />
 
-      <div className="w-[350px] h-[285px]  lg:w-[275px] lg:h-[270px] relative lg:mt-52">
+      <div className="w-[350px] h-[285px]  lg:w-[275px] lg:h-[270px] relative lg:mt-16">
         <Image
           src="/img/material-book/11879344_Checklist3242.png"
           fill
           alt="phone"
-          className="object-contain"
+          className="object-contain "
         />
       </div>
 
@@ -69,7 +69,7 @@ export default function PhonePage({ searchParams }: PhonePageProps) {
           className="h-10 lg:h-9 mb-4 rounded-sm ps-10 text-[#5B5C5F] text-[11px]! 
                      border border-[#D0D5DD]  
                      focus-visible:ring-0 focus-visible:ring-offset-0  
-                     focus-visible:border-[#EAAA08] focus-visible:outline-none"
+                     focus-visible:border-[#EAAA08] focus-visible:outline-none bg-white"
           value={phone}
           onChange={(e) => {
             setPhone(e.target.value);
@@ -89,7 +89,7 @@ export default function PhonePage({ searchParams }: PhonePageProps) {
       </div>
 
       <Button
-        className="w-full lg:w-[275px] h-12 sm:h-9 lg:text-[11px] mt-2 cursor-pointer rounded-sm font-light! bg-[#EAAA08] hover:bg-[#d8a708]"
+        className="relative z-10 w-full lg:w-[275px] h-12 sm:h-9 lg:text-[11px] mt-2 cursor-pointer rounded-sm font-light! bg-[#EAAA08] hover:bg-[#d8a708]"
         onClick={handleNext}
       >
         مرحله بعد

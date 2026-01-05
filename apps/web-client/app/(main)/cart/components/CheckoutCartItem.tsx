@@ -37,10 +37,10 @@ export default function CheckoutCartItem({
                         {title}
                     </h5>
                     <span className="text-[#54555D] text-base lg:text-xs ">کد : pr-55434 </span>
-                    <span className="text-[#54555D] font-normal text-sm lg:text-[10px] ">پوشش : کف و دیوار</span>
+                    <span className="text-[#54555D] font-normal text-sm lg:text-xs ">پوشش : کف و دیوار</span>
 
                     <div className="flex flex-row items-center text-sm lg:text-[11px] gap-1.5">
-                        <span className="text-[#54555D] font-normal text-sm lg:text-[10px] ">رنگ:</span>
+                        <span className="text-[#54555D] font-normal text-sm lg:text-xs ">رنگ:</span>
                         <div
                             className={`w-5 h-5 lg:w-[14.5px] lg:h-[14.5px] rounded-[3px] ${color}`}
                         />

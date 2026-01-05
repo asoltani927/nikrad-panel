@@ -38,21 +38,21 @@ export const SellerCard = ({ seller }: { seller: sellerType }) => {
 
             <div className="w-full flex items-center justify-between gap-1 text-xs font-medium">
                 <span className="text-xs text-[#85888E]">
-                    موقعیت مکانی
+                    موقعیت 
                 </span>
                 <div className="">{seller.city}</div>
             </div>
 
             <div className="w-full flex items-center justify-between gap-1 text-xs font-medium">
                 <span className="text-xs text-[#85888E]">
-                    تعداد معاملات موفق
+                   معاملات
                 </span>
                 <div className="text-end">200 عدد</div>
             </div>
 
             <div className="w-full flex items-center justify-between gap-1 text-xs font-medium">
                 <span className="text-xs text-[#85888E]">
-                    تعداد پیشنهادهای ثبت شده
+                  پیشنهادها
                 </span>
                 <div className="text-end">3000 عدد</div>
             </div>
@@ -60,7 +60,7 @@ export const SellerCard = ({ seller }: { seller: sellerType }) => {
 
             <div className="w-full flex items-center justify-between gap-1 text-xs font-medium">
                 <span className="text-xs text-[#85888E]">
-                    تاریخ عضویت در پلتفرم
+                  عضویت از
                 </span>
                 <div className="text-end">1 سال قبل</div>
             </div>

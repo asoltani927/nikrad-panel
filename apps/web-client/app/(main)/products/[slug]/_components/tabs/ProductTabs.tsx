@@ -17,7 +17,7 @@ export const ProductTabs = () => {
 
                 <div
                     onClick={() => setActiveTab("description")}
-                    className={`relative flex items-center h-full  ps-4  rounded-tr-[12px] cursor-pointer text-[10px] font-medium ${activeTab === "description"
+                    className={`relative flex items-center h-full  ps-4  rounded-tr-[12px] cursor-pointer text-xs font-medium ${activeTab === "description"
                         ? "text-yellow-600  bg-white pe-6"
                         : "text-gray-900 pe-4"
                         }`}
@@ -37,7 +37,7 @@ export const ProductTabs = () => {
                     )}
                     <div
                         onClick={() => setActiveTab("specifications")}
-                        className={`relative flex items-center ps-[9px]  h-full cursor-pointer text-[10px] font-medium ${activeTab === "specifications"
+                        className={`relative flex items-center ps-[9px]  h-full cursor-pointer text-xs font-medium ${activeTab === "specifications"
                             ? "text-yellow-600 bg-white pe-7 "
                             : "text-gray-900 pe-6"
                             }`}
@@ -57,7 +57,7 @@ export const ProductTabs = () => {
 
                     <div
                         onClick={() => setActiveTab("reviews")}
-                        className={`relative flex items-center ps-[9px] pe-7 h-full cursor-pointer text-[10px] font-medium ${activeTab === "reviews"
+                        className={`relative flex items-center ps-[9px] pe-7 h-full cursor-pointer text-xs font-medium ${activeTab === "reviews"
                             ? " text-yellow-600 bg-white  "
                             : "text-gray-900"
                             }`}

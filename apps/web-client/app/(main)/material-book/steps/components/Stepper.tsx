@@ -27,7 +27,7 @@ export default function Stepper({ currentIndex, steps }: StepperProps) {
                         <div
                             key={index}
                             className="
-                                lg:absolute text-sm lg:text-[10px] font-thin whitespace-nowrap 
+                                lg:absolute text-sm lg:text-xs font-thin whitespace-nowrap 
                                 lg:right-1/2 lg:translate-x-1/2
                             "
                             style={{

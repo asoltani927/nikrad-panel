@@ -23,7 +23,7 @@ export const InquiryCard = ({ inquiry }: { inquiry: inquiryType }) => {
 
 
     return (
-        <div className="shrink-0 relative lg:min-w-[207px] lg:w-[207px] lg:max-w-[207px] h-[223px] lg:h-[223px] bg-[#FAFAFA] text-[#1F242F] rounded-[12px] pb-6 px-4 flex flex-col items-center justify-end gap-2  hover:shadow-sm transition-all duration-300">
+        <div className="shrink-0 relative  h-[223px] lg:h-[223px] bg-[#FAFAFA] text-[#1F242F] rounded-[12px] pb-6 px-4 flex flex-col items-center justify-end gap-2  hover:shadow-sm transition-all duration-300">
             <Image className="absolute top-0 start-0 object-contain rounded-tr-[12px]"
                 width={50}
                 height={10}
@@ -36,21 +36,21 @@ export const InquiryCard = ({ inquiry }: { inquiry: inquiryType }) => {
                 </div>
 
                 <div className="w-full flex items-center justify-between gap-1 text-[11px] font-medium">
-                    <span className="text-[10px] text-[#85888E]">
-                        مقدار مورد نیاز
+                    <span className="text-xs text-[#85888E]">
+                        مقدار 
                     </span>
                     <div className="">{inquiry.quantity}</div>
                 </div>
 
                 <div className="w-full flex items-center justify-between gap-1 text-[11px] font-medium">
-                    <span className="text-[10px] text-[#85888E]">
-                        موقعیت مکانی
+                    <span className="text-xs text-[#85888E]">
+                        موقعیت 
                     </span>
-                    <div className="">{inquiry.location.province + inquiry.location.city}</div>
+                    <div className="">{inquiry.location.province + ' ' + inquiry.location.city}</div>
                 </div>
 
                 <div className="w-full flex items-center justify-between gap-1 text-[11px] font-medium">
-                    <span className="text-[10px] text-[#85888E]">
+                    <span className="text-xs text-[#85888E]">
                         اولویت
                     </span>
                     <div className="">{inquiry.priority}</div>
@@ -58,20 +58,20 @@ export const InquiryCard = ({ inquiry }: { inquiry: inquiryType }) => {
 
 
                 <div className="w-full flex items-center justify-between gap-1 text-[11px] font-medium">
-                    <span className="text-[10px] text-[#85888E]">
+                    <span className="text-xs text-[#85888E]">
                         مهلت تحویل
                     </span>
                     <div className="">{inquiry.deliveryDeadline}</div>
                 </div>
 
                 <div className="w-full flex items-center justify-between gap-1 text-[11px] font-medium">
-                    <span className="text-[10px] text-[#85888E]">
-                        تعداد پیشنهادها
+                    <span className="text-xs text-[#85888E]">
+                         پیشنهادها
                     </span>
-                    <div className="">{inquiry.offersCount}</div>
+                    <div className="">{inquiry.offersCount} عدد</div>
                 </div>
 
-                <Button onClick={handleStart} className="cursor-pointer flex items-center gap-2 w-full lg:px-[23px]! h-6  rounded-[6px] bg-brand-primary hover:bg-[#e7bd35] text-black text-xs lg:text-[10px] font-medium">
+                <Button onClick={handleStart} className="cursor-pointer flex items-center gap-2 w-full lg:px-[23px]! h-6  rounded-[6px] bg-brand-primary hover:bg-[#e7bd35] text-black text-xs lg:text-xs font-medium">
                     ثبت پیشنهاد
                 </Button>
             </div>

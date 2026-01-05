@@ -19,7 +19,7 @@ export function CheckoutBreadcrumb() {
                     <BreadcrumbList>
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>
-                                <Link href="/" className="lg:text-[17px] font-normal!  ">صفحه اصلی</Link>
+                                <Link href="/" className="lg:text-base font-normal!  ">صفحه اصلی</Link>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator>
@@ -27,7 +27,7 @@ export function CheckoutBreadcrumb() {
                         </BreadcrumbSeparator>
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>
-                                <Link href="/" className="lg:text-[17px] font-normal! hidden lg:block  ">دسته‌بندی محصولات</Link>
+                                <Link href="/" className="lg:text-base font-normal! hidden lg:block  ">دسته‌بندی محصولات</Link>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator>
@@ -35,14 +35,14 @@ export function CheckoutBreadcrumb() {
                         </BreadcrumbSeparator>
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>
-                                <Link href="/" className="lg:text-[17px] font-normal!  ">نام محصول</Link>
+                                <Link href="/" className="lg:text-base font-normal!  ">نام محصول</Link>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator>
                             <ChevronLeft className="size-4.5!" />
                         </BreadcrumbSeparator>
                         <BreadcrumbItem>
-                            <BreadcrumbPage className="lg:text-lg font-medium">سبد خرید</BreadcrumbPage>
+                            <BreadcrumbPage className="lg:text-base font-medium">سبد خرید</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>

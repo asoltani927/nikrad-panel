@@ -16,19 +16,19 @@ export default function PaymentErrorPage() {
     }
 
     return (
-        <div className="relative w-full lg:min-h-screen flex flex-col items-center px-10  pt-16 lg:pt-14 pb-12 lg:pb-44">
+        <div className="relative w-full lg:min-h-screen flex flex-col items-center px-10  pt-16 lg:pt-10 pb-12 lg:pb-44">
 
             <Image
                 src="/svg/material-book/Backgroundpatterndecorative.svg"
                 width={580}
                 height={580}
                 alt="phone"
-               className="absolute hidden lg:block"
+               className="absolute hidden lg:block opacity-[0.6]"
             />
 
             <div className="relative z-10 w-full flex flex-col items-center mb-14">
 
-                <div className="w-[88px] h-[88px] relative lg:mt-32">
+                <div className="w-[88px] h-[88px] relative lg:mt-20">
                     <Image
                         src="/svg/material-book/error-payment(2).svg"
                         fill
@@ -37,7 +37,7 @@ export default function PaymentErrorPage() {
                     />
                 </div>
 
-                <h1 className="text-center text-[25px] font-semibold text-[#1F242F] mt-7">
+                <h1 className="text-center text-2xl font-semibold text-[#1F242F] mt-7">
                     پرداخت شما ناموفق بود.
                 </h1>
 

@@ -18,7 +18,7 @@ export function SellerGallery({ images }: Props) {
 
     return (
         <>
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-0 mb-4 pe-4 lg:pe-[202px] mt-9">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-0 mb-4 pe-4 lg:pe-14 mt-9">
                 <span className="font-medium text-[23px] lg:text-lg ps-6 lg:ps-0">گالری تصاویر</span>
                 {/* Desktop See All */}
                 <div onClick={() => setOpen(true)} className="hidden lg:flex justify-end  ">
@@ -55,7 +55,7 @@ export function SellerGallery({ images }: Props) {
 
 
             {/* Desktop Gallery  */}
-            <div className="hidden lg:grid grid-cols-2 lg:grid-cols-4 gap-x-3 gap-2 w-full pe-4 lg:pe-[202px]">
+            <div className="hidden lg:grid grid-cols-2 lg:grid-cols-4 gap-x-3 gap-2 w-full pe-4 lg:pe-14">
                 {/* column 1  */}
                 {preview[0] && (
                     <div

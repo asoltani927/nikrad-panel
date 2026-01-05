@@ -13,8 +13,8 @@ export const SellerCard = ({ seller }: { seller: sellerType }) => {
             </div>
 
             <div className="w-full flex flex-col items-start gap-1">
-                <h3 className="font-medium text-[15px]">{seller.name}</h3>
-                <p className="text-[11px] font-medium text-[#61646C]">به مدیریت {seller.owner}</p>
+                <h3 className="font-medium text-base">{seller.name}</h3>
+                <p className="text-xs font-medium text-[#61646C]">به مدیریت {seller.owner}</p>
             </div>
 
             <div className="w-full flex items-center justify-between gap-1">
@@ -29,18 +29,18 @@ export const SellerCard = ({ seller }: { seller: sellerType }) => {
                     ))}
                 </div>
 
-                <div className="text-[11px] font-medium">{seller.comments} نظر</div>
+                <div className="text-xs font-medium">{seller.comments} نظر</div>
             </div>
 
-            <div className="w-full flex items-center justify-between gap-1 text-[11px] font-medium">
-                <span className="text-[10px] text-[#85888E]">
+            <div className="w-full flex items-center justify-between gap-1 text-xs font-medium">
+                <span className="text-xs text-[#85888E]">
                     تعداد محصول
                 </span>
                 <div className="">{seller.productsCount} عدد</div>
             </div>
 
-            <div className="w-full flex items-center justify-between gap-1 text-[11px] font-medium">
-                <span className="text-[10px] text-[#85888E]">
+            <div className="w-full flex items-center justify-between gap-1 text-xs font-medium">
+                <span className="text-xs text-[#85888E]">
                     محل شرکت
                 </span>
                 <div className="">{seller.city}</div>

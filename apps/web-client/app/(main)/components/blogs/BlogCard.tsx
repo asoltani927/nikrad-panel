@@ -24,7 +24,7 @@ export function BlogCard({ blog }: BlogCardProps) {
             </div>
 
             <div className=" flex flex-col gap-2 pt-4">
-                <div className="flex justify-start items-center gap-1 text-[#CA8504] text-[10px]">
+                <div className="flex justify-start items-center gap-1 text-[#CA8504] text-xs">
                     <span >{blog.date}</span>
                     <span className="w-1 h-1 aspect-ratio rounded-full bg-[#CA8504]"></span>
                     <span>زمان مطالعه {blog.readTime}</span>
@@ -43,11 +43,11 @@ export function BlogCard({ blog }: BlogCardProps) {
                     </Link>
                 </div>
 
-                <p className="text-[#61646C] text-[11px]  h-10 line-clamp-3">{blog.description.length > 110 ? blog.description.substr(0, 110) + '...' : blog.description}</p>
+                <p className="text-[#61646C] text-xs  h-8 line-clamp-3">{blog.description.length > 100 ? blog.description.substr(0, 100) + '...' : blog.description}</p>
 
                 <div className="flex flex-wrap gap-1 mt-2">
                     {blog.tags.map((tag, index) => (
-                        <Badge key={index} className="bg-[#FEF6EE] border-[#F9DBAF] text-[#B93815] text-[11px]">
+                        <Badge key={index} className="bg-[#FEF6EE] border-[#F9DBAF] text-[#B93815] text-xs">
                             {tag}
                         </Badge>
                     ))}

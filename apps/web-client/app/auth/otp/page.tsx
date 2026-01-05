@@ -51,7 +51,7 @@ export default function OtpPage() {
     }
 
     return (
-        <div className="w-full min-h-screen flex items-center gap-6 bg-white py-6 px-8 lg:px-0">
+        <div className="w-full h-screen flex items-center gap-6 bg-white py-4 px-8 lg:px-0 lg:pe-4 ">
             <section className="relative h-full flex items-center justify-center w-full lg:w-[43%]">
                 <Image
                     src="/svg/Backgroundpatterndecorative(1).svg"
@@ -62,7 +62,7 @@ export default function OtpPage() {
                 />
                 <div className="relative w-full flex flex-col items-center justify-center z-20">
 
-                    <div className="w-16 h-16 lg:w-12 lg:h-[50px] relative">
+                    <div className="w-16 h-16 lg:w-12 lg:h-12.5 relative">
                         <Image
                             src="/img/nikrad-logo.png"
                             alt="Nikrad_Logo"
@@ -81,7 +81,7 @@ export default function OtpPage() {
                                 key={index}
                                 maxLength={1}
                                 inputMode="numeric"
-                                className=" text-[#5B5C5F] text-[11px] w-9 h-9 text-center rounded-sm border border-[#D0D5DD] focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-[#EAAA08] focus-visible:outline-none font-medium shadow-none"
+                                className=" text-[#5B5C5F] bg-white text-[11px] w-9 h-9 text-center rounded-sm border border-[#D0D5DD] focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-[#EAAA08] focus-visible:outline-none font-medium shadow-none"
                                 value={code}
                                 onChange={(e) => handleChange(e.target.value, index)}
                                 onKeyDown={(e) => handleKeyDown(e, index)}
@@ -108,17 +108,20 @@ export default function OtpPage() {
 
                 </div>
             </section>
-
-            <section className="hidden lg:flex justify-center h-full w-[57%]">
-                <div className="relative flex justify-center w-8 h-8 lg:w-full lg:h-[140vh]">
+            <section className="hidden lg:flex justify-center h-full w-[57%]  " >
+                <div className="relative  flex justify-center w-8 h-8 lg:w-full lg:h-full ">
                     <img
                         src="/img/login-bg-21.png"
                         alt="material-book"
-                        className="lg:w-fit lg:h-full object-cover"
+                        className="lg:w-full lg:h-full bg-center object-cover rounded-lg "
                     />
-                    <div className="w-[92%] h-[15.5%] absolute bottom-0 flex justify-center items-center text-white leading-9 text-[20px] bg-cover bg-no-repeat">
-                        با پیوستن به فروشگاه نیکراد می‌توانید مستقیماَ از فروشندگان خرید کنید یا به عنوان<br /> فروشنده محصولات خود را عرضه کنید.
+                    <div className="w-full flex items-center justify-center   absolute bottom-0  h-[18%]">
+                        <img className="w-full h-full " src="/img/Attributioncard.png" />
+                        <div className="absolute  w-full h-full flex justify-center items-center  text-white  leading-9 text-lg bg-cover bg-no-repeat ">
+                            با پیوستن به فروشگاه نیکراد می‌توانید مستقیماَ از فروشندگان خرید کنید یا به عنوان<br /> فروشنده محصولات خود را عرضه کنید.
+                        </div>
                     </div>
+
                 </div>
             </section>
         </div>

@@ -14,7 +14,7 @@ export const SellerInfo = () => {
                 alt="img"
                 className=" w-full h-[150px] lg:h-auto "
             />
-            <div className="absolute top-0 h-full w-full  px-[6%] lg:pe-[19%]  lg:ps-[6%] pt-4 lg:pt-8  ">
+            <div className="absolute top-0 h-full w-full  px-[6%] lg:pe-40  lg:ps-20 pt-4 lg:pt-8  ">
                 <BaseContainer className="relative w-full h-full flex flex-col justify-between">
                     <Button
                         variant={"outline"}
@@ -39,7 +39,7 @@ export const SellerInfo = () => {
                             </div>
                         </div>
                         <Button
-                            className="hidden lg:flex mt-6 items-center gap-2 px-7! h-8 rounded-[3px] bg-white text-yellow-600  border border-yellow-500 cursor-pointer text-sm lg:text-[11px] font-normal">
+                            className="hidden lg:flex mt-6 items-center gap-2 px-7! h-8 rounded-[3px] bg-white text-yellow-600  border border-yellow-500 cursor-pointer text-sm lg:text-xs font-normal">
                             درخواست مشاوره
                         </Button>
 

@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 
 export const SellerReviews = () => {
     return (
-        <div className="flex flex-col gap-5 lg:gap-3 px-4 lg:ps-0 lg:pe-[202px] mt-12">
+        <div className="flex flex-col gap-5 lg:gap-3 px-4 lg:ps-0 lg:pe-14 mt-12">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-0 mb-1">
-                <span className="font-medium text-[23px] lg:text-lg">نظرات کاربران درباره این فروشگاه</span>
+                <span className="font-medium text-2xl lg:text-lg">نظرات کاربران درباره این فروشگاه</span>
                 <div className="w-1/2 lg:w-50 custom-style-select flex flex-col justify-end gap-2">
                     <Select>
                         <SelectTrigger>
@@ -31,18 +31,18 @@ export const SellerReviews = () => {
                             <span className="text-[13px] text-gray-800">
                                 عنوان نظر
                             </span>
-                            <span className="hidden lg:block text-[10px] text-yellow-600">
+                            <span className="hidden lg:block text-xs text-yellow-600">
                                 نام و نام خانوادگی
                             </span>
-                            <span className="block lg:hidden text-[10px] me-5">4.5</span>
+                            <span className="block lg:hidden text-xs me-5">4.5</span>
                         </div>
 
                         <div className="flex items-center justify-between lg: gap-1">
-                            <span className="hidden lg:block text-gray-500 text-[8.5px] me-1.5">
+                            <span className="hidden lg:block text-gray-500 text-xs me-1.5">
                                 امتیاز ثبت شده توسط این کاربر:
                             </span>
-                            <span className="hidden lg:block text-[10px] me-5">4.5</span>
-                            <span className="block lg:hidden text-[10px] text-yellow-600">
+                            <span className="hidden lg:block text-xs me-5">4.5</span>
+                            <span className="block lg:hidden text-xs text-yellow-600">
                                 نام و نام خانوادگی
                             </span>
                             <div className="flex items-center gap-1">
@@ -66,25 +66,24 @@ export const SellerReviews = () => {
                         </div>
                     </div>
 
-                    <p className="text-[10px] text-gray-600 leading-[18px] text-justify">
+                    <p className="text-xs text-gray-600 leading-[18px] text-justify">
                         کیفیت محصول بسیار خوب بود و بسته‌بندی مناسبی داشت.
                         کیفیت محصول بسیار خوب بود و بسته‌بندی مناسبی داشت.
                         کیفیت محصول بسیار خوب بود و بسته‌بندی مناسبی داشت.
                         کیفیت محصول بسیار خوب بود و بسته‌بندی مناسبی داشت.
                     </p>
 
-                    <div className="flex justify-end items-center gap-1 text-gray-500 text-[10.5px]">
+                    <div className="flex justify-end items-center gap-1 text-gray-500 text-xs">
                         <Clock size={12} />
                         5 روز پیش
                     </div>
                 </div>
             ))}
-            <div className="flex lg:hidden justify-end ">
-                <Button className="w-full bg-transparent hover:bg-yellow-600 border h-12 lg:h-9 px-5! lg:px-6 text-yellow-600 lg:text-xs flex items-center gap-1.5 border-yellow-500 rounded-xs cursor-pointer">
-                    مشاهده همه
+            <div className="flex justify-end lg:justify-center ">
+                <Button className="w-full lg:w-32 bg-transparent hover:bg-yellow-600 border h-12 lg:h-9 px-5! lg:px-6 text-yellow-600 lg:text-xs flex items-center gap-1.5 border-yellow-500 rounded-xs cursor-pointer">
+                    بارگذاری بیشتر
                 </Button>
             </div>
-            <ReviewsPagination />
         </div>
     );
 };

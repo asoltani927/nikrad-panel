@@ -1,6 +1,7 @@
 import { Clock, Star } from "lucide-react";
 import { ReviewsPagination } from "./ReviewsPagination";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 export const ReviewsTab = () => {
     return (
@@ -30,16 +31,16 @@ export const ReviewsTab = () => {
                             <span className="text-[13px] text-gray-800">
                                 عنوان نظر
                             </span>
-                            <span className="text-[10px] text-yellow-600">
+                            <span className="text-xs text-yellow-600">
                                 نام و نام خانوادگی
                             </span>
                         </div>
 
                         <div className="flex items-center justify-between lg: gap-1">
-                            <span className="hidden lg:block text-gray-500 text-[8.5px] me-1.5">
+                            <span className="hidden lg:block text-gray-500 text-xs me-1.5">
                                 امتیاز ثبت شده توسط این کاربر:
                             </span>
-                            <span className="text-[10px] me-5">4.5</span>
+                            <span className="text-xs me-5">4.5</span>
 
                             <div className="flex items-center gap-1">
                                 {Array.from({ length: 5 }, (_, i) => (
@@ -62,7 +63,7 @@ export const ReviewsTab = () => {
                         </div>
                     </div>
 
-                    <p className="text-[10px] text-gray-600 leading-[18px] text-justify">
+                    <p className="text-xs text-gray-600 leading-[18px] text-justify">
                         کیفیت محصول بسیار خوب بود و بسته‌بندی مناسبی داشت.
                         کیفیت محصول بسیار خوب بود و بسته‌بندی مناسبی داشت.
                         کیفیت محصول بسیار خوب بود و بسته‌بندی مناسبی داشت.
@@ -76,7 +77,12 @@ export const ReviewsTab = () => {
                 </div>
             ))}
 
-            <ReviewsPagination />
+            {/* <ReviewsPagination /> */}
+            <div className="flex justify-end lg:justify-center ">
+                <Button className="w-full lg:w-32 bg-transparent hover:bg-yellow-600 border h-12 lg:h-9 px-5! lg:px-6 text-yellow-600 lg:text-xs flex items-center gap-1.5 border-yellow-500 rounded-xs cursor-pointer">
+                    بارگذاری بیشتر
+                </Button>
+            </div>
         </div>
     );
 };

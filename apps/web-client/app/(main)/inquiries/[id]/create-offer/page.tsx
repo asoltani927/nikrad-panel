@@ -51,7 +51,7 @@ export default function CreateOffer() {
 
     return (
         <BaseContainer>
-            <div className="w-full min-h-screen flex flex-col items-center justify-start pb-16 lg:pb-56 lg:pt-56 px-6">
+            <div className="w-full min-h-screen flex flex-col items-center justify-start pb-16 lg:pb-56 lg:pt-16 px-6">
 
                 <div className="relative flex items-center mb-11">
                     <Image
