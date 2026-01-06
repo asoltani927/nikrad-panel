@@ -47,28 +47,28 @@ export default function CartPage() {
                             </div>
                             <div className="lg:border-t border-[#ECECED] pt-3 text-sm flex flex-col gap-4 lg:gap-2 px-3">
                                 <span className="hidden lg:block font-thin lg:text-[13px] text-[#333741]">جزئیات پرداخت</span>
-                                <p className="flex justify-between text-sm lg:text-[12px]">
+                                <p className="flex justify-between text-sm lg:text-xs">
                                     <span className="text-[#85888E] ">تعداد</span>
                                     <span className="text-[#333741]">۳</span>
                                 </p>
-                                <p className="flex justify-between text-sm lg:text-[12px]">
+                                <p className="flex justify-between text-sm lg:text-xs">
                                     <span className="text-[#85888E] ">قیمت کالاها</span>
                                     <span className="text-[#333741]">۳۴۳۴ تومان</span>
                                 </p>
-                                <p className="flex justify-between text-sm lg:text-[12px]">
+                                <p className="flex justify-between text-sm lg:text-xs">
                                     <span className="text-[#CA8504] ">تخفیف</span>
                                     <span className="text-[#333741]">۳۴ تومان</span>
                                 </p>
-                                <p className="flex justify-between text-sm lg:text-[12px]">
+                                <p className="flex justify-between text-sm lg:text-xs">
                                     <span className="text-[#85888E] ">هزینه ارسال</span>
                                     <span className="text-[#333741]">۳۴۳ تومان</span>
                                 </p>
-                                <p className="flex justify-between text-sm lg:text-[12px] border-t border-[#ECECED] pt-4 lg:pt-2">
+                                <p className="flex justify-between text-sm lg:text-xs border-t border-[#ECECED] pt-4 lg:pt-2">
                                     <span className="text-[#85888E] ">مبلغ قابل پرداخت</span>
                                     <span className="text-[#333741]">۳۴۳ تومان</span>
                                 </p>
                             </div>
-                            <p className="text-[13px] lg:text-[9px] font-thin  text-gray-500 leading-4 px-3">
+                            <p className="text-[13px] lg:text-xs font-thin  text-gray-500 leading-4 px-3">
                                 <span className="text-[#CA8504]">توجه:</span>
                                 کالاهای موجود در سبد شما رزرو و ثبت نشده‌اند.
                                 برای ثبت سفارش مراحل بعدی را تکمیل کنید.

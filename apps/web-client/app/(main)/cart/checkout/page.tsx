@@ -42,7 +42,7 @@ export default function CheckoutPage() {
 
                     <div className="w-full lg:w-[73%] grid grid-cols-12 gap-4 px-6 lg:px-0">
                         <div className="col-span-12 lg:col-span-8 flex flex-col gap-6 lg:gap-4 lg:bg-[#FAFAFA] border-[#F1F1F1] lg:border rounded-lg lg:py-7 px-4">
-                            <div className=" rounded-sm p-4 py-4 lg:bg-white flex flex-col gap-2 text-sm  lg:text-[12px] border-b lg:border-none pb-12 lg:pb-4 ">
+                            <div className=" rounded-sm p-4 py-4 lg:bg-white flex flex-col gap-2 text-sm  lg:text-xs border-b lg:border-none pb-12 lg:pb-4 ">
                                 <div className="w-full flex items-center justify-between  border-b border-[#ECECED] pb-3">
                                     <h3 className="lg:ps-1.5 font-medium text-xl lg:text-[15px] text-[#2E2F39] ">انتخاب آدرس</h3>
                                     <Button onClick={() => {
@@ -53,11 +53,11 @@ export default function CheckoutPage() {
                                         <span className="hidden lg:block ">  افزودن آدرس جدید</span>
                                     </Button>
                                 </div>
-                                <RadioGroup dir="rtl" value={address} onValueChange={setAddress} className="w-full flex flex-col gap-10 lg:gap-8">
+                                <RadioGroup dir="rtl" value={address} onValueChange={setAddress} className="w-full flex flex-col gap-10 lg:gap-6  ">
                                     {/* address 1 */}
                                     <div
                                         onClick={() => setAddress("address1")}
-                                        className="flex flex-col justify-between lg:items-center gap-4 lg:gap-2 px-2 rounded-sm cursor-pointer"
+                                        className="flex flex-col justify-between lg:items-center gap-4 lg:gap-2 px-2 border-b pb-6 border-gray-100 cursor-pointer"
                                     >
                                         <div className="w-full flex flex-col lg:flex-row  items-center justify-between  gap-6 lg:gap-4">
                                             <div className="w-full lg:w-fit flex items-center justify-between lg:justify-start gap-2 text-sm ">
@@ -81,11 +81,11 @@ export default function CheckoutPage() {
                                         </div>
                                         <p className="text-gray-600 leading-5 text-[11px] ">خراسان رضوی، مشهد | بلوار فلان| خیابان بهمان | ، مجتمع  کسری واحد 34 برای طولانی شدن آدرس هم این آدرس الکی را وارد میکنم.</p>
                                         <div className="w-full justify-between lg:justify-start flex items-center gap-4">
-                                            <span className="text-gray-500 text-[10px] ">تحویل گیرنده</span>
+                                            <span className="text-gray-500 text-xs ">تحویل گیرنده</span>
                                             <span className="text-[11px]  text-gray-700 ">نام و نام خانوادگی</span>
                                         </div>
                                         <div className="w-full justify-between lg:justify-start flex items-center gap-5">
-                                            <span className="text-gray-500 text-[10px] ">شماره تماس</span>
+                                            <span className="text-gray-500 text-xs ">شماره تماس</span>
                                             <span className="text-[11px] text-gray-700  ">0923222333</span>
                                         </div>
                                     </div>
@@ -120,20 +120,20 @@ export default function CheckoutPage() {
                                                 </Button>
                                             </div>
                                         </div>
-                                        <p className="text-gray-600 leading-5 text-[11px] ">خراسان رضوی، مشهد | بلوار فلان| خیابان بهمان | ، مجتمع  کسری واحد 34 برای طولانی شدن آدرس هم این آدرس الکی را وارد میکنم.</p>
+                                        <p className="text-gray-600 leading-5 text-xs ">خراسان رضوی، مشهد | بلوار فلان| خیابان بهمان | ، مجتمع  کسری واحد 34 برای طولانی شدن آدرس هم این آدرس الکی را وارد میکنم.</p>
                                         <div className="w-full justify-between lg:justify-start flex items-center gap-4">
-                                            <span className="text-gray-500 text-[10px] ">تحویل گیرنده</span>
-                                            <span className="text-[11px]  text-gray-700 ">نام و نام خانوادگی</span>
+                                            <span className="text-gray-500 text-xs ">تحویل گیرنده</span>
+                                            <span className="text-xs  text-gray-700 ">نام و نام خانوادگی</span>
                                         </div>
                                         <div className="w-full justify-between lg:justify-start flex items-center gap-5">
-                                            <span className="text-gray-500 text-[10px] ">شماره تماس</span>
-                                            <span className="text-[11px] text-gray-700  ">0923222333</span>
+                                            <span className="text-gray-500 text-xs ">شماره تماس</span>
+                                            <span className="text-xs text-gray-700  ">0923222333</span>
                                         </div>
                                     </div>
                                 </RadioGroup>
                             </div>
 
-                            <div className=" rounded-sm p-4 py-4 lg:bg-white flex flex-col gap-2 text-sm  lg:text-[12px] ">
+                            <div className=" rounded-sm p-4 py-4 lg:bg-white flex flex-col gap-2 text-sm  lg:text-xs ">
                                 <h3 className="lg:ps-1.5 font-medium text-xl lg:text-[15px] text-[#2E2F39]">روش ارسال</h3>
                                 <div className="px-1.5 w-full flex items-center justify-between border-t border-[#ECECED] pt-3 ">
                                     <p className="text-[#85888E] font-thin text-[11.5px]  leading-5">
@@ -251,7 +251,7 @@ export default function CheckoutPage() {
                             </div>
 
                             {/* ------------------ Order Details ------------------ */}
-                            <div className=" rounded-sm p-4 py-2 pt-4 lg:bg-white flex flex-col gap-2 text-sm  lg:text-[12px] ">
+                            <div className=" rounded-sm p-4 py-2 pt-4 lg:bg-white flex flex-col gap-2 text-sm  lg:text-xs ">
                                 <h3 className="lg:ps-1.5 font-medium text-xl lg:text-[15px] text-[#2E2F39]">توضیحات سفارش</h3>
                                 <div className="px-1.5 w-full flex items-center justify-between border-t border-[#ECECED] pt-3 ">
                                     <p className="hidden lg:block text-[#85888E]">
@@ -282,29 +282,29 @@ export default function CheckoutPage() {
                             </div>
 
                             <div className="border-t border-[#ECECED] pt-6 mt-4 lg:mt-0 lg:pt-3 text-sm flex flex-col gap-4 lg:gap-2 px-3">
-                                <span className="font-medium lg:font-thin text-[22  px] lg:text-[13px] text-[#333741]">جزئیات پرداخت</span>
-                                <p className="flex justify-between text-sm lg:text-[12px]">
+                                <span className="font-medium lg:font-thin text-[22  px] lg:text-sm text-[#333741]">جزئیات پرداخت</span>
+                                <p className="flex justify-between text-sm lg:text-xs">
                                     <span className="text-[#85888E] ">تعداد</span>
                                     <span className="text-[#333741]">۳</span>
                                 </p>
-                                <p className="flex justify-between text-sm lg:text-[12px]">
+                                <p className="flex justify-between text-sm lg:text-xs">
                                     <span className="text-[#85888E] ">قیمت کالاها</span>
                                     <span className="text-[#333741]">۳۴۳۴ تومان</span>
                                 </p>
-                                <p className="flex justify-between text-sm lg:text-[12px]">
+                                <p className="flex justify-between text-sm lg:text-xs">
                                     <span className="text-[#CA8504] ">تخفیف</span>
                                     <span className="text-[#333741]">۳۴ تومان</span>
                                 </p>
-                                <p className="flex justify-between text-sm lg:text-[12px]">
+                                <p className="flex justify-between text-sm lg:text-xs">
                                     <span className="text-[#85888E] ">هزینه ارسال</span>
                                     <span className="text-[#333741]">۳۴۳ تومان</span>
                                 </p>
-                                <p className="flex justify-between text-sm lg:text-[12px] border-t border-[#ECECED] pt-4 lg:pt-2">
+                                <p className="flex justify-between text-sm lg:text-xs border-t border-[#ECECED] pt-4 lg:pt-2">
                                     <span className="text-[#85888E] ">مبلغ قابل پرداخت</span>
                                     <span className="text-[#333741]">۳۴۳ تومان</span>
                                 </p>
                             </div>
-                            <p className="text-[13px] lg:text-[9px] font-thin  text-gray-500 leading-4 px-3">
+                            <p className="text-[13px] lg:text-xs font-thin  text-gray-500 leading-4 px-3">
                                 <span className="text-[#CA8504]">توجه:</span>
                                 کالاهای موجود در سبد شما رزرو و ثبت نشده‌اند.
                                 برای ثبت سفارش مراحل بعدی را تکمیل کنید.

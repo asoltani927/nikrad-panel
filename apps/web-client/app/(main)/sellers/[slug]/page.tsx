@@ -18,7 +18,7 @@ export default function SellerDetailsPage() {
       <div className="block lg:hidden px-4">  <SellerToolbar /></div>
 
       <BaseContainer className="w-full flex flex-col items-center mt-2 lg:mt-24 pt-1">
-        <div className="w-full lg:ps-[202px] flex flex-col lg:flex-row gap-4">
+        <div className="w-full lg:ps-14 flex flex-col lg:flex-row gap-4">
           <div className=" w-full lg:w-[28%] ">
             <SellerOverview />
             <SellerAbout />

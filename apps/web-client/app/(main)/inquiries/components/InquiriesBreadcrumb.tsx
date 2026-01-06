@@ -15,18 +15,18 @@ export function InquiriesBreadcrumb() {
     return (
         <div className="h-fit w-full flex justify-center bg-[#F5F5F6] py-3">
             <BaseContainer className="w-full">
-                <Breadcrumb className="px-4 lg:px-[202px] ">
+                <Breadcrumb className="px-4 sm:px-10 lg:px-14  ">
                     <BreadcrumbList>
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>
-                                <Link href="/" className="lg:text-[17px] font-normal! underline ">صفحه اصلی</Link>
+                                <Link href="/" className="lg:text-base font-normal! underline ">صفحه اصلی</Link>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator>
                             <ChevronLeft className="size-4.5!" />
                         </BreadcrumbSeparator>
                         <BreadcrumbItem>
-                            <BreadcrumbPage className="lg:text-[19px] font-medium">نیازمندی‌ها</BreadcrumbPage>
+                            <BreadcrumbPage className="lg:text-bases font-medium">نیازمندی‌ها</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>

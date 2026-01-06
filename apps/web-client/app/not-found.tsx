@@ -22,19 +22,19 @@ export default function PaymentSuccessPage() {
             <div className="hidden lg:block">
                 <Header />
             </div>
-            <div className="relative min-h-screen w-full flex flex-col items-center justify-center  px-10 pt-6 pb-20 lg:pb-44">
+            <div className="relative min-h-screen w-full flex flex-col items-center justify-center  px-10 pt-0 pb-20 lg:pb-44">
 
                 <Image
                     src="/svg/Content.svg"
                     width={950}
                     height={950}
                     alt="phone"
-                    className="hidden lg:block absolute"
+                    className="hidden lg:block absolute opacity-[0.4] "
                 />
 
                 <div className="relative z-10 w-full flex flex-col items-center mb-14">
 
-                    <div className="w-52 h-52 lg:w-[330px] lg:h-[330px] relative lg:mt-48">
+                    <div className="w-52 h-52 lg:w-[330px] lg:h-[330px] relative lg:mt-0">
                         <Image
                             src="/svg/Error.svg"
                             fill
@@ -55,7 +55,7 @@ export default function PaymentSuccessPage() {
                         <div className="w-full lg:w-fit relative">
                             <Input
                                 placeholder="جستجوی محصولات"
-                                className="w-full lg:w-68 h-10 lg:h-9 placeholder:text-[11px]! placeholder:font-thin text-[11px]!  ps-8 border-[#DADCDE] focus-within:outline-0 rounded-full  focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none"
+                                className="w-full lg:w-68 h-10 lg:h-9 bg-white placeholder:text-[11px]! placeholder:font-thin text-[11px]!  ps-8 border-[#DADCDE] focus-within:outline-0 rounded-full  focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none"
                             />
                             <Search className="absolute start-3 top-1/2 -translate-y-1/2 text-zinc-500 size-3.5" />
                         </div>

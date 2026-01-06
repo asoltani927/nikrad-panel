@@ -88,18 +88,18 @@ export function InquiriesFilters() {
       <div className="flex flex-col bg-[#FAFAFA] px-2 pt-7 pb-5 rounded-lg mt-9">
         {hasFilters && (
           <>
-            <div className="px-2 w-full flex items-center justify-between text-[13px] text-gray-700 font-medium cursor-pointer">
+            <div className="px-2 w-full flex items-center justify-between text-xs text-gray-700 font-medium cursor-pointer">
               فیلتر اعمال شده
               <div className="flex items-center gap-1">
                 <span
-                  className="text-[#CA8504] text-[9px] cursor-pointer"
+                  className="text-[#CA8504] text-xs cursor-pointer"
                   onClick={clearAllFilters}
                 >
                   حذف
                 </span>
                 <X
                   color="#CA8504"
-                  className="size-2.5"
+                  className="size-3"
                   onClick={clearAllFilters}
                 />
               </div>
@@ -111,7 +111,7 @@ export function InquiriesFilters() {
               {selectedCategories.map((cat) => (
                 <Badge
                   key={cat}
-                  className="relative px-3 py-1 flex items-center justify-between gap-2 bg-[#FEFDF0] border-[#FDE272] text-[#A15C07] text-[9px]"
+                  className="relative px-3 py-1 flex items-center justify-between gap-2 bg-[#FEFDF0] border-[#FDE272] text-[#A15C07] text-xs"
                 >
                   {cat}
                   <span className="relative z-20 cursor-pointer">
@@ -126,7 +126,7 @@ export function InquiriesFilters() {
               {paymentMethods.map((method) => (
                 <Badge
                   key={method}
-                  className="px-3 py-1 flex items-center justify-between gap-2 bg-[#FEFDF0] border-[#FDE272] text-[#A15C07] text-[9px]"
+                  className="px-3 py-1 flex items-center justify-between gap-2 bg-[#FEFDF0] border-[#FDE272] text-[#A15C07] text-xs"
                 >
                   {method}
                   <span className="relative z-20 cursor-pointer">
@@ -146,7 +146,7 @@ export function InquiriesFilters() {
           open={openSections.cat}
           onOpenChange={() => handleToggle("cat")}
         >
-          <CollapsibleTrigger className="px-2 w-full flex items-center justify-between text-[13px] text-gray-700 font-medium cursor-pointer">
+          <CollapsibleTrigger className="px-2 w-full flex items-center justify-between text-xs text-gray-700 font-medium cursor-pointer">
             دسته‌بندی فعالیت
             <ChevronDown
               color="#CA8504"
@@ -244,7 +244,7 @@ export function InquiriesFilters() {
           open={openSections.payment}
           onOpenChange={() => handleToggle("payment")}
         >
-          <CollapsibleTrigger className="mt-6 px-2 w-full flex items-center justify-between text-[13px] text-gray-700 font-medium cursor-pointer">
+          <CollapsibleTrigger className="mt-6 px-2 w-full flex items-center justify-between text-xs text-gray-700 font-medium cursor-pointer">
             اولویت
             <ChevronDown
               color="#CA8504"
@@ -272,7 +272,7 @@ export function InquiriesFilters() {
           open={openSections.price}
           onOpenChange={() => handleToggle("price")}
         >
-          <CollapsibleTrigger className="mt-6 px-2 w-full flex items-center justify-between text-[13px] text-gray-700 font-medium cursor-pointer">
+          <CollapsibleTrigger className="mt-6 px-2 w-full flex items-center justify-between text-xs text-gray-700 font-medium cursor-pointer">
             قیمت
             <ChevronDown
               color="#CA8504"
@@ -290,11 +290,11 @@ export function InquiriesFilters() {
               onValueChange={setPriceRange}
               className="w-[90%]"
             />
-            <div className="flex justify-between items-center gap-1 mt-4 text-[#97989B] text-[8px] w-[90%]">
+            <div className="flex justify-between items-center gap-1 mt-4 text-[#97989B] text-xs w-[90%]">
               <div className="w-1/2 h-7 border rounded-sm border-[#DADCDE] flex items-center justify-center">
                 {priceRange[0]} تومان
               </div>
-              <span className="w-fit text-gray-800 text-[13px]">تا</span>
+              <span className="w-fit text-gray-800 text-xs">تا</span>
               <div className="w-1/2 h-7 border rounded-sm border-[#DADCDE] flex items-center justify-center">
                 {priceRange[1]} تومان
               </div>

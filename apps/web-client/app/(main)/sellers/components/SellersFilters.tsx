@@ -130,7 +130,7 @@ export function SellersFilters() {
                   <span className="relative z-20 cursor-pointer">
                     <X
                       color="#A15C07"
-                      className="size-2.5"
+                      className="size-3"
                       onClick={() => removeFilter("payment", method)}
                     />
                   </span>

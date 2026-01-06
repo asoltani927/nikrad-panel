@@ -13,7 +13,7 @@ export function MainCategories() {
                     {mainCategories.map((item) => (
                         <Link
                             key={item.id}
-                            href={item.link}
+                            href={`products`}
                             className="flex flex-col items-center group text-center"
                         >
                             <div className="w-24 h-24 lg:w-[116px] lg:h-[116px] relative ">

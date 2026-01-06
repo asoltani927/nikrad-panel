@@ -30,31 +30,31 @@ export const ProductCard = ({ product }: { product: ProductType }) => {
                 <div className="bg-[#DAA37F] rounded-xs w-3.5 h-3.5 "></div>
             </div>
 
-            <h3 className="font-medium text-[13px] ">{product.name}</h3>
+            <h3 className="font-medium text-sm ">{product.name}</h3>
 
-            <div className="w-full flex items-center justify-between gap-1 text-[11px] font-medium">
-                <span className="text-[10px] text-[#85888E]">
-                    شناسه محصول
+            <div className="w-full flex items-center justify-between gap-1 text-xs font-medium">
+                <span className="text-xs text-[#85888E]">
+                    شناسه 
                 </span>
                 <div className="">{product.code} </div>
             </div>
 
-            <div className="w-full flex items-center justify-between gap-1 text-[11px] font-medium">
-                <span className="text-[10px] text-[#85888E]">
+            <div className="w-full flex items-center justify-between gap-1 text-xs font-medium">
+                <span className="text-xs text-[#85888E]">
                     قیمت
                 </span>
                 <div className="">{product.price} تومان</div>
             </div>
 
-            <div className="w-full flex items-center justify-between gap-1 text-[9px] font-thin">
+            <div className="w-full flex items-center justify-between gap-1 text-xs font-thin">
                 <span className=" text-[#CA8504]">
                     {product.stock ? product.stock + ' ' + 'عدد موجود در انبار' : 'ناموجود'}
                 </span>
             </div>
 
-            <div className="w-full flex items-center justify-between gap-1 text-[10px] font-thin border-t pt-3">
+            <div className="w-full flex items-center justify-between gap-1 text-xs font-thin border-t pt-3">
                 <span className=" text-[#85888E]">
-                    نام فروشنده
+                     فروشنده
                 </span>
                 <div className="">فروشگاه {product.sellerName}</div>
             </div>

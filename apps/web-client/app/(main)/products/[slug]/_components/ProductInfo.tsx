@@ -10,7 +10,7 @@ export const ProductInfo = () => {
         <div className="flex flex-col gap-4 lg:gap-2.5">
 
             <div className="flex items-center justify-between">
-                <h1 className="text-[23px] font-semibold text-[#1F242F]">
+                <h1 className="text-2xl font-semibold text-[#1F242F]">
                     {product.name}
                 </h1>
                 <div className="flex items-center gap-4">
@@ -35,7 +35,7 @@ export const ProductInfo = () => {
                     ))}
                 </div>
 
-                <span className="text-[11px] text-[#85888E]">({product.reviewsCount} نظر)</span>
+                <span className="text-xs text-[#85888E]">({product.reviewsCount} نظر)</span>
             </div>
 
             <div className="flex justify-between items-center text-base lg:text-sm font-normal text-[#85888E] mt-1">
@@ -43,13 +43,13 @@ export const ProductInfo = () => {
                 <span className="text-gray-700">{product.id}</span>
             </div>
 
-            <p className=" text-sm lg:text-[11.5px] text-[#555] leading-7 lg:leading-6 text-justify mt-2 lg:mt-0">
+            <p className=" text-sm lg:text-xs text-[#555] leading-7 lg:leading-6 text-justify mt-2 lg:mt-0">
                 {product.description}
             </p>
 
             <div className="flex justify-between items-center">
                 <span className="text-base lg:text-sm text-[#85888E] font-normal">قیمت</span>
-                <span className="text-[20px] font-medium text-[#1F242F]">
+                <span className="text-xl font-medium text-[#1F242F]">
                     {product.price}
                 </span>
             </div>
@@ -78,8 +78,8 @@ export const ProductInfo = () => {
                 {product.stock} عدد موجود در انبار
             </span>
 
-            <div className="w-full grid grid-cols-12 gap-4 lg:gap-[17px] mt-1.5">
-                <Button asChild variant={"outline"} className=" col-span-6 lg:col-span-5 h-10 lg:h-7 bg-transparent rounded-[3px] border-yellow-500 hover:bg-[#e7bd35] text-[#CA8504] text-sm lg:text-[11px] font-medium">
+            <div className="w-full grid grid-cols-12 gap-4 lg:gap-4 mt-1.5">
+                <Button asChild variant={"outline"} className=" col-span-6 lg:col-span-5 h-10 lg:h-8 bg-transparent rounded-[3px] border-yellow-500 hover:bg-[#e7bd35] text-[#CA8504] text-sm lg:text-xs font-medium">
                     <Link
                         href={'/products'}
                         className="flex items-center gap-2"
@@ -87,7 +87,7 @@ export const ProductInfo = () => {
                         رفتن به صفحه محصولات
                     </Link>
                 </Button>
-                <Button className="text-sm lg:text-[11px] h-10 lg:h-7 rounded-xs  col-span-6 lg:col-span-7 bg-brand-primary text-black hover:bg-[#e7bd35] cursor-pointer">
+                <Button className="text-sm lg:text-xs h-10 lg:h-8 rounded-xs  col-span-6 lg:col-span-7 bg-brand-primary text-black hover:bg-[#e7bd35] cursor-pointer">
                     افزودن به سبد خرید
                 </Button>
             </div>

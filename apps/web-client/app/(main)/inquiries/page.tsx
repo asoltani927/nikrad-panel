@@ -37,7 +37,7 @@ export default function ProductsPage() {
 
         <div className="w-full absolute bottom-13 ">
           <BaseContainer className="w-full lg:px-[202px]  flex justify-end  " >
-            <Button onClick={handleStart} className="cursor-pointer flex items-center gap-2  w-fit px-8! lg:px-[23px]! h-7  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-[11px] font-medium">
+            <Button onClick={handleStart} className="cursor-pointer flex items-center gap-2  w-fit px-8! lg:px-6 h-8  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-sm font-medium">
               ثبت نیازمندی جدید
             </Button>
           </BaseContainer>
@@ -48,8 +48,8 @@ export default function ProductsPage() {
 
       <InquiriesTitle />
 
-      <BaseContainer className="w-full flex flex-col items-center mt-0 lg:mt-8">
-        <div className="w-full px-4 lg:px-[202px] lg:grid grid-cols-4 gap-4">
+      <BaseContainer className="w-full flex flex-col items-center mt-0 lg:mt-4">
+        <div className="w-full px-4 sm:px-10 lg:px-14  lg:grid grid-cols-4 gap-4">
           <div className=" hidden lg:block col-span-1">
             <InquiriesFilters />
           </div>
@@ -58,7 +58,7 @@ export default function ProductsPage() {
             <InquiriesList />
           </div>
         </div>
-        <div className="w-full px-4 lg:px-[202px] ">
+        <div className="w-full px-4 sm:px-10 lg:px-14  ">
           <InquiriesPagination />
         </div>
       </BaseContainer>

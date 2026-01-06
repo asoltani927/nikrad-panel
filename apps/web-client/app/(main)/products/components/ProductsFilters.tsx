@@ -87,18 +87,18 @@ export function ProductsFilters() {
       <div className="flex flex-col bg-[#FAFAFA] px-2 pt-7 pb-5 rounded-lg mt-9">
         {hasFilters && (
           <>
-            <div className="px-2 w-full flex items-center justify-between text-[13px] text-gray-700 font-medium cursor-pointer">
+            <div className="px-2 w-full flex items-center justify-between text-sm text-gray-700 font-medium cursor-pointer">
               فیلتر اعمال شده
               <div className="flex items-center gap-1">
                 <span
-                  className="text-[#CA8504] text-[9px] cursor-pointer"
+                  className="text-[#CA8504] text-xs cursor-pointer"
                   onClick={clearAllFilters}
                 >
                   حذف
                 </span>
                 <X
                   color="#CA8504"
-                  className="size-2.5"
+                  className="size-3"
                   onClick={clearAllFilters}
                 />
               </div>
@@ -110,7 +110,7 @@ export function ProductsFilters() {
               {selectedCategories.map((cat) => (
                 <Badge
                   key={cat}
-                  className="relative px-3 py-1 flex items-center justify-between gap-2 bg-[#FEFDF0] border-[#FDE272] text-[#A15C07] text-[9px]"
+                  className="relative px-3 py-1 flex items-center justify-between gap-2 bg-[#FEFDF0] border-[#FDE272] text-[#A15C07] text-xs"
                 >
                   {cat}
                   <span className="relative z-20 cursor-pointer">
@@ -131,7 +131,7 @@ export function ProductsFilters() {
                     backgroundColor: "#FEFDF0",
                     border: "1px solid #FDE272",
                     color: "#A15C07",
-                    fontSize: "9px",
+                    fontSize: "12px",
                   }}
                 >
                   {color}
@@ -152,7 +152,7 @@ export function ProductsFilters() {
           open={openSections.cat}
           onOpenChange={() => handleToggle("cat")}
         >
-          <CollapsibleTrigger className="px-2 w-full flex items-center justify-between text-[13px] text-gray-700 font-medium cursor-pointer">
+          <CollapsibleTrigger className="px-2 w-full flex items-center justify-between text-sm text-gray-700 font-medium cursor-pointer">
             دسته‌بندی
             <ChevronDown
               color="#CA8504"
@@ -181,7 +181,7 @@ export function ProductsFilters() {
           open={openSections.color}
           onOpenChange={() => handleToggle("color")}
         >
-          <CollapsibleTrigger className="px-2 w-full flex items-center justify-between text-[13px] text-gray-700 font-medium cursor-pointer">
+          <CollapsibleTrigger className="px-2 w-full flex items-center justify-between text-sm text-gray-700 font-medium cursor-pointer">
             رنگ‌بندی
             <ChevronDown
               color="#CA8504"
@@ -197,7 +197,7 @@ export function ProductsFilters() {
                   <div key={color.id} onClick={() => toggleColor(color.id)}>
                     {isActive ? (
                       <div
-                        className="relative w-[28px] h-[28px] flex items-center justify-center border-[0.3px] rounded-[4px]"
+                        className="relative w-7 h-7 flex items-center justify-center border-[0.3px] rounded-sm"
                         style={{ borderColor: color.value }}
                       >
                         <div
@@ -213,7 +213,7 @@ export function ProductsFilters() {
                         </div>
                       </div>
                     ) : (
-                      <div className="relative w-[28px] h-[28px] flex items-center justify-center border-[0.3px] rounded-[4px] border-[#FAFAFA] ">
+                      <div className="relative w-7 h-7 flex items-center justify-center border-[0.3px] rounded-sm border-[#FAFAFA] ">
                         <div
                           className="flex items-center justify-center absolute"
                           style={{
@@ -237,7 +237,7 @@ export function ProductsFilters() {
           open={openSections.price}
           onOpenChange={() => handleToggle("price")}
         >
-          <CollapsibleTrigger className="px-2 w-full flex items-center justify-between text-[13px] text-gray-700 font-medium cursor-pointer">
+          <CollapsibleTrigger className="px-2 w-full flex items-center justify-between text-sm text-gray-700 font-medium cursor-pointer">
             قیمت
             <ChevronDown
               color="#CA8504"
@@ -255,11 +255,11 @@ export function ProductsFilters() {
               onValueChange={(val: number[]) => setPriceRange(val)}
               className="w-[90%]"
             />
-            <div className="flex justify-between items-center gap-1 mt-4 text-[#97989B] text-[8px] w-[90%]">
+            <div className="flex justify-between items-center gap-1 mt-4 text-[#97989B] text-xs w-[90%]">
               <div className="w-1/2 h-7 border rounded-sm border-[#DADCDE] flex items-center justify-center">
                 {priceRange[0]} تومان
               </div>
-              <span className="w-fit text-gray-800 text-[13px]">تا</span>
+              <span className="w-fit text-gray-800 text-sm">تا</span>
               <div className="w-1/2 h-7 border rounded-sm border-[#DADCDE] flex items-center justify-center">
                 {priceRange[1]} تومان
               </div>

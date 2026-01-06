@@ -14,7 +14,7 @@ export default function ProductsPage() {
       <img
         src="/img/sellers-bg.png"
         alt="img"
-        className="hidden lg:block w-full  block h-auto "
+        className="hidden lg:block w-full h-auto "
       />
 
       <SellersBreadcrumb />

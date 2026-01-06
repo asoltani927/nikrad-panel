@@ -62,7 +62,7 @@ function PaginationLink({
         isActive &&
         "bg-[#F4BC02] text-white border-none rounded-full w-7 h-7 flex items-center justify-center",
 
-        "text-[10px] rounded-full  h-7 ",
+        "text-xs rounded-full  h-7 ",
 
         className
       )}
@@ -84,8 +84,8 @@ function PaginationPrevious({
       className={cn("gap-1 px-2.5 sm:pl-2.5", className)}
       {...props}
     >
-      <ChevronRightIcon className="size-3.5" />
-      <span className="text-xs hidden sm:block">قبلی</span>
+      <ChevronRightIcon className="size-4" />
+      <span className="text-sm hidden sm:block">قبلی</span>
     </PaginationLink>
   )
 }
@@ -101,8 +101,8 @@ function PaginationNext({
       className={cn("gap-1 px-2.5 sm:pr-2.5", className)}
       {...props}
     >
-      <span className="text-xs hidden sm:block">بعدی</span>
-      <ChevronLeftIcon className="size-3.5" />
+      <span className="text-sm hidden sm:block">بعدی</span>
+      <ChevronLeftIcon className="size-4" />
     </PaginationLink>
   )
 }

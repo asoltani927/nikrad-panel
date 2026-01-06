@@ -36,7 +36,7 @@ export function SellerRecentProducts() {
     return (
         <>
             {/* Title + Filter */}
-            <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between  mb-2 ps-6 lg:ps-0 mt-10 pe-4 lg:pe-[202px]">
+            <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between  mb-2 ps-6 lg:ps-0 mt-10 pe-4 lg:pe-14">
                 <h2 className="text-[23px] lg:text-[18px] font-medium text-gray-800 ">محصولات اخیر</h2>
 
                 <div className="hidden lg:flex items-center gap-2.5 ">
