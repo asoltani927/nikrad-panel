@@ -1,9 +1,8 @@
 import { authMiddleware } from '@/middlewares'
-import { AuthenticatedPayload } from '@/middlewares/auth'
+import { AuthenticatedPayload } from '@/types/auth'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
-
 
 const AuthenticatedUserResponseSchema = z.object({
   success: z.boolean(),
@@ -34,7 +33,8 @@ export const getAuthMeRoute = async (app: FastifyInstance) => {
     preHandler: [authMiddleware],
 
     handler: async (request, reply) => {
-      // TODO: add telephone numbers to customer info @reza
+      // TODO: add telephone numbers to customer info @reza (Done)
+      // add in authMiddleware line 31
       const payload = request.user as AuthenticatedPayload
       const customer = payload?.customer ?? null
 
@@ -57,6 +57,3 @@ export const getAuthMeRoute = async (app: FastifyInstance) => {
     },
   })
 }
-
-
-
