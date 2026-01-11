@@ -1862,7 +1862,7 @@ __metadata:
     eslint: "npm:^9"
     eslint-config-next: "npm:16.0.3"
     input-otp: "npm:^1.4.2"
-    lucide-react: "npm:^0.554.0"
+    lucide-react: "npm:^0.562.0"
     next: "npm:16.0.3"
     postcss: "npm:^8.5.6"
     react: "npm:19.2.0"
@@ -8060,6 +8060,15 @@ __metadata:
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
   checksum: 10/3f21ca482ca0b73ae30da06675c2f064c27f0ba165e55a064318443a6d92c6affc8b6ffefc94a8d082d27aaaf34f45df281ca21087d58c2361f7cfae16daba08
+  languageName: node
+  linkType: hard
+
+"lucide-react@npm:^0.562.0":
+  version: 0.562.0
+  resolution: "lucide-react@npm:0.562.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10/db75efaadd63fef38d3f4c79cadd26c4773d1a462749385a74dc6ffc1ab6684d20a7c1126faca49dc735f2edd2aae7c3af5e946a9299b1ff50f26d5c3670dab0
   languageName: node
   linkType: hard
 
