@@ -88,7 +88,14 @@ export default function Header() {
 						<div className="flex items-center gap-4">
 							<CartPreview />
 							{/* <ShoppingBasket color="#EAAA08" className="size-6 cursor-pointer" /> */}
-							<User color="#333741" className="size-5.5 cursor-pointer" />
+							<Link
+								href={'/profile'}
+								className=" "
+							>
+								<User color="#333741" className="size-5.5 cursor-pointer" />
+							</Link>
+
+
 						</div>
 					) : (
 						<Link

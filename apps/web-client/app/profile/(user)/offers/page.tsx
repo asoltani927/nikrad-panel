@@ -19,42 +19,47 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-export default function ProfileOrderPage() {
+export default function Offers() {
   const transactionsData = [
     {
       id: 1,
-      transactionId: "4564561234156",
-      dargah: "به پرداخت ملت",
-      price: "656000",
-      phone: "09133333333",
-      date: "1404/08/08",
-      status: "موفق",
+      offerId: "343ew",
+      title: "خرید تیرآهن",
+      owner: "هانا",
+      createAt: '1404/08/08',
+      amount: 200,
+      price: 2000,
+      status: "pending",
     },
     {
       id: 2,
-      transactionId: "4564561234156",
-      dargah: "به پرداخت ملت",
-      price: "656000",
-      phone: "09133333333",
-      date: "1404/08/08",
-      status: "لغو شده",
+      offerId: "343ew",
+      title: "خرید تیرآهن",
+      owner: "هانا",
+      createAt: '1404/08/08',
+      amount: 200,
+      price: 2000,
+      status: "rejected",
     },
     {
-      id: 3,
-      transactionId: "4564561234156",
-      dargah: "به پرداخت ملت",
-      price: "656000",
-      phone: "09133333333",
-      date: "1404/08/08",
-      status: "در انتظار پرداخت",
+      id: 2,
+      offerId: "343ew",
+      title: "خرید تیرآهن",
+      owner: "هانا",
+      createAt: '1404/08/08',
+      amount: 200,
+      price: 2000,
+      status: "accepted",
     },
+
   ];
+
   return (
     <div>
       {/* title  */}
       <div className="bg-gray-100 py-4 mb-10 text-sm font-medium">
         <BaseContainer className="px-6 lg:px-16">
-          سفارش‌ها
+          پیشنهادهای من
         </BaseContainer>
       </div>
       <BaseContainer className="px-6 lg:px-16">
@@ -72,16 +77,6 @@ export default function ProfileOrderPage() {
                 className="h-8! w-full"
               />
             </div>
-
-            <div className="w-full flex flex-col gap-2 table-filters-style">
-              <Label htmlFor="transactionId" className="text-gray-500 text-xs ">عنوان </Label>
-              <Input
-                id="transactionId"
-                placeholder="مثلاً 456456123"
-                className="h-8! w-full"
-              />
-            </div>
-
 
             <div className="w-full flex flex-col gap-2 table-filters-style">
               <Label htmlFor="status" className="text-gray-500 text-xs ">وضعیت </Label>
@@ -130,14 +125,16 @@ export default function ProfileOrderPage() {
 
         {/* table  */}
         <div className=" rounded-lg overflow-hidden">
-          <Table >
+          <Table>
             <TableHeader className="[&_th]:text-right">
-              <TableRow >
-                <TableHead className="text-gray-500">شناسه</TableHead>
-                <TableHead className="text-gray-500">عنوان </TableHead>
+              <TableRow>
+                <TableHead className="text-gray-500">شناسه </TableHead>
+                <TableHead className="text-gray-500">عنوان</TableHead>
+                <TableHead className="text-gray-500">دریافت کننده</TableHead>
+                <TableHead className="text-gray-500">مقدار</TableHead>
                 <TableHead className="text-gray-500">قیمت</TableHead>
-                <TableHead className="text-gray-500">تاریخ</TableHead>
                 <TableHead className="text-gray-500">وضعیت</TableHead>
+                <TableHead className="text-gray-500">تاریخ</TableHead>
                 <TableHead className="text-gray-500">عملیات</TableHead>
               </TableRow>
             </TableHeader>
@@ -145,23 +142,31 @@ export default function ProfileOrderPage() {
               {transactionsData.length > 0 ? (
                 transactionsData.map((item) => (
                   <TableRow key={item.id}>
-                    <TableCell>{item.transactionId}</TableCell>
-                    <TableCell>{item.dargah}</TableCell>
-                    <TableCell >{item.price}</TableCell>
-                    <TableCell>{item.date}</TableCell>
+                    <TableCell>{item.offerId}</TableCell>
+                    <TableCell>{item.title}</TableCell>
+                    <TableCell>{item.owner}</TableCell>
+                    <TableCell>{item.amount}</TableCell>
+                    <TableCell>{item.price}</TableCell>
                     <TableCell>
                       <span
-                        className={`px-2 py-1 rounded-lg text-sm ${item.status === "موفق"
+                        className={`px-2 py-1 rounded-lg text-sm ${item.status === "accepted"
                           ? "bg-green-100 text-green-700"
-                          : item.status === "لغو شده"
+                          : item.status === "rejected"
                             ? "bg-red-100 text-red-700"
                             : "bg-yellow-100 text-yellow-700"
                           }`}
                       >
-                        {item.status}
+                        {
+                          item.status === 'accepted' ? 'پذیرفته شده' :
+                            item.status === 'rejected' ? 'رد شده' :
+                              'در حال انتظار'}
                       </span>
                     </TableCell>
-                    <TableCell className="text-sm text-yellow-600 cursor-pointer">جزئیات</TableCell>
+                    <TableCell>{item.createAt}</TableCell>
+                    <TableCell className="flex items-center text-sm text-yellow-600 cursor-pointer">
+                      <Button variant={"ghost"} className="cursor-pointer h-7  text-green-600  ">ویرایش</Button>
+                      <Button variant={"ghost"} className="cursor-pointer h-7  text-red-600 ">حذف </Button>
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (

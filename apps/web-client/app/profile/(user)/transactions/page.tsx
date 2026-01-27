@@ -46,7 +46,7 @@ export default function Transactions() {
   return (
     <div>
       {/* title  */}
-      <div className="bg-gray-100 py-4 mb-8 text-sm font-medium">
+      <div className="bg-gray-100 py-4 mb-10 text-sm font-medium">
         <BaseContainer className="px-6 lg:px-16">
           تراکنش ها
         </BaseContainer>
@@ -55,11 +55,11 @@ export default function Transactions() {
 
         {/* filters */}
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div className="w-full flex flex-col sm:flex-row sm:items-center gap-2">
+          <div className="w-full flex flex-col sm:grid grid-cols-3 lg:grid-cols-6 sm:items-center gap-2">
             <div className=" flex flex-col gap-2 table-filters-style">
               <Label htmlFor="status" className="text-gray-500 text-xs ">وضعیت </Label>
               <Select dir="rtl">
-                <SelectTrigger id="status" className="h-8! w-40">
+                <SelectTrigger id="status" className="h-8! w-full">
                   <SelectValue placeholder="انتخاب وضعیت" />
                 </SelectTrigger>
                 <SelectContent>
@@ -73,7 +73,7 @@ export default function Transactions() {
             <div className="flex flex-col gap-2 table-filters-style">
               <Label htmlFor="status" className="text-gray-500 text-xs ">تاریخ </Label>
               <Select dir="rtl">
-                <SelectTrigger id="status" className="h-8! w-40">
+                <SelectTrigger id="status" className="h-8! w-full">
                   <SelectValue placeholder="انتخاب وضعیت" />
                 </SelectTrigger>
                 <SelectContent>
@@ -89,7 +89,7 @@ export default function Transactions() {
               <Input
                 id="transactionId"
                 placeholder="مثلاً 456456123"
-                className="h-8! w-48"
+                className="h-8! w-full"
               />
             </div>
           </div>

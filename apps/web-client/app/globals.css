@@ -176,12 +176,14 @@
   .custom-select-height button {
     height: 48px !important;
   }
-  .table-filters-style{
-    button{
-      width: 100% ;
+
+  .table-filters-style {
+    button {
+      /* width: 100% ; */
     }
-    input{
-      width: 100%;
+
+    input {
+      /* width: 100%; */
     }
   }
 }
@@ -191,4 +193,3 @@
     height: 36px !important;
   }
 }
-

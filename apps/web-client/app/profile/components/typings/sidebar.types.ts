@@ -7,6 +7,12 @@ export interface SidebarMenuItem {
     href?: string;
     onClick?: () => void;
     divider?: boolean;
+    
+      children?: {
+    id: string;
+    label: string;
+    href: string;
+  }[];
 }
 
 export interface SidebarProps {

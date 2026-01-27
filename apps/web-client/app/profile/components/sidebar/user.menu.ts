@@ -18,17 +18,29 @@ export const userSidebarMenu: SidebarMenuItem[] = [
         icon: Home,
         href: "/profile",
     },
+
     {
-        id: "suggestions",
+        id: "offers",
         label: "پیشنهادها",
         icon: Lightbulb,
-        href: "/profile/suggestions",
+        children: [
+            {
+                id: "my-offers",
+                label: "پیشنهادهای من",
+                href: "/profile/offers",
+            },
+            {
+                id: "received-offers",
+                label: "پیشنهادهای دریافتی",
+                href: "/profile/offers/received",
+            },
+        ],
     },
     {
-        id: "needs",
+        id: "inquiries",
         label: "نیازمندی‌ها",
         icon: ListCheck,
-        href: "/profile/needs",
+        href: "/profile/inquiries",
     },
     {
         id: "orders",
@@ -46,7 +58,7 @@ export const userSidebarMenu: SidebarMenuItem[] = [
         id: "materials",
         label: "دفترچه متریال",
         icon: Notebook,
-        href: "/profile/materials",
+        href: "/profile/material-book",
     },
     {
         id: "transactions",

@@ -7,6 +7,7 @@ import {
     Lightbulb,
     CreditCard,
     BellDot,
+    Store,
 } from "lucide-react";
 import { SidebarMenuItem } from "../typings/sidebar.types";
 
@@ -26,8 +27,14 @@ export const sellerSidebarMenu: SidebarMenuItem[] = [
     {
         id: "shops",
         label: "فروشگاه‌ها",
-        icon: ShoppingCart,
+        icon: Store,
         href: "/profile/seller/shops",
+    },
+    {
+        id: "orders",
+        label: "سفارشات",
+        icon: ShoppingCart,
+        href: "/profile/seller/orders",
     },
     {
         id: "offers",
@@ -36,17 +43,16 @@ export const sellerSidebarMenu: SidebarMenuItem[] = [
         href: "/profile/seller/offers",
     },
     {
-        id: "needs",
+        id: "inquiries",
         label: "نیازمندی‌ها",
         icon: ListCheck,
-        href: "/profile/seller/needs",
+        href: "/profile/seller/inquiries",
     },
     {
         id: "materialBook",
         label: "دفترچه متریال",
         icon: Notebook,
         href: "/profile/seller/materialBook",
-        divider: true,
     },
     {
         id: "transactions",

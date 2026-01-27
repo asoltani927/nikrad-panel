@@ -86,6 +86,14 @@ export default function ProfileHeader() {
 					</div>
 				</div>
 
+				<Button asChild className="rounded-full">
+					<Link
+						href={'/profile/seller'}
+						className="w-fit hidden items-center gap-2 rounded-full border border-[#171717] px-5 h-8! text-xs font-light  text-white lg:flex"
+					>
+						 باتن موقت پنل فروشنده
+					</Link>
+				</Button>
 
 			</BaseContainer>
 		</header>
