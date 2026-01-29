@@ -7,15 +7,18 @@ export const GetShopParams = z.object({
 export const ShopDetailSchema = z.object({
   cuid: z.string().cuid(),
   name: z.string(),
-  aboutShop: z.string(),
-  aboutSeller: z.string(),
+
+  about: z.string().nullable(),
+  aboutSeller: z.string().nullable(),
+
   successDeals: z.number(),
   failedDeals: z.number(),
+
   thumbnailImage: z.string().nullable(),
 
   owner: z.object({
     id: z.number(),
-    name: z.string(),
+    name: z.string().nullable(),
     fullName: z.string(),
   }),
 
@@ -24,16 +27,12 @@ export const ShopDetailSchema = z.object({
     name: z.string(),
   }),
 
-  galleryImages: z.array(
-    z.object({
-      imageUrl: z.string(),
-    }),
-  ),
+  galleryImages: z.array(z.string()),
 
-  reviews: z.array(
+  shopReviews: z.array(
     z.object({
       rating: z.number(),
-      comment: z.string(),
+      comment: z.string().nullable(),
       user: z.object({
         fullName: z.string(),
       }),

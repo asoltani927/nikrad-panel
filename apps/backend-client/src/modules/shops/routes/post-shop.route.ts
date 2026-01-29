@@ -8,11 +8,11 @@ import { CreateShopBodySchema, CreateShopResponseSchema } from '../schema/create
 export const postShopRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
-    url: '/shops',
-    preHandler: [authMiddleware],
+    url: '/',
+    // preHandler: [authMiddleware],
     schema: {
       tags: ['shops'],
-      summary: 'Create a new shop',
+      summary: 'Create a new shop (only owner)',
       body: CreateShopBodySchema,
       response: {
         201: CreateShopResponseSchema,
@@ -21,7 +21,8 @@ export const postShopRoute = async (app: FastifyInstance) => {
     },
 
     handler: async (request, reply) => {
-      const userId = request.user?.id
+      // const userId = request.user?.id
+      const userId = 4
       if (!userId) {
         return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
       }

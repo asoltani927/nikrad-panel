@@ -465,11 +465,11 @@ model Shop {
 
   thumbnailImage String? @map("thumbnail_image")
 
-  ownerId Int  @map("owner_id")
-  owner   User @relation(fields: [ownerId], references: [id])
+  ownerId Int?  @map("owner_id")
+  owner   User? @relation(fields: [ownerId], references: [id])
 
-  categoryId Int      @map("category_id")
-  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int?      @map("category_id")
+  category   Category? @relation(fields: [categoryId], references: [id])
 
   galleryImages ShopGallery[]
 

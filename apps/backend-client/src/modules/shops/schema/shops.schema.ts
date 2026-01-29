@@ -1,30 +1,37 @@
 import { z } from 'zod'
 
 export const ShopSchema = z.object({
-  cuid: z.string().cuid(),
+  cuid: z.string(),
   name: z.string(),
-  owner: z.object({
-    id: z.number(),
-    firstName: z.string(),
-    lastName: z.string(),
-  }),
+  about: z.string().nullable(),
+  aboutSeller: z.string().nullable(),
+
+  successDeals: z.number(),
+  failedDeals: z.number(),
+
+  thumbnailImage: z.string().nullable(),
+
+  owner: z
+    .object({
+      id: z.number(),
+      name: z.string().nullable(),
+      fullName: z.string(),
+    })
+    .nullable(),
+
   category: z.object({
     id: z.number(),
     name: z.string(),
   }),
-  successDeals: z.number(),
-  failedDeals: z.number(),
-  aboutShop: z.string().nullable(),
-  aboutSeller: z.string().nullable(),
-  thumbnailImage: z.string().nullable(),
+
   galleryImages: z.array(z.string()),
-  reviews: z.array(
+
+  shopReviews: z.array(
     z.object({
       rating: z.number(),
       comment: z.string().nullable(),
       user: z.object({
-        firstName: z.string(),
-        lastName: z.string(),
+        fullName: z.string(),
       }),
     }),
   ),
