@@ -4,48 +4,47 @@ import { z } from 'zod'
 import { createPaginationMeta } from '@/utils/pagination'
 import { ShopsResponseSchema } from '../schema/shops.schema'
 
+// query schema
 const GetShopsQuery = z.object({
   page: z.coerce.number().default(1),
   limit: z.coerce.number().default(10),
+  ownerId: z.coerce.number().optional(),
 })
 
-export const getShopsRoute = async (app: FastifyInstance) => {
+export const getShopsByOwnerRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/owner',
+    url: '/',
     schema: {
       tags: ['shops'],
-      summary: 'Get list of shops (only owner)',
+      summary: 'Get list of shops, optionally filtered by ownerId',
       querystring: GetShopsQuery,
       response: {
         200: ShopsResponseSchema,
       },
     },
     handler: async (request, reply) => {
-      const userId = request.user.id
-      const { page, limit } = request.query
+      const { page, limit, ownerId } = request.query
       const skip = (page - 1) * limit
 
-      const total = await app.prisma.shop.count({
-        where: { ownerId: userId, deleted: false },
-      })
+      // filter dynamic
+      const where: any = { deleted: false }
+      if (ownerId) where.ownerId = ownerId
 
+      // total count
+      const total = await app.prisma.shop.count({ where })
+
+      // fetch shops
       const shops = await app.prisma.shop.findMany({
-        where: { ownerId: userId, deleted: false },
+        where,
         skip,
         take: limit,
         orderBy: { createdAt: 'desc' },
-        select: {
-          cuid: true,
-          name: true,
-          about: true,
-          aboutSeller: true,
-          successDeals: true,
-          failedDeals: true,
-          thumbnailImage: true,
+        include: {
           owner: {
             select: {
               id: true,
+              name: true,
               firstName: true,
               lastName: true,
             },
@@ -57,46 +56,25 @@ export const getShopsRoute = async (app: FastifyInstance) => {
             },
           },
           galleryImages: {
-            select: {
-              imageUrl: true,
-            },
+            select: { imageUrl: true },
           },
           shopReviews: {
+            orderBy: { createdAt: 'desc' },
             select: {
               rating: true,
               comment: true,
               user: {
-                select: {
-                  firstName: true,
-                  lastName: true,
-                },
+                select: { firstName: true, lastName: true },
               },
             },
           },
         },
       })
 
+      // normalize data like before
       const normalized = shops.map((shop) => ({
-        cuid: shop.cuid,
-        name: shop.name,
-        about: shop.about,
-        aboutSeller: shop.aboutSeller,
-        successDeals: shop.successDeals,
-        failedDeals: shop.failedDeals,
-        thumbnailImage: shop.thumbnailImage,
-
-        owner: shop.owner
-          ? {
-              id: shop.owner.id,
-              name: null,
-              fullName: `${shop.owner.firstName} ${shop.owner.lastName}`,
-            }
-          : null,
-
-        category: shop.category,
-
+        ...shop,
         galleryImages: shop.galleryImages.map((g) => g.imageUrl),
-
         shopReviews: shop.shopReviews.map((review) => ({
           rating: review.rating,
           comment: review.comment,
@@ -104,11 +82,18 @@ export const getShopsRoute = async (app: FastifyInstance) => {
             fullName: `${review.user.firstName} ${review.user.lastName}`,
           },
         })),
+        owner: shop.owner
+          ? {
+              id: shop.owner.id,
+              name: null,
+              fullName: `${shop.owner.firstName} ${shop.owner.lastName}`,
+            }
+          : null,
       }))
 
       const pagination = createPaginationMeta(total, page, limit, request)
 
-      return reply.status(200).send(
+      return reply.send(
         ShopsResponseSchema.parse({
           shops: normalized,
           pagination,

@@ -7,7 +7,7 @@ import { GetShopParams, ShopDetailSchema } from '../schema/shop.schema'
 export const getShopByCuidRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
-    url: '/shops/:cuid',
+    url: '/:cuid',
     schema: {
       tags: ['shops'],
       summary: 'Get shop details by cuid',
@@ -77,9 +77,9 @@ export const getShopByCuidRoute = async (app: FastifyInstance) => {
         failedDeals: shop.failedDeals,
         thumbnailImage: shop.thumbnailImage,
         owner: {
-          id: shop.owner.id,
-          name: shop.owner.name,
-          fullName: `${shop.owner.firstName} ${shop.owner.lastName}`,
+          id: shop?.owner?.id,
+          name: shop?.owner?.name,
+          fullName: `${shop?.owner?.firstName} ${shop?.owner?.lastName}`,
         },
         category: shop.category,
         galleryImages: shop.galleryImages.map((g) => g.imageUrl),

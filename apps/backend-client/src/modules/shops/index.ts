@@ -4,6 +4,7 @@ import { getShopByCuidRoute } from './routes/get-shop.route'
 import { postShopRoute } from './routes/post-shop.route'
 import { putShopRoute } from './routes/put-shop.route'
 import { deleteShopRoute } from './routes/delete-shop.route'
+import { getShopsByOwnerRoute } from './routes/get-shops-byOwnerId.route'
 
 export async function shopsModule(app: FastifyInstance) {
   app.register(
@@ -13,6 +14,7 @@ export async function shopsModule(app: FastifyInstance) {
       shopsApp.register(postShopRoute)
       shopsApp.register(putShopRoute)
       shopsApp.register(deleteShopRoute)
+      shopsApp.register(getShopsByOwnerRoute)
     },
     { prefix: '/shops' },
   )

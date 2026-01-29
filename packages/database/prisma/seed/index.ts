@@ -5,6 +5,7 @@ import { seedCountriesAndRegions } from "./regions.seed";
 import { seedCategories } from "./categories.seed";
 import { seedMaterialBooks } from "./material-books.seed";
 import { seedCustomFields } from "./custom-fields.seed";
+import { seedShops } from "./shops.seed";
 
 const prisma = new PrismaClient();
 
@@ -125,6 +126,7 @@ async function main() {
   await prisma.customField.deleteMany();
   await prisma.address.deleteMany();
   await prisma.category.deleteMany();
+  await prisma.shop.deleteMany();
   await prisma.user.deleteMany();
   await prisma.region.deleteMany();
   await prisma.country.deleteMany();
@@ -134,6 +136,7 @@ async function main() {
   await seedCountriesAndRegions();
   const users = await seedUsers();
   const categories = await seedCategories(users[0].id);
+  await seedShops(users, categories);
   const addresses = await seedAddresses(users);
   const needs = await seedNeeds(categories, users);
   const suggestionCount = await seedSuggestions(needs, users);
