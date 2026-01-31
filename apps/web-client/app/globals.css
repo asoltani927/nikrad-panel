@@ -136,7 +136,6 @@
   }
 }
 
-
 ::-webkit-scrollbar {
   width: 4px;
   height: 8px;
@@ -173,10 +172,19 @@
   direction: rtl;
 }
 
-
 @media (max-width: 1024px) {
   .custom-select-height button {
     height: 48px !important;
+  }
+
+  .table-filters-style {
+    button {
+      /* width: 100% ; */
+    }
+
+    input {
+      /* width: 100%; */
+    }
   }
 }
 

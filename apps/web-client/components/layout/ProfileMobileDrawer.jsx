@@ -4,13 +4,18 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { Search, TextAlignJustify, X } from "lucide-react";
+import { LogOut, Search, TextAlignJustify, X } from "lucide-react";
 import { useState } from "react";
+import { Separator } from "@/components/ui/separator";
+import SidebarItem from "@/app/profile/components/sidebar/SidebarItem";
+import { userSidebarMenu } from "@/app/profile/components/sidebar/user.menu";
 
-export default function MobileDrawer() {
+export default function ProfileMobileDrawer() {
     const [open, setOpen] = useState(false);
 
-    const handleClose = () => setOpen(false);
+    const handleLogout = () => {
+        console.log("logout");
+    };
 
     return (
         <Drawer open={open} onOpenChange={setOpen} direction="top">
@@ -21,10 +26,10 @@ export default function MobileDrawer() {
             </DrawerTrigger>
 
             {/* Drawer Content */}
-            <DrawerContent className="p-6 bg-white min-h-[40vh] rounded-b-2xl">
+            <DrawerContent className="p-6 bg-white h-screen rounded-b-2xl">
 
                 <div className="flex items-center  mb-6 gap-2 border-b pb-5">
-                    <button className="me-4" onClick={handleClose}>
+                    <button className="me-4" onClick={() => setOpen(false)}>
                         <X size={26} />
                     </button>
                     <Link href={'/'} className="w-9 h-9 relative">
@@ -35,7 +40,26 @@ export default function MobileDrawer() {
                     </Link>
                 </div>
 
-                <Link href={'/material-book'} onClick={handleClose}>
+
+                <ul className="space-y-2 mt-3">
+                    {userSidebarMenu.map((item) => (
+                        <SidebarItem
+                            key={item.id}
+                            item={item}
+                        />
+                    ))}
+                </ul>
+
+
+                <nav className="flex flex-col gap-5 text-sm font-medium mb-6 mt-10 border-t pt-6">
+                    <Link href="#">فروشگاه</Link>
+                    <Link href={'/inquiries'}>نیازمندی‌ها</Link>
+                    <Link href="/about">درباره ما</Link>
+                    <Link href="#">تماس با ما</Link>
+                </nav>
+
+
+                <Link href={'/material-book'}>
                     <Button className="w-full h-11 mb-5 rounded-full border border-black text-[12px] font-light">
                         دفترچه متریال
                     </Button>
@@ -50,21 +74,17 @@ export default function MobileDrawer() {
                         className="absolute top-1/2 -translate-y-1/2 start-3  size-4 text-gray-500" />
                 </div>
 
-                <nav className="flex flex-col gap-5 text-sm font-medium">
-                    <Link href="#" onClick={handleClose}>فروشگاه</Link>
-                    <Link href={'/inquiries'} onClick={handleClose}>نیازمندی‌ها</Link>
-                    <Link href="/about" onClick={handleClose}>درباره ما</Link>
-                    <Link href="#" onClick={handleClose}>تماس با ما</Link>
-                </nav>
-                <Link
-                    href={'/auth/login'}
-                    className=" "
-                    onClick={handleClose}
+                <Separator className="mb-6" />
+
+
+                {/* Logout */}
+                <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-3 ps-6 pe-3 hover:text-red-500 cursor-pointer mt-4 mb-2"
                 >
-                    <Button className="w-full mt-10 h-12 bg-[#FAC515] text-black rounded-sm">
-                        ورود / ثبت نام
-                    </Button>
-                </Link>
+                    <LogOut className="size-4" />
+                    <span>خروج از حساب کاربری</span>
+                </button>
             </DrawerContent>
         </Drawer >
     );
