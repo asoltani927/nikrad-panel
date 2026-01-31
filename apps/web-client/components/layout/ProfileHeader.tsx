@@ -1,24 +1,27 @@
+"use client";
+
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import BaseContainer from "../base/BaseContainer";
-import { ChevronLeft, Search, User } from "lucide-react";
+import { Search } from "lucide-react";
 import { Input } from "../ui/input";
-import MobileDrawer from "./MobileDrawer"
-import CartPreview from "@/app/(main)/cart/components/CartPreview";
+import ProfileMobileDrawer from "./ProfileMobileDrawer"
 
-export default function Header() {
+export default function ProfileHeader() {
 
-	const isLoggedIn = true
+
+
 
 	return (
 		<header
-			className="w-full bg-white px-4 sm:px-10 lg:px-14 lg:sticky flex items-center justify-center top-0 z-50 lg:shadow-xs py-6 lg:py-3.5 text-[#1C1D1F]">
+			className="w-full bg-white px-4 sm:px-10 lg:px-14 lg:sticky flex items-center justify-center top-0 z-50 border-b py-6 lg:py-3.5 text-[#1C1D1F]">
 			<BaseContainer className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-4">
 				<div className="w-full flex flex-col lg:flex-row lg:items-center gap-4">
 					<div className="flex items-center gap-3">
-						<MobileDrawer />
-						<Link href={'/'} className="flex items-center gap-3">
+						<ProfileMobileDrawer />
+						<Link href={'/'} className="hidden lg:flex items-center gap-3 ">
 							<div className="w-8 h-8 lg:w-12 lg:h-[50px] relative ">
 								<Image
 									src="/img/nikrad-logo.png"
@@ -36,6 +39,7 @@ export default function Header() {
 								/>
 							</div>
 						</Link>
+						<Link href={'/'} className="block lg:hidden" >داشبورد</Link>
 					</div>
 					<nav className="hidden lg:flex  items-center gap-4 text-sm font-medium ms-6">
 						<Link
@@ -71,7 +75,6 @@ export default function Header() {
 							</Link>
 						</Button>
 					</nav>
-					{/* TODO  base component */}
 					<div className="hidden lg:block relative  lg:ml-auto ms-1 ">
 						<div className="relative">
 							<Input
@@ -82,35 +85,16 @@ export default function Header() {
 						</div>
 					</div>
 				</div>
-				<div className="flex items-center gap-6">
-					<Search className="block lg:hidden  text-zinc-500 size-7" />
-					{isLoggedIn ? (
-						<div className="flex items-center gap-4">
-							<CartPreview />
-							{/* <ShoppingBasket color="#EAAA08" className="size-6 cursor-pointer" /> */}
-							<Link
-								href={'/profile'}
-								className=" "
-							>
-								<User color="#333741" className="size-5.5 cursor-pointer" />
-							</Link>
 
+				<Button asChild className="rounded-full">
+					<Link
+						href={'/profile/seller'}
+						className="w-fit hidden items-center gap-2 rounded-full border border-[#171717] px-5 h-8! text-xs font-light  text-white lg:flex"
+					>
+						 باتن موقت پنل فروشنده
+					</Link>
+				</Button>
 
-						</div>
-					) : (
-						<Link
-							href={'/auth/login'}
-							className=" "
-						>
-							<Button className="cursor-pointer flex items-center gap-2 w-fit px-8! lg:px-7! py-1.5  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-sm lg:text-xs font-medium">
-
-								ورود / ثبت نام
-								<ChevronLeft className="hidden lg:block h-4 w-4" />
-							</Button>
-						</Link>
-					)}
-
-				</div>
 			</BaseContainer>
 		</header>
 	);

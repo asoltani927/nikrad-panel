@@ -80,7 +80,7 @@ export const SellerReviews = () => {
                 </div>
             ))}
             <div className="flex justify-end lg:justify-center ">
-                <Button className="w-full lg:w-32 bg-transparent hover:bg-yellow-600 border h-12 lg:h-9 px-5! lg:px-6 text-yellow-600 lg:text-xs flex items-center gap-1.5 border-yellow-500 rounded-xs cursor-pointer">
+                <Button className="w-full lg:w-32 bg-transparent hover:bg-yellow-600 border h-12 lg:h-9 px-5! lg:px-6 text-yellow-600 hover:text-white lg:text-xs flex items-center gap-1.5 border-yellow-500 rounded-xs cursor-pointer">
                     بارگذاری بیشتر
                 </Button>
             </div>

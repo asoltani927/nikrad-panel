@@ -90,9 +90,9 @@ export function AddressFormModal({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg h-[85vh] max-h-[90vh] overflow-auto [&>button]:hidden py-4 px-0">
+      <DialogContent className="sm:max-w-xl h-[85vh] max-h-[90vh] overflow-auto [&>button]:hidden py-4 px-0">
         <DialogHeader className="flex flex-row items-center justify-between px-4">
-          <DialogTitle className="text-right text-[12.5px] ">
+          <DialogTitle className="text-right text-sm ">
             {mode === "create" ? "افزودن آدرس جدید" : "ویرایش آدرس"}
           </DialogTitle>
 
@@ -106,13 +106,13 @@ export function AddressFormModal({
         </DialogHeader>
 
         <div className="min-h-[150px]">
-          <p className="text-[#5B5C5F] px-4 border-gray-200 mb-6 border-b pb-4 text-[10px] -mt-3 font-thin ">
+          <p className="text-[#5B5C5F] px-4 border-gray-200 mb-6 border-b pb-4 text-xs -mt-3 font-thin ">
             آدرس را یادداشت کنید و یا موقعیت مکانی را روی نقشه مشخص کنید.
           </p>
 
           <div className="px-4">
             <div className="flex flex-col justify-end gap-1">
-              <Label className="text-[#5B5C5F] text-[10px]">آدرس</Label>
+              <Label className="text-[#5B5C5F] text-xs">آدرس</Label>
               <Input
                 className="placeholder:text-[11px] h-12 lg:h-9"
                 value={form.address}
@@ -120,7 +120,7 @@ export function AddressFormModal({
                 type="text"
                 placeholder="آدرس را وارد کنید"
               />
-              <p className="h-3 text-gray-600 text-[9px] -mt-0.5">
+              <p className="h-3 text-gray-600 text-xs -mt-0.5">
                 آدرس را یادداشت کنید
               </p>
               <p className="h-3 text-red-500 text-[9px] -mt-0.5">
@@ -132,7 +132,7 @@ export function AddressFormModal({
               <>
                 <button
                   onClick={() => setShowMap(true)}
-                  className="cursor-pointer flex items-center gap-1.5 text-yellow-600 mt-6 text-[10px]"
+                  className="cursor-pointer flex items-center gap-1.5 text-yellow-600 mt-6 text-xs"
                 >
                   اصلاح آدرس روی نقشه
                   <ChevronLeft className="size-3.5" />
@@ -189,7 +189,7 @@ export function AddressFormModal({
                   </div>
 
                   <div className="flex flex-col justify-end gap-1">
-                    <Label className="text-[#5B5C5F] text-[10px]">
+                    <Label className="text-[#5B5C5F] text-xs">
                       کد پستی
                     </Label>
                     <Input
@@ -205,7 +205,7 @@ export function AddressFormModal({
                   </div>
 
                   <div className="flex flex-col justify-end gap-1">
-                    <Label className="text-[#5B5C5F] text-[10px]">
+                    <Label className="text-[#5B5C5F] text-xs">
                       جزئیات آدرس
                     </Label>
                     <Input
@@ -221,7 +221,7 @@ export function AddressFormModal({
                   </div>
 
                   <div className="flex flex-col justify-end gap-1">
-                    <Label className="text-[#5B5C5F] text-[10px]">
+                    <Label className="text-[#5B5C5F] text-xs">
                       نام و نام خانوادگی تحویل گیرنده
                     </Label>
                     <Input
@@ -237,7 +237,7 @@ export function AddressFormModal({
                   </div>
 
                   <div className="flex flex-col justify-end gap-1">
-                    <Label className="text-[#5B5C5F] text-[10px]">
+                    <Label className="text-[#5B5C5F] text-xs">
                       شماره موبایل تحویل گیرنده
                     </Label>
                     <Input
@@ -254,10 +254,10 @@ export function AddressFormModal({
                 </div>
               )}
 
-              <div className="w-full grid grid-cols-2 items-center justify-between gap-2 lg:gap-1.5 mt-3 pb-4">
+              <div className="w-full grid grid-cols-2 items-center justify-between gap-2 lg:gap-1.5 mt-4 pb-4">
                 <Button
                   onClick={handleSubmit}
-                  className="bg-yellow-400 hover:bg-yellow-500 text-black text-base lg:text-[11px] h-11 lg:h-8 rounded-sm"
+                  className="bg-yellow-400 hover:bg-yellow-500 text-black text-base lg:text-xs h-11 lg:h-8 rounded-sm"
                 >
                   {showMap
                     ? "تایید و ادامه"
@@ -268,7 +268,7 @@ export function AddressFormModal({
 
                 <Button
                   onClick={onClose}
-                  className="cursor-pointer w-full bg-transparent hover:bg-gray-50 border text-black border-[#DADCDE] h-11 lg:h-8 text-base lg:text-[11px] rounded-sm"
+                  className="cursor-pointer w-full bg-transparent hover:bg-gray-50 border text-black border-[#DADCDE] h-11 lg:h-8 text-base lg:text-xs rounded-sm"
                 >
                   انصراف
                 </Button>

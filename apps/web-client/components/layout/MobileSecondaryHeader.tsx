@@ -20,7 +20,7 @@ export default function MobileSecondaryHeader() {
                 <div className="flex items-center gap-3">
                     <CartPreview />
                     <Link
-                        href={'/auth/login'}
+                        href={'/profile'}
                         className=" "
                     >
                         <User color="#61646C" className="block lg:hidden   size-7" />

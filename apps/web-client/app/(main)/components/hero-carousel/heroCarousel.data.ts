@@ -8,7 +8,7 @@ export const heroCarouselItems: HeroCarouselItemType[] = [
         title: "دنیای خرید و فروش متریال‌های طراحی داخلی",
         desc: "برای تبدیل رویا به واقعیت، بهترین متریال های لوکس ساختمانی و طراحی داخلی را اینجا پیدا کنید.",
         buttonText: "ورود به داشبورد",
-        buttonLink: "#"
+        buttonLink: "/profile"
     },
     {
         id: 2,
