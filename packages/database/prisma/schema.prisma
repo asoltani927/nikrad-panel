@@ -499,18 +499,18 @@ model ShopReview {
 }
 
 model Otp {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   phone     String
   type      OtpType
   code      String
-  expiresAt DateTime
-  usedAt    DateTime?
-  createdAt DateTime @default(now())
+  expiresAt DateTime  @map("expires_at")
+  usedAt    DateTime? @map("used_at")
+  createdAt DateTime  @default(now()) @map("created_at")
 
+  @@unique([phone, type, code, usedAt])
   // Prevent multiple active OTPs of same type for same phone
   @@index([phone])
   @@index([expiresAt])
-  @@unique([phone, type, code, usedAt])
   @@map("otps")
 }
 

@@ -1,4 +1,3 @@
-*/
 -- CreateEnum
 CREATE TYPE "OptionsType" AS ENUM ('REGION', 'CUSTOM');
 
