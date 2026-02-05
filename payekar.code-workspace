@@ -1,0 +1,28 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": "."
+    },
+    {
+      "name": "web-admin",
+      "path": "apps/web-admin"
+    },
+    {
+      "name": "web-client",
+      "path": "apps/web-client"
+    },
+    {
+      "name": "backend-admin",
+      "path": "apps/backend-admin"
+    },
+    {
+      "name": "backend-client",
+      "path": "apps/backend-client"
+    },
+    {
+      "name": "database",
+      "path": "packages/database"
+    }
+  ]
+}
