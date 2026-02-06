@@ -3,9 +3,15 @@ import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
-export const GetCartResponseSchema = z.object({
-  totalAmount: z.number(),
-})
+export const GetCartResponseSchema = z
+  .object({
+    cart: z
+      .object({
+        totalAmount: z.number(),
+      })
+      .nullable(),
+  })
+  .optional()
 
 export const getCartRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -21,11 +27,13 @@ export const getCartRoute = async (app: FastifyInstance) => {
     },
 
     handler: async (request, reply) => {
-      const {
-        customer: { id: customerId },
-      } = request.user
-      const cart = await app.dokamerce.cart.get({ customerId })
-      return reply.status(200).send(GetCartResponseSchema.parse(cart))
+      const { id } = request.user
+      const cart = await app.dokamerce.cart.get({ customerId: id })
+      return reply.status(200).send(
+        GetCartResponseSchema.parse({
+          cart,
+        }),
+      )
     },
   })
 }

@@ -32,7 +32,6 @@ export async function authMiddleware(request: FastifyRequest, reply: FastifyRepl
       withImage: true,
       withAddresses: true,
     })
-    console.log(customer)
     if (!customer) {
       throw new UnauthorizedError('User not found.')
     }
