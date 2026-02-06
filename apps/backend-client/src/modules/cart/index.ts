@@ -3,6 +3,7 @@ import { deleteItemFromCartRoute } from './routes/delete-item-from-cart.route'
 import { getCartRoute } from './routes/get-cart.route'
 import { setCartAddressRoute } from './routes/set-cart-address.route'
 import { updateCartItemRoute } from './routes/update-cart-item.route'
+import { finalizeCartRoute } from './routes/finalize-cart.route'
 
 export async function cartModule(app: FastifyInstance) {
   app.register(
@@ -11,6 +12,7 @@ export async function cartModule(app: FastifyInstance) {
       cartApp.register(getCartRoute)
       cartApp.register(setCartAddressRoute)
       cartApp.register(updateCartItemRoute)
+      cartApp.register(finalizeCartRoute)
     },
     { prefix: '/cart' },
   )
