@@ -11,7 +11,15 @@ const AuthenticatedUserResponseSchema = z.object({
       id: z.string(),
       username: z.string(),
       fullName: z.string().nullable(),
-      phone: z.string().nullable(),
+      telephoneNumbers: z
+        .array(
+          z.object({
+            id: z.string(),
+            number: z.string(),
+            targets: z.array(z.string()),
+          }),
+        )
+        .optional(),
     })
     .optional(),
   message: z.optional(z.string()),
@@ -35,7 +43,7 @@ export const getAuthMeRoute = async (app: FastifyInstance) => {
     handler: async (request, reply) => {
       // TODO: add telephone numbers to customer info @reza (Done)
       // add in authMiddleware line 31
-      const payload = request.user as AuthenticatedPayload
+      const payload = request.user as unknown as AuthenticatedPayload
       const customer = payload?.customer ?? null
 
       if (!customer) {
@@ -51,7 +59,7 @@ export const getAuthMeRoute = async (app: FastifyInstance) => {
           id: customer.id,
           username: customer.username,
           fullName: customer.fullName,
-          phone: customer.phone ?? null,
+          telephoneNumbers: customer.telephoneNumbers,
         },
       })
     },

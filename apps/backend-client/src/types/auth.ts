@@ -6,7 +6,11 @@ export interface AuthenticatedPayload {
     active: boolean
     createdAt: Date
     updatedAt: Date
-    phone?: string | null
+    telephoneNumbers?: {
+      id: string,
+      number: string,
+      targets: string[]
+    }[]
   }
   sellers: {
     id: string

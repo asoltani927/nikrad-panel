@@ -26,10 +26,13 @@ export async function authMiddleware(request: FastifyRequest, reply: FastifyRepl
       throw new UnauthorizedError('Invalid token payload.')
     }
 
-    const { customer } = await request.server.dokamerce.customers.find({
+    const customer = await request.server.dokamerce.customers.find({
       id: decoded.sub,
-      includes: { phones: true },
+      withTelephoneNumbers: true,
+      withImage: true,
+      withAddresses: true,
     })
+    console.log(customer)
     if (!customer) {
       throw new UnauthorizedError('User not found.')
     }
@@ -45,6 +48,7 @@ export async function authMiddleware(request: FastifyRequest, reply: FastifyRepl
 
     // TODO: make a global interface named AuthenitactedPayload @reza (Done)
     request.user = {
+      id: customer.id,
       customer: customer,
       sellers: sellers ?? [],
     } as AuthenticatedPayload
