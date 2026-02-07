@@ -1,6 +1,7 @@
 import fp from 'fastify-plugin'
 import { FastifyInstance } from 'fastify'
-import { createInstance, DokamerceSDK } from '@dokamerce/web-sdk'
+import { createInstance } from '@dokamerce/web-sdk'
+import type { DokamerceSDK } from '@dokamerce/web-sdk'
 
 declare module 'fastify' {
   interface FastifyInstance {
