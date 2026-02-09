@@ -3,8 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { z } from "zod";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -12,8 +11,11 @@ import Link from "next/link";
 import { useSendOtp } from "../hooks/useSendOtp";
 import { normalizePhone } from "@/utils/normalizePhone.util";
 
-export default function LoginPage() {
-  const router = useRouter();
+type Props = {
+  onSuccess: (phone: string) => void;
+};
+
+export default function LoginForm({ onSuccess }: Props) {
   const [phone, setPhone] = useState("");
   const { submit, loading, error: otpError, success } = useSendOtp();
 
@@ -26,24 +28,18 @@ export default function LoginPage() {
 
   const handleNext = async () => {
     const result = phoneSchema.safeParse(phone);
-
     if (!result.success) {
       setError(result.error.issues[0].message);
       return;
     }
 
-    setError("");
-
     const normalizedPhone = normalizePhone(phone);
+    const ok = await submit(normalizedPhone);
 
-    await submit(normalizedPhone);
-  };
-
-  useEffect(() => {
-    if (success) {
-      router.push("/auth/otp");
+    if (ok) {
+      onSuccess(normalizedPhone);
     }
-  }, [success, router]);
+  };
 
   return (
     <div className="w-full h-screen flex items-center gap-6 bg-white py-4 px-8 lg:px-0 lg:pe-4 ">

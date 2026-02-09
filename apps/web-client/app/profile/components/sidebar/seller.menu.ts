@@ -36,24 +36,24 @@ export const sellerSidebarMenu: SidebarMenuItem[] = [
         icon: ShoppingCart,
         href: "/profile/seller/orders",
     },
-    {
-        id: "offers",
-        label: "پیشنهادها",
-        icon: Lightbulb,
-        href: "/profile/seller/offers",
-    },
-    {
-        id: "inquiries",
-        label: "نیازمندی‌ها",
-        icon: ListCheck,
-        href: "/profile/seller/inquiries",
-    },
-    {
-        id: "materialBook",
-        label: "دفترچه متریال",
-        icon: Notebook,
-        href: "/profile/seller/materialBook",
-    },
+    // {
+    //     id: "offers",
+    //     label: "پیشنهادها",
+    //     icon: Lightbulb,
+    //     href: "/profile/seller/offers",
+    // },
+    // {
+    //     id: "inquiries",
+    //     label: "نیازمندی‌ها",
+    //     icon: ListCheck,
+    //     href: "/profile/seller/inquiries",
+    // },
+    // {
+    //     id: "materialBook",
+    //     label: "دفترچه متریال",
+    //     icon: Notebook,
+    //     href: "/profile/seller/materialBook",
+    // },
     {
         id: "transactions",
         label: "لیست تراکنش‌ها",
