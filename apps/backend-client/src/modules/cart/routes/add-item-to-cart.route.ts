@@ -6,7 +6,7 @@ import { UnauthorizedResponseSchema } from '@/schema/unauthorized-response.schem
 
 export const addItemToCartRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
-    method: 'DELETE',
+    method: 'POST',
     url: '/:id',
     preHandler: [authMiddleware],
     schema: {
