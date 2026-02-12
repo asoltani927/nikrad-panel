@@ -1,4 +1,4 @@
-"use client"
+ "use client"
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button"
@@ -62,7 +62,7 @@ export default function OtpPage() {
                 />
                 <div className="relative w-full flex flex-col items-center justify-center z-20">
 
-                    <div className="w-16 h-16 lg:w-12 lg:h-12.5 relative">
+                    <div className="w-16 h-16 lg:w-20 lg:h-20.5 relative">
                         <Image
                             src="/img/nikrad-logo.png"
                             alt="Nikrad_Logo"
@@ -70,8 +70,8 @@ export default function OtpPage() {
                             className="object-contain"
                         />
                     </div>
-                    <h3 className="text-[24px] lg:text-[22px] font-semibold lg:font-medium mt-6 lg:mt-4">وارد حساب کاربری خود شوید</h3>
-                    <p className="w-full lg:w-[275px] text-center text-sm lg:text-[11px] text-muted-foreground mt-2 lg:mt-0 mb-10 lg:mb-6 leading-6 ">
+                    <h3 className="text-[24px] lg:text-[32px] font-semibold lg:font-medium mt-6 lg:mt-4">وارد حساب کاربری خود شوید</h3>
+                    <p className="w-full lg:w-[275px] text-center text-sm lg:text-[15px] text-muted-foreground mt-2 lg:mt-0 mb-10 lg:mb-6 leading-6 ">
                         کد پیامک شده را وارد کنید:
                     </p>
 
@@ -81,7 +81,7 @@ export default function OtpPage() {
                                 key={index}
                                 maxLength={1}
                                 inputMode="numeric"
-                                className=" text-[#5B5C5F] bg-white text-[11px] w-9 h-9 text-center rounded-sm border border-[#D0D5DD] focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-[#EAAA08] focus-visible:outline-none font-medium shadow-none"
+                                className=" text-[#5B5C5F] bg-white text-[11px] w-11 h-11 text-center rounded-sm border border-[#D0D5DD] focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-[#EAAA08] focus-visible:outline-none font-medium shadow-none"
                                 value={code}
                                 onChange={(e) => handleChange(e.target.value, index)}
                                 onKeyDown={(e) => handleKeyDown(e, index)}
@@ -91,16 +91,16 @@ export default function OtpPage() {
                     </div>
 
                     {error &&
-                        <div className="w-[275px] ps-3"><p className="text-red-500 text-[10px] mb-2">{error}</p></div>
+                        <div className="w-[275px]"><p className="text-red-500 text-[12px] mb-2">{error}</p></div>
                     }
 
-                    <div className="w-[275px] ps-2 flex items-center justify-start font-extralight gap-1 text-[#5B5C5F] text-[9px] mb-6">
+                    <div className="w-[275px] ps-2 flex items-center justify-start font-extralight gap-1 text-[#5B5C5F] text-[12px] mb-6">
                         <Info size={13} color="#5B5C5F" />
                         <span>متن راهنما</span>
                     </div>
 
                     <Button
-                        className="w-full lg:w-[275px] h-10 lg:h-9 text-[11px] cursor-pointer rounded-sm mt-1 font-light bg-[#EAAA08] hover:bg-[#d8a708]"
+                        className="w-full lg:w-[320px] h-10 lg:h-9 text-[14px] cursor-pointer rounded-sm mt-1 font-light bg-[#EAAA08] hover:bg-[#d8a708]"
                         onClick={handleNext}
                     >
                         ورود به حساب

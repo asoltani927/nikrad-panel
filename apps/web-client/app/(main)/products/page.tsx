@@ -1,18 +1,25 @@
+'use client'
+
 import BaseContainer from "@/components/base/BaseContainer";
 import { HeroCarousel } from "./components/hero-carousel/HeroCarousel";
 import { ProductsBreadcrumb } from "./components/ProductsBreadcrumb";
 import { ProductsFilters } from "./components/ProductsFilters";
-import { ProductsList } from "./components/ProductsList";
 import { ProductsPagination } from "./components/ProductsPagination";
 import { ProductsTitle } from "./components/ProductsTitle";
 import { ProductsToolbar } from "./components/ProductsToolbar";
-
+import { ProductCard } from "./components/ProductCard";
+import { useProducts } from "@/app/hooks/products/useProducts";
 
 export default function ProductsPage() {
+  const {
+    products,
+    loading,
+    error,
+    productsRefetch: fetchProducts,
+  } = useProducts();
+
   return (
-
     <div className="w-full min-h-screen bg-white  font-sans dark:bg-black">
-
       {/* 👉 Hero Carousel  */}
       <HeroCarousel />
 
@@ -27,14 +34,20 @@ export default function ProductsPage() {
           </div>
           <div className="col-span-3">
             <ProductsToolbar />
-            <ProductsList />
+
+            {/* ProductsList */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3  lg:gap-4 lg:gap-y-6 w-full">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+            
           </div>
         </div>
         <div className="w-full px-4 sm:px-10 lg:px-14  ">
           <ProductsPagination />
         </div>
       </BaseContainer>
-
     </div>
   );
 }

@@ -4,44 +4,38 @@ export const UpdateShopParamsSchema = z.object({
   cuid: z.string().cuid(),
 })
 
+const TimeRangeSchema = z.object({
+  from: z.string(),
+  to: z.string(),
+})
+
+const SocialMediaSchema = z.object({
+  instagram: z.string().optional(),
+  telegram: z.string().optional(),
+  website: z.string().optional(),
+  whatsapp: z.string().optional(),
+})
+
 export const UpdateShopBodySchema = z.object({
-  name: z.string().min(3).optional(),
-  categoryId: z.number().int().optional(),
+  name: z.string().min(3),
+  about: z.string().min(10),
+  aboutSeller: z.string().min(10),
 
-  aboutShop: z.string().min(10).optional(),
-  aboutSeller: z.string().min(10).optional(),
+  daysOfActivity: z.array(
+    z.enum(['شنبه', 'یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنج شنبه', 'جمعه']),
+  ),
 
-  daysOfActivity: z.array(z.string()).optional(),
+  workingHours: TimeRangeSchema,
+  responseHours: TimeRangeSchema,
 
-  workingHours: z
-    .object({
-      from: z.string(),
-      to: z.string(),
-    })
-    .optional(),
-
-  responseHours: z
-    .object({
-      from: z.string(),
-      to: z.string(),
-    })
-    .optional(),
-
-  socialMedia: z
-    .object({
-      instagram: z.string().optional(),
-      telegram: z.string().optional(),
-      website: z.string().optional(),
-      whatsapp: z.string().optional(),
-    })
-    .optional(),
+  socialMedia: SocialMediaSchema.optional(),
 
   thumbnailImage: z.string().url().optional(),
 
   galleryImages: z
     .array(
       z.object({
-        imageUrl: z.string().url(),
+        imageUrl: z.string(),
       }),
     )
     .optional(),

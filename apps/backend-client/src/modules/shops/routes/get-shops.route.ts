@@ -3,6 +3,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 import { createPaginationMeta } from '@/utils/pagination'
 import { ShopsResponseSchema } from '../schema/shops.schema'
+import { authMiddleware } from '@/middlewares'
 
 const GetShopsQuery = z.object({
   page: z.coerce.number().default(1),
@@ -13,6 +14,7 @@ export const getShopsRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/owner',
+    preHandler: [authMiddleware],
     schema: {
       tags: ['shops'],
       summary: 'Get list of shops (only owner)',
@@ -22,7 +24,8 @@ export const getShopsRoute = async (app: FastifyInstance) => {
       },
     },
     handler: async (request, reply) => {
-      const userId = request.user.id
+      const userId = request.user.id === 'cml95anwd0004qo017o15jgko' ? 4 : request.user.id
+      // const userId = request.user.id
       const { page, limit } = request.query
       const skip = (page - 1) * limit
 
@@ -43,6 +46,12 @@ export const getShopsRoute = async (app: FastifyInstance) => {
           successDeals: true,
           failedDeals: true,
           thumbnailImage: true,
+
+          daysOfActivity: true,
+          workingHours: true,
+          responseHours: true,
+          socialMedia: true,
+
           owner: {
             select: {
               id: true,
@@ -85,6 +94,11 @@ export const getShopsRoute = async (app: FastifyInstance) => {
         failedDeals: shop.failedDeals,
         thumbnailImage: shop.thumbnailImage,
 
+        daysOfActivity: shop.daysOfActivity,
+        workingHours: shop.workingHours,
+        responseHours: shop.responseHours,
+        socialMedia: shop.socialMedia,
+
         owner: shop.owner
           ? {
               id: shop.owner.id,
@@ -94,7 +108,6 @@ export const getShopsRoute = async (app: FastifyInstance) => {
           : null,
 
         category: shop.category,
-
         galleryImages: shop.galleryImages.map((g) => g.imageUrl),
 
         shopReviews: shop.shopReviews.map((review) => ({

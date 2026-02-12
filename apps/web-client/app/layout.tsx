@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl" >
       <body className={iranSans.variable} >
+        <Toaster />
         {children}
       </body>
     </html>

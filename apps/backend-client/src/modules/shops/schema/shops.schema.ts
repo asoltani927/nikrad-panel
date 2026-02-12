@@ -19,11 +19,6 @@ export const ShopSchema = z.object({
     })
     .nullable(),
 
-  category: z.object({
-    id: z.number(),
-    name: z.string(),
-  }),
-
   galleryImages: z.array(z.string()),
 
   shopReviews: z.array(
@@ -35,6 +30,21 @@ export const ShopSchema = z.object({
       }),
     }),
   ),
+  daysOfActivity: z.array(z.string()),
+  workingHours: z.object({
+    from: z.string(),
+    to: z.string(),
+  }),
+  responseHours: z.object({
+    from: z.string(),
+    to: z.string(),
+  }),
+  socialMedia: z.object({
+    instagram: z.string().nullable().optional(),
+    telegram: z.string().nullable().optional(),
+    website: z.string().nullable().optional(),
+    whatsapp: z.string().nullable().optional(),
+  }),
 })
 
 export const ShopsResponseSchema = z.object({

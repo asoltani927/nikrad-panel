@@ -53,7 +53,7 @@ export default function ProfileMobileDrawer() {
 
                 <nav className="flex flex-col gap-5 text-sm font-medium mb-6 mt-10 border-t pt-6">
                     <Link href="#">فروشگاه</Link>
-                    <Link href={'/inquiries'}>نیازمندی‌ها</Link>
+                    {/* <Link href={'/inquiries'}>نیازمندی‌ها</Link> */}
                     <Link href="/about">درباره ما</Link>
                     <Link href="#">تماس با ما</Link>
                 </nav>

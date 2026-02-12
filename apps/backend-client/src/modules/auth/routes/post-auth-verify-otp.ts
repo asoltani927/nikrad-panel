@@ -11,6 +11,7 @@ const VerifyOtpBodySchema = z.object({
 const VerifyOtpResponseSchema = z.object({
   success: z.boolean(),
   message: z.string(),
+  errorCode: z.string(),
   token: z.string().optional(),
 })
 
@@ -42,6 +43,7 @@ export const postAuthVerifyOtpRoute = async (app: FastifyInstance) => {
       if (!otp) {
         return reply.status(200).send({
           success: false,
+          errorCode: 'OTP_INVALID',
           message: 'Invalid OTP',
         })
       }
@@ -49,7 +51,8 @@ export const postAuthVerifyOtpRoute = async (app: FastifyInstance) => {
       if (otp.expiresAt < new Date()) {
         return reply.status(200).send({
           success: false,
-          message: 'OTP expired',
+          errorCode: 'OTP_EXPIRED',
+          message: 'کد تایید منقضی شده است',
         })
       }
 
@@ -87,6 +90,7 @@ export const postAuthVerifyOtpRoute = async (app: FastifyInstance) => {
       if (!customer || !customer.id) {
         return reply.status(200).send({
           success: false,
+          errorCode: 'USER_NOT_FOUND',
           message: 'Customer Not Found',
         })
       }
@@ -104,6 +108,7 @@ export const postAuthVerifyOtpRoute = async (app: FastifyInstance) => {
 
       return reply.status(200).send({
         success: true,
+        errorCode: 'OTP_VALID',
         message: 'OTP verified successfully',
         token,
       })

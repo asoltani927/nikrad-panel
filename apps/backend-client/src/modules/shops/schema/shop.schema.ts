@@ -22,11 +22,25 @@ export const ShopDetailSchema = z.object({
     fullName: z.string(),
   }),
 
-  category: z.object({
-    id: z.number(),
-    name: z.string(),
+  // category: z.object({
+  //   id: z.number(),
+  //   name: z.string(),
+  // }),
+  daysOfActivity: z.array(z.string()),
+  workingHours: z.object({
+    from: z.string(),
+    to: z.string(),
   }),
-
+  responseHours: z.object({
+    from: z.string(),
+    to: z.string(),
+  }),
+  socialMedia: z.object({
+    instagram: z.string().nullable().optional(),
+    telegram: z.string().nullable().optional(),
+    website: z.string().nullable().optional(),
+    whatsapp: z.string().nullable().optional(),
+  }),
   galleryImages: z.array(z.string()),
 
   shopReviews: z.array(
