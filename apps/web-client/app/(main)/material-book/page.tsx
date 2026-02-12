@@ -7,6 +7,7 @@ import { MaterialCatalogCard } from "../components/material-catalog/MaterialCata
 import { useRouter } from "next/navigation"
 import { materialCatalogItems } from "../components/material-catalog/materialCatalog.data"
 
+ // TODO: verify it's seo safe @reza
 export default function MaterialBookLanding() {
 
     const router = useRouter()

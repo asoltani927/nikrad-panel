@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { products } from "@/app/(main)/components/products/products.data";
 import { ProductCard } from "@/app/(main)/components/products/ProductCard";
 
-
+// TODO: Verify that this page is fully SEO-safe (ensure data is fetched server-side). @reza
 export const RelatedProducts = () => {
     const sliderRef = useRef<HTMLDivElement>(null);
     const [filter, setFilter] = useState("popular");

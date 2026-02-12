@@ -1,3 +1,4 @@
+// TODO: I beleive we can define these interfaces globally. in the root/typings @reza
 export interface ProductColor {
     hex: string;
     selected?: boolean;

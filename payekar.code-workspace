@@ -28,5 +28,8 @@
       "name": "platform",
       "path": "platform"
     }
-  ]
+  ],
+  "settings": {
+    "nuxt.isNuxtApp": false
+  }
 }
