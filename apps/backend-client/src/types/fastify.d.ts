@@ -1,17 +1,21 @@
-import "fastify";
-import { PrismaClient, User } from "@nikrad/database";
+import 'fastify'
+import { PrismaClient, User } from '@nikrad/database'
 
-declare module "fastify" {
+declare module 'fastify' {
   interface FastifyInstance {
-    prisma: PrismaClient;
+    prisma: PrismaClient
   }
-  
+
   interface FastifyInstance {
-    logger: Logger;
+    logger: Logger
   }
 
   interface FastifyRequest {
-    id?: string;
-    user?: User;
+    id?: string
+    user?: {
+      id: string,
+      customer: { id?: string }
+      sellers?: { id?: string }[]
+    }
   }
 }

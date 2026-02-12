@@ -63,8 +63,15 @@ export const postAuthVerifyOtpRoute = async (app: FastifyInstance) => {
       })
 
       // 1. Find customer or create
-      const { edges: customers } = await app.dokamerce.customers.paginated({ username: phone })
+      const { edges: customers } = await app.dokamerce.customers.paginated({
+        filter: {
+          username: {
+            equals: phone,
+          },
+        },
+      })
 
+      console.log(customers)
       let customer = null
       if (!customers || customers.length !== 1) {
         const created = await app.dokamerce.customers.create({
