@@ -6,20 +6,19 @@ const TimeRangeSchema = z.object({
 })
 
 const SocialMediaSchema = z.object({
-  instagram: z.string().url().optional(),
-  telegram: z.string().url().optional(),
-  website: z.string().url().optional(),
+  instagram: z.string().optional(),
+  telegram: z.string().optional(),
+  website: z.string().optional(),
   whatsapp: z.string().optional(),
 })
 
 export const CreateShopBodySchema = z.object({
   name: z.string().min(3),
-  categoryId: z.number(),
-  aboutShop: z.string().min(10),
+  about: z.string().min(10),
   aboutSeller: z.string().min(10),
 
   daysOfActivity: z.array(
-    z.enum(['SATURDAY', 'SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY']),
+    z.enum(['شنبه', 'یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنج شنبه', 'جمعه']),
   ),
 
   workingHours: TimeRangeSchema,
@@ -32,7 +31,7 @@ export const CreateShopBodySchema = z.object({
   galleryImages: z
     .array(
       z.object({
-        imageUrl: z.string().url(),
+        imageUrl: z.string(),
       }),
     )
     .optional(),

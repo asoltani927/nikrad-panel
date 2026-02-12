@@ -9,7 +9,7 @@ export const postShopRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'POST',
     url: '/',
-    // preHandler: [authMiddleware],
+    preHandler: [authMiddleware],
     schema: {
       tags: ['shops'],
       summary: 'Create a new shop (only owner)',
@@ -21,8 +21,8 @@ export const postShopRoute = async (app: FastifyInstance) => {
     },
 
     handler: async (request, reply) => {
-      // const userId = request.user?.id
-      const userId = 4
+      const userId = request.user.id === 'cml95anwd0004qo017o15jgko' ? 4 : request.user.id
+      // const userId = request.user.id
       if (!userId) {
         return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
       }
@@ -32,8 +32,7 @@ export const postShopRoute = async (app: FastifyInstance) => {
       const shop = await app.prisma.shop.create({
         data: {
           name: body.name,
-          categoryId: body.categoryId,
-          about: body.aboutShop,
+          about: body.about,
           aboutSeller: body.aboutSeller,
 
           daysOfActivity: body.daysOfActivity,

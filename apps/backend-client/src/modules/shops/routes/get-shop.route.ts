@@ -90,6 +90,10 @@ export const getShopByCuidRoute = async (app: FastifyInstance) => {
             fullName: `${review.user.firstName} ${review.user.lastName}`,
           },
         })),
+        daysOfActivity: shop.daysOfActivity,
+        workingHours: shop.workingHours,
+        responseHours: shop.responseHours,
+        socialMedia: shop.socialMedia,
       }
 
       return reply.status(200).send(ShopDetailSchema.parse(response))
