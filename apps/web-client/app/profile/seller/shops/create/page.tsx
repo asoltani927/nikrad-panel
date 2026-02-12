@@ -5,17 +5,10 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { ShopFormValues, shopSchema } from "@/app/schemas/shop.schema";
 import { Textarea } from "@/components/ui/textarea";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { X } from "lucide-react";
 import {
   Combobox,
@@ -29,6 +22,9 @@ import {
   ComboboxValue,
   useComboboxAnchor,
 } from "@/components/ui/combobox";
+import { useCreateShop } from "./hooks/useCreateShop.hook";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const daysOfWeek = [
   "شنبه",
@@ -42,9 +38,17 @@ const daysOfWeek = [
 
 export default function CreateShopPage() {
   const anchor = useComboboxAnchor();
+  const router = useRouter();
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const [galleryPreview, setGalleryPreview] = useState<string[]>([]);
-
+  const [fromHour, setFromHour] = useState("");
+  const [fromMinute, setFromMinute] = useState("");
+  const [toHour, setToHour] = useState("");
+  const [toMinute, setToMinute] = useState("");
+  const [fromResponseHour, setFromResponseHour] = useState("");
+  const [fromResponseMinute, setFromResponseMinute] = useState("");
+  const [toResponseHour, setToResponseHour] = useState("");
+  const [toResponseMinute, setToResponseMinute] = useState("");
   const {
     control,
     register,
@@ -63,6 +67,47 @@ export default function CreateShopPage() {
       galleryImages: [],
     },
   });
+  const { submit, loading, error, success } = useCreateShop();
+
+  useEffect(() => {
+    if (fromHour && fromMinute) {
+      setValue(
+        "workingHours.from",
+        `${fromHour.padStart(2, "0")}:${fromMinute.padStart(2, "0")}`,
+      );
+    }
+
+    if (toHour && toMinute) {
+      setValue(
+        "workingHours.to",
+        `${toHour.padStart(2, "0")}:${toMinute.padStart(2, "0")}`,
+      );
+    }
+
+    if (fromResponseHour && fromResponseMinute) {
+      setValue(
+        "responseHours.from",
+        `${fromResponseHour.padStart(2, "0")}:${fromResponseMinute.padStart(2, "0")}`,
+      );
+    }
+
+    if (toResponseHour && toResponseMinute) {
+      setValue(
+        "responseHours.to",
+        `${toResponseHour.padStart(2, "0")}:${toResponseMinute.padStart(2, "0")}`,
+      );
+    }
+  }, [
+    fromHour,
+    fromMinute,
+    toHour,
+    toMinute,
+    fromResponseHour,
+    fromResponseMinute,
+    toResponseHour,
+    toResponseMinute,
+    setValue,
+  ]);
 
   const handleThumbnailChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -87,12 +132,11 @@ export default function CreateShopPage() {
 
     const currentGallery = watch("galleryImages") ?? [];
 
-    const updatedGallery = [
-      ...currentGallery,
-      ...newFiles.map((file) => ({
-        imageUrl: URL.createObjectURL(file),
-      })),
-    ];
+    const newUrls = newFiles.map((file) => URL.createObjectURL(file));
+
+    const newGalleryObjects = newUrls.map((url) => ({ imageUrl: url }));
+
+    const updatedGallery = [...currentGallery, ...newGalleryObjects];
 
     setValue("galleryImages", updatedGallery, {
       shouldDirty: true,
@@ -100,8 +144,7 @@ export default function CreateShopPage() {
       shouldValidate: true,
     });
 
-    const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
-    setGalleryPreview((prev) => [...prev, ...newPreviews]);
+    setGalleryPreview((prev) => [...prev, ...newUrls]);
 
     e.target.value = "";
   };
@@ -124,8 +167,14 @@ export default function CreateShopPage() {
     setValue("galleryImages", updatedGallery);
   };
 
-  const onSubmit = (data: ShopFormValues) => {
-    console.log("FORM DATA 👉", data);
+  const onSubmit = async (data: ShopFormValues) => {
+    try {
+      await submit(data);
+      toast.success("فروشگاه با موفقیت ایجاد شد");
+      router.push("/profile/seller/shops");
+    } catch (error) {
+      toast.error("خطا در ایجاد فروشگاه");
+    }
   };
 
   return (
@@ -183,25 +232,184 @@ export default function CreateShopPage() {
           />
         </Field>
 
-        <Field label="ساعات کاری" error={errors.workingHours?.from?.message}>
-          <Input {...register("workingHours.from")} placeholder="از" />
-          <Input {...register("workingHours.to")} placeholder="تا" />
+        <Field
+          label="ساعات کاری"
+          error={
+            errors.workingHours?.from?.message ||
+            errors.workingHours?.to?.message
+          }
+        >
+          <div className="flex items-center gap-2">
+            {/* from */}
+            <Input type="hidden" {...register("workingHours.from")} />
+            <div className="flex gap-2 items-center">
+              <Input
+                className="text-center!"
+                maxLength={2}
+                max={59}
+                placeholder="دقیقه"
+                value={fromMinute}
+                onChange={(e) => {
+                  let value = e.target.value;
+                  value = value.replace(/\D/g, "");
+                  if (value.length > 2) value = value.slice(0, 2);
+                  if (Number(value) > 59) value = "59";
+                  setFromMinute(value);
+                }}
+              />
+              <span>:</span>
+              <Input
+                className="text-center!"
+                placeholder="ساعت"
+                value={fromHour}
+                maxLength={2}
+                max={23}
+                onChange={(e) => {
+                  let value = e.target.value;
+                  value = value.replace(/\D/g, "");
+                  if (value.length > 2) value = value.slice(0, 2);
+                  if (Number(value) > 23) value = "23";
+                  setFromHour(value);
+                }}
+              />
+            </div>
+
+            <span className="mx-2">تا</span>
+
+            {/* until */}
+            <div className="flex gap-2 items-center">
+              <Input
+                type="hidden"
+                {...register("workingHours.to")}
+                placeholder="تا"
+              />
+              <div className="flex gap-2 items-center">
+                <Input
+                  className="text-center!"
+                  maxLength={2}
+                  max={59}
+                  placeholder="دقیقه"
+                  value={toMinute}
+                  onChange={(e) => {
+                    let value = e.target.value;
+                    value = value.replace(/\D/g, "");
+                    if (value.length > 2) value = value.slice(0, 2);
+                    if (Number(value) > 59) value = "59";
+                    setToMinute(value);
+                  }}
+                />
+                <span>:</span>
+                <Input
+                  className="text-center!"
+                  placeholder="ساعت"
+                  value={toHour}
+                  maxLength={2}
+                  max={23}
+                  onChange={(e) => {
+                    let value = e.target.value;
+                    value = value.replace(/\D/g, "");
+                    if (value.length > 2) value = value.slice(0, 2);
+                    if (Number(value) > 23) value = "23";
+                    setToHour(value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </Field>
 
         <Field
           label="ساعات پاسخگویی"
-          error={errors.responseHours?.from?.message}
+          error={
+            errors.responseHours?.from?.message ||
+            errors.responseHours?.to?.message
+          }
         >
-          <Input {...register("responseHours.from")} placeholder="از" />
-          <Input {...register("responseHours.to")} placeholder="تا" />
+          <div className="flex items-center gap-2">
+            {/* from */}
+            <Input type="hidden" {...register("responseHours.from")} />
+            <div className="flex gap-2 items-center">
+              <Input
+                className="text-center!"
+                maxLength={2}
+                max={59}
+                placeholder="دقیقه"
+                value={fromResponseMinute}
+                onChange={(e) => {
+                  let value = e.target.value;
+                  value = value.replace(/\D/g, "");
+                  if (value.length > 2) value = value.slice(0, 2);
+                  if (Number(value) > 59) value = "59";
+                  setFromResponseMinute(value);
+                }}
+              />
+              <span>:</span>
+              <Input
+                className="text-center!"
+                placeholder="ساعت"
+                value={fromResponseHour}
+                maxLength={2}
+                max={23}
+                onChange={(e) => {
+                  let value = e.target.value;
+                  value = value.replace(/\D/g, "");
+                  if (value.length > 2) value = value.slice(0, 2);
+                  if (Number(value) > 23) value = "23";
+                  setFromResponseHour(value);
+                }}
+              />
+            </div>
+
+            <span className="mx-2">تا</span>
+
+            {/* until */}
+            <div className="flex gap-2 items-center">
+              <Input
+                type="hidden"
+                {...register("responseHours.to")}
+                placeholder="تا"
+              />
+              <div className="flex gap-2 items-center">
+                <Input
+                  className="text-center!"
+                  maxLength={2}
+                  max={59}
+                  placeholder="دقیقه"
+                  value={toResponseMinute}
+                  onChange={(e) => {
+                    let value = e.target.value;
+                    value = value.replace(/\D/g, "");
+                    if (value.length > 2) value = value.slice(0, 2);
+                    if (Number(value) > 59) value = "59";
+                    setToResponseMinute(value);
+                  }}
+                />
+                <span>:</span>
+                <Input
+                  className="text-center!"
+                  placeholder="ساعت"
+                  value={toResponseHour}
+                  maxLength={2}
+                  max={23}
+                  onChange={(e) => {
+                    let value = e.target.value;
+                    value = value.replace(/\D/g, "");
+                    if (value.length > 2) value = value.slice(0, 2);
+                    if (Number(value) > 23) value = "23";
+                    setToResponseHour(value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </Field>
 
-        {/* <Field label="دسته‌بندی" error={errors.categoryId?.message}>
-          <Input type="number" {...register("categoryId")} />
+        {/* <Field label="دسته‌بندی" error={errors.category?.message}>
+          <Input type="number" {...register("category")} />
         </Field> */}
 
-        <Field label="توضیحات فروشگاه" error={errors.aboutShop?.message}>
-          <Textarea rows={4} {...register("aboutShop")} />
+        <Field label="توضیحات فروشگاه" error={errors.about?.message}>
+          <Textarea rows={4} {...register("about")} />
         </Field>
 
         <Field label="توضیحات فروشنده" error={errors.aboutSeller?.message}>
@@ -277,8 +485,8 @@ export default function CreateShopPage() {
           )}
         </Field>
 
-        <Button type="submit" className="w-full">
-          ذخیره فروشگاه
+        <Button type="submit" className="w-full" disabled={loading}>
+          {loading ? "در حال ایجاد فروشگاه ..." : "ذخیره فروشگاه"}
         </Button>
       </form>
     </div>

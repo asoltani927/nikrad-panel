@@ -15,180 +15,16 @@ import { useState } from "react";
 import { Shop } from "@/types";
 import Link from "next/link";
 import ShopDetailsModal from "./components/ShopDetailsModal";
+import { useShops } from "./hooks/useShops";
 
 export default function Page() {
   const [open, setOpen] = useState<boolean>(false);
   const [selectedProduct, setSelectedProduct] = useState<Shop | null>(null);
-
+  const { shops, loading, error, sellersRefetch } = useShops();
   const handleViewProduct = (shop: Shop) => {
     setSelectedProduct(shop);
     setOpen(true);
   };
-
-  const shops = [
-    {
-      cuid: "s1",
-      name: "فروشگاه مصالح سپاهان",
-      slug: "sepahan",
-      productsCount: 10,
-      about: "تأمین‌کننده انواع مصالح ساختمانی با قیمت مناسب",
-      aboutSeller: "بیش از ۱۰ سال سابقه در فروش مصالح ساختمانی",
-      status: "active",
-      successDeals: 320,
-      daysOfActivity: ["SATURDAY", "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY"],
-      workingHours: {
-        from: "08:00",
-        to: "17:00",
-      },
-      responseHours: {
-        from: "09:00",
-        to: "16:00",
-      },
-
-      socialMedia: {
-        instagram: "https://instagram.com/sepahan_cement",
-        telegram: "https://t.me/sepahan_cement",
-        website: "https://sepahancement.ir",
-        whatsapp: "+989121234567",
-      },
-      failedDeals: 5,
-      thumbnailImage: "/images/shops/shop-1.jpg",
-      owner: {
-        id: 1,
-        name: "ali",
-        fullName: "علی رضایی",
-      },
-      category: {
-        id: 1,
-        name: "مصالح ساختمانی",
-      },
-      galleryImages: [
-        "/images/shops/shop-1-1.jpg",
-        "/images/shops/shop-1-2.jpg",
-      ],
-      shopReviews: [
-        {
-          rating: 5,
-          comment: "کیفیت عالی و ارسال سریع",
-          user: {
-            fullName: "محمد احمدی",
-          },
-        },
-        {
-          rating: 4,
-          comment: "قیمت‌ها منصفانه بود",
-          user: {
-            fullName: "حسین کریمی",
-          },
-        },
-      ],
-    },
-    {
-      cuid: "s2",
-      name: "بازرگانی عمران‌ساز",
-      slug: "sepahan",
-      productsCount: 10,
-      about: "فروش عمده و خرده انواع سیمان و گچ",
-      aboutSeller: "همکاری با برندهای معتبر داخلی",
-      status: "inactive",
-      daysOfActivity: ["SATURDAY", "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY"],
-      workingHours: {
-        from: "08:00",
-        to: "17:00",
-      },
-      responseHours: {
-        from: "09:00",
-        to: "16:00",
-      },
-
-      socialMedia: {
-        instagram: "https://instagram.com/sepahan_cement",
-        telegram: "https://t.me/sepahan_cement",
-        website: "https://sepahancement.ir",
-        whatsapp: "+989121234567",
-      },
-      successDeals: 210,
-      failedDeals: 12,
-      thumbnailImage: "/images/shops/shop-2.jpg",
-      owner: {
-        id: 2,
-        name: "reza",
-        fullName: "رضا محمدی",
-      },
-      category: {
-        id: 1,
-        name: "مصالح ساختمانی",
-      },
-      galleryImages: [
-        "/images/shops/shop-2-1.jpg",
-        "/images/shops/shop-2-2.jpg",
-        "/images/shops/shop-2-3.jpg",
-      ],
-      shopReviews: [
-        {
-          rating: 4,
-          comment: "پشتیبانی خوب و پاسخ‌گو",
-          user: {
-            fullName: "سارا نادری",
-          },
-        },
-      ],
-    },
-    {
-      cuid: "s3",
-      name: "مرکز پخش ابزار و مصالح تهران",
-      slug: "sepahan",
-      productsCount: 10,
-      about: "مرجع تخصصی ابزارآلات و مصالح ساختمانی",
-      status: "active",
-      daysOfActivity: ["SATURDAY", "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY"],
-      workingHours: {
-        from: "08:00",
-        to: "17:00",
-      },
-      responseHours: {
-        from: "09:00",
-        to: "16:00",
-      },
-
-      socialMedia: {
-        instagram: "https://instagram.com/sepahan_cement",
-        telegram: "https://t.me/sepahan_cement",
-        website: "https://sepahancement.ir",
-        whatsapp: "+989121234567",
-      },
-      aboutSeller: "ارسال به سراسر کشور",
-      successDeals: 540,
-      failedDeals: 8,
-      thumbnailImage: "/images/shops/shop-3.jpg",
-      owner: {
-        id: 3,
-        name: "mehdi",
-        fullName: "مهدی حسینی",
-      },
-      category: {
-        id: 2,
-        name: "ابزار و تجهیزات",
-      },
-      galleryImages: ["/images/shops/shop-3-1.jpg"],
-      shopReviews: [
-        {
-          rating: 5,
-          comment: "بسیار حرفه‌ای و خوش‌قول",
-          user: {
-            fullName: "علی صادقی",
-          },
-        },
-        {
-          rating: 5,
-          comment: "تنوع کالا عالیه",
-          user: {
-            fullName: "نگار موسوی",
-          },
-        },
-      ],
-    },
-  ];
 
   return (
     <div className="p-5">
@@ -230,10 +66,10 @@ export default function Page() {
                   <TableCell>{item.name}</TableCell>
                   <TableCell className="!text-center">{item.status}</TableCell>
                   <TableCell className="!text-center">
-                    {item.workingHours.from} تا {item.workingHours.to}
+                    {item.workingHours?.from} تا {item.workingHours?.to}
                   </TableCell>
                   <TableCell className="!text-center">
-                    {item.responseHours.from} تا {item.responseHours.to}
+                    {item.responseHours?.from} تا {item.responseHours?.to}
                   </TableCell>
                   <TableCell className="!text-center">
                     {item.successDeals}
@@ -260,7 +96,7 @@ export default function Page() {
                   colSpan={5}
                   className="text-center py-4 text-gray-500"
                 >
-                  موردی یافت نشد
+                  {loading ? "در حال دریافت اطلاعات ..." : "موردی یافت نشد"}
                 </TableCell>
               </TableRow>
             )}

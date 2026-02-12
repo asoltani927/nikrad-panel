@@ -10,15 +10,21 @@ const socialMediaSchema = z.object({
 });
 
 const timeRangeSchema = z.object({
-  from: z.string().min(5, "زمان از باید معتبر باشد"),
-  to: z.string().min(5, "زمان تا باید معتبر باشد"),
+  from: z.string().min(2, "زمان از باید معتبر باشد"),
+  to: z.string().min(2, "زمان تا باید معتبر باشد"),
 });
 
 export const shopSchema = z.object({
-  name: z.string().min(3, "نام فروشگاه حداقل ۳ کاراکتر"),
-  // categoryId: z.number().min(1, "شناسه دسته‌بندی معتبر نیست"),
-  aboutShop: z.string().min(10, "توضیحات فروشگاه باید حداقل ۱۰ کاراکتر باشد"),
+  name: z.string().min(3, "نام فروشگاه حداقل ۳ کاراکتر باشد"),
+
+  about: z.string().min(10, "توضیحات فروشگاه باید حداقل ۱۰ کاراکتر باشد"),
+
   aboutSeller: z.string().min(10, "توضیحات فروشنده باید حداقل ۱۰ کاراکتر باشد"),
+
+  // category: z.object({
+  //   id: z.number().min(1, "دسته‌بندی معتبر نیست"),
+  //   name: z.string(),
+  // }),
 
   daysOfActivity: z
     .array(
@@ -40,9 +46,14 @@ export const shopSchema = z.object({
   socialMedia: socialMediaSchema,
 
   thumbnailImage: imageSchema,
+
   galleryImages: z
-    .array(z.object({ imageUrl: z.string() }))
-    .min(1, "حداقل یک تصویر برای گالری الزامی است"),
+    .array(
+      z.object({
+        imageUrl: z.string(),
+      }),
+    )
+    .optional(),
 });
 
 export type ShopFormValues = z.infer<typeof shopSchema>;

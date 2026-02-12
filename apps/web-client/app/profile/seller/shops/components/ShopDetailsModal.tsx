@@ -62,11 +62,11 @@ export default function ShopDetailsModal({
             value={shop.name}
           />
 
-          <Item
+          {/* <Item
             icon={<Layers size={18} />}
             label="دسته‌بندی"
             value={shop.category.name}
-          />
+          /> */}
 
           <Item
             icon={
@@ -113,13 +113,13 @@ export default function ShopDetailsModal({
           <Item
             icon={<Hourglass size={18} />}
             label="ساعات کاری"
-            value={`${shop.workingHours.from} تا ${shop.workingHours.to}`}
+            value={`${shop.workingHours?.from} تا ${shop.workingHours?.to}`}
           />
 
           <Item
             icon={<ClockFading size={18} />}
             label="ساعات پاسخگویی"
-            value={`${shop.responseHours.from} تا ${shop.responseHours.to}`}
+            value={`${shop.responseHours?.from} تا ${shop.responseHours?.to}`}
           />
         </div>
 
