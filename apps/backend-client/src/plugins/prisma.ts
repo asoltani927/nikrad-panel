@@ -9,9 +9,7 @@ export async function setup(app: FastifyInstance) {
       log: ['warn', 'error'],
     })
     await prisma.$connect()
-
     app.decorate('prisma', prisma)
-
     app.addHook('onClose', async (app) => {
       await app.prisma.$disconnect()
     })

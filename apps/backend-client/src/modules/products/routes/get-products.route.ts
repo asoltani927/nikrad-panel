@@ -14,10 +14,18 @@ export const getProductsRoute = async (app: FastifyInstance) => {
       },
     },
     handler: async (request, reply) => {
-      const products = await app.dokamerce.products.paginated()
-      return reply
-        .status(200)
-        .send(GetProductsResponseSchema.parse({ products: products.edges }))
+      const products = await app.dokamerce.products.paginated({
+        filter: {},
+        // limit?: ,
+        // page?: ;
+        // sort?: ;
+        withCategory: true,
+        withBrand: true,
+        withVariant: true,
+        withThumbnail: true,
+        withFiles: true,
+      })
+      return reply.status(200).send(GetProductsResponseSchema.parse({ products: products.edges }))
     },
   })
 }
