@@ -8,7 +8,7 @@ import { SellerRecentProducts } from "./_components/SellerRecentProducts";
 import { SellerReviews } from "./_components/SellerReviews";
 import { SellerGallery } from "./_components/SellerGallery";
 
-
+ // TODO: verify it's seo safe with all components @reza
 export default function SellerDetailsPage() {
   return (
     <div className="w-full bg-white  font-sans dark:bg-black pb-16">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getSellers } from "@/app/actions/sellers/get-sellers.action";
+import { getSellers } from "@/actions/sellers/get-sellers.action";
 import { Sellers } from "@/types";
 
 export function useSellers() {

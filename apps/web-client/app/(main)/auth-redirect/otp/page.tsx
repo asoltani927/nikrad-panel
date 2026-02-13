@@ -118,6 +118,7 @@ export default function VerifyPage({ searchParams }: VerifyPageProps) {
         <span>اگر کد را دریافت نکردید، دوباره ارسال می‌شود.</span>
       </div>
 
+      {/* TODO: all hex colors should be defined as a color system @reza */}
       <Button
         className="relative z-10 w-full lg:w-[275px] h-12 sm:h-9 lg:text-[11px] cursor-pointer rounded-sm bg-[#EAAA08] hover:bg-[#d8a708]"
         onClick={handleSubmit}

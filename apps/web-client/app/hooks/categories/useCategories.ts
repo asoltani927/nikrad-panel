@@ -2,8 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { Category } from "@/types";
-import { getCategories } from "@/app/actions/categories/get-categories.action";
+import { getCategories } from "@/actions/categories/get-categories.action";
 
+/**
+ * @deprecated
+ * TODO: I think not necessary, use tanstack @reza
+ */
 export function useCategories() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

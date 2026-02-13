@@ -1,7 +1,11 @@
-import { getProduct } from "@/app/actions/products/get-product.action";
+import { getProduct } from "@/app/products/get-product.action";
 import { Product } from "@/types";
 import { useEffect, useState } from "react";
 
+/**
+ * @deprecated
+ * TODO: I think not necessary, use tanstack @reza
+ */
 export function useProductById(id: string | number) {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);

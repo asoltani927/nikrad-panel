@@ -1,7 +1,11 @@
-import { getProducts } from "@/app/actions/products/get-products.action";
+import { getProducts } from "@/actions/products/get-products.action";
 import { Product } from "@/types";
 import { useEffect, useState } from "react";
 
+/**
+ * @deprecated
+ * TODO: I think not necessary, use tanstack @reza
+ */
 export function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

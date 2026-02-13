@@ -9,11 +9,12 @@ import { InquiriesPagination } from "./components/InquiriesPagination";
 import { InquiriesToolbar } from "./components/InquiriesToolbar";
 import { InquiriesList } from "./components/InquiriesList";
 import { useRouter } from "next/navigation"
-import Link from "next/link"
 
+// TODO: fix the name of page function is it product page? @reza
 export default function ProductsPage() {
 
   const router = useRouter()
+  // TODO: make a global object for authentication. use atoms. @reza
   const isLoggedIn = false
 
   const handleStart = () => {

@@ -10,5 +10,6 @@ export async function getAccessToken() {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token");
   const authToken = token?.value;
+  console.log(authToken)
   return authToken;
 }
