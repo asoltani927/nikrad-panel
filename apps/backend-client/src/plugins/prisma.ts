@@ -12,6 +12,7 @@ export async function setup(app: FastifyInstance) {
     app.decorate('prisma', prisma)
     app.addHook('onClose', async (app) => {
       await app.prisma.$disconnect()
+      app.log.info('Prisma disconnected')
     })
   })
 

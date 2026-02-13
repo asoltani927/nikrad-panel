@@ -6,16 +6,14 @@ import BaseContainer from "@/components/base/BaseContainer";
 import { ProductInfo } from "./_components/ProductInfo";
 import { ProductTabs } from "./_components/tabs/ProductTabs";
 import { RelatedProducts } from "./_components/related-products/page";
-import { useProductById } from "@/app/hooks/products/useProduct";
+import { useProduct } from "@/app/hooks/products/useProduct";
 import { useParams } from "next/navigation";
 
 export default function ProductDetailsPage() {
   const params = useParams();
   // TODO: make server side seo safe, take look products page @reza
   const slug = params?.slug as string | number;
-  const {
-    product,
-  } = useProductById(slug);
+  const { data } = useProduct(slug);
   return (
     <div className="lg:mt-14">
       <ProductBreadcrumb />
@@ -26,7 +24,7 @@ export default function ProductDetailsPage() {
           </div>
 
           <div className="col-span-5 px-6 lg:px-0 mt-10 lg:mt-0">
-            {product && <ProductInfo product={product} />}
+            {data && <ProductInfo product={data} />}
           </div>
         </div>
         <div className="w-full  lg:px-[184px] mb-1">

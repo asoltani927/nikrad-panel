@@ -8,6 +8,7 @@ import { setup as setupDokamerce } from './dokamerc'
 import { setup as setupRedis } from './redis'
 import { setup as setupTexting } from './texting'
 import { setup as setupRateLimit } from './rate-limit'
+import { setup as setupGracefulShutdown } from './graceful-shutdown'
 
 export async function initialPlugins(app: FastifyInstance) {
   await setupLogger(app)
@@ -19,4 +20,5 @@ export async function initialPlugins(app: FastifyInstance) {
   await setupRedis(app)
   await setupTexting(app)
   await setupRateLimit(app, app.redis)
+  await setupGracefulShutdown(app)
 }

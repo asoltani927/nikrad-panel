@@ -7,9 +7,12 @@ import { ProductsTitle } from "./components/ProductsTitle";
 import { ProductsToolbar } from "./components/ProductsToolbar";
 import { ProductCard } from "./components/ProductCard";
 import { getProducts } from "@/actions/products/get-products.action";
+import { useProducts } from "@/app/hooks/products/useProduct";
 
 export default async function ProductsPage() {
   const products = await getProducts(); // ✅ SERVER FETCH (SEO SAFE)
+
+  // const { data, isLoading, error } = useProducts();
 
   return (
     <div className="w-full min-h-screen bg-white font-sans dark:bg-black">
