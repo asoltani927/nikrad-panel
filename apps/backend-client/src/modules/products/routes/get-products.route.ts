@@ -11,20 +11,27 @@ export const getProductsRoute = async (app: FastifyInstance) => {
       summary: 'Get all Products',
       response: {
         200: GetProductsResponseSchema,
+        // 500: GetProductsResponseSchema.pick({ message: true }),
       },
     },
     handler: async (request, reply) => {
-      const products = await app.dokamerce.products.paginated({
-        filter: {},
-        // limit?: ,
-        // page?: ;
-        // sort?: ;
-        withCategory: true,
-        withBrand: true,
-        withVariant: true,
-        withThumbnail: true,
-        withFiles: true,
-      })
+      let products = [];
+      try {
+        products = await app.dokamerce.products.paginated({
+          filter: {},
+          // limit?: ,
+          // page?: ;
+          // sort?: ;
+          withCategory: true,
+          withBrand: true,
+          withVariant: true,
+          withThumbnail: true,
+          withFiles: true,
+        })
+      } catch (error) {
+        console.error('Error fetching products:', error)
+        // return reply.status(500).send({ message: 'Internal Server Error' })
+      }
       return reply.status(200).send(GetProductsResponseSchema.parse({ products: products.edges }))
     },
   })
