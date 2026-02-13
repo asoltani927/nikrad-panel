@@ -7,6 +7,7 @@ import { ReviewsTab } from "./ReviewsTab";
 
 type TabKey = "description" | "specifications" | "reviews";
 
+// TODO: why it should be client side? please check it. I'm not sure. @reza
 export const ProductTabs = () => {
     const [activeTab, setActiveTab] = useState<TabKey>("description");
 

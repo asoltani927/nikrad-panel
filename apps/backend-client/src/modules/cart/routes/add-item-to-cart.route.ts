@@ -6,42 +6,58 @@ import { UnauthorizedResponseSchema } from '@/schema/unauthorized-response.schem
 
 export const addItemToCartRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
-    method: 'DELETE',
-    url: '/:id',
+    method: 'POST',
+    url: '/',
     preHandler: [authMiddleware],
     schema: {
       tags: ['carts'],
-      summary: 'Delete a product item from cart by id',
-      params: z.object({ id: z.string() }),
-      // response: {
-      //   200: z.object({ message: z.string() }),
-      //   403: z.object({ message: z.string() }),
-      //   404: z.object({ message: z.string() }),
-      // },
+      summary: 'Add item to cart',
+      description: 'Adds a product item to the authenticated user cart',
+
+      body: z.object({
+        addressId: z.string().min(1),
+        productId: z.string().min(1),
+        quantity: z.number().int().min(1),
+        sellerId: z.string().min(1),
+        shippingId: z.string().min(1),
+        variantId: z.string().min(1),
+      }),
+
+      response: {
+        200: z.object({
+          message: z.string(),
+        }),
+        401: UnauthorizedResponseSchema,
+      },
     },
+
     handler: async (request, reply) => {
       if (!request.user) {
-        return reply.status(401).send(UnauthorizedResponseSchema.parse({ error: 'Unauthorized' }))
+        return reply
+          .status(401)
+          .send(UnauthorizedResponseSchema.parse({ error: 'Unauthorized' }))
       }
+
       const { id } = request.user
+      const body = request.body
 
-      const data = []
-
-      data.push({
-        addressId: '',
-        productId: '',
-        quantity: 1,
-        sellerId: '',
-        shippingId: '',
-        variantId: '',
-      })
-
-      const result = await app.dokamerce.cart.addToCart({
+      await app.dokamerce.cart.addToCart({
         customerId: id,
-        data: data,
+        data: [
+          {
+            addressId: body.addressId,
+            productId: body.productId,
+            quantity: body.quantity,
+            sellerId: body.sellerId,
+            shippingId: body.shippingId,
+            variantId: body.variantId,
+          },
+        ],
       })
 
-      return reply.status(200).send({ message: 'Item deleted successfully' })
+      return reply.status(200).send({
+        message: 'Item added successfully',
+      })
     },
   })
 }

@@ -9,27 +9,54 @@ export const finalizeCartRoute = async (app: FastifyInstance) => {
     method: 'POST',
     url: '/finalize',
     preHandler: [authMiddleware],
+
     schema: {
       tags: ['carts'],
-      summary: 'Delete a product item from cart by id',
-      params: z.object({ id: z.string() }),
-      // response: {
-      //   200: z.object({ message: z.string() }),
-      //   403: z.object({ message: z.string() }),
-      //   404: z.object({ message: z.string() }),
-      // },
+      summary: 'Finalize cart and create order',
+      description:
+        'Finalizes the authenticated user cart and converts it into an order',
+
+      response: {
+        200: z.object({
+          message: z.string(),
+          orderId: z.string().optional(),
+        }),
+
+        401: UnauthorizedResponseSchema,
+
+        400: z.object({
+          message: z.string(), // e.g. Cart is empty
+        }),
+
+        409: z.object({
+          message: z.string(), // e.g. Cart already finalized
+        }),
+      },
     },
+
     handler: async (request, reply) => {
       if (!request.user) {
-        return reply.status(401).send(UnauthorizedResponseSchema.parse({ error: 'Unauthorized' }))
+        return reply
+          .status(401)
+          .send(UnauthorizedResponseSchema.parse({ error: 'Unauthorized' }))
       }
+
       const { id: customerId } = request.user
 
       const result = await app.dokamerce.orders.finalize({
-        customerId: customerId,
+        customerId,
       })
 
-      return reply.status(200).send({ message: 'finalized cart and made order' })
+      if (!result) {
+        return reply.status(400).send({
+          message: 'Cart is empty or cannot be finalized',
+        })
+      }
+
+      return reply.status(200).send({
+        message: 'Cart finalized successfully',
+        orderId: result.id,
+      })
     },
   })
 }

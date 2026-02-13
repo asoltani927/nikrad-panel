@@ -4,6 +4,7 @@ import { getCartRoute } from './routes/get-cart.route'
 import { setCartAddressRoute } from './routes/set-cart-address.route'
 import { updateCartItemRoute } from './routes/update-cart-item.route'
 import { finalizeCartRoute } from './routes/finalize-cart.route'
+import { addItemToCartRoute } from './routes/add-item-to-cart.route'
 
 export async function cartModule(app: FastifyInstance) {
   app.register(
@@ -13,6 +14,7 @@ export async function cartModule(app: FastifyInstance) {
       cartApp.register(setCartAddressRoute)
       cartApp.register(updateCartItemRoute)
       cartApp.register(finalizeCartRoute)
+      cartApp.register(addItemToCartRoute)
     },
     { prefix: '/cart' },
   )

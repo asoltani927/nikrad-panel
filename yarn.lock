@@ -1777,6 +1777,7 @@ __metadata:
     eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-prettier: "npm:^5.5.4"
     fastify: "npm:^5.6.1"
+    fastify-graceful-shutdown: "npm:^5.0.0"
     fastify-type-provider-zod: "npm:^6.1.0"
     graphql-request: "npm:^7.4.0"
     ioredis: "npm:^5.8.2"
@@ -1931,6 +1932,7 @@ __metadata:
     "@radix-ui/react-slot": "npm:^1.2.4"
     "@radix-ui/react-tooltip": "npm:^1.2.8"
     "@tailwindcss/postcss": "npm:^4"
+    "@tanstack/react-query": "npm:^5.90.21"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
@@ -3384,6 +3386,24 @@ __metadata:
   version: 5.90.16
   resolution: "@tanstack/query-core@npm:5.90.16"
   checksum: 10/25720ff6aa5888550351d92620ca62b6882e80da0fd0428be01c2c6cf4772e6678d7850b88f81916b3ab3fb49dad3b697a3ac84e9e6a90da482ef980c30b7566
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-core@npm:5.90.20":
+  version: 5.90.20
+  resolution: "@tanstack/query-core@npm:5.90.20"
+  checksum: 10/25e38f4382442bc15e0f6cce8d787e9df8d8822c61d3f3e9427e89e01b1e2506f848292e086dae29aeb55f8ce71b097c34221f3c5eda37fb4a688b5ceca5d1b3
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.90.21":
+  version: 5.90.21
+  resolution: "@tanstack/react-query@npm:5.90.21"
+  dependencies:
+    "@tanstack/query-core": "npm:5.90.20"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10/5bb4b6be7ac34a7423aca60484f1e35a0c7f8b2f86ef6656a3b6757943417561a50d9a159e2bff9d97a57a82ecec920df067b507c2ec6488beb286635b25e518
   languageName: node
   linkType: hard
 
@@ -6303,6 +6323,15 @@ __metadata:
   dependencies:
     reusify: "npm:^1.0.0"
   checksum: 10/c0929f7125413493ba0fae722c6c7a2a0af415e261a2e0d2f13493eecd4ea333b3490bd2870df90c3aa6d655a9cf96bc237198a4ccf29f7c097466390e19ae70
+  languageName: node
+  linkType: hard
+
+"fastify-graceful-shutdown@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "fastify-graceful-shutdown@npm:5.0.0"
+  dependencies:
+    fastify-plugin: "npm:^5.0.1"
+  checksum: 10/7b46d4908395fa4116f7e7b8485b74da5313c7cbe29746b44764c986b6377761774163af68acc06245f9fb687544dcc6d63369f1767a2a595748973d8be1ab2b
   languageName: node
   linkType: hard
 
