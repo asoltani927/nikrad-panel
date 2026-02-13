@@ -29,9 +29,7 @@ export const postAuthSendOtpRoute = async (app: FastifyInstance) => {
     handler: async (request, reply) => {
       const rawPhone = request.body.phone
       const phone = normalizeMobile(rawPhone) // TODO: all phones should map to 989134241882 @reza (Done)
-
       // 1. Find customer or create
-
       const { edges: customers } = await app.dokamerce.customers.paginated({
         filter: {
           username: {

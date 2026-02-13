@@ -1,19 +1,25 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, ReactNode, useEffect } from "react";
 import { sendOtp as sendOtpAction } from "../actions/post-otp.action";
 import { verifyOtp as verifyOtpAction } from "../actions/post-verify.action";
 import { fetchUserInfo } from "../actions/fetch-user-info.action";
+import { logoutUser } from "@/actions/logout.action";
 
 interface User {
     id: string;
-    name: string;
-    phone: string;
-    email?: string;
+    fullName: string;
+    username: string;
+    telephoneNumbers: {
+        value?: string,
+        targets: string[],
+    }[];
 }
 
 interface AuthContextType {
     user: User | null;
+    isLoggedIn: boolean;   // 👈 add this
+
     loading: boolean;
     error: string | null;
     success: boolean;
@@ -61,11 +67,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
         try {
             const res = await verifyOtpAction({ phone, code, type: "login" });
-
             if (!res.success) {
                 throw new Error(res.message || "OTP verification failed");
             }
-
             // Fetch user info after successful OTP
             const userInfo = await fetchUserInfo();
             setUser(userInfo);
@@ -80,15 +84,52 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
     }, []);
 
-    const logout = useCallback(() => {
-        setUser(null);
-        setError(null);
-        setSuccess(false);
+    const logout = useCallback(async () => {
+        try {
+            await logoutUser();        // clear cookie
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setUser(null);             // clear state
+            setSuccess(false);
+            setError(null);
+        }
     }, []);
+
+    // inside AuthProvider, after your useState declarations
+    useEffect(() => {
+        let isMounted = true; // avoid state updates if unmounted
+
+        const initializeUser = async () => {
+            setLoading(true);
+            try {
+                const userInfo = await fetchUserInfo(); // fetches from backend using cookie
+                console.log(userInfo)
+                if (isMounted && userInfo) {
+                    setUser(userInfo);
+                    setSuccess(true);
+                }
+            } catch (err: unknown) {
+                if (isMounted) {
+                    setError(err instanceof Error ? err.message : "Failed to fetch user");
+                }
+            } finally {
+                if (isMounted) setLoading(false);
+            }
+        };
+
+        initializeUser();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+
+    const isLoggedIn = !!user;
 
     return (
         <AuthContext.Provider
-            value={{ user, loading, error, success, sendOtp, verifyOtp, logout }}
+            value={{ user, isLoggedIn, loading, error, success, sendOtp, verifyOtp, logout }}
         >
             {children}
         </AuthContext.Provider>

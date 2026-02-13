@@ -2,16 +2,20 @@
 
 import { backendRequest } from "@/clients/backend";
 
+// TODO: make this interfaces global and reusable across the app @reza
 interface User {
   id: string;
-  name: string;
-  phone: string;
-  email?: string;
+  fullName: string;
+  username: string;
+  telephoneNumbers: {
+    value?: string;
+    targets: string[];
+  }[];
 }
 
 interface FetchUserInfoResponse {
   success: boolean;
-  data?: User;
+  user?: User;
   message?: string;
 }
 
@@ -21,12 +25,15 @@ export async function fetchUserInfo(): Promise<User> {
       method: "GET", // or POST if your backend requires it
       url: `/auth/me`,
     });
+    console.log(res);
 
-    if (!res.success || !res.data) {
+    console.log(res);
+
+    if (!res.success || !res.user) {
       throw new Error(res.message || "Failed to fetch user info");
     }
 
-    return res.data;
+    return res.user;
   } catch (err) {
     console.error("Error fetching user info:", err);
     throw err;

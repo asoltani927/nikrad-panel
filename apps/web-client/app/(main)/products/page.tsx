@@ -6,7 +6,7 @@ import { ProductsPagination } from "./components/ProductsPagination";
 import { ProductsTitle } from "./components/ProductsTitle";
 import { ProductsToolbar } from "./components/ProductsToolbar";
 import { ProductCard } from "./components/ProductCard";
-import { getProducts } from "@/app/actions/products/get-products.action";
+import { getProducts } from "@/actions/products/get-products.action";
 
 export default async function ProductsPage() {
   const products = await getProducts(); // ✅ SERVER FETCH (SEO SAFE)

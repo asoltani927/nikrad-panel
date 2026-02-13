@@ -1,4 +1,4 @@
-import { getProduct } from "@/app/actions/products/get-product.action";
+import { getProduct } from "@/app/products/get-product.action";
 import { Product } from "@/types";
 import { useEffect, useState } from "react";
 

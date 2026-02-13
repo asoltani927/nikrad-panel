@@ -1,4 +1,4 @@
-import { getAccessToken } from "@/app/actions/get-token-session";
+import { getAccessToken } from "@/actions/get-token-session";
 import axios, {
   AxiosInstance,
   AxiosRequestConfig,
@@ -40,7 +40,7 @@ export async function backendRequest<TResponse, TData = unknown>(
     const headers =
       config.headers instanceof AxiosHeaders
         ? config.headers
-        : new AxiosHeaders(config.headers);
+        : new AxiosHeaders(config.headers as unknown as {});
 
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
