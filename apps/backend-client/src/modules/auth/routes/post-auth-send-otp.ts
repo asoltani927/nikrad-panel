@@ -4,8 +4,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
 const CreateOtpBodySchema = z.object({
-  phone: z.string().min(10).max(15), // TODO: mobile validatiomn reza (Done: fix in normalizeMobile Util )
-  // type: z.enum(['login', 'verify', 'reset']),
+  phone: z.string().min(10).max(15),
 })
 
 const OtpResponseSchema = z.object({
@@ -68,7 +67,7 @@ export const postAuthSendOtpRoute = async (app: FastifyInstance) => {
         // Already has a valid OTP → don't resend SMS
         return reply.status(200).send({
           success: true,
-          message: 'OTP generated and sent', // empty message as you requested
+          message: 'OTP generated and sent',
         })
       }
 

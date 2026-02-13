@@ -19,6 +19,6 @@ export async function initialPlugins(app: FastifyInstance) {
   await setupJwt(app)
   await setupRedis(app)
   await setupTexting(app)
-  await setupGracefulShutdown(app)
   await setupRateLimit(app, app.redis)
+  await setupGracefulShutdown(app)
 }

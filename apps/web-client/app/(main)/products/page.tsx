@@ -9,10 +9,10 @@ import { ProductCard } from "./components/ProductCard";
 import { getProducts } from "@/actions/products/get-products.action";
 import { useProducts } from "@/app/hooks/products/useProduct";
 
-export default function ProductsPage() {
-  // const products = await getProducts(); // ✅ SERVER FETCH (SEO SAFE)
+export default async function ProductsPage() {
+  const products = await getProducts(); // ✅ SERVER FETCH (SEO SAFE)
 
-  const { data, isLoading, error } = useProducts();
+  // const { data, isLoading, error } = useProducts();
 
   return (
     <div className="w-full min-h-screen bg-white font-sans dark:bg-black">
@@ -30,7 +30,7 @@ export default function ProductsPage() {
             <ProductsToolbar />
 
             <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3 lg:gap-4 lg:gap-y-6 w-full">
-              {data.map((product) => (
+              {products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>

@@ -6,5 +6,6 @@ export async function setup(app: FastifyInstance) {
 
   app.gracefulShutdown(async (signal) => {
     app.log.info(`Shutting down due to ${signal}`)
+    await app.close()
   })
 }

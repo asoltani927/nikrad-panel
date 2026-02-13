@@ -5,7 +5,6 @@ import {
   CreateProductBodySchema,
   CreateProductResponseSchema,
 } from '../schema/create-product.schema'
-import { Messages } from '@/constants/messages'
 
 export const postProductRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
