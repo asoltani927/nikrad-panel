@@ -32,14 +32,13 @@ export const deleteItemFromCartRoute = async (app: FastifyInstance) => {
 
     handler: async (request, reply) => {
       if (!request.user) {
-        return reply
-          .status(401)
-          .send(UnauthorizedResponseSchema.parse({ error: 'Unauthorized' }))
+        return reply.status(401).send(UnauthorizedResponseSchema.parse({ error: 'Unauthorized' }))
       }
 
+      const { id: customerId } = request.user
       const { id } = request.params
 
-      const result = await app.dokamerce.cart.remove({ id })
+      const result = await app.dokamerce.cart.remove({ cartItemId: id, customerId })
 
       if (!result) {
         return reply.status(404).send({

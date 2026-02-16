@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -102,6 +102,30 @@ export default function LoginPage() {
     }
   };
 
+
+  // Verify OTP (if you want OTP input in the same form)
+  const handleVerifyOtp = useCallback(async () => {
+    if (step !== "otp") {
+      return;
+    }
+    const otp = codes.join("");
+
+    if (otp.length !== 6) {
+      setError("کد تایید معتبر نیست");
+      return;
+    }
+    const normalizedPhone = normalizePhone(phone);
+    const ok = await verifyOtp(normalizedPhone, otp);
+    if (!ok) {
+      // TODO: handle styling of toast message @reza
+      toast.warning("کد تایید معتبر نیست");
+      setCodes(["", "", "", "", "", ""]);
+      inputsRef.current[0]?.focus();
+      return;
+    }
+    console.log("OTP verification result:", ok);
+  }, [codes, phone, step, verifyOtp]);
+
   useEffect(() => {
     if (step !== "otp") return;
 
@@ -142,29 +166,6 @@ export default function LoginPage() {
     inputsRef.current[0]?.focus();
     setTimer(RESEND_DELAY);
     toast.success("کد تایید مجدداً ارسال شد");
-  };
-
-  // Verify OTP (if you want OTP input in the same form)
-  const handleVerifyOtp = async () => {
-    if (step !== "otp") {
-      return;
-    }
-    const otp = codes.join("");
-
-    if (otp.length !== 6) {
-      setError("کد تایید معتبر نیست");
-      return;
-    }
-    const normalizedPhone = normalizePhone(phone);
-    const ok = await verifyOtp(normalizedPhone, otp);
-    if (!ok) {
-      // TODO: handle styling of toast message @reza
-      toast.warning("کد تایید معتبر نیست");
-      setCodes(["", "", "", "", "", ""]);
-      inputsRef.current[0]?.focus();
-      return;
-    }
-    console.log("OTP verification result:", ok);
   };
 
   // If user is already logged in

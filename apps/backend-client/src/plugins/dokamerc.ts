@@ -1,13 +1,6 @@
 import fp from 'fastify-plugin'
 import { FastifyInstance } from 'fastify'
 import { createInstance } from '@dokamerce/web-sdk'
-import type { DokamerceSDK } from '@dokamerce/web-sdk'
-
-declare module 'fastify' {
-  interface FastifyInstance {
-    dokamerce: DokamerceSDK
-  }
-}
 
 export async function setup(app: FastifyInstance) {
   const plugin = fp(async (app: FastifyInstance) => {

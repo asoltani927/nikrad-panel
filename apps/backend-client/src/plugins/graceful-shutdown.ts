@@ -6,6 +6,12 @@ export async function setup(app: FastifyInstance) {
 
   app.gracefulShutdown(async (signal) => {
     app.log.info(`Shutting down due to ${signal}`)
+    if (app.prisma) {
+      app.prisma.$disconnect()
+    }
+    if (app.redis && app.redis.status === 'ready') {
+      app.redis.quit()
+    }
     await app.close()
   })
 }

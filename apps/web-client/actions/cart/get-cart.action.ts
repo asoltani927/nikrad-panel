@@ -1,14 +1,15 @@
 import { backendRequest } from "@/clients/backend";
-import { Product } from "@/types";
+import { Cart } from "@/types/cart.type";
 
-export async function getCart(): Promise<Product> {
+export async function getCart(): Promise<Cart | null> {
   try {
-    const data = await backendRequest<Product>({
+    const data = await backendRequest<{
+      cart?: Cart | null;
+    }>({
       method: "GET",
       url: `/cart`,
     });
-
-    return data;
+    return data.cart ?? null;
   } catch (err) {
     console.error("Error fetching product:", err);
     throw err;

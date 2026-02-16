@@ -37,10 +37,10 @@ export default function Header() {
 					</div>
 					<nav className="hidden lg:flex  items-center gap-4 text-sm font-medium ms-6">
 						<Link
-							href={'#'}
+							href={'/sellers'}
 							className=" hover:text-gray-700 "
 						>
-							فروشگاه
+							فروشگاه‌ها
 						</Link>
 						<Link
 							href={'/inquiries'}
@@ -55,7 +55,7 @@ export default function Header() {
 							درباره ما
 						</Link>
 						<Link
-							href={'#'}
+							href={'/about'}
 							className=" hover:text-gray-700"
 						>
 							تماس با ما

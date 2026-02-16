@@ -1,4 +1,5 @@
 import { normalizeMobile } from '@/utils/phone'
+import { TelephoneNumberTarget } from '@dokamerce/web-sdk'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
@@ -29,7 +30,7 @@ export const postAuthSendOtpRoute = async (app: FastifyInstance) => {
       const rawPhone = request.body.phone
       const phone = normalizeMobile(rawPhone) // TODO: all phones should map to 989134241882 @reza (Done)
       // 1. Find customer or create
-      const { edges: customers } = await app.dokamerce.customers.paginated({
+      const customers = await app.dokamerce.customers.paginated({
         filter: {
           username: {
             equals: phone,
@@ -38,19 +39,21 @@ export const postAuthSendOtpRoute = async (app: FastifyInstance) => {
       })
 
       let customer = null
-      if (!customers || customers.length <= 0) {
+      if (!customers || !customers.edges || customers.edges.length <= 0) {
         const created = await app.dokamerce.customers.create({
           data: {
             fullName: phone,
             username: phone,
             active: true,
-            telephoneNumbers: [{ targets: ['OWNER'], value: phone }],
+            telephoneNumbers: [{ targets: [TelephoneNumberTarget.Owner], value: phone }],
           },
         })
         customer = created
       } else {
-        customer = customers[0]
+        customer = customers.edges[0]
       }
+
+      console.log(customer)
 
       // 2. Check if an active OTP already exists
       const existingOtp = await app.prisma.otp.findFirst({

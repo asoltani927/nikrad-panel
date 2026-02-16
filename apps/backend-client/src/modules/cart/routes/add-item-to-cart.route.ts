@@ -41,7 +41,7 @@ export const addItemToCartRoute = async (app: FastifyInstance) => {
       const { id } = request.user
       const body = request.body
 
-      await app.dokamerce.cart.addToCart({
+      await app.dokamerce.cart.add({
         customerId: id,
         data: [
           {

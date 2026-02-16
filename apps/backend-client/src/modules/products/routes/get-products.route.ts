@@ -14,8 +14,8 @@ export const getProductsRoute = async (app: FastifyInstance) => {
         // 500: GetProductsResponseSchema.pick({ message: true }),
       },
     },
-    handler: async (request, reply) => {
-      let products = [];
+    handler: async (_request, reply) => {
+      let products
       try {
         products = await app.dokamerce.products.paginated({
           filter: {},
@@ -32,7 +32,13 @@ export const getProductsRoute = async (app: FastifyInstance) => {
         console.error('Error fetching products:', error)
         // return reply.status(500).send({ message: 'Internal Server Error' })
       }
-      return reply.status(200).send(GetProductsResponseSchema.parse({ products: products.edges }))
+      return reply
+        .status(200)
+        .send(
+          GetProductsResponseSchema.parse({
+            products: products?.edges.map((edge: any) => edge.node),
+          }),
+        )
     },
   })
 }

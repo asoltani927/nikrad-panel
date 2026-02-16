@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { Product } from "@/types";
+import { generateProductLink } from "@/utils/generate-product-link.util";
+import { AddToPurchaseCardButton } from "./AddToPurchaseCardButton";
 
 export const ProductCard = ({ product }: { product: Product }) => {
   return (
@@ -62,10 +64,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           asChild
           className="lg:grow lg:px-4! h-8  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-xs font-medium"
         >
-          <Link href={"#"} className="flex items-center gap-2 ">
-            <span className="hidden lg:block"> افزودن به سبد خرید</span>
-            <span className="block lg:hidden">خرید</span>
-          </Link>
+          <AddToPurchaseCardButton product={product} />
         </Button>
 
         <Button
@@ -74,7 +73,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           className="px-2 lg:px-auto lg:grow  h-8 bg-transparent  rounded-[3px] border-[#EAAA08] hover:bg-[#e7bd35] text-[#CA8504] text-xs font-medium"
         >
           <Link
-            href={`/products/${product.slug}`}
+            href={generateProductLink(product)}
             className="flex items-center gap-2 "
           >
             <span className="hidden lg:block"> جزئیات</span>
