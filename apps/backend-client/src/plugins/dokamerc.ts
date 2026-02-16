@@ -1,13 +1,6 @@
 import fp from 'fastify-plugin'
 import { FastifyInstance } from 'fastify'
 import { createInstance } from '@dokamerce/web-sdk'
-import type { DokamerceSDK } from '@dokamerce/web-sdk'
-
-declare module 'fastify' {
-  interface FastifyInstance {
-    dokamerce: DokamerceSDK
-  }
-}
 
 export async function setup(app: FastifyInstance) {
   const plugin = fp(async (app: FastifyInstance) => {
@@ -15,7 +8,7 @@ export async function setup(app: FastifyInstance) {
       realm: process.env.SHOP_REALM!,
       key: process.env.SHOP_API_KEY!,
       onError: (err) => app.log.error(err),
-      // mode: 'debug',
+      mode: 'debug',
     })
 
     app.decorate('dokamerce', sdk)

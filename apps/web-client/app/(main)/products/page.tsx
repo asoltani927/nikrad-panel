@@ -6,10 +6,19 @@ import { ProductsPagination } from "./components/ProductsPagination";
 import { ProductsTitle } from "./components/ProductsTitle";
 import { ProductsToolbar } from "./components/ProductsToolbar";
 import { ProductCard } from "./components/ProductCard";
-import { getProducts } from "@/actions/products/get-products.action";
+import { getProducts, GetProductsParams } from "@/actions/products/get-products.action";
 
-export default async function ProductsPage() {
-  const products = await getProducts(); // ✅ SERVER FETCH (SEO SAFE)
+
+export const metadata = {
+  title: "محصولات | نیک‌راد",
+  description: "در این صفحه می‌توانید محصولات مختلف را مشاهده کنید و با استفاده از فیلترها، جستجو و مرتب‌سازی، محصول مورد نظر خود را پیدا کنید.",
+};
+export default async function ProductsPage({
+  searchParams,
+}: {
+  searchParams: GetProductsParams;
+}) {
+  const products = await getProducts(searchParams);
 
   return (
     <div className="w-full min-h-screen bg-white font-sans dark:bg-black">

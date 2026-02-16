@@ -40,8 +40,10 @@ export async function authMiddleware(request: FastifyRequest, reply: FastifyRepl
     // }
 
     const sellers = request.server.dokamerce.sellers.all({
-      user: {
-        username: customer.username,
+      filter: {
+        name: {
+          equals: customer.username,
+        },
       },
     })
 
@@ -50,7 +52,7 @@ export async function authMiddleware(request: FastifyRequest, reply: FastifyRepl
       id: customer.id,
       customer: customer,
       sellers: sellers ?? [],
-    } as AuthenticatedPayload
+    } as unknown as AuthenticatedPayload
   } catch (error) {
     console.error(error)
     throw new UnauthorizedError('Invalid token.')

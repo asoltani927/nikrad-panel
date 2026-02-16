@@ -445,14 +445,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dokamerce/web-sdk@npm:^0.21.2":
-  version: 0.21.2
-  resolution: "@dokamerce/web-sdk@npm:0.21.2"
+"@dokamerce/web-sdk@npm:^0.22":
+  version: 0.22.0
+  resolution: "@dokamerce/web-sdk@npm:0.22.0"
   dependencies:
     graphql: "npm:^16.12.0"
     graphql-request: "npm:^7.2.0"
     graphql-tag: "npm:^2.12.6"
-  checksum: 10/90eccfb6b666aa876da3133f58274450f09084f96c21b772ca197336c27839e4fb71eb206223a00dffcdc1f845f0dc8220987a8a0947d48435b95cfd28ffa7c3
+  checksum: 10/41af079066154a88464fa65bd99f0274f00a7d82f38bc82083eac71bdeb01e12ba88ace816966dcb81b8a19ba66ddb15516db0ac25049eea012054969609751f
   languageName: node
   linkType: hard
 
@@ -1761,7 +1761,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@nikrad/backend-client@workspace:apps/backend-client"
   dependencies:
-    "@dokamerce/web-sdk": "npm:^0.21.2"
+    "@dokamerce/web-sdk": "npm:^0.22"
     "@fastify/cors": "npm:^11.1.0"
     "@fastify/jwt": "npm:^10.0.0"
     "@fastify/redis": "npm:^7.1.0"
@@ -1777,6 +1777,7 @@ __metadata:
     eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-prettier: "npm:^5.5.4"
     fastify: "npm:^5.6.1"
+    fastify-graceful-shutdown: "npm:^5.0.0"
     fastify-type-provider-zod: "npm:^6.1.0"
     graphql-request: "npm:^7.4.0"
     ioredis: "npm:^5.8.2"
@@ -1939,6 +1940,7 @@ __metadata:
     babel-plugin-react-compiler: "npm:1.0.0"
     class-variance-authority: "npm:^0.7.1"
     clsx: "npm:^2.1.1"
+    cmdk: "npm:^1.1.1"
     embla-carousel-autoplay: "npm:^8.6.0"
     embla-carousel-react: "npm:^8.6.0"
     eslint: "npm:^9"
@@ -2401,7 +2403,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-compose-refs@npm:1.1.2":
+"@radix-ui/react-compose-refs@npm:1.1.2, @radix-ui/react-compose-refs@npm:^1.1.1":
   version: 1.1.2
   resolution: "@radix-ui/react-compose-refs@npm:1.1.2"
   peerDependencies:
@@ -2427,7 +2429,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-dialog@npm:1.1.15, @radix-ui/react-dialog@npm:^1.1.1, @radix-ui/react-dialog@npm:^1.1.15":
+"@radix-ui/react-dialog@npm:1.1.15, @radix-ui/react-dialog@npm:^1.1.1, @radix-ui/react-dialog@npm:^1.1.15, @radix-ui/react-dialog@npm:^1.1.6":
   version: 1.1.15
   resolution: "@radix-ui/react-dialog@npm:1.1.15"
   dependencies:
@@ -2554,7 +2556,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-id@npm:1.1.1":
+"@radix-ui/react-id@npm:1.1.1, @radix-ui/react-id@npm:^1.1.0":
   version: 1.1.1
   resolution: "@radix-ui/react-id@npm:1.1.1"
   dependencies:
@@ -2744,7 +2746,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-primitive@npm:2.1.4":
+"@radix-ui/react-primitive@npm:2.1.4, @radix-ui/react-primitive@npm:^2.0.2":
   version: 2.1.4
   resolution: "@radix-ui/react-primitive@npm:2.1.4"
   dependencies:
@@ -4676,6 +4678,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cmdk@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "cmdk@npm:1.1.1"
+  dependencies:
+    "@radix-ui/react-compose-refs": "npm:^1.1.1"
+    "@radix-ui/react-dialog": "npm:^1.1.6"
+    "@radix-ui/react-id": "npm:^1.1.0"
+    "@radix-ui/react-primitive": "npm:^2.0.2"
+  peerDependencies:
+    react: ^18 || ^19 || ^19.0.0-rc
+    react-dom: ^18 || ^19 || ^19.0.0-rc
+  checksum: 10/8f52beee4a6289d67138bdeb3b9833fb67fb06cfea53968803f31b6a39b09ca3c8698a302c6bf8286ee6cc0c8f5dc2c4e5a398450f48db7b9f2d1657f3c4bde2
+  languageName: node
+  linkType: hard
+
 "code-block-writer@npm:^13.0.3":
   version: 13.0.3
   resolution: "code-block-writer@npm:13.0.3"
@@ -6322,6 +6339,15 @@ __metadata:
   dependencies:
     reusify: "npm:^1.0.0"
   checksum: 10/c0929f7125413493ba0fae722c6c7a2a0af415e261a2e0d2f13493eecd4ea333b3490bd2870df90c3aa6d655a9cf96bc237198a4ccf29f7c097466390e19ae70
+  languageName: node
+  linkType: hard
+
+"fastify-graceful-shutdown@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "fastify-graceful-shutdown@npm:5.0.0"
+  dependencies:
+    fastify-plugin: "npm:^5.0.1"
+  checksum: 10/7b46d4908395fa4116f7e7b8485b74da5313c7cbe29746b44764c986b6377761774163af68acc06245f9fb687544dcc6d63369f1767a2a595748973d8be1ab2b
   languageName: node
   linkType: hard
 

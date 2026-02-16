@@ -1,5 +1,8 @@
 import { CartItemType } from "./typings/cartItem.types";
 
+/**
+ * @deprecated
+ */
 export const cartItems: CartItemType[] = [
     {
         id: 1,

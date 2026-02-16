@@ -1,40 +1,12 @@
-import { getProduct } from "@/app/products/get-product.action";
-import { Product } from "@/types";
-import { useEffect, useState } from "react";
+import { getProduct } from "@/actions/products/get-product.action";
+import { useQuery } from "@tanstack/react-query";
 
-/**
- * @deprecated
- * TODO: I think not necessary, use tanstack @reza
- */
-export function useProductById(id: string | number) {
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchProduct = async () => {
-    if (!id) return;
-
-    setLoading(true);
-    try {
-      const data = await getProduct(id);
-      setProduct(data);
-      setError(null);
-    } catch (err) {
-      console.error("Error fetching product:", err);
-      setError("خطا در دریافت محصول");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchProduct();
-  }, [id]);
-
-  return {
-    product,
-    loading,
-    error,
-    productRefetch: fetchProduct,
-  };
-}
+export const useProduct = (id: string | number) =>
+  useQuery({
+    queryKey: ["product", id],
+    queryFn: () => {
+      if (!id) throw new Error("Product id is required");
+      return getProduct(id);
+    },
+    enabled: !!id,
+  });

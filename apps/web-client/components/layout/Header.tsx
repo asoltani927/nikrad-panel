@@ -6,6 +6,7 @@ import { Search } from "lucide-react";
 import { Input } from "../ui/input";
 import MobileDrawer from "./MobileDrawer"
 import UserNavigation from "../base/UserNavigation";
+import BaseHeaderSearchInput from "../base/HeaderSearchInput";
 
 export default function Header() {
 	return (
@@ -36,10 +37,10 @@ export default function Header() {
 					</div>
 					<nav className="hidden lg:flex  items-center gap-4 text-sm font-medium ms-6">
 						<Link
-							href={'#'}
+							href={'/sellers'}
 							className=" hover:text-gray-700 "
 						>
-							فروشگاه
+							فروشگاه‌ها
 						</Link>
 						<Link
 							href={'/inquiries'}
@@ -54,7 +55,7 @@ export default function Header() {
 							درباره ما
 						</Link>
 						<Link
-							href={'#'}
+							href={'/about'}
 							className=" hover:text-gray-700"
 						>
 							تماس با ما
@@ -71,17 +72,32 @@ export default function Header() {
 					{/* TODO  base component */}
 					<div className="hidden lg:block relative  lg:ml-auto ms-1 ">
 						<div className="relative">
-							<Input
-								placeholder="جستجو"
-								className="w-40 h-8 placeholder:text-xs! placeholder:font-thin text-[11px]!  ps-10 border-[#DADCDE] focus-within:outline-0 rounded-full  focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none"
+
+							<BaseHeaderSearchInput
+								trigger={
+									<span className="flex items-center">
+										<Search className="h-4 w-4" />
+										{/* <Search className="block lg:hidden  text-zinc-500 size-7" /> */}
+									</span>
+								}
 							/>
-							<Search className="absolute start-4 top-1/2 -translate-y-1/2 text-zinc-500 size-4" />
 						</div>
 					</div>
 				</div>
 				<div className="flex items-center gap-6">
-					<Search className="block lg:hidden  text-zinc-500 size-7" />
-					<UserNavigation />
+
+					<div className="block lg:hidden ">
+
+						<BaseHeaderSearchInput
+							trigger={
+								<span className="flex items-center">
+									<Search className="h-4 w-4" />
+									{/* <Search className=" text-zinc-500 size-7" /> */}
+								</span>
+							}
+						/>
+
+					</div>				<UserNavigation />
 
 				</div>
 			</BaseContainer>
