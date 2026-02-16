@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const ProductSchema = z.object({
   id: z.string().default(''),
@@ -34,35 +34,110 @@ export const ProductSchema = z.object({
   metaDescription: z.string().nullable().default(null),
   metaKeywords: z.string().nullable().default(null),
 
-  brand: z.object({
-    id: z.string().default(''),
-    name: z.string().default(''),
-    slug: z.string().default(''),
-  }).nullable().default(null),
+  brand: z
+    .object({
+      id: z.string().default(''),
+      name: z.string().default(''),
+      slug: z.string().default(''),
+    })
+    .nullable()
+    .default(null),
 
-  category: z.object({
-    id: z.string().default(''),
-    name: z.string().default(''),
-    slug: z.string().default(''),
-  }).nullable().default(null),
+  category: z
+    .object({
+      id: z.string().default(''),
+      name: z.string().default(''),
+      slug: z.string().default(''),
+    })
+    .nullable()
+    .default(null),
 
-  thumbnail: z.object({
-    id: z.string().default(''),
-    url: z.string().default(''),
-  }).default({ id: '', url: '' }),
+  thumbnail: z
+    .object({
+      id: z.string().default(''),
+      url: z.string().default(''),
+    })
+    .default({ id: '', url: '' }),
 
-  files: z.array(z.object({
-    id: z.string().default(''),
-    url: z.string().default(''),
-  })).default([]),
+  files: z
+    .array(
+      z.object({
+        id: z.string().default(''),
+        url: z.string().default(''),
+      }),
+    )
+    .default([]),
 
-  variants: z.array(z.object({
-    id: z.string().default(''),
-    price: z.number().default(0),
-    stock: z.number().default(0),
-  })).default([]),
-});
+  variants: z
+    .array(
+      z.object({
+        id: z.string().default(''),
+        price: z.number().default(0),
+        stock: z.number().default(0),
+      }),
+    )
+    .default([]),
+  sellers: z
+    .array(
+      z.object({
+        active: z.boolean().nullable().optional(),
+        barcode: z.string().nullable().optional(),
+        discountEndAt: z.number().nullable().optional(),
+        discountFixed: z.number().nullable().optional(),
+        discountPercentage: z.number().nullable().optional(),
+        discountStartAt: z.number().nullable().optional(),
+        priceDiff: z.number(),
+        quantity: z.number(),
+        sku: z.string().nullable().optional(),
+        seller: z.object({
+          id: z.string(),
+          name: z.string(),
+          description: z.string().nullable().optional(),
+          active: z.boolean(),
+          orderNumber: z.number(),
+          slug: z.string(),
+          rating: z.number().nullable().optional(),
+          verified: z.boolean(),
+          createdAt: z.any(),
+          updatedAt: z.any(),
+        }),
+        variant: z
+          .array(
+            z.object({
+              active: z.boolean().nullable().optional(),
+              default: z.boolean(),
+              id: z.string(),
+              attributes: z.array(
+                z.object({
+                  value: z.string(),
+                  attribute: z.object({
+                    active: z.boolean(),
+                    createdAt: z.any(),
+                    id: z.string(),
+                    name: z.string(),
+                    type: z.string(),
+                    updatedAt: z.any(),
+                    values: z
+                      .array(
+                        z.object({
+                          default: z.boolean(),
+                          name: z.string(),
+                        }),
+                      )
+                      .nullable()
+                      .optional(),
+                  }),
+                }),
+              ),
+            }),
+          )
+          .nullable()
+          .optional(),
+      }),
+    )
+    .default([]),
+})
 
 export const GetProductsResponseSchema = z.object({
   products: z.array(ProductSchema).default([]),
-});
+})

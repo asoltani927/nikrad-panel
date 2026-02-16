@@ -15,12 +15,12 @@ export const addItemToCartRoute = async (app: FastifyInstance) => {
       description: 'Adds a product item to the authenticated user cart',
 
       body: z.object({
-        addressId: z.string().min(1),
+        addressId: z.string().optional().nullable(),
         productId: z.string().min(1),
         quantity: z.number().int().min(1),
         sellerId: z.string().min(1),
-        shippingId: z.string().min(1),
-        variantId: z.string().min(1),
+        shippingId: z.string().min(1).optional().nullable(),
+        variantId: z.string().optional().nullable(),
       }),
 
       response: {
@@ -41,6 +41,7 @@ export const addItemToCartRoute = async (app: FastifyInstance) => {
       const { id } = request.user
       const body = request.body
 
+      console.log(body)
       await app.dokamerce.cart.add({
         customerId: id,
         data: [

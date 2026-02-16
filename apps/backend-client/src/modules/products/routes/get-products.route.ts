@@ -27,18 +27,17 @@ export const getProductsRoute = async (app: FastifyInstance) => {
           withVariant: true,
           withThumbnail: true,
           withFiles: true,
+          withSellers: true,
         })
       } catch (error) {
         console.error('Error fetching products:', error)
         // return reply.status(500).send({ message: 'Internal Server Error' })
       }
-      return reply
-        .status(200)
-        .send(
-          GetProductsResponseSchema.parse({
-            products: products?.edges.map((edge: any) => edge.node),
-          }),
-        )
+      return reply.status(200).send(
+        GetProductsResponseSchema.parse({
+          products: products?.edges.map((edge: any) => edge.node),
+        }),
+      )
     },
   })
 }
