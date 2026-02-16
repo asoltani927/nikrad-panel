@@ -19,3 +19,5 @@ export async function shopsModule(app: FastifyInstance) {
     { prefix: '/shops' },
   )
 }
+
+// TODO: make a route to retrieve top sellers @reza (it is a public route without login for home page) (just fetch 10 items sorted by total sales descending)
