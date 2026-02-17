@@ -519,3 +519,9 @@ enum OtpType {
   verify
   reset
 }
+
+model NewsletterSubscriber {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+}

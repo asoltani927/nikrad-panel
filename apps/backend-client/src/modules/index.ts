@@ -11,6 +11,7 @@ import { shopsModule } from './shops'
 import { productsModule } from './products'
 import { authModule } from './auth'
 import { cartModule } from './cart'
+import { newsletterModule } from './newsletter'
 
 export async function initialModules(app: FastifyInstance) {
   await authModule(app)
@@ -25,4 +26,5 @@ export async function initialModules(app: FastifyInstance) {
   await shopsModule(app)
   await productsModule(app)
   await cartModule(app)
+  await newsletterModule(app)
 }
