@@ -6,20 +6,18 @@ interface PaginationMeta {
   page: number
   limit: number
   totalPages: number
-  links?: Record<string, string | undefined>
+  links?: Record<string, string | null>
 }
 
 export const createPaginationMeta = (
   total: number,
   page: number,
   limit: number,
-  request?: FastifyRequest
+  request?: FastifyRequest,
 ): PaginationMeta => {
   const totalPages = Math.max(Math.ceil(total / limit), 1)
 
-  // Use only the pathname (remove query parameters)
   const baseUrl = request ? request.url.split('?')[0] : ''
-
   const makeLink = (p: number) => `${baseUrl}?page=${p}&limit=${limit}`
 
   const links =
@@ -27,8 +25,8 @@ export const createPaginationMeta = (
       ? {
           first: makeLink(1),
           last: makeLink(totalPages),
-          prev: page > 1 ? makeLink(page - 1) : undefined,
-          next: page < totalPages ? makeLink(page + 1) : undefined,
+          prev: page > 1 ? makeLink(page - 1) : null,
+          next: page < totalPages ? makeLink(page + 1) : null,
         }
       : undefined
 
