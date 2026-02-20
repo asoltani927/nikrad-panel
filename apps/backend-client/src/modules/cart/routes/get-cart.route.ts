@@ -4,6 +4,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 import { UnauthorizedResponseSchema } from '@/schema/unauthorized-response.schema'
 import { GetCartResponseSchema } from '../schema'
+import { InternalServerErrorResponseSchema } from '@/schema/internal-server-error-response.schema'
 
 // TypeScript type inference
 export type GetCartResponse = z.infer<typeof GetCartResponseSchema>;
@@ -21,19 +22,15 @@ export const getCartRoute = async (app: FastifyInstance) => {
       response: {
         200: GetCartResponseSchema,
         401: UnauthorizedResponseSchema,
-        500: z.object({
-          error: z.string(),
-        }), // TODO: make a global error response schema @reza
-      },
+        500: InternalServerErrorResponseSchema,
+      }
     },
 
     handler: async (request, reply) => {
       if (!request.user) {
         return reply.status(401).send(UnauthorizedResponseSchema.parse({ error: 'Unauthorized' }))
       }
-
       const { id } = request.user
-
       try {
         const cart = await app.dokamerce.cart.get({
           customerId: id,

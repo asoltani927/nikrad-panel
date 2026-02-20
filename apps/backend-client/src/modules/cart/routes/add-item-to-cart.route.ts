@@ -3,6 +3,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 import { authMiddleware } from '@/middlewares'
 import { UnauthorizedResponseSchema } from '@/schema/unauthorized-response.schema'
+import { InternalServerErrorResponseSchema } from '@/schema/internal-server-error-response.schema'
 
 export const addItemToCartRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -28,9 +29,7 @@ export const addItemToCartRoute = async (app: FastifyInstance) => {
           message: z.string(),
         }),
         401: UnauthorizedResponseSchema,
-        500: z.object({
-          error: z.string,
-        }),
+        500: InternalServerErrorResponseSchema,
       },
     },
 

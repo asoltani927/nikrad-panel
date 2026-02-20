@@ -3,6 +3,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 import { authMiddleware } from '@/middlewares'
 import { UnauthorizedResponseSchema } from '@/schema/unauthorized-response.schema'
+import { NotFoundResponseSchema } from '@/schema/not-found-response.schema'
 
 export const setCartAddressRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -15,21 +16,15 @@ export const setCartAddressRoute = async (app: FastifyInstance) => {
       summary: 'Set cart address',
       description:
         'Assigns an address to the authenticated user cart',
-
       params: z.object({
         id: z.string().min(1),
       }),
-
       response: {
         200: z.object({
           message: z.string(),
         }),
-
         401: UnauthorizedResponseSchema,
-
-        404: z.object({
-          message: z.string(),
-        }),
+        404: NotFoundResponseSchema,
       },
     },
 
