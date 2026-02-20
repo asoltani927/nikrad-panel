@@ -28,37 +28,40 @@ export const addItemToCartRoute = async (app: FastifyInstance) => {
           message: z.string(),
         }),
         401: UnauthorizedResponseSchema,
+        500: z.object({
+          error: z.string,
+        }),
       },
     },
 
     handler: async (request, reply) => {
       if (!request.user) {
-        return reply
-          .status(401)
-          .send(UnauthorizedResponseSchema.parse({ error: 'Unauthorized' }))
+        return reply.status(401).send(UnauthorizedResponseSchema.parse({ error: 'Unauthorized' }))
       }
-
       const { id } = request.user
       const body = request.body
+      try {
+        await app.dokamerce.cart.add({
+          customerId: id,
+          data: [
+            {
+              addressId: body.addressId,
+              productId: body.productId,
+              quantity: body.quantity,
+              sellerId: body.sellerId,
+              shippingId: body.shippingId,
+              variantId: body.variantId,
+            },
+          ],
+        })
 
-      console.log(body)
-      await app.dokamerce.cart.add({
-        customerId: id,
-        data: [
-          {
-            addressId: body.addressId,
-            productId: body.productId,
-            quantity: body.quantity,
-            sellerId: body.sellerId,
-            shippingId: body.shippingId,
-            variantId: body.variantId,
-          },
-        ],
-      })
-
-      return reply.status(200).send({
-        message: 'Item added successfully',
-      })
+        return reply.status(200).send({
+          message: 'Item added successfully',
+        })
+      } catch (error) {
+        console.error('Error adding item to cart:', error)
+        return reply.status(500).send({ error: 'Failed to add item to cart' })
+      }
     },
   })
 }

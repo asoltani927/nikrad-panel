@@ -87,8 +87,10 @@ export const postAuthSendOtpRoute = async (app: FastifyInstance) => {
         },
       })
 
-      // 5. Send SMS
-      await app.texting.sendOtp(phone, otp)
+      try {
+        // 5. Send SMS
+        await app.texting.sendOtp(phone, otp)
+      } catch (error) {}
 
       return reply.status(200).send({
         success: true,

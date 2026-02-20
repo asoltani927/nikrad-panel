@@ -1,8 +1,8 @@
 export interface CartItemType {
-    id: number;
+    id: string;
     title: string;
     color: string;
-    oldPrice: string;
-    price: string;
-    discount: string;
+    oldPrice?: number;
+    price: number;
+    discount: number;
 }

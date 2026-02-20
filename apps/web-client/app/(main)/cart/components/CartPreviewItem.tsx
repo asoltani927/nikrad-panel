@@ -7,7 +7,6 @@ import { useState } from "react";
 import { CartItemType } from "./typings/cartItem.types";
 
 export default function CartPreviewItem({
-    id,
     title,
     color,
     oldPrice,

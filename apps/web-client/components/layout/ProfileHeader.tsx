@@ -91,7 +91,7 @@ export default function ProfileHeader() {
 						href={'/profile/seller'}
 						className="w-fit hidden items-center gap-2 rounded-full border border-[#171717] px-5 h-8! text-xs font-light  text-white lg:flex"
 					>
-						 باتن موقت پنل فروشنده
+						باتن موقت پنل فروشنده
 					</Link>
 				</Button>
 

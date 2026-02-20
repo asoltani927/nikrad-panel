@@ -1,4 +1,4 @@
-"use server";
+'use server'
 
 import { backendRequest } from "@/clients/backend";
 import { Cart } from "@/types/cart.type";
@@ -14,19 +14,17 @@ export interface AddToCartInput {
 
 export async function addToCartAction(
   input: AddToCartInput,
-): Promise<Cart | null> {
+): Promise<{ message: string }> {
   try {
-
     // TODO: check is login or not
-    const data = await backendRequest<{
+    await backendRequest<{
       cart?: Cart | null;
     }>({
       method: "POST",
       url: `/cart`,
       data: input,
     });
-
-    return data.cart ?? null;
+    return { message: "Item added successfully" };
   } catch (err) {
     console.error("Error adding to cart:", err);
     throw err;

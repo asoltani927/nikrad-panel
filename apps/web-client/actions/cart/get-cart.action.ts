@@ -1,3 +1,5 @@
+'use server'
+
 import { backendRequest } from "@/clients/backend";
 import { Cart } from "@/types/cart.type";
 

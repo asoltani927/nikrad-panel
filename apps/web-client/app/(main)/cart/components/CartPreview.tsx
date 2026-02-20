@@ -14,16 +14,11 @@ import { Separator } from "@/components/ui/separator"
 import Image from "next/image"
 import { usePathname } from "next/navigation";
 import CartPreviewItem from "./CartPreviewItem"
-import { useQuery } from "@tanstack/react-query"
-import { getCart } from "@/actions/cart/get-cart.action"
+import { useCart } from "@/hooks/use-cart"
 
 export default function CartPreview() {
 
-    const { data: cart, isLoading } = useQuery({
-        initialData: null,
-        queryKey: ["purchase-cart-items"],
-        queryFn: getCart,
-    });
+    const { cart, loading } = useCart()
 
     const hasAnyItems = useMemo(() => {
         return cart && !!cart.items.length
@@ -70,7 +65,7 @@ export default function CartPreview() {
     }, [isHome])
 
 
-    if (isLoading)
+    if (loading)
         return ''
 
     return (
@@ -128,8 +123,9 @@ export default function CartPreview() {
                         {/* PRODUCT CARDS  */}
                         {hasAnyItems ? (
                             <div className="space-y-6 lg:space-y-[18px] divide-y ps-4 pe-1 ">
+                                {/* TODO: color */}
                                 {cart?.items.map((item) => (
-                                    <CartPreviewItem title={""} color={""} oldPrice={""} price={""} discount={""} key={item.id} />
+                                    <CartPreviewItem id={item.id} title={item.product.name} color={''} oldPrice={item.discountValue ?? undefined} price={item.totalAmount} discount={item.discountValue} key={item.id} />
                                 ))}
 
                             </div>

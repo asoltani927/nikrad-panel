@@ -97,7 +97,8 @@ export default function Header() {
 							}
 						/>
 
-					</div>				<UserNavigation />
+					</div>
+					<UserNavigation />
 
 				</div>
 			</BaseContainer>
