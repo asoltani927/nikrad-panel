@@ -6,6 +6,7 @@ import { seedCategories } from "./categories.seed";
 import { seedMaterialBooks } from "./material-books.seed";
 import { seedCustomFields } from "./custom-fields.seed";
 import { seedShops } from "./shops.seed";
+import { seedBlogs } from "./blogs.seed";
 
 const prisma = new PrismaClient();
 
@@ -31,7 +32,7 @@ async function seedAddresses(users: any[]) {
               regionCode: province,
               address: `${faker.location.streetAddress()}, ${faker.location.city()}, کد پستی: ${faker.string.numeric(10)}`,
             },
-          })
+          }),
         );
       } catch (error) {
         console.log(`Skipped address for user`);
@@ -67,7 +68,7 @@ async function seedNeeds(categories: any[], users: any[]) {
             deliveryDate: faker.date.future(),
             createdById: user.id,
           },
-        })
+        }),
       );
     } catch (error) {
       console.log("Skipped duplicate need");
@@ -127,6 +128,7 @@ async function main() {
   await prisma.address.deleteMany();
   await prisma.category.deleteMany();
   await prisma.shop.deleteMany();
+  await prisma.blog.deleteMany();
   await prisma.user.deleteMany();
   await prisma.region.deleteMany();
   await prisma.country.deleteMany();
@@ -137,6 +139,7 @@ async function main() {
   const users = await seedUsers();
   const categories = await seedCategories(users[0].id);
   await seedShops(users, categories);
+  await seedBlogs(users, categories);
   const addresses = await seedAddresses(users);
   const needs = await seedNeeds(categories, users);
   const suggestionCount = await seedSuggestions(needs, users);
@@ -144,7 +147,7 @@ async function main() {
   const { customFields, customFieldValues } = await seedCustomFields(
     materialBooks,
     users,
-    categories
+    categories,
   );
 
   console.log("\n🎉 Database seeded successfully!");
