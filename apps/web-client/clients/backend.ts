@@ -40,7 +40,7 @@ export async function backendRequest<TResponse, TData = unknown>(
     const headers =
       config.headers instanceof AxiosHeaders
         ? config.headers
-        : new AxiosHeaders(config.headers as unknown as {});
+        : new AxiosHeaders(JSON.stringify(config.headers));
 
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);

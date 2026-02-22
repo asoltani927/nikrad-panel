@@ -3,14 +3,12 @@
 import { Minus, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
-import { CartItemType } from "./typings/cartItem.types";
+import { useMemo, useState } from "react";
+import { CartItemType } from "../typings/cartItem.types";
 
 export default function CartPreviewItem({
-    id,
     title,
     color,
-    oldPrice,
     price,
     discount,
 }: CartItemType) {
@@ -18,6 +16,10 @@ export default function CartPreviewItem({
 
     const increment = () => setQuantity((prev) => prev + 1);
     const decrement = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+    const oldPrice = useMemo(() => {
+        if (discount > 0) return price + discount;
+        return 0;
+    }, [price, discount]);
 
     return (
         <div className="flex flex-col lg:flex-row justify-between text-xs pb-6 lg:pb-4 pe-3">

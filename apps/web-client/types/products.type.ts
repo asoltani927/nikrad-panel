@@ -1,4 +1,5 @@
-export interface Product {
+import { type Product as ProductBase, ProductFile, ProductSeller, ProductStatus, File, ProductType, ProductVariant, Category, Brand } from "@dokamerce/web-sdk";
+export interface Product extends ProductBase {
   id: string;
   name: string;
   slug: string;
@@ -10,8 +11,8 @@ export interface Product {
   todayDeal: boolean;
   soldCount: number;
   views: number;
-  status: string;
-  type: string;
+  status: ProductStatus;
+  type: ProductType;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -25,31 +26,11 @@ export interface Product {
   metaTitle: boolean;
   metaDescription: boolean;
   metaKeywords: boolean;
-  brand: {
-    id: string;
-    name: string;
-    slug: string;
-  };
-  category: {
-    id: string;
-    name: string;
-    slug: string;
-  };
-  variants: {
-    id: string;
-    price: number;
-    stock: number;
-  }[];
-  thumbnail: {
-    id: string;
-    url: string;
-  };
-  files: {
-    id: string;
-    url: string;
-  }[];
-  seller: {
-    id: string;
-    name: string;
-  };
+  
+  brand?: Brand;
+  category?: Category;
+  variants: ProductVariant[];
+  thumbnail: File;
+  files: ProductFile[];
+  sellers: ProductSeller[];
 }

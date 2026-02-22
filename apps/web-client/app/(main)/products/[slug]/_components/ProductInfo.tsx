@@ -76,11 +76,11 @@ export const ProductInfo = ({ product }: { product: Product }) => {
 
       <div className="flex justify-between items-center font-normal text-base lg:text-sm mt-1 mb-1.5">
         <span className="text-[#85888E]">نام فروشنده</span>
-        <span className="font-medium text-gray-700">{product.seller.name}</span>
+        <span className="font-medium text-gray-700">{product.sellers[0].seller.name}</span>
       </div>
 
       <span className="text-sm lg:text-xs text-yellow-700">
-        {product.variants[0].stock} عدد موجود در انبار
+        {product.variants[0].default} عدد موجود در انبار
       </span>
 
       <div className="w-full grid grid-cols-12 gap-4 lg:gap-4 mt-1.5">

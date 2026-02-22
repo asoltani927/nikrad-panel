@@ -1,65 +1,10 @@
-'use client'
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import BaseContainer from "../base/BaseContainer";
-import { ArrowLeft, Mail, Square } from "lucide-react";
-import { Input } from "../ui/input";
-import z from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { sendEmail } from "@/actions/newsletter/send-email.action";
-import { toast } from "sonner";
-
-const formSchema = z.object({
-  email: z.string().min(1, "ایمیل الزامی است").email("فرمت ایمیل معتبر نیست"),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
-interface ApiError {
-  statusCode: number;
-  message: string;
-}
+import { Square } from "lucide-react";
+import SubscriptionForm from "./SubscriptionForm";
 
 export default function LayoutFooter() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
-  });
-
-  const { mutateAsync, isPending } = useMutation<unknown, ApiError, FormValues>(
-    {
-      mutationKey: ["sendEmail"],
-      mutationFn: async (variables) => {
-        return await sendEmail({
-          ...variables,
-        });
-      },
-      onSuccess: (data) => {
-        console.log("Email sent successfully:", data);
-        toast.success("عضویت شما با موفقیت انجام شد");
-        reset();
-      },
-      onError: (error) => {
-        console.error("Error sending email:", error);
-        if (error?.statusCode === 409) {
-          toast.error("این ایمیل قبلا ثبت شده است");
-        } else toast.error("خطایی رخ داده است");
-      },
-    },
-  );
-
-  const onSubmit = async (data: FormValues) => {
-    await mutateAsync({
-      email: data.email,
-    });
-  };
 
   return (
     <footer className="w-full bg-white text-[#1F242F] px-[8%] lg:px-[14%] bg-linear-to-b from-[#FFFBE4] to-[#F7F7F7] lg:bg-[url('/img/Footer.png')] bg-cover bg-no-repeat flex items-center justify-center top-0 z-50 shadow-xs py-14 lg:py-16 text-[#1C1D1F]">
@@ -72,35 +17,7 @@ export default function LayoutFooter() {
               مقالات و به روزترین لیست قیمت محصولات شرکت باخبر شوید.
             </div>
           </div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col sm:flex-row items-center gap-6 mt-4 mb-10">
-              <div className="relative w-full sm:w-1/2">
-                <Input
-                  {...register("email")}
-                  placeholder="ایمیل خود را وارد کنید"
-                  className="w-full h-12 placeholder:text-[13px]! text-[13px]! ps-10 border-[#CECFD2] rounded-[3px] focus:outline-none focus:ring-0 shadow-none"
-                />
-                <Mail className="absolute start-4 top-1/2 -translate-y-1/2 text-[#CECFD2] size-5" />
-
-                {errors.email && (
-                  <p className="text-red-500 text-xs mt-2">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
-
-              <Button
-                disabled={isPending}
-                type="submit"
-                className="w-full sm:w-1/2 px-7! h-12 rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-[15px] font-medium"
-              >
-                <span className="flex items-center gap-2">
-                  {isPending ? "در حال ثبت ایمیل" : "عضویت"}
-                  {!isPending && <ArrowLeft className="h-4 w-4" />}
-                </span>
-              </Button>
-            </div>
-          </form>
+          <SubscriptionForm />
         </div>
         <div className="w-full grid lg:grid-cols-2">
           <div className="w-full lg:w-10/12 flex flex-col ">
@@ -251,35 +168,7 @@ export default function LayoutFooter() {
                 مقالات و به روزترین لیست قیمت محصولات شرکت باخبر شوید.
               </div>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="flex items-center gap-4 mt-4">
-                <div className="relative w-full">
-                  <Input
-                    {...register("email")}
-                    placeholder="ایمیل خود را وارد کنید"
-                    className="w-full h-10 placeholder:text-[11px]! text-[11px]! ps-10 border-[#CECFD2] rounded-[3px] focus:outline-none focus:ring-0 shadow-none"
-                  />
-                  <Mail className="absolute start-4 top-1/2 -translate-y-1/2 text-[#CECFD2] size-4" />
-
-                  {errors.email && (
-                    <p className="text-red-500 text-[10px] mt-1 absolute">
-                      {errors.email.message}
-                    </p>
-                  )}
-                </div>
-
-                <Button
-                  type="submit"
-                  className="px-7! h-10 rounded-[3px] bg-[#FAC515] hover:bg-[#e7bd35] text-[#1C1D1F] text-xs font-medium"
-                >
-                  <span className="flex items-center gap-2">
-                    {isPending ? "در حال ثبت ایمیل" : "عضویت"}
-
-                    {!isPending && <ArrowLeft className="h-4 w-4" />}
-                  </span>
-                </Button>
-              </div>
-            </form>
+            <SubscriptionForm />
           </div>
         </div>
       </BaseContainer>

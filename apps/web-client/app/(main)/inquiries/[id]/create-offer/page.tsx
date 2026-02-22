@@ -29,6 +29,7 @@ export default function CreateOffer() {
         proposedCost: ""
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [errors, setErrors] = useState<any>({});
 
     const handleChange = (name: string, value: string) => {
@@ -40,6 +41,7 @@ export default function CreateOffer() {
         const result = schema.safeParse(form);
 
         if (!result.success) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const formatted: any = {};
             result.error.issues.forEach((i) => (formatted[i.path[0]] = i.message));
             setErrors(formatted);
