@@ -125,6 +125,11 @@ model User {
   transaction                     Transaction[]
   shops                           Shop[]
   shopReviews                     ShopReview[]
+  comments                        Comment[]
+  blogsCreatedBy                  Blog[]                   @relation("blogsCreatedBy")
+  blogsUpdatedBy                  Blog[]                   @relation("blogsUpdatedBy")
+  blogsDeletedBy                  Blog[]                   @relation("blogsDeletedBy")
+  blogsOwned                      Blog[]                   @relation("blogsOwned")
 }
 
 model Address {
@@ -174,6 +179,7 @@ model Category {
   CustomField CustomField[]
   User        User[]
   shops       Shop[]
+  blogs       Blog[]        @relation("BlogCategories")
 
   @@map("categories")
 }
@@ -524,4 +530,93 @@ model NewsletterSubscriber {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   createdAt DateTime @default(now()) @map("created_at")
+}
+
+enum BlogStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Tag {
+  id   Int    @id @default(autoincrement())
+  name String
+  slug String @unique
+
+  blogs Blog[] @relation("BlogTags")
+
+  createdAt DateTime @default(now())
+
+  @@map("tags")
+}
+
+model Comment {
+  id      Int    @id @default(autoincrement())
+  content String @db.Text
+
+  blogId Int
+  blog   Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id])
+
+  parentId Int?
+  parent   Comment?  @relation("CommentToComment", fields: [parentId], references: [id])
+  replies  Comment[] @relation("CommentToComment")
+
+  approved Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("comments")
+}
+
+model Blog {
+  id   Int    @id @default(autoincrement())
+  cuid String @unique @default(cuid())
+
+  title    String
+  slug     String  @unique
+  titles   Json?
+  excerpt  String?
+  excerpts Json?
+  content  String
+  contents Json?
+
+  image       String?
+  readingTime Int?
+
+  status      BlogStatus @default(DRAFT)
+  publishedAt DateTime?  @map("published_at")
+
+  views Int @default(0)
+
+  metaTitle       String? @map("meta_title")
+  metaDescription String? @map("meta_description")
+  metaKeywords    String? @map("meta_keywords")
+
+  categories Category[] @relation("BlogCategories")
+  tags       Tag[]      @relation("BlogTags")
+  comments   Comment[]
+
+  deleted   Boolean   @default(false)
+  deletedAt DateTime? @map("deleted_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  createdById Int
+  createdBy   User @relation("blogsCreatedBy", fields: [createdById], references: [id])
+
+  updatedById Int?
+  updatedBy   User? @relation("blogsUpdatedBy", fields: [updatedById], references: [id])
+
+  deletedById Int?
+  deletedBy   User? @relation("blogsDeletedBy", fields: [deletedById], references: [id])
+  user        User? @relation("blogsOwned", fields: [userId], references: [id])
+  userId      Int?
+
+  @@index([status, publishedAt])
+  @@map("blogs")
 }

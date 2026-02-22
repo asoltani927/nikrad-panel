@@ -3,18 +3,31 @@
 import { Button } from "@/components/ui/button";
 import { SellerCard } from "./SellerCard";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import BaseContainer from "@/components/base/BaseContainer";
 import Image from "next/image";
 import { useSellers } from "@/app/hooks/sellers/useSellers";
+import { useRef } from "react";
 
 export const SellerShowcase = () => {
+  const sliderRef = useRef<HTMLDivElement>(null);
   const {
     sellers,
     loading,
     error,
     sellersRefetch: fetchSellers,
   } = useSellers();
+
+  const goRightToLeft = () => {
+    sliderRef.current!.scrollLeft -= 300;
+  };
+
+  const goLeftToRight = () => {
+    console.log('hello');
+    
+    sliderRef.current!.scrollLeft += 300;
+  };
+
   return (
     <section className="relative w-full pt-24 lg:pt-40 pb-20">
       <BaseContainer className="relative flex flex-col items-center">
@@ -58,10 +71,35 @@ export const SellerShowcase = () => {
           </div>
         </div>
 
-        <div className="px-8 lg:px-0 w-full lg:w-fit hiddenScrollStyle relative flex overflow-x-auto lg:grid lg:grid-cols-4 lg:overflow-visible  z-10   gap-4 mt-12 lg:mt-24 ">
-          {sellers.map((item, key) => (
-            <SellerCard key={key} seller={item} />
-          ))}
+        <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between lg:pe-44 mb-6 ps-8 lg:ps-0">
+          <div className="flex items-center gap-2 mt-4 lg:mt-12">
+            <button
+              onClick={goLeftToRight}
+              className="cursor-pointer ms-3 w-9 h-9 hidden lg:flex items-center justify-center border rounded-xs bg-transparent z-50"
+            >
+              <ArrowRight color="#000" size={17} />
+            </button>
+
+            <button
+              onClick={goRightToLeft}
+              className="cursor-pointer w-9 h-9 hidden lg:flex items-center justify-center border rounded-xs bg-transparent z-50"
+            >
+              <ArrowLeft color="#000" size={17} />
+            </button>
+          </div>
+        </div>
+
+        <div dir="ltr" className="relative w-full">
+          <div
+            ref={sliderRef}
+            className="flex flex-row-reverse overflow-x-auto hiddenScrollStyle scroll-smooth px-8 lg:pe-0 lg:ps-44 py-2"
+          >
+            {sellers.map((item, key) => (
+              <div key={key} className="shrink-0 w-[250px]">
+                <SellerCard seller={item} />
+              </div>
+            ))}
+          </div>
         </div>
       </BaseContainer>
 
