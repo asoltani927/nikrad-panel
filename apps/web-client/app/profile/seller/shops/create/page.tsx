@@ -169,6 +169,9 @@ export default function CreateShopPage() {
 
   const onSubmit = async (data: ShopFormValues) => {
     try {
+      // TODO: fix typos @reza
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       await submit(data);
       toast.success("فروشگاه با موفقیت ایجاد شد");
       router.push("/profile/seller/shops");

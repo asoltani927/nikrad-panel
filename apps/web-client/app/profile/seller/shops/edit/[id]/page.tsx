@@ -23,7 +23,7 @@ import {
   useComboboxAnchor,
 } from "@/components/ui/combobox";
 import { toast } from "sonner";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useShop } from "./hooks/useShop.hook";
 
 const daysOfWeek = [
@@ -38,7 +38,6 @@ const daysOfWeek = [
 
 export default function CreateShopPage() {
   const anchor = useComboboxAnchor();
-  const router = useRouter();
   const params = useParams();
   const slug = params?.id as string | number;
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import BaseContainer from "../base/BaseContainer";
 import { Search } from "lucide-react";
-import { Input } from "../ui/input";
 import MobileDrawer from "./MobileDrawer"
 import UserNavigation from "../base/UserNavigation";
 import BaseHeaderSearchInput from "../base/HeaderSearchInput";

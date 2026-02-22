@@ -31,6 +31,7 @@ export default function CreateInquiry() {
         priority: ""
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [errors, setErrors] = useState<any>({});
 
     const handleChange = (name: string, value: string) => {
@@ -42,6 +43,7 @@ export default function CreateInquiry() {
         const result = schema.safeParse(form);
 
         if (!result.success) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const formatted: any = {};
             result.error.issues.forEach((i) => (formatted[i.path[0]] = i.message));
             setErrors(formatted);
@@ -71,7 +73,7 @@ export default function CreateInquiry() {
                         className="block lg:hidden absolute top-5 ms-2 object-contain"
                     />
                     <h1 className="relative text-center z-10 text-[26px] font-medium text-gray-800">
-                        فرم ثبت درخواست<br className="block lg:hidden"/>(نیازمندی)
+                        فرم ثبت درخواست<br className="block lg:hidden" />(نیازمندی)
                     </h1>
                 </div>
 

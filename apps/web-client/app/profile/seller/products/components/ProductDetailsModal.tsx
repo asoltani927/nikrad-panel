@@ -56,14 +56,14 @@ export default function ProductDetailsModal({
 
           <Item
             icon={
-              product.status === "active" ? (
+              !product.active ? (
                 <CheckCircle size={18} className="text-green-600" />
               ) : (
                 <XCircle size={18} className="text-red-600" />
               )
             }
             label="وضعیت"
-            value={product.status === "active" ? "فعال" : "غیرفعال"}
+            value={!!product.active ? "فعال" : "غیرفعال"}
           />
 
           <Item
@@ -72,17 +72,23 @@ export default function ProductDetailsModal({
             value={product.inventory}
           />
 
-          <Item
-            icon={<Layers size={18} />}
-            label="دسته‌بندی"
-            value={product.category.name}
-          />
 
-          <Item
-            icon={<Factory size={18} />}
-            label="برند"
-            value={product.brand.name}
-          />
+          {
+            product.category && <Item
+              icon={<Layers size={18} />}
+              label="دسته‌بندی"
+              value={product.category.name}
+            />
+          }
+
+          {
+
+            product.brand && <Item
+              icon={<Factory size={18} />}
+              label="برند"
+              value={product.brand.name}
+            />
+          }
         </div>
         <div className="flex gap-2 items-start mt-2">
           <FileText size={18} className="mt-1 text-gray-600" />
@@ -94,8 +100,8 @@ export default function ProductDetailsModal({
 
         <div className="flex items-center gap-2 lg:justify-end">
           <Button variant={"outline"}>
-            {product.status === "active" ? <EyeOff /> : <Eye />}
-            {product.status === "active" ? "غیرفعال" : "فعال"}
+            {!!product.active ? <EyeOff /> : <Eye />}
+            {!!product.active ? "غیرفعال" : "فعال"}
           </Button>
           <Button variant={"outline"}>
             <Trash />

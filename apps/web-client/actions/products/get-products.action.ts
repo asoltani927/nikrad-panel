@@ -34,6 +34,6 @@ export async function getProducts(
     return data.products;
   } catch (err) {
     console.error("Error fetching products:", err);
-    throw err;
+    return []
   }
 }

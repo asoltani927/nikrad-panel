@@ -125,7 +125,7 @@ export default function CartPreview() {
                             <div className="space-y-6 lg:space-y-[18px] divide-y ps-4 pe-1 ">
                                 {/* TODO: color */}
                                 {cart?.items.map((item) => (
-                                    <CartPreviewItem id={item.id} title={item.product.name} color={''} oldPrice={item.discountValue ?? undefined} price={item.totalAmount} discount={item.discountValue} key={item.id} />
+                                    <CartPreviewItem id={item.id} title={item.product.name} color={''} price={item.totalAmount} discount={item.discountValue} key={item.id} quantity={item.quantity} />
                                 ))}
 
                             </div>
