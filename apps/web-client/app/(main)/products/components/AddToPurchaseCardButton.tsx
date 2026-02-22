@@ -1,8 +1,8 @@
 'use client';
 
-import { addToCartAction, AddToCartInput } from "@/actions/cart/add-to-cart.action";
 import { Button } from "@/components/ui/button";
-import { useMutation } from "@tanstack/react-query";
+import { useCart } from "@/hooks/use-cart";
+import { useAuth } from "@/providers/auth.provider";
 import Link from "next/link";
 
 interface AddToPurchaseCardButtonProps {
@@ -11,25 +11,24 @@ interface AddToPurchaseCardButtonProps {
 
 export function AddToPurchaseCardButton({ product }: AddToPurchaseCardButtonProps) {
 
-    const { mutateAsync } = useMutation<unknown, unknown, AddToCartInput>({
-        mutationKey: ["addToCart", product.slug],
-        mutationFn: async (variables) => {
-            return await addToCartAction({
-                ...variables,
-            });
-        },
-        onSuccess: (data) => {
-            console.log("Product added to cart successfully:", data);
-        },
-        onError: (error) => {
-            console.error("Error adding product to cart:", error);
-        }
-    })
+    const { isLoggedIn, loading, } = useAuth();
+    const { addToCart, isAdding } = useCart();
+
+    const onLogInRequired = () => {
+        // TODO: Implement a better way to notify the user, such as a modal or toast notification or make a modal for login and show it here instead of alert @reza
+        alert("لطفاً ابتدا وارد حساب کاربری خود شوید.");
+    };
+
 
     const handleAddingToPurchaseCart = async (e: React.MouseEvent) => {
         e.preventDefault(); // prevent navigation if needed
-        console.log(product);
-        await mutateAsync({
+        if (!isLoggedIn) {
+            if (onLogInRequired) {
+                onLogInRequired();
+            }
+            return;
+        }
+        await addToCart({
             productId: product.id,
             quantity: 1,
             sellerId: product.sellers[0].seller.id,
@@ -39,6 +38,14 @@ export function AddToPurchaseCardButton({ product }: AddToPurchaseCardButtonProp
         })
         // TODO: add product to cart logic
 
+    }
+
+    if (loading || isAdding) {
+        return (
+            <Button size={'sm'} disabled className="flex items-center gap-2 rounded-[3px] bg-gray-300 text-gray-500 text-xs font-medium">
+                <span className="block lg:hidden">...</span>
+            </Button>
+        );
     }
 
     return (

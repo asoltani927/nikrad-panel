@@ -4,11 +4,10 @@ import { useRef, useState } from "react";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { products } from "@/app/(main)/components/products/products.data";
-import { ProductCard } from "@/app/(main)/products/components/ProductCard";
 
 export function SellerRecentProducts() {
     const sliderRef = useRef<HTMLDivElement>(null);
-    const [filter, setFilter] = useState("popular");
+    const [filter] = useState("popular");
 
     const goRightToLeft = () => {
         sliderRef.current!.scrollLeft -= 300;
@@ -64,7 +63,8 @@ export function SellerRecentProducts() {
                 >
                     {sortedProducts.map((product) => (
                         <div key={product.id}>
-                            <ProductCard product={product} />
+                            NEED TO BE FIXED
+                            {/* <ProductCard product={product} /> */}
                         </div>
                     ))}
                 </div>

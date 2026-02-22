@@ -3,12 +3,11 @@
 import { useRef, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { products } from "@/app/(main)/components/products/products.data";
-import { ProductCard } from "@/app/(main)/components/products/ProductCard";
 
 // TODO: Verify that this page is fully SEO-safe (ensure data is fetched server-side). @reza
 export const RelatedProducts = () => {
     const sliderRef = useRef<HTMLDivElement>(null);
-    const [filter, setFilter] = useState("popular");
+    const [filter] = useState("popular");
 
     const goRightToLeft = () => {
         sliderRef.current!.scrollLeft -= 300;
@@ -64,7 +63,8 @@ export const RelatedProducts = () => {
                 >
                     {sortedProducts.map((product) => (
                         <div key={product.id}>
-                            <ProductCard product={product} />
+                            NEED TO BE FIXED
+                            {/* <ProductCard product={product} /> */}
                         </div>
                     ))}
                 </div>

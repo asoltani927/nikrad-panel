@@ -20,7 +20,7 @@ import { useShops } from "./hooks/useShops";
 export default function Page() {
   const [open, setOpen] = useState<boolean>(false);
   const [selectedProduct, setSelectedProduct] = useState<Shop | null>(null);
-  const { shops, loading, error, sellersRefetch } = useShops();
+  const { shops, loading } = useShops();
   const handleViewProduct = (shop: Shop) => {
     setSelectedProduct(shop);
     setOpen(true);

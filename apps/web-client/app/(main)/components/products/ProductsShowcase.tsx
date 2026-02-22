@@ -3,7 +3,6 @@
 import { useRef, useState } from "react";
 import BaseContainer from "@/components/base/BaseContainer";
 import { products } from "./products.data";
-import { ProductCard } from "./ProductCard";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ProductSelectFilter } from "./ProductSelectFilter";
 import Link from "next/link";
@@ -68,7 +67,8 @@ export function ProductsShowcase() {
                     >
                         {sortedProducts.map((product) => (
                             <div key={product.id}>
-                                <ProductCard product={product} />
+                            NEED TO BE FIXED
+                            {/* <ProductCard product={product} /> */}
                             </div>
                         ))}
                     </div>

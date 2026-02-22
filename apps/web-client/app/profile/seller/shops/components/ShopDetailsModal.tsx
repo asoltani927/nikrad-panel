@@ -10,9 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Shop } from "@/types";
 import {
-  Store,
   Tag,
-  Layers,
   CheckCircle,
   XCircle,
   User,

@@ -64,7 +64,8 @@ export function SellerBestSellingProducts() {
                 >
                     {sortedProducts.map((product) => (
                         <div key={product.id}>
-                            <ProductCard product={product} />
+                            NEED TO BE FIXED
+                            {/* <ProductCard product={product} /> */}
                         </div>
                     ))}
                 </div>

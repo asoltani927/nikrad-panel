@@ -1,77 +1,68 @@
-"use client"
+"use client";
 
-import { ShoppingCart, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ShoppingCart, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "@/components/ui/popover"
-import Link from "next/link"
-import { useEffect, useMemo, useState } from "react"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import Image from "next/image"
+} from "@/components/ui/popover";
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import CartPreviewItem from "./CartPreviewItem"
-import { useQuery } from "@tanstack/react-query"
-import { getCart } from "@/actions/cart/get-cart.action"
+import CartPreviewItem from "./CartPreviewItem";
+import { useCart } from "@/hooks/use-cart";
 
 export default function CartPreview() {
-
-    const { data: cart, isLoading } = useQuery({
-        initialData: null,
-        queryKey: ["purchase-cart-items"],
-        queryFn: getCart,
-    });
+    const { cart, loading } = useCart();
 
     const hasAnyItems = useMemo(() => {
-        return cart && !!cart.items.length
-    }, [cart])
+        return cart && !!cart.items.length;
+    }, [cart]);
 
-    const [open, setOpen] = useState(false)
-    const [sideOffset, setSideOffset] = useState(11)
+    const [open, setOpen] = useState(false);
+    const [sideOffset, setSideOffset] = useState(11);
 
     const pathname = usePathname();
 
     const isHome = pathname === "/";
     const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
 
-
     useEffect(() => {
         if (open) {
-            document.body.style.overflow = "hidden"
+            document.body.style.overflow = "hidden";
         } else {
-            document.body.style.overflow = ""
+            document.body.style.overflow = "";
         }
 
         return () => {
-            document.body.style.overflow = ""
-        }
-    }, [open])
+            document.body.style.overflow = "";
+        };
+    }, [open]);
 
     useEffect(() => {
         const handleResize = () => {
-            const isMobileNow = window.innerWidth < 1024
+            const isMobileNow = window.innerWidth < 1024;
 
             if (isMobileNow && isHome) {
-                setSideOffset(-32)
+                setSideOffset(-32);
             } else {
-                setSideOffset(isMobileNow ? 11 : 28.5)
+                setSideOffset(isMobileNow ? 11 : 28.5);
             }
-        }
+        };
 
-        handleResize()
-        window.addEventListener("resize", handleResize)
+        handleResize();
+        window.addEventListener("resize", handleResize);
 
         return () => {
-            window.removeEventListener("resize", handleResize)
-        }
-    }, [isHome])
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [isHome]);
 
-
-    if (isLoading)
-        return ''
+    if (loading) return "";
 
     return (
         <>
@@ -88,17 +79,19 @@ export default function CartPreview() {
                 />
             )}
 
-
             <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
                     <button className="relative z-50 cursor-pointer">
                         <ShoppingCart
-                            color={hasAnyItems ? '#EAAA08' : '#333741'}
+                            color={hasAnyItems ? "#EAAA08" : "#333741"}
                             className="size-6 lg:size-5.5 cursor-pointer"
                         />
 
                         {hasAnyItems && (
-                            <Badge color="#FF383C" className="absolute -top-[5.2px] bg-[#FF383C] -right-1.5 h-[16.5px] min-w-4 pb-[0.4px] text-[9px] rounded-full px-1 font-mono tabular-nums">
+                            <Badge
+                                color="#FF383C"
+                                className="absolute -top-[5.2px] bg-[#FF383C] -right-1.5 h-[16.5px] min-w-4 pb-[0.4px] text-[9px] rounded-full px-1 font-mono tabular-nums"
+                            >
                                 {cart?.items.length}
                             </Badge>
                         )}
@@ -111,16 +104,18 @@ export default function CartPreview() {
                     className="z-50 w-screen lg:w-[470px] p-0 py-6 lg:py-4 rounded-md shadow-lg overflow-y-auto max-h-[calc(100vh-78px)] "
                 >
                     <div className="h-full">
-
                         {/* TITLE  */}
                         <div className="w-full flex justify-between items-center px-4 mb-0.5">
-                            <h4 className="lg:text-[11.5px] font-semibold">
-                                سبد خرید
-                            </h4>
-                            <X onClick={() => setOpen(false)} className="cursor-pointer size-5 lg:size-4" />
+                            <h4 className="lg:text-[11.5px] font-semibold">سبد خرید</h4>
+                            <X
+                                onClick={() => setOpen(false)}
+                                className="cursor-pointer size-5 lg:size-4"
+                            />
                         </div>
                         {hasAnyItems && (
-                            <span className="text-[#5B5C5F] text-xs lg:text-[10px]  px-4 ">{cart?.items?.length} کالا</span>
+                            <span className="text-[#5B5C5F] text-xs lg:text-[10px]  px-4 ">
+                                {cart?.items?.length} کالا
+                            </span>
                         )}
 
                         <Separator className="bg-gray-100 h-[0.2px]! mt-6 lg:mt-3 mb-6" />
@@ -128,10 +123,18 @@ export default function CartPreview() {
                         {/* PRODUCT CARDS  */}
                         {hasAnyItems ? (
                             <div className="space-y-6 lg:space-y-[18px] divide-y ps-4 pe-1 ">
+                                {/* TODO: color */}
                                 {cart?.items.map((item) => (
-                                    <CartPreviewItem title={""} color={""} oldPrice={""} price={""} discount={""} key={item.id} />
+                                    <CartPreviewItem
+                                        id={item.id}
+                                        title={item.product.name}
+                                        color={""}
+                                        price={item.totalAmount}
+                                        discount={item.discountValue}
+                                        key={item.id}
+                                        quantity={item.quantity}
+                                    />
                                 ))}
-
                             </div>
                         ) : (
                             <div className="flex flex-col items-center gap-3.5 mb-4 -mt-3 ">
@@ -143,20 +146,31 @@ export default function CartPreview() {
                                         className="object-contain"
                                     />
                                 </div>
-                                <div className="text-gray-900 text-lg lg:text-[14.5px] font-medium mt-1 " >هنوز هیچ محصولی به سبد خرید اضافه نکرده‌اید.</div>
-                                <p className="text-gray-500 font-thin text-sm lg:text-xs text-center leading-5.5 ">برای شروع، از میان متریال‌ها و تجهیزات ساختمانی موجود، اقلام <br /> مورد نیاز خود را انتخاب کنید.</p>
+                                <div className="text-gray-900 text-lg lg:text-[14.5px] font-medium mt-1 ">
+                                    هنوز هیچ محصولی به سبد خرید اضافه نکرده‌اید.
+                                </div>
+                                <p className="text-gray-500 font-thin text-sm lg:text-xs text-center leading-5.5 ">
+                                    برای شروع، از میان متریال‌ها و تجهیزات ساختمانی موجود، اقلام{" "}
+                                    <br /> مورد نیاز خود را انتخاب کنید.
+                                </p>
                             </div>
                         )}
 
-
                         {/* ACTIONS  */}
                         <div className="w-full grid grid-cols-2 items-center justify-between gap-2 lg:gap-1.5 px-6 lg:px-4 mt-6 lg:mt-1">
-                            <Button onClick={() => setOpen(false)} asChild className="bg-yellow-400 hover:bg-yellow-500 text-black text-base lg:text-[11px] h-11 lg:h-7 rounded-sm">
-                                <Link href={hasAnyItems ? '/cart' : '/products'} >
-                                    {hasAnyItems ? ' تکمیل فرآیند خرید ' : 'فروشگاه'}
+                            <Button
+                                onClick={() => setOpen(false)}
+                                asChild
+                                className="bg-yellow-400 hover:bg-yellow-500 text-black text-base lg:text-[11px] h-11 lg:h-7 rounded-sm"
+                            >
+                                <Link href={hasAnyItems ? "/cart" : "/products"}>
+                                    {hasAnyItems ? " تکمیل فرآیند خرید " : "فروشگاه"}
                                 </Link>
                             </Button>
-                            <Button onClick={() => setOpen(false)} className="cursor-pointer w-full bg-transparent hover:bg-gray-50  border text-black border-[#DADCDE] h-11 lg:h-7 text-base lg:text-[11px] rounded-sm ">
+                            <Button
+                                onClick={() => setOpen(false)}
+                                className="cursor-pointer w-full bg-transparent hover:bg-gray-50  border text-black border-[#DADCDE] h-11 lg:h-7 text-base lg:text-[11px] rounded-sm "
+                            >
                                 انصراف
                             </Button>
                         </div>
@@ -164,5 +178,5 @@ export default function CartPreview() {
                 </PopoverContent>
             </Popover>
         </>
-    )
+    );
 }

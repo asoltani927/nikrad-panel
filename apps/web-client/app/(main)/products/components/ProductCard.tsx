@@ -5,8 +5,13 @@ import { Check } from "lucide-react";
 import { Product } from "@/types";
 import { generateProductLink } from "@/utils/generate-product-link.util";
 import { AddToPurchaseCardButton } from "./AddToPurchaseCardButton";
+import { generateSellerLink } from "@/utils/generate-seller-link.util";
 
-export const ProductCard = ({ product }: { product: Product }) => {
+export const ProductCard = ({
+  product,
+}: {
+  product: Product;
+}) => {
   return (
     <div
       dir="rtl"
@@ -14,7 +19,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
     >
       <div className="lg:w-[190px] lg:h-[190px] rounded-md bg-white ">
         <Image
-          src={product.thumbnail.url}
+          src={product.thumbnail.url ?? "/placeholder.png"}
           alt={product.name}
           width={190}
           height={190}
@@ -48,15 +53,21 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
       <div className="w-full flex items-center justify-between gap-1 text-xs font-thin">
         <span className=" text-[#CA8504]">
-          {product?.variants[0]?.stock
-            ? product?.variants[0]?.stock + " " + "عدد موجود  "
-            : "ناموجود"}
+          {0 ? 0 + " " + "عدد موجود  " : "ناموجود"}
         </span>
       </div>
 
       <div className="w-full flex items-center justify-between gap-1 text-xs font-thin border-t pt-3">
         <span className=" text-[#85888E]">فروشنده</span>
-        <div className="">فروشگاه {product?.seller?.name}</div>
+        <div className="">
+          <Link
+            href={generateSellerLink(product.sellers[0].seller)}
+            className="text-[#CA8504]"
+            target="_blank"
+          >
+            {product?.sellers[0]?.seller.name.substring(0, 15)}...
+          </Link>
+        </div>
       </div>
 
       <div className="flex justify-between items-center gap-2 mt-">
@@ -64,7 +75,9 @@ export const ProductCard = ({ product }: { product: Product }) => {
           asChild
           className="lg:grow lg:px-4! h-8  rounded-[3px] bg-brand-primary hover:bg-[#e7bd35] text-[#1C1D1F] text-xs font-medium"
         >
-          <AddToPurchaseCardButton product={product} />
+          <AddToPurchaseCardButton
+            product={product}
+          />
         </Button>
 
         <Button

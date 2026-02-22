@@ -1,3 +1,5 @@
+'use server'
+
 import { backendRequest } from "@/clients/backend";
 import { Cart } from "@/types/cart.type";
 
@@ -11,7 +13,7 @@ export async function getCart(): Promise<Cart | null> {
     });
     return data.cart ?? null;
   } catch (err) {
-    console.error("Error fetching product:", err);
+    console.error("Error fetching cart:", err);
     throw err;
   }
 }

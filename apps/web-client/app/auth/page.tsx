@@ -21,7 +21,7 @@ const RESEND_DELAY = 120; // seconds
 
 
 
-const LoggedInView = () =>   {
+const LoggedInView = () => {
   const { user, logout } = useAuth();
   const router = useRouter();
 
@@ -35,7 +35,7 @@ const LoggedInView = () =>   {
   return (
     <div className="w-full h-screen flex items-center justify-center">
       <div className="text-center">
-        <h2 className="text-2xl font-semibold">خوش آمدید، {user.fullName  }!</h2>
+        <h2 className="text-2xl font-semibold">خوش آمدید، {user.fullName}!</h2>
         <p className="mt-2 text-gray-500">{user.username}</p>
 
         <div className="mt-4 flex justify-center gap-2">
@@ -132,9 +132,12 @@ export default function LoginPage() {
     const otp = codes.join("");
 
     if (otp.length === 6 && !codes.includes("")) {
-      handleVerifyOtp();
+      const timer = setTimeout(() => {
+        handleVerifyOtp();
+      }, 0);
+      return () => clearTimeout(timer);
     }
-  }, [codes]);
+  }, [codes, step, handleVerifyOtp]);
 
   // Send OTP
   const handleSendOtp = async () => {

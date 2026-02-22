@@ -1,7 +1,6 @@
 {
   "name": "@nikrad/web-admin",
   "version": "0.1.0",
-  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack --port 3002",
@@ -25,7 +24,7 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@tailwindcss/postcss": "^4.1.14",
     "@tanstack/react-query": "^5.90.3",
-    "axios": "^1.12.2",
+    "axios": "^1.13.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "init": "^0.1.2",
