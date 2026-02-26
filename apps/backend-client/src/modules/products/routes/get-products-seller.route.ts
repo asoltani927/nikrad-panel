@@ -9,10 +9,10 @@ export const GetProductParamsSchema = z.object({
 })
 
 export const GetProductResponseSchema = z.object({
-  product: ProductSchema,
+  product: z.array(ProductSchema),
 })
 
-export const getProductBySellerIdRoute = async (app: FastifyInstance) => {
+export const getProductsBySellerIdRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/seller/:id',
@@ -30,8 +30,12 @@ export const getProductBySellerIdRoute = async (app: FastifyInstance) => {
     handler: async (request, reply) => {
       const { id } = request.params as { id: string }
 
-      const product = await app.dokamerce.products.find({ seller: id })
-      console.log(product)
+      // TODO: Remove this when dokamerce is ready
+      const product = await app.dokamerce.products.paginated({ filter: {
+        // seller: {
+        //   in: [ id ]
+        // }
+      } })
 
       if (!product) {
         return reply.status(404).send({
@@ -41,7 +45,7 @@ export const getProductBySellerIdRoute = async (app: FastifyInstance) => {
 
       return reply
         .status(200)
-        .send(GetProductResponseSchema.parse({ product: product.response.data }))
+        .send(GetProductResponseSchema.parse({ product: product.edges }))
     },
   })
 }

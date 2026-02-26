@@ -35,7 +35,7 @@ export const deleteProductRoute = async (app: FastifyInstance) => {
         return reply.status(404).send({ message: 'Product not found' })
       }
 
-      await app.dokamerce.products.delete(id)
+      await app.dokamerce.products.delete({ id })
 
       return reply.status(200).send({ message: 'Product deleted successfully' })
     },

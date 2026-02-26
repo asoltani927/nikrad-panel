@@ -8,7 +8,7 @@ const needsSchema = z.object({
   title: z.string(),
   categoryId: z.number(),
   product: z.number(),
-  provinceCode: z.string(),
+  provinceCode: z.nativeEnum(RegionCodeEnum),
   city: z.string(),
   priority: z.number(),
   deliveryDate: z.coerce.date(),
@@ -32,13 +32,13 @@ export const postNeedRoute = async (app: FastifyInstance) => {
       },
     },
     handler: async (request, reply) => {
+
       const data = request.body
 
       const need = await app.prisma.need.create({
         data: {
           ...data,
-          createdById: (request.user as { id: number }).id,
-          provinceCode: data.provinceCode as RegionCodeEnum,
+          createdById: parseInt(request.user.id),
         },
         select: {
           title: true,

@@ -26,7 +26,7 @@ export const postPaymentRoute = async (app: FastifyInstance) => {
     },
     handler: async (request, reply) => {
       const { amount, orderId } = request.body
-      const redirectUrl = await service.startPayment(amount, request.user!.id, orderId)
+      const redirectUrl = await service.startPayment(amount, request.authenticatedUser.user!.id, orderId)
       return { redirectUrl }
     },
   })

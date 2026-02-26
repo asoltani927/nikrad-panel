@@ -25,7 +25,8 @@ export const putProductRoute = async (app: FastifyInstance) => {
       },
     },
     handler: async (request, reply) => {
-      const userId = request.user?.id
+      const userId = request.authenticatedUser!.user!.id
+
       if (!userId) {
         return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
       }
@@ -38,8 +39,13 @@ export const putProductRoute = async (app: FastifyInstance) => {
         return reply.status(404).send({ message: 'Product not found' })
       }
 
-      const updatedProduct = await app.dokamerce.products.update(id, {
-        ...body,
+      const updatedProduct = await app.dokamerce.products.update({
+        data: {
+          ...body,
+          businessRules: body.businessRules ? JSON.stringify(body.businessRules) : undefined,
+          
+        },
+        id,
       })
 
       return reply.status(200).send(

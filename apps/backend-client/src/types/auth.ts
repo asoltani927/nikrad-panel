@@ -1,4 +1,8 @@
+import { User } from '@nikrad/database'
+
 export interface AuthenticatedPayload {
+  id: string
+  user?: User
   customer: {
     id: string
     fullName: string

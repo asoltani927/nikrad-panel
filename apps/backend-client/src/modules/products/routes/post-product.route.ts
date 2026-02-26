@@ -29,15 +29,20 @@ export const postProductRoute = async (app: FastifyInstance) => {
 
       const body = request.body
 
-      const { createProduct } = await app.dokamerce.products.create({
+      // TODO: Remove this when dokamerce is ready
+      const createdProduct = await app.dokamerce.products.create({
         data: {
           ...body,
+          condition: "NEW" as unknown as any,
+          businessRules: {} as any,
+          status: "PHYSICAL" as unknown as any,
+          type: "PHYSICAL" as unknown as any,
         },
       })
 
       return reply.status(201).send(
         CreateProductResponseSchema.parse({
-          ...createProduct,
+          ...createdProduct,
           message: 'Product created successfully',
         }),
       )

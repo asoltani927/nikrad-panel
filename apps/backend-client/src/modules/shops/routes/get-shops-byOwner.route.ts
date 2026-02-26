@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { createPaginationMeta } from '@/utils/pagination'
 import { ShopsResponseSchema } from '../schema/shops.schema'
 import { authMiddleware } from '@/middlewares'
+import { Messages } from '@/constants/messages'
 
 const GetShopsQuery = z.object({
   page: z.coerce.number().default(1),
@@ -21,10 +22,15 @@ export const getShopsByOwnerRoute = async (app: FastifyInstance) => {
       querystring: GetShopsQuery,
       response: {
         200: ShopsResponseSchema,
+        403: z.object({ message: z.string() }),
       },
     },
     handler: async (request, reply) => {
-      const userId = request.user.id === 'cml95anwd0004qo017o15jgko' ? 4 : request.user.id
+      const userId = request.authenticatedUser.user?.id
+      if (!userId) {
+        return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
+      }
+
       // const userId = request.user.id
       const { page, limit } = request.query
       const skip = (page - 1) * limit
@@ -55,8 +61,7 @@ export const getShopsByOwnerRoute = async (app: FastifyInstance) => {
           owner: {
             select: {
               id: true,
-              firstName: true,
-              lastName: true,
+              name: true,
             },
           },
           category: {
@@ -76,8 +81,7 @@ export const getShopsByOwnerRoute = async (app: FastifyInstance) => {
               comment: true,
               user: {
                 select: {
-                  firstName: true,
-                  lastName: true,
+                  name: true
                 },
               },
             },
@@ -101,10 +105,10 @@ export const getShopsByOwnerRoute = async (app: FastifyInstance) => {
 
         owner: shop.owner
           ? {
-              id: shop.owner.id,
-              name: null,
-              fullName: `${shop.owner.firstName} ${shop.owner.lastName}`,
-            }
+            id: shop.owner.id,
+            name: shop.owner.name,
+            fullName: shop.owner.name,
+          }
           : null,
 
         category: shop.category,
@@ -114,7 +118,7 @@ export const getShopsByOwnerRoute = async (app: FastifyInstance) => {
           rating: review.rating,
           comment: review.comment,
           user: {
-            fullName: `${review.user.firstName} ${review.user.lastName}`,
+            fullName: review.user.name,
           },
         })),
       }))

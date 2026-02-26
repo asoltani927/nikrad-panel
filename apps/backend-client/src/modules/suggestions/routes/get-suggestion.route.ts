@@ -45,7 +45,7 @@ export const getSuggestionRoute = async (app: FastifyInstance) => {
 
     handler: async (request, reply) => {
       const { cuid } = request.params
-      const userId = (request.user as { id: number }).id
+      const userId = parseInt(request.user.id)
 
       const suggestion = await app.prisma.suggestions.findUnique({
         where: { cuid },

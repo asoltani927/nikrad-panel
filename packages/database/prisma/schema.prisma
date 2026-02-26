@@ -57,15 +57,9 @@ model Region {
   countryCode CountryCodeEnum @map("country_code")
   country     Country         @relation(fields: [countryCode], references: [code])
   users       User[]          @relation("userRegions")
-  addresses   Address[]       @relation("addressRegion")
   needs       Need[]
 
   @@map("regions")
-}
-
-enum UserType {
-  REAL
-  LEGAL
 }
 
 model User {
@@ -74,28 +68,27 @@ model User {
 
   name  String
   phone String @unique
-  email String
+  email String?
 
-  type UserType
+  bio          String?
+  experience   String?
+  gallery      Json?
+  nationalCode String? @map("national_code")
+  nationalCard Json?   @map("national_card")
 
-  firstName    String  @map("first_name")
-  lastName     String  @map("last_name")
-  bio          String
-  experience   String
-  gallery      Json
-  nationalCode String?
-  nationalCard Json?
+  businessLicense Json? @map("business_license")
 
-  businessLicense Json?
+  companyStatute   Json? @map("company_statute")
+  brandCertificate Json? @map("brand_certificate")
 
-  companyStatute   Json?
-  brandCertificate Json?
+  provinceCode RegionCodeEnum? @map("province_code")
+  province     Region?         @relation("userRegions", fields: [provinceCode], references: [code])
 
-  provinceCode RegionCodeEnum
-  province     Region         @relation("userRegions", fields: [provinceCode], references: [code])
-
-  categoryId Int?
+  categoryId Int?      @map("category_id")
+  // TODO: why?
   category   Category? @relation(fields: [categoryId], references: [id])
+
+  dokamerceId String? @map("dokamerce_id")
 
   deleted   Boolean   @default(false)
   createdAt DateTime  @default(now()) @map("created_at")
@@ -121,28 +114,14 @@ model User {
   materialBookAttachmentUpdatedBy MaterialBookAttachment[] @relation("materialBookAttachmentUpdatedBy")
   materialBookAttachmentDeletedBy MaterialBookAttachment[] @relation("materialBookAttachmentDeletedBy")
   materialBookOwners              MaterialBook[]           @relation("materialBookOwner")
-  addresses                       Address[]
   transaction                     Transaction[]
   shops                           Shop[]
   shopReviews                     ShopReview[]
-}
 
-model Address {
-  id   Int    @id @default(autoincrement())
-  cuid String @unique @default(cuid())
-
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
-
-  regionCode RegionCodeEnum @map("region_code")
-  region     Region         @relation("addressRegion", fields: [regionCode], references: [code])
-
-  address String
-
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
-  deleted   Boolean   @default(false)
+  @@index([phone])
+  @@index([email])
+  @@index([dokamerceId])
+  @@map("users")
 }
 
 model Category {
@@ -154,7 +133,7 @@ model Category {
 
   names Json
 
-  parentId Int?
+  parentId Int?      @map("parent_id")
   parent   Category? @relation("CategoryToCategory", fields: [parentId], references: [id])
 
   children Category[] @relation("CategoryToCategory")
@@ -164,16 +143,16 @@ model Category {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  createdById Int
-  createdBy   User          @relation("categoriesCreatedBy", fields: [createdById], references: [id])
-  updatedById Int?
-  updatedBy   User?         @relation("categoriesUpdatedBy", fields: [updatedById], references: [id])
-  deletedById Int?
-  deletedBy   User?         @relation("categoriesDeletedBy", fields: [deletedById], references: [id])
-  Need        Need[]
-  CustomField CustomField[]
-  User        User[]
-  shops       Shop[]
+  createdById    Int
+  createdBy      User          @relation("categoriesCreatedBy", fields: [createdById], references: [id])
+  updatedById    Int?
+  updatedBy      User?         @relation("categoriesUpdatedBy", fields: [updatedById], references: [id])
+  deletedById    Int?
+  deletedBy      User?         @relation("categoriesDeletedBy", fields: [deletedById], references: [id])
+  needs          Need[]
+  customerFields CustomField[]
+  users          User[]
+  shops          Shop[]
 
   @@map("categories")
 }
@@ -212,19 +191,21 @@ model Need {
 }
 
 model Suggestions {
-  id     Int    @id @default(autoincrement())
-  cuid   String @unique @default(cuid())
-  NeedId Int
-  Need   Need   @relation(fields: [NeedId], references: [id])
-  price  BigInt
+  id   Int    @id @default(autoincrement())
+  cuid String @unique @default(cuid())
+
+  NeedId Int  @map("need_id")
+  Need   Need @relation(fields: [NeedId], references: [id])
+
+  price BigInt
 
   status String @default("draft")
 
-  createdById Int
+  createdById Int   @map("created_by_id")
   createdBy   User  @relation("suggestionsCreatedBy", fields: [createdById], references: [id])
-  updatedById Int?
+  updatedById Int?  @map("updated_by_id")
   updatedBy   User? @relation("suggestionsUpdatedBy", fields: [updatedById], references: [id])
-  deletedById Int?
+  deletedById Int?  @map("deleted_by_id")
   deletedBy   User? @relation("suggestionsDeletedBy", fields: [deletedById], references: [id])
 
   deleted   Boolean   @default(false)
@@ -232,6 +213,8 @@ model Suggestions {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
+  @@index([status])
+  @@index([NeedId])
   @@map("suggestions")
 }
 
@@ -266,7 +249,7 @@ model CustomField {
 
   optionsType  OptionsType @default(CUSTOM) @map("options_type")
   options      Json?
-  defaultValue String?
+  defaultValue String?     @map("default_value")
 
   order Int?
 
@@ -293,8 +276,9 @@ model CustomField {
 }
 
 model CustomFieldValue {
-  id            Int         @id @default(autoincrement())
-  customFieldId Int
+  id Int @id @default(autoincrement())
+
+  customFieldId Int         @map("custom_field_id")
   customField   CustomField @relation(fields: [customFieldId], references: [id])
 
   targetId Int @map("target_id") // target id is the id of the target of the custom field for example MaterialBookId
@@ -344,24 +328,28 @@ model MaterialBook {
 }
 
 model MaterialBookAttachment {
-  id             Int          @id @default(autoincrement())
-  materialBookId Int
+  id Int @id @default(autoincrement())
+
+  materialBookId Int          @map("material_book_id")
   materialBook   MaterialBook @relation(fields: [materialBookId], references: [id])
 
   fileId Int  @map("file_id")
   file   File @relation("materialBookAttachmentFile", fields: [fileId], references: [id])
 
-  createdById Int
+  createdById Int   @map("created_by_id")
   createdBy   User  @relation("materialBookAttachmentCreatedBy", fields: [createdById], references: [id])
-  updatedById Int?
+  updatedById Int?  @map("updated_by_id")
   updatedBy   User? @relation("materialBookAttachmentUpdatedBy", fields: [updatedById], references: [id])
-  deletedById Int?
+  deletedById Int?  @map("deleted_by_id")
   deletedBy   User? @relation("materialBookAttachmentDeletedBy", fields: [deletedById], references: [id])
 
   deleted   Boolean   @default(false)
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
+
+  
+  @@map("material_attachments")
 }
 
 model File {
@@ -378,6 +366,8 @@ model File {
   deleted   Boolean   @default(false)
 
   MaterialBookAttachment MaterialBookAttachment[] @relation("materialBookAttachmentFile")
+  
+  @@map("files")
 }
 
 enum PackageType {
@@ -395,16 +385,17 @@ enum PaymentStatus {
 }
 
 model MaterialBookPackageInfo {
-  id             Int          @id @default(autoincrement())
-  materialBookId Int          @unique
+  id Int @id @default(autoincrement())
+
+  materialBookId Int          @unique @map("material_book_id")
   materialBook   MaterialBook @relation(fields: [materialBookId], references: [id])
 
   packageType     PackageType
   amount          BigInt
   paymentStatus   PaymentStatus @default(PENDING)
-  invoiceNumber   String?
-  paidAt          DateTime?
-  transactionInfo Json?
+  invoiceNumber   String?       @map("invoice_number")
+  paidAt          DateTime?     @map("paid_at")
+  transactionInfo Json?         @map("transaction_info")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -435,16 +426,19 @@ model Transaction {
   status  TransactionStatus @default(PENDING)
   gateway PaymentGateway
 
-  userId  Int?
-  orderId Int?
+  userId Int?  @map("user_id")
+  user   User? @relation(fields: [userId], references: [id])
+
+  orderId Int? @map("order_id")
 
   createdAt DateTime  @default(now()) @map("created_at")
-  paidAt    DateTime?
-  user      User?     @relation(fields: [userId], references: [id])
+  paidAt    DateTime? @map("paid_at")
 
   @@index([authority])
   @@index([userId])
   @@index([orderId])
+
+  @@map("transactions")
 }
 
 model Shop {
@@ -478,6 +472,9 @@ model Shop {
   createdAt   DateTime     @default(now()) @map("created_at")
   updatedAt   DateTime     @updatedAt @map("updated_at")
   shopReviews ShopReview[]
+
+  
+  @@map("shops")
 }
 
 model ShopGallery {
@@ -485,6 +482,9 @@ model ShopGallery {
   imageUrl String @map("image_url")
   shopId   Int
   shop     Shop   @relation(fields: [shopId], references: [id])
+
+  
+  @@map("shop_galleries")
 }
 
 model ShopReview {
@@ -496,6 +496,9 @@ model ShopReview {
   shopId    Int      @map("shop_id")
   shop      Shop     @relation(fields: [shopId], references: [id])
   createdAt DateTime @default(now()) @map("created_at")
+
+  
+  @@map("shop_reviews")
 }
 
 model Otp {
@@ -524,4 +527,7 @@ model NewsletterSubscriber {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   createdAt DateTime @default(now()) @map("created_at")
+
+  
+  @@map("subscriptions")
 }

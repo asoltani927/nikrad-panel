@@ -3,7 +3,7 @@ import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 import { UnauthorizedResponseSchema } from '@/schema/unauthorized-response.schema'
-import { GetCartResponseSchema } from '../schema'
+import { GetCartResponseSchema, CartSchema } from '../schema'
 import { InternalServerErrorResponseSchema } from '@/schema/internal-server-error-response.schema'
 
 // TypeScript type inference
@@ -39,8 +39,33 @@ export const getCartRoute = async (app: FastifyInstance) => {
         })
         console.log('Cart:', cart)
 
+        // Transform GraphQL response to match schema
+        const transformedCart = cart ? {
+          amount: cart.amount,
+          shippingCost: cart.shippingCost,
+          taxAmount: cart.taxAmount,
+          totalAmount: cart.totalAmount,
+          items: cart.items?.map(item => ({
+            __typename: item.__typename,
+            id: item.id,
+            amount: item.amount,
+            discountValue: item.discountValue,
+            quantity: item.quantity,
+            shippingCost: item.shippingCost,
+            taxAmount: item.taxAmount,
+            totalAmount: item.totalAmount,
+            createdAt: item.createdAt,
+            updatedAt: item.updatedAt,
+            product: item.product,
+            seller: item.seller,
+            variants: item.variants,
+            address: undefined, // Remove address from cart items
+          })) || [],
+          address: cart.address, // Keep address at cart level
+        } : null
+
         return reply.status(200).send({
-          cart: cart ?? null,
+          cart: transformedCart,
         })
       } catch (err) {
         console.error('Error fetching cart:', err)

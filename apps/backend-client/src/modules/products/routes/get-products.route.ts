@@ -28,6 +28,7 @@ export const getProductsRoute = async (app: FastifyInstance) => {
           withThumbnail: true,
           withFiles: true,
           withSellers: true,
+          withReviews: true,
         })
       } catch (error) {
         console.error('Error fetching products:', error)

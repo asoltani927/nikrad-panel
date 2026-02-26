@@ -8,30 +8,30 @@ const DateTime = z.string(); // assuming ISO string, can transform to Date if ne
 /* ---------------- CUSTOMER ADDRESS (nullable) ---------------- */
 const CustomerAddressSchema = z.object({
   id: ID,
-  street: z.string(),
-  city: z.string(),
+  street: z.string().nullable(),
+  city: z.string().nullable(),
   // add more fields if your CustomerAddress has them
 }).partial(); // make fields optional if they can be null
 
 /* ---------------- SELLER (nullable) ---------------- */
 const SellerSchema = z.object({
   id: ID,
-  name: z.string(),
+  name: z.string().nullable(),
   // add more fields if needed
 }).partial();
 
 /* ---------------- PRODUCT VARIANT ---------------- */
 const ProductVariantSchema = z.object({
   id: ID,
-  name: z.string(),
+  name: z.string().nullable(),
   // add more fields if needed
 }).partial();
 
 /* ---------------- PRODUCT ---------------- */
 const ProductSchema = z.object({
   id: ID,
-  name: z.string(),
-  price: Float,
+  name: z.string().nullable(),
+  price: Float.nullable(),
   // add more fields if needed
 }).partial();
 

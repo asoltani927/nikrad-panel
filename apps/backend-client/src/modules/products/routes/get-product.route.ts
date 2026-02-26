@@ -34,7 +34,7 @@ export const getProductByIdRoute = async (app: FastifyInstance) => {
         })
       }
 
-      return reply.status(200).send(GetProductResponseSchema.parse({ product: product.response.data }))
+      return reply.status(200).send(GetProductResponseSchema.parse({ product: product }))
     },
   })
 }

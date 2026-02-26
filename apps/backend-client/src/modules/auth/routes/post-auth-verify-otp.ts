@@ -1,3 +1,4 @@
+import { TelephoneNumberTarget } from '@dokamerce/web-sdk'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
@@ -63,7 +64,7 @@ export const postAuthVerifyOtpRoute = async (app: FastifyInstance) => {
       })
 
       // 1. Find customer or create
-      const { edges: customers } = await app.dokamerce.customers.paginated({
+      const customersResponse = await app.dokamerce.customers.paginated({
         filter: {
           username: {
             equals: phone,
@@ -71,20 +72,19 @@ export const postAuthVerifyOtpRoute = async (app: FastifyInstance) => {
         },
       })
 
-      console.log(customers)
       let customer = null
-      if (!customers || customers.length !== 1) {
+      if (!customersResponse || !customersResponse.edges || customersResponse.edges.length !== 1) {
         const created = await app.dokamerce.customers.create({
           data: {
             fullName: phone,
             active: true,
             username: phone,
-            telephoneNumbers: [{ targets: ['OWNER'], value: phone }],
+            telephoneNumbers: [{ targets: [TelephoneNumberTarget.Owner], value: phone }],
           },
         })
         customer = created
       } else {
-        customer = customers[0].node
+        customer = customersResponse.edges[0].node
       }
 
       if (!customer || !customer.id) {
@@ -92,6 +92,23 @@ export const postAuthVerifyOtpRoute = async (app: FastifyInstance) => {
           success: false,
           errorCode: 'USER_NOT_FOUND',
           message: 'Customer Not Found',
+        })
+      }
+
+
+      const existingUser = await app.prisma.user.findFirst({
+        where: {
+          dokamerceId: customer.id
+        },
+      })
+
+      if (!existingUser) {
+        await app.prisma.user.create({
+          data: {
+            name: customer.fullName,
+            phone: customer.username,
+            dokamerceId: customer.id,
+          },
         })
       }
 

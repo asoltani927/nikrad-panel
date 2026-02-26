@@ -53,8 +53,6 @@ export const postAuthSendOtpRoute = async (app: FastifyInstance) => {
         customer = customers.edges[0]
       }
 
-      console.log(customer)
-
       // 2. Check if an active OTP already exists
       const existingOtp = await app.prisma.otp.findFirst({
         where: {

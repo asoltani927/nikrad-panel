@@ -21,7 +21,8 @@ export const postShopRoute = async (app: FastifyInstance) => {
     },
 
     handler: async (request, reply) => {
-      const userId = request.user.id === 'cml95anwd0004qo017o15jgko' ? 4 : request.user.id
+      const userId = request.authenticatedUser?.user?.id
+      
       // const userId = request.user.id
       if (!userId) {
         return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })

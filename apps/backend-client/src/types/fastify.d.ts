@@ -11,9 +11,10 @@ declare module 'fastify' {
 
   interface FastifyRequest {
     id?: string
-    user?: {
-      id: string
-      customer: { id?: string }
+    authenticatedUser: {
+      id: string // it is customer id that comes from dokamerce sdk
+      user?: User
+      customer?: { id?: string }
       sellers?: { id?: string }[]
     }
   }

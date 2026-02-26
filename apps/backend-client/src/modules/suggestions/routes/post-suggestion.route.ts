@@ -43,13 +43,16 @@ export const postSuggestionRoute = async (app: FastifyInstance) => {
       },
     },
 
-    handler: async (request, reply) => {
-      const { needId, price } = request.body as z.infer<typeof CreateSuggestionSchema>
+    handler: async ({ authenticatedUser, body }, reply) => {
+      const { needId, price } = body as z.infer<typeof CreateSuggestionSchema>
 
-      if (!request.user) {
+      if (!authenticatedUser) {
         return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
       }
-      const userId = (request.user as { id: number }).id
+      const userId = authenticatedUser.user?.id
+      if (!userId) {
+        return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
+      }
 
       const need = await app.prisma.need.findUnique({
         where: { id: needId },

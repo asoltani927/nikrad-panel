@@ -15,6 +15,6 @@
       "@nikrad/database": ["../packages/database"]
     }
   },
-  "include": ["src/**/*.ts", "fastify.d.ts"],
+  "include": ["src/**/*.ts", "./types/fastify.d.ts"],
   "exclude": ["node_modules", "prisma", "dist"]
 }

@@ -40,7 +40,7 @@ export const getNeedRoute = async (app: FastifyInstance) => {
     },
     handler: async (request, reply) => {
       const { id } = request.params
-      const userId = request.user?.id
+      const userId = request.authenticatedUser.user?.id
 
       if (!userId) {
         return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })

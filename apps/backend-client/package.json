@@ -13,7 +13,7 @@
     "prisma": "prisma"
   },
   "dependencies": {
-    "@dokamerce/web-sdk": "^0.22",
+    "@dokamerce/web-sdk": "^0.26.0",
     "@fastify/cors": "^11.1.0",
     "@fastify/jwt": "^10.0.0",
     "@fastify/redis": "^7.1.0",

@@ -62,7 +62,7 @@ export const getSuggestionsRoute = async (app: FastifyInstance) => {
 
     handler: async (request, reply) => {
       try {
-        const userId = (request.user as { id: number })?.id
+        const userId = request.authenticatedUser?.user?.id
         if (!userId) {
           return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
         }

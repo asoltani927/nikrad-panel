@@ -29,7 +29,10 @@ export const deleteSuggestionRoute = async (app: FastifyInstance) => {
       if (!request.user) {
         return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
       }
-      const userId = request.user.id
+      const userId = request.authenticatedUser?.user?.id
+      if (!userId) {
+        return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
+      }
 
       const suggestion = await app.prisma.suggestions.findUnique({
         where: { cuid },

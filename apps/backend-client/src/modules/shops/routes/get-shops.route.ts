@@ -56,8 +56,6 @@ export const getShopsRoute = async (app: FastifyInstance) => {
             select: {
               id: true,
               name: true,
-              firstName: true,
-              lastName: true,
             },
           },
           category: {
@@ -75,7 +73,9 @@ export const getShopsRoute = async (app: FastifyInstance) => {
               rating: true,
               comment: true,
               user: {
-                select: { firstName: true, lastName: true },
+                select: { 
+                  name: true,
+                 },
               },
             },
           },
@@ -89,14 +89,14 @@ export const getShopsRoute = async (app: FastifyInstance) => {
           rating: review.rating,
           comment: review.comment,
           user: {
-            fullName: `${review.user.firstName} ${review.user.lastName}`,
+            fullName: `${review.user.name}`,
           },
         })),
         owner: shop.owner
           ? {
               id: shop.owner.id,
               name: null,
-              fullName: `${shop.owner.firstName} ${shop.owner.lastName}`,
+              fullName: `${shop.owner.name}`,
             }
           : null,
       }))

@@ -1,6 +1,7 @@
 import { z } from 'zod'
+import { ProductCondition } from '@dokamerce/web-sdk'
 
-export const ProductConditionEnum = z.enum(['NEW', 'OLDSTOCK', 'REFURBISHED', 'USED'])
+export const ProductConditionEnum = z.nativeEnum(ProductCondition)
 
 export const ProductTypeEnum = z.enum(['DIGITAL', 'PHYSICAL'])
 
@@ -33,14 +34,10 @@ export const UpdateProductBodySchema = z.object({
   name: z.string().min(2),
   price: z.number().positive(),
 
-  categoryId: z.number(),
-  brandId: z.number(),
-  currencyId: z.number(),
-  sizeGroupId: z.number(),
-
-  type: ProductTypeEnum,
-  status: ProductTypeEnum,
-  condition: ProductConditionEnum,
+  categoryId: z.string(),
+  brandId: z.string(),
+  currencyId: z.string(),
+  sizeGroupId: z.string(),
 
   content: z.string(),
   description: z.string().nullable().optional(),
@@ -67,6 +64,8 @@ export const UpdateProductBodySchema = z.object({
   warrantyType: z.string().optional(),
 
   variants: z.array(ProductVariantSchema),
+
+  businessRules: z.record(z.string(), z.any()).optional(),
 })
 
 export const UpdateProductResponseSchema = z.object({
