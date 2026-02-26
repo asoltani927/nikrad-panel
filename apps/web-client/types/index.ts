@@ -3,6 +3,7 @@ export * from "./sellers.type";
 export * from "./products.type";
 export * from "./shops.type";
 export * from "./newsletter.type";
+export * from "./blog.type";
 // export * from "./needs.type";
 // export * from "./region.type";
 // export * from "./user.type";

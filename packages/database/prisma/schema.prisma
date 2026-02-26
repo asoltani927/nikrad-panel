@@ -67,7 +67,7 @@ model User {
   cuid String @unique @default(cuid())
 
   name  String
-  phone String @unique
+  phone String  @unique
   email String?
 
   bio          String?
@@ -348,7 +348,6 @@ model MaterialBookAttachment {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  
   @@map("material_attachments")
 }
 
@@ -366,7 +365,7 @@ model File {
   deleted   Boolean   @default(false)
 
   MaterialBookAttachment MaterialBookAttachment[] @relation("materialBookAttachmentFile")
-  
+
   @@map("files")
 }
 
@@ -437,7 +436,6 @@ model Transaction {
   @@index([authority])
   @@index([userId])
   @@index([orderId])
-
   @@map("transactions")
 }
 
@@ -473,7 +471,6 @@ model Shop {
   updatedAt   DateTime     @updatedAt @map("updated_at")
   shopReviews ShopReview[]
 
-  
   @@map("shops")
 }
 
@@ -483,7 +480,6 @@ model ShopGallery {
   shopId   Int
   shop     Shop   @relation(fields: [shopId], references: [id])
 
-  
   @@map("shop_galleries")
 }
 
@@ -497,7 +493,6 @@ model ShopReview {
   shop      Shop     @relation(fields: [shopId], references: [id])
   createdAt DateTime @default(now()) @map("created_at")
 
-  
   @@map("shop_reviews")
 }
 
@@ -528,6 +523,5 @@ model NewsletterSubscriber {
   email     String   @unique
   createdAt DateTime @default(now()) @map("created_at")
 
-  
   @@map("subscriptions")
 }
