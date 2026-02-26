@@ -6,7 +6,7 @@ import { verifyOtp as verifyOtpAction } from "../actions/post-verify.action";
 import { fetchUserInfo } from "../actions/fetch-user-info.action";
 import { logoutUser } from "@/actions/logout.action";
 
-interface User {
+export interface User {
     id: string;
     fullName: string;
     username: string;
@@ -14,6 +14,9 @@ interface User {
         value?: string,
         targets: string[],
     }[];
+    shops: { id: string }[]
+    identified: boolean,
+    identifiedAt: Date | null
 }
 
 interface AuthContextType {

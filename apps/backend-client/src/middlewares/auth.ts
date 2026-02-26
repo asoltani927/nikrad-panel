@@ -39,31 +39,38 @@ export async function authMiddleware(request: FastifyRequest, reply: FastifyRepl
     //   throw new UnauthorizedError('Your account has been deactived.')
     // }
 
-    const sellers = await request.server.dokamerce.sellers.all({
-      filter: {
-        name: {
-          equals: customer.username,
-        },
-      },
-    })
+    // const sellers = await request.server.dokamerce.sellers.all({
+    //   filter: {
+    //     name: {
+    //       equals: customer.username,
+    //     },
+    //   },
+    // })
 
     const user = await request.server.prisma.user.findFirst({
       where: {
         dokamerceId: customer.id,
         deleted: false,
       },
+      include: {
+        shops: true,
+      }
     })
 
     if (!user) {
       throw new UnauthorizedError('User not found.')
     }
 
+    console.log(user)
+
     // TODO: make a global interface named AuthenitactedPayload @reza (Done)
     request.authenticatedUser = {
       id: customer.id,
       user,
       customer,
-      sellers: sellers ?? [],
+      sellers: user.shops ?? [],
+      identified: false,
+      identifiedAt: null,
     }
   } catch (error) {
     console.error(error)

@@ -10,6 +10,6 @@ export async function getCategories(): Promise<Category[]> {
     return data.categories;
   } catch (err) {
     console.error("Error fetching categories:", err);
-    throw err;
+    return [];
   }
 }

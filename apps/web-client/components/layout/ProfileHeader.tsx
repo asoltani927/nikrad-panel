@@ -8,11 +8,11 @@ import BaseContainer from "../base/BaseContainer";
 import { Search } from "lucide-react";
 import { Input } from "../ui/input";
 import ProfileMobileDrawer from "./ProfileMobileDrawer"
+import { useAuth } from "@/providers/auth.provider";
 
 export default function ProfileHeader() {
 
-
-
+	const { user } = useAuth()
 
 	return (
 		<header
@@ -86,14 +86,42 @@ export default function ProfileHeader() {
 					</div>
 				</div>
 
-				<Button asChild className="rounded-full">
-					<Link
-						href={'/profile/seller'}
-						className="w-fit hidden items-center gap-2 rounded-full border border-[#171717] px-5 h-8! text-xs font-light  text-white lg:flex"
-					>
-						باتن موقت پنل فروشنده
-					</Link>
-				</Button>
+				<div className="flex gap-2 items-center">
+
+					{
+						(user?.shops && user.shops.length) && <>
+							<Button asChild className="rounded-full">
+								<Link
+									href={'/profile/seller'}
+									className="w-fit hidden items-center gap-2 rounded-full border border-[#171717] px-5 h-8! text-xs font-light  text-white lg:flex"
+								>
+									فروشگاه
+								</Link>
+							</Button>
+						</>
+					}
+					{
+						!(user?.shops && user.shops.length) && <>
+						<Button asChild className="rounded-full" variant={"ghost"}>
+								<Link
+									href={'/profile/seller'}
+									className="w-fit hidden items-center gap-2 rounded-full border border-[#171717] px-5 h-8! text-xs font-light lg:flex"
+								>
+									فروشگاه هستم!!
+								</Link>
+							</Button>
+						</>
+					}
+
+					<Button asChild className="rounded-full">
+						<Link
+							href={'/profile/product/create'}
+							className="w-fit hidden items-center gap-2 rounded-full border border-[#171717] px-5 h-8! text-xs font-light  text-white lg:flex"
+						>
+							ثبت محصول
+						</Link>
+					</Button>
+				</div>
 
 			</BaseContainer>
 		</header>

@@ -10,7 +10,6 @@ export async function getBlogs(): Promise<BlogResponse> {
 
     return data;
   } catch (err) {
-    console.error("Error fetching blogs:", err);
     return { blogs: [],  pagination: { limit: 10, page: 1, total: 0, totalPages: 1 } };
   }
 }

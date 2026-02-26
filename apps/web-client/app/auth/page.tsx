@@ -22,10 +22,18 @@ const RESEND_DELAY = 120; // seconds
 
 
 const LoggedInView = () => {
-  const { user, logout } = useAuth();
+  const { loading, user, logout, isLoggedIn } = useAuth();
   const router = useRouter();
 
-  if (!user) return null;
+  if (loading) {
+    return null;
+  }
+  
+  if (!user || !isLoggedIn) {
+    router.push("/");
+    return null;
+  }
+
 
   const handleLogout = async () => {
     await logout();       // clears user, localStorage, and cookie
@@ -48,7 +56,7 @@ const LoggedInView = () => {
           </Button>
           <Button
             variant="secondary"
-            onClick={() => router.push("/dashboard")}
+            onClick={() => router.push("/profile")}
           >
             داشبورد
           </Button>

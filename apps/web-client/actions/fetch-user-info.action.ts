@@ -1,17 +1,7 @@
 "use server";
 
 import { backendRequest } from "@/clients/backend";
-
-// TODO: make this interfaces global and reusable across the app @reza
-interface User {
-  id: string;
-  fullName: string;
-  username: string;
-  telephoneNumbers: {
-    value?: string;
-    targets: string[];
-  }[];
-}
+import { User } from "@/providers/auth.provider";
 
 interface FetchUserInfoResponse {
   success: boolean;

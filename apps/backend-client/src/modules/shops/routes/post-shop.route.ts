@@ -43,6 +43,7 @@ export const postShopRoute = async (app: FastifyInstance) => {
 
           thumbnailImage: body.thumbnailImage,
           ownerId: userId,
+          dokamerceId: "1323", // TODO: Remove this when dokamerce integration is ready
 
           galleryImages: body.galleryImages
             ? {

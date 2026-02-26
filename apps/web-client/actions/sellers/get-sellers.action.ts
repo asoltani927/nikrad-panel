@@ -11,6 +11,6 @@ export async function getSellers(): Promise<SellersResponse> {
     return data;
   } catch (err) {
     console.error("Error fetching sellers:", err);
-    throw err;
+    return { shops: [], pagination: { limit: 10, page: 1, total: 0, totalPages: 1 } };
   }
 }

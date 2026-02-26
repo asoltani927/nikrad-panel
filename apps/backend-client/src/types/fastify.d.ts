@@ -1,5 +1,5 @@
 import 'fastify'
-import { PrismaClient, User } from '@nikrad/database'
+import { PrismaClient, User, Shop } from '@nikrad/database'
 import { DokamerceSDK } from '@dokamerce/web-sdk'
 
 declare module 'fastify' {
@@ -15,7 +15,9 @@ declare module 'fastify' {
       id: string // it is customer id that comes from dokamerce sdk
       user?: User
       customer?: { id?: string }
-      sellers?: { id?: string }[]
+      sellers?: Shop[]
+      identified: boolean,
+      identifiedAt: Date | null,
     }
   }
 }

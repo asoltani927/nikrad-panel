@@ -23,10 +23,17 @@ const AuthenticatedUserSchema = z.object({
     )
     .optional(),
 })
+const ShopSchema = z.array(z.object({
+  id: z.string(),
+  name: z.string()
+})).optional()
 
 const AuthenticatedUserResponseSchema = z.object({
   success: z.boolean(),
   user: AuthenticatedUserSchema,
+  shops: ShopSchema,
+  identified: z.boolean(),
+  identifiedAt: z.date().nullable()
 })
 
 const ErrorResponseSchema = z.object({
@@ -52,7 +59,7 @@ export const getAuthMeRoute = async (app: FastifyInstance) => {
 
     handler: async (request, reply) => {
       try {
-        const payload = request.user as unknown as AuthenticatedPayload
+        const payload = request.authenticatedUser as unknown as AuthenticatedPayload
         const customer = payload?.customer ?? null
 
         if (!customer) {
@@ -66,17 +73,41 @@ export const getAuthMeRoute = async (app: FastifyInstance) => {
         const cached = userCache.get(customer.id)
         const now = Date.now()
         if (cached && now - cached.timestamp < CACHE_TTL) {
-          return reply.status(200).send(cached.data)
+          return reply.status(200).send(AuthenticatedUserResponseSchema.parse(cached.data))
+        }
+
+
+        const user = await app.prisma.user.findFirst({
+          where: {
+            id: payload.user!.id
+          },
+          include: {
+            shops: true,
+          }
+        })
+
+        if (!user) {
+          return reply.status(404).send({
+            success: false,
+            message: 'User not found',
+          })
         }
 
         const userData = {
           success: true,
           user: {
-            id: customer.id,
+            ...user,
+            id: user.cuid,
             username: customer.username,
             fullName: customer.fullName,
             telephoneNumbers: customer.telephoneNumbers,
           },
+          shops: user?.shops.map((e) => ({
+            id: e.cuid,
+            name: e.name
+          })),
+          identified: false,
+          identifiedAt: null,
         }
 
         // Save to cache
@@ -85,7 +116,9 @@ export const getAuthMeRoute = async (app: FastifyInstance) => {
           timestamp: now,
         })
 
-        return reply.status(200).send(userData)
+        console.log(userData)
+
+        return reply.status(200).send(AuthenticatedUserResponseSchema.parse(userData))
       } catch (error) {
         console.error('Error fetching authenticated user:', error)
         return reply.status(500).send({
