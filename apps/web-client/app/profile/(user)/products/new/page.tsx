@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { CreateProductFormValues, CreateProductSchema, } from "@/app/schemas/product.schema";
 import { Textarea } from "@/components/ui/textarea";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useProductCategories } from "@/app/hooks/useCategories";
 import { Field } from "@/components/base/Field";
 import { useBrands } from "@/app/hooks/useBrands";
@@ -25,9 +25,6 @@ import { useRouter } from "next/navigation";
 
 
 export default function CreateProductPage() {
-
-
-  const [step, setStep] = useState(1);
 
   const form = useForm<CreateProductFormValues>({
     mode: "onChange",
@@ -82,14 +79,13 @@ export default function CreateProductPage() {
   const onSubmit = form.handleSubmit(async (data: CreateProductFormValues) => {
     await createProductMutation(data)
     form.reset();
-    setStep(1);
   });
 
   return (
     <div className="p-5 lg:p-10">
 
       <div className="mb-8 flex gap-4  flex-col">
-        <h1 className="text-xl">ایجاد محصول جدید - مرحله {step}</h1>
+        <h1 className="text-xl">ایجاد محصول جدید</h1>
       </div>
 
       <Form {...form}>

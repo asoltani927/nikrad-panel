@@ -2,7 +2,7 @@
 import { backendRequest } from "@/clients/backend";
 import { Product } from "@/types";
 
-export async function getProduct(id: string | number): Promise<Product> {
+export async function getProduct(id: string): Promise<Product> {
   try {
     const data = await backendRequest<Product>({
       method: "GET",

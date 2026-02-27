@@ -41,7 +41,7 @@ export default function UserProfileLayout({
 
             {/* content */}
             <main className="flex-1 transition-all duration-300  overflow-hidden">
-                <div className="mb-4">                    
+                <div className="mb-4">
                     {
                         !user?.identified && (
                             <div className="flex w-full px-6 lg:px-16 py-4 bg-yellow-200 justify-center items-center gap-6 text-center text-sm text-gray-600">

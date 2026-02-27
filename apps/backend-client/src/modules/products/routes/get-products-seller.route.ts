@@ -16,9 +16,9 @@ export const getProductsBySellerIdRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
     method: 'GET',
     url: '/seller/:id',
+    preHandler: [authMiddleware],
     schema: {
       tags: ['products'],
-      preHandler: [authMiddleware],
       summary: 'Get product by seller id',
       params: GetProductParamsSchema,
       response: {
@@ -31,11 +31,13 @@ export const getProductsBySellerIdRoute = async (app: FastifyInstance) => {
       const { id } = request.params as { id: string }
 
       // TODO: Remove this when dokamerce is ready
-      const product = await app.dokamerce.products.paginated({ filter: {
-        // seller: {
-        //   in: [ id ]
-        // }
-      } })
+      const product = await app.dokamerce.products.paginated({
+        filter: {
+          // seller: {
+          //   in: [ id ]
+          // }
+        }
+      })
 
       if (!product) {
         return reply.status(404).send({

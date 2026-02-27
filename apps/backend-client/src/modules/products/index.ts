@@ -5,10 +5,12 @@ import { getProductByIdRoute } from './routes/get-product.route'
 import { getProductsBySellerIdRoute } from './routes/get-products-seller.route'
 import { putProductRoute } from './routes/put-product.route'
 import { deleteProductRoute } from './routes/delete-product.route'
+import { getPersonalProducsRoute } from './routes/get-personal-products.route'
 
 export async function productsModule(app: FastifyInstance) {
   app.register(
     async (productsApp) => {
+      productsApp.register(getPersonalProducsRoute)
       productsApp.register(postProductRoute)
       productsApp.register(getProductsRoute)
       productsApp.register(getProductByIdRoute)

@@ -7,7 +7,7 @@ import {
     Star,
     CreditCard,
     ListCheck,
-    Settings,
+    Package,
 } from "lucide-react";
 import { SidebarMenuItem } from "../typings/sidebar.types";
 
@@ -18,7 +18,12 @@ export const userSidebarMenu: SidebarMenuItem[] = [
         icon: Home,
         href: "/profile",
     },
-
+    {
+        id: "products",
+        label: "آگهی و محصولات من",
+        href: "/profile/products",
+        icon: Package,
+    },
     {
         id: "offers",
         label: "پیشنهادها",

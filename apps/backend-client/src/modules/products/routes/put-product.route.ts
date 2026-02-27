@@ -43,7 +43,7 @@ export const putProductRoute = async (app: FastifyInstance) => {
         data: {
           ...body,
           businessRules: body.businessRules ? JSON.stringify(body.businessRules) : undefined,
-          
+
         },
         id,
       })

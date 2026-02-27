@@ -12,7 +12,7 @@ import { useParams } from "next/navigation";
 export default function ProductDetailsPage() {
   const params = useParams();
   // TODO: make server side seo safe, take look products page @reza
-  const slug = params?.slug as string | number;
+  const slug = params?.slug as string;
   const { data } = useProduct(slug);
   return (
     <div className="lg:mt-14">

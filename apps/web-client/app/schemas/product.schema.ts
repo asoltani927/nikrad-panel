@@ -1,3 +1,4 @@
+import { ProductStatus } from "@dokamerce/web-sdk";
 import { z } from "zod";
 
 const imageSchema = z
@@ -40,4 +41,25 @@ export const CreateProductSchema = z.object({
 export type CreateProductFormValues = z.infer<typeof CreateProductSchema>;
 
 export type ProductFormValues = z.infer<typeof ProductSchema>;
+
+
+export const EditProductSchema = z.object({
+  id: z.string(),
+  name: z.string().min(3, "نام محصول حداقل ۳ کاراکتر"),
+  content: z.string().min(10, "محتوا حداقل ۱۰ کاراکتر"),
+  categoryId: z.string().optional(),
+  subCategoryId: z.string().optional(),
+  brandId: z.string(),
+  condition: z.string().optional(),
+  description: z.string().optional(),
+  price: z.number().min(1, "قیمت معتبر نیست"),
+  status: z.enum([
+    "ARCHIVED",
+    "DRAFT",
+    "PUBLISHED",
+    "WAITING"
+  ]),
+});
+
+export type EditProductFormValues = z.infer<typeof EditProductSchema>;
 
