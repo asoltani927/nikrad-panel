@@ -1,14 +1,22 @@
+'use client'
+
 import clsx from "clsx";
 import { LogOut, User, CircleCheck } from "lucide-react";
 import SidebarItem from "./SidebarItem";
 import { SidebarProps } from "../typings/sidebar.types";
 import { useState } from "react";
+import { useAuth } from "@/providers/auth.provider";
+import { useRouter } from "next/navigation";
 
 export default function Sidebar({ collapsed, items }: SidebarProps) {
 	const [openItemId, setOpenItemId] = useState<string | null>(null);
 
-	const handleLogout = () => {
-		console.log("logout");
+	const router = useRouter()
+	const { user, logout } = useAuth()
+
+	const handleLogout = async () => {
+		await logout()
+		router.push('/')
 	};
 
 	return (
@@ -20,8 +28,8 @@ export default function Sidebar({ collapsed, items }: SidebarProps) {
 					</div>
 					{!collapsed && (
 						<div className="flex flex-col gap-1.5 ms-3 me-2">
-							<span>نام و نام خانوادگی</span>
-							<span className="text-gray-600">09923244836</span>
+							<span>{user?.fullName}</span>
+							<span className="text-gray-600">{user?.telephoneNumbers?.[0].value}</span>
 						</div>
 					)}
 					{!collapsed && <CircleCheck className="size-5 fill-yellow-400 text-white -mt-1" />}
@@ -50,3 +58,4 @@ export default function Sidebar({ collapsed, items }: SidebarProps) {
 		</aside>
 	);
 }
+
