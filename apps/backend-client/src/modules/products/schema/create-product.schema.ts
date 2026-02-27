@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import { ProductCondition } from '@dokamerce/web-sdk'
 
-export const ProductConditionEnum = z.nativeEnum(ProductCondition)
 
 export const ProductTypeEnum = z.enum(['DIGITAL', 'PHYSICAL'])
 
@@ -32,47 +31,45 @@ export const ProductVariantSchema = z.object({
 
 export const CreateProductBodySchema = z.object({
   name: z.string().min(2),
-  price: z.number().positive(),
-
   categoryId: z.string(),
   brandId: z.string(),
-  currencyId: z.string(),
-  sizeGroupId: z.string(),
-
-  type: ProductTypeEnum,
-  status: ProductTypeEnum,
-  condition: ProductConditionEnum,
-
   content: z.string(),
-  description: z.string().nullable().optional(),
+  condition: z.enum(Object.values(ProductCondition)),
 
-  publishedAt: z.coerce.date(),
+  // currencyId: z.string(),
+  // sizeGroupId: z.string(),
+  // price: z.number().positive(),
 
-  featured: z.boolean().default(false),
-  todayDeal: z.boolean().default(false),
-  active: z.boolean().default(true),
+  // type: ProductTypeEnum,
+  // status: ProductTypeEnum,
 
-  thumbnailId: z.string().optional(),
-  imageIds: z.array(z.string()).optional(),
-  videoIds: z.array(z.string()).optional(),
+  // description: z.string().nullable().optional(),
 
-  metaTitle: z.string().optional(),
-  metaDescription: z.string().optional(),
-  metaKeywords: z.string().optional(),
+  // publishedAt: z.coerce.date(),
 
-  minOrderQty: z.number().optional(),
-  maxOrderQty: z.number().optional(),
+  // featured: z.boolean().default(false),
+  // todayDeal: z.boolean().default(false),
+  // active: z.boolean().default(true),
 
-  warrantyDescription: z.string().optional(),
-  warrantyTime: z.string().optional(),
-  warrantyType: z.string().optional(),
+  // thumbnailId: z.string().optional(),
+  // imageIds: z.array(z.string()).optional(),
+  // videoIds: z.array(z.string()).optional(),
 
-  variants: z.array(ProductVariantSchema),
+  // metaTitle: z.string().optional(),
+  // metaDescription: z.string().optional(),
+  // metaKeywords: z.string().optional(),
+
+  // minOrderQty: z.number().optional(),
+  // maxOrderQty: z.number().optional(),
+
+  // warrantyDescription: z.string().optional(),
+  // warrantyTime: z.string().optional(),
+  // warrantyType: z.string().optional(),
+
+  // variants: z.array(ProductVariantSchema),
 })
 
 export const CreateProductResponseSchema = z.object({
   id: z.string(),
-  name: z.string(),
-  price: z.number(),
   message: z.string(),
 })

@@ -115,7 +115,7 @@ export default function ProfileHeader() {
 
 					<Button asChild className="rounded-full">
 						<Link
-							href={'/profile/product/create'}
+							href={'/profile/products/new'}
 							className="w-fit hidden items-center gap-2 rounded-full border border-[#171717] px-5 h-8! text-xs font-light  text-white lg:flex"
 						>
 							ثبت محصول

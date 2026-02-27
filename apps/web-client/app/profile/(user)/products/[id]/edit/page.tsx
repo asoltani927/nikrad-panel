@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { ProductFormValues, productSchema } from "@/app/schemas/product.schema";
+import { ProductFormValues, ProductSchema } from "@/app/schemas/product.schema";
 import { Textarea } from "@/components/ui/textarea";
 import { ChangeEvent, useState } from "react";
 import { X } from "lucide-react";
@@ -28,7 +28,7 @@ export default function EditProductPage() {
     watch,
     formState: { errors },
   } = useForm<ProductFormValues>({
-    resolver: zodResolver(productSchema),
+    resolver: zodResolver(ProductSchema),
     defaultValues: {
       gallery: [],
       status: "active",

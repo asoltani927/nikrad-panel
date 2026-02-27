@@ -5,6 +5,7 @@ import {
   CreateProductBodySchema,
   CreateProductResponseSchema,
 } from '../schema/create-product.schema'
+import { ProductStatus, ProductType } from '@dokamerce/web-sdk'
 
 export const postProductRoute = async (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().route({
@@ -22,21 +23,20 @@ export const postProductRoute = async (app: FastifyInstance) => {
     },
 
     handler: async (request, reply) => {
-      // @reza
-      // if (!request.user?.id) {
-      //   return reply.status(403).send({ message: Messages.auth.ACCESS_DENIED })
-      // }
-
       const body = request.body
 
       // TODO: Remove this when dokamerce is ready
       const createdProduct = await app.dokamerce.products.create({
         data: {
-          ...body,
-          condition: "NEW" as unknown as any,
-          businessRules: {} as any,
-          status: "PHYSICAL" as unknown as any,
-          type: "PHYSICAL" as unknown as any,
+          brandId: body.brandId,
+          categoryId: body.categoryId,
+          content: body.content,
+          name: body.name,
+          price: 0,
+          condition: body.condition,
+          status: ProductStatus.Draft,
+          type: ProductType.Physical,
+          customerId: request.authenticatedUser.customer!.id,
         },
       })
 

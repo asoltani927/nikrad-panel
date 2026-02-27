@@ -12,7 +12,7 @@ export function Field({ label, error, children }: FieldProps) {
     <div className="space-y-2">
       <Label>{label}</Label>
       {children}
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="text-[10px] text-red-500 text-end">{error}</p>}
     </div>
   );
 }
