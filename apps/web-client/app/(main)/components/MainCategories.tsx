@@ -3,15 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import BaseContainer from "@/components/base/BaseContainer";
-import { useCategories } from "@/app/hooks/categories/useCategories";
+import { useCategories } from "@/app/hooks/useCategories";
 
 export function MainCategories() {
-  const { categories, loading, error, categoriesRefetch } = useCategories();
+  const { data: categories } = useCategories();
   return (
     <section className="">
       <BaseContainer className="">
         <div className="px-8 lg:px-0 pt-8 pb-10 lg:pt-12 lg:pb-16  flex lg:justify-center gap-6 lg:gap-8 lg:items-center overflow-auto lg:overflow-hidden hiddenScrollStyle lg:bg-[url('/svg/home/Backgroundpattern.svg')] lg:bg-no-repeat lg:bg-cover ">
-          {categories.map((item, key) => (
+          {categories?.map((item, key) => (
             <Link
               key={key}
               href={`products/${item.slug}`}

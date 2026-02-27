@@ -12,19 +12,21 @@ import {
   CommandInput,
   CommandItem,
 } from '../ui/command';
+import { generateProductLink } from '@/utils/generate-product-link.util';
+import { generateSellerLink } from '@/utils/generate-seller-link.util';
 
 // داده‌های نمونه
 const mockProducts = [
-  { id: 'p1', name: 'لپ‌تاپ' },
-  { id: 'p2', name: 'گوشی هوشمند' },
-  { id: 'p3', name: 'هدفون' },
-  { id: 'p4', name: 'کیبورد' },
+  { id: 'p1', name: 'لپ‌تاپ', slug: 'laptop' },
+  { id: 'p2', name: 'گوشی هوشمند', slug: 'smartphone' },
+  { id: 'p3', name: 'هدفون', slug: 'headphones' },
+  { id: 'p4', name: 'کیبورد', slug: 'keyboard' },
 ];
 
 const mockSellers = [
-  { id: 's1', name: 'فروشگاه تکنولوژی' },
-  { id: 's2', name: 'گجت هاب' },
-  { id: 's3', name: 'الکترومارت' },
+  { id: 's1', name: 'فروشگاه تکنولوژی', slug: 'tech-store' },
+  { id: 's2', name: 'گجت هاب', slug: 'gadget-hub' },
+  { id: 's3', name: 'الکترومارت', slug: 'electro-mart' },
 ];
 
 interface BaseHeaderSearchInputProps {
@@ -34,11 +36,13 @@ interface BaseHeaderSearchInputProps {
 interface Product {
   id: string;
   name: string;
+  slug: string;
 }
 
 interface Seller {
   id: string;
   name: string;
+  slug: string;
 }
 
 export default function BaseHeaderSearchInput({ trigger }: BaseHeaderSearchInputProps) {
@@ -59,10 +63,6 @@ export default function BaseHeaderSearchInput({ trigger }: BaseHeaderSearchInput
   );
 
   const openDialog = () => setOpen(true);
-
-  // لینک‌ها
-  const generateProductLink = (product: Product) => `/products/${product.id}`;
-  const generateSellerLink = (seller: Seller) => `/sellers/${seller.id}`;
 
   return (
     <>
@@ -97,7 +97,7 @@ export default function BaseHeaderSearchInput({ trigger }: BaseHeaderSearchInput
               <CommandItem
                 key={product.id}
                 onSelect={() => {
-                  router.push(generateProductLink(product));
+                  router.push(generateProductLink({ id: product.id, slug: product.slug }));
                   setOpen(false);
                 }}
               >
@@ -111,7 +111,7 @@ export default function BaseHeaderSearchInput({ trigger }: BaseHeaderSearchInput
               <CommandItem
                 key={seller.id}
                 onSelect={() => {
-                  router.push(generateSellerLink(seller));
+                  router.push(generateSellerLink({ id: seller.id, slug: seller.slug }));
                   setOpen(false);
                 }}
               >

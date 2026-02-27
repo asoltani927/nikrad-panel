@@ -1,5 +1,7 @@
 'use client'
 
+import BaseContainer from "@/components/base/BaseContainer";
+
 export default function ProfileRootLayout({
   children,
 }: {
@@ -8,9 +10,9 @@ export default function ProfileRootLayout({
 
   return (
     <>
-      <div className="px-16">
+      <BaseContainer className="lg:px-36">
         {children}
-      </div>
+      </BaseContainer>
     </>
   );
 }

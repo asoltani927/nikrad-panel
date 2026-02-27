@@ -3,13 +3,14 @@ import { FavoriteType } from "./typings/favorite.types";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ShoppingCart, Store, Trash2 } from "lucide-react";
+import { generateProductLink } from "@/utils/generate-product-link.util";
 
 
 export function FavoriteCard({ favoriteItem }: { favoriteItem: FavoriteType }) {
 
     return (
         <div className="border rounded-lg p-4 text-sm hover:shadow-xs ">
-            <Link href={`/products/${favoriteItem.id}`} className="flex justify-between" >
+            <Link href={generateProductLink({ id: favoriteItem.id.toString(), slug: favoriteItem.slug })} className="flex justify-between" >
                 <div className="flex flex-col justify-between ">
                     <div className="flex flex-col gap-2">
                         <span className="font-semibold text-gray-800"> {favoriteItem.name}</span>

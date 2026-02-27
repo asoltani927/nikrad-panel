@@ -1,12 +1,9 @@
 'use client'
 
-import BaseContainer from "@/components/base/BaseContainer";
 import LayoutFooter from "@/components/layout/Footer";
 import ProfileHeader from "@/components/layout/ProfileHeader";
 import { useAuth } from "@/providers/auth.provider";
 import { CircleCheck, User, Info } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function ProfileRootLayout({
   children,
@@ -14,20 +11,7 @@ export default function ProfileRootLayout({
   children: React.ReactNode;
 }) {
 
-  const { user, loading, isLoggedIn } = useAuth()
-
-  const router = useRouter()
-
-  // TODO: remove this when auth is implemented
-
-  if (loading) {
-    return null
-  }
-
-  if (!loading && !isLoggedIn) {
-    router.push('/auth')
-    return
-  }
+  const { user, loading } = useAuth()
 
   return (
     <>

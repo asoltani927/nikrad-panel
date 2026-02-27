@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { Product } from "@/types";
+import { generateProductLink } from "@/utils/generate-product-link.util";
 
 export const ProductCard = ({ product }: { product: Product }) => {
   return (
@@ -75,7 +76,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           className="grow  h-8 bg-transparent  rounded-[3px] border-[#EAAA08] hover:bg-[#e7bd35] text-[#CA8504] text-[11px] font-medium"
         >
           <Link
-            href={`/products/${product?.id}`}
+            href={generateProductLink({ id: product?.id, slug: product?.slug })}
             className="flex items-center gap-2 "
           >
             مشاهده جزئیات

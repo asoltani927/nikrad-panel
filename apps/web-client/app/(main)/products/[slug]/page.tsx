@@ -6,7 +6,7 @@ import BaseContainer from "@/components/base/BaseContainer";
 import { ProductInfo } from "./_components/ProductInfo";
 import { ProductTabs } from "./_components/tabs/ProductTabs";
 import { RelatedProducts } from "./_components/related-products/page";
-import { useProduct } from "@/app/hooks/products/useProduct";
+import { useProduct } from "@/app/hooks/useProduct";
 import { useParams } from "next/navigation";
 
 export default function ProductDetailsPage() {

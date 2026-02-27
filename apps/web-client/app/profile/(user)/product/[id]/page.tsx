@@ -101,12 +101,7 @@ export default function EditProductPage() {
         <Field label="نام محصول" error={errors.name?.message}>
           <Input {...register("name")} />
         </Field>
-
-        {/* slug */}
-        <Field label="Slug" error={errors.slug?.message}>
-          <Input {...register("slug")} />
-        </Field>
-
+        
         {/* price */}
         <Field label="قیمت (تومان)" error={errors.price?.message}>
           <Input

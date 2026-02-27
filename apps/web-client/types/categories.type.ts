@@ -1,5 +1,5 @@
 export interface Category {
-  id: number;
+  id: string;
   name: string;
   slug: string;
   names: {
@@ -8,7 +8,7 @@ export interface Category {
   };
   parentId: number | null;
   parent?: {
-    id: number;
+    id: string;
     name: string;
   } | null;
   children?: Category[];

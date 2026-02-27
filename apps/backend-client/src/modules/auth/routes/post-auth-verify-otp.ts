@@ -98,7 +98,14 @@ export const postAuthVerifyOtpRoute = async (app: FastifyInstance) => {
 
       const existingUser = await app.prisma.user.findFirst({
         where: {
-          dokamerceId: customer.id
+          OR: [
+            {
+              dokamerceId: customer.id
+            },
+            {
+              phone: customer.username
+            }
+          ]
         },
       })
 
@@ -110,6 +117,16 @@ export const postAuthVerifyOtpRoute = async (app: FastifyInstance) => {
             dokamerceId: customer.id,
           },
         })
+      } else {
+        // Update user with new dokamerceId if it's different
+        if (existingUser.dokamerceId !== customer.id) {
+          await app.prisma.user.update({
+            where: { id: existingUser.id },
+            data: {
+              dokamerceId: customer.id,
+            },
+          })
+        }
       }
 
       // Generate JWT token
